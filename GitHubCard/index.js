@@ -3,6 +3,13 @@
            https://api.github.com/users/<your name>
 */
 
+// select the main node to attach content too
+
+const cards = document.querySelector(".cards");
+console.log("blackjack:", cards);
+
+axios.get(`https://api.github.com/users/johnschneider1`).then(data => {});
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -29,6 +36,9 @@ const followersArray = [];
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
 
+      
+
+
 <div class="card">
   <img src={image url of user} />
   <div class="card-info">
@@ -45,6 +55,20 @@ const followersArray = [];
 </div>
 
 */
+
+function createCard() {
+  //create the elements
+  const card = document.createElement("div");
+  const img = document.createElement("img");
+  const cardInfo = document.createElement("div");
+  const cardName = document.createElement("h3");
+  const cardUserName = document.createElement("p");
+  const cardLocation = document.createElement("p");
+  const cardProfile = document.createElement("p");
+  const cardFollowers = document.createElement("p");
+  const cardFollowing = document.createElement("p");
+  const cardBio = document.createElement("p");
+}
 
 /* List of LS Instructors Github username's: 
   tetondan
