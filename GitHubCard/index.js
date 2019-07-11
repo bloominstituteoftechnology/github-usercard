@@ -20,6 +20,8 @@ axios
     manyPeople.push(people);
     console.log(manyPeople);
     manyPeople.forEach(currentValue => createCard(currentValue));
+    const attach = createCard(people);
+    cards.appendChild(attach);
   })
   // error/failure here
   .catch(error => {
@@ -36,8 +38,7 @@ axios
 /* Step 4: Pass the data received from Github into your function, 
            create a new component and add it to the DOM as a child of .cards
 */
-const box = document.querySelector(".cards");
-// box.appendChild();
+// const box = document.querySelector(".cards");
 
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
@@ -124,12 +125,11 @@ function createCard(people) {
 
   img.src = people.avatar_url;
   console.log(img);
-  cardInfo.textContent = people.public_repos;
   cardName.textContent = people.email;
   console.log(cardName);
-  cardUserName.textContent = people.Login;
+  cardUserName.textContent = people.name;
   cardLocation.textContent = people.location;
-  cardProfile.textContent = people.blog;
+  cardProfile.textContent = people.node_id;
   console.log("im a profile", cardProfile);
   cardFollowers.textContent = people.followers_url;
   cardFollowing.textContent = people.following_url;
