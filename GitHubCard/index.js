@@ -49,8 +49,11 @@ axios.get(`https://api.github.com/users/AwDesign71`)
 .then (dataSet=> {
   const gitInfo = dataSet.data;
   console.log(gitInfo)
-  cards.appendChild(gitCards(gitInfo));
-})
+  gitInfo.forEach(gitInfo => {
+    cards.appendChild(gitCards(gitinfo))
+  });
+});
+
 const cards = document.querySelector('.cards');
 
 const gitCards = (info)=> {
@@ -99,7 +102,6 @@ const gitCards = (info)=> {
  console.log(card)
   return card;
 }
-cards.appendChild(gitCards())
 
 /* List of LS Instructors Github username's: 
   tetondan
