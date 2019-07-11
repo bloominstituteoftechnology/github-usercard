@@ -1,7 +1,48 @@
+// const axios = require('axios');
+
+
 /* Step 1: using axios, send a GET request to the following URL 
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+
+// Make a request for a user with a given ID
+// axios.get('https://api.github.com/users/paintedlbird7')
+// // /user?ID=paintedlbird7
+
+//   .then(function (response) {
+//     // handle success
+//     console.log(response);
+//   })
+//   .catch(function (error) {
+//     // handle error
+//     console.log(error);
+//   })
+//   .finally(function () {
+//     // always executed
+//   });
+
+// // select the main dom node to attach our dynamic content
+const cards = document.querySelector('.cards')
+
+// https://api.github.com/users/paintedlbird7
+const users = 'paintedlbird'
+
+axios.get(`https://api.github.com/users/paintedlbird7`)
+.then(data => {
+  console.log('message:', data)
+  const images = data.data.message
+  images.forEach(imageUrl => {
+    const element = createUserCard(imageUrl, users)
+    entry.appendChild(element)
+  })
+})
+.catch(error => {
+  // Handles failure:
+  console.log('The github API is currently down, try again later', error)
+})
+
+
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -53,3 +94,4 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
