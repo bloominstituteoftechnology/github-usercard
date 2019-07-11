@@ -17,9 +17,9 @@ const followersArray = [
   'dustinmyers',
   'bigknell'
 ];
-i = 0;
-followersArray.forEach(function(user, i) {
-  axios.get(`https://api.github.com/users/${followersArray[i]}`)
+
+followersArray.forEach((user) => {
+  axios.get(`https://api.github.com/users/${user}`)
     .then (data => {
       const myInfo = data.data;
       console.log('UserInfo', myInfo);
@@ -27,7 +27,7 @@ followersArray.forEach(function(user, i) {
       const cardInfo = cardCreator(myInfo);
       console.log(cardInfo);
       cards.appendChild(cardInfo);
-    }), i++;
+    });
 })
 
 const cards = document.querySelector('.cards');
