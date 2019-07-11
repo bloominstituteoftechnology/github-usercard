@@ -2,7 +2,14 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
-
+axios
+  .get("https://api.github.com/users/francoiscoding", {})
+  .then(response => {
+    console.log("data", response.data);
+  })
+  .catch(e => {
+    console.log("error", e);
+  });
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -45,7 +52,55 @@ const followersArray = [];
 </div>
 
 */
+function card(obj) {
+  // Created Card Div
+  var cardDiv = document.createElement("div");
+  cardDiv.classList.add("card");
 
+  // Created Img
+  var newImg = document.createElement("img");
+  newImg.src = "";
+  cardDiv.appendChild(newImg);
+
+  // Created Card-Info Div
+  var cardInfoDiv = document.createElement("div");
+  cardInfoDiv.classList.add("card-info");
+  cardDiv.appendChild(cardInfoDiv);
+
+  // Created H3
+  var h3 = document.createElement("h3");
+  h3.classList.add("name");
+  cardInfoDiv.appendChild(h3);
+
+  // Username Paragraph
+  var userP = document.createElement("p");
+  userP.classList.add("username");
+  cardInfoDiv.appendChild(userP);
+
+  // Location Paragraph
+  var locationP = document.createElement("p");
+  cardInfoDiv.appendChild(locationP);
+
+  // Profile Paragraph
+  var profileP = document.createElement("p");
+  var a = document.createElement("a");
+  a.textContent = "";
+  a.href = "";
+  profileP.appendChild("a");
+  cardInfoDiv.appendChild(profileP);
+
+  // Followers Paragraph
+  var followersP = document.createElement("p");
+  cardInfoDiv.appendChild(followersP);
+
+  // Following Paragraph
+  var followingP = document.createElement("p");
+  cardInfoDiv.appendChild(followingP);
+
+  // Bio Paragraph
+  var bioP = document.createElement("p");
+  cardInfoDiv.appendChild(bioP);
+}
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
