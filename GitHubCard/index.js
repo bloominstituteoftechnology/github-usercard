@@ -3,7 +3,7 @@
            https://api.github.com/users/<your name>
 */
 axios.get('https://api.github.com/users/umbur')
-.then(data => {
+.then(data => { 
   console.log('data:', data)
 })
 .catch(error => {
