@@ -3,11 +3,9 @@
            https://api.github.com/users/<your name>
 */
 
-/* Step 2: Inspect and study the data coming back, this is YOUR 
-   github info! You will need to understand the structure of this 
-   data in order to use it to build your component function 
+/* Step 2: Inspect and study the data coming back, this is YOUR github info! You will need to understand the structure of this data in order to use it to build your component function 
 
-   Skip to Step 3.
+  Skip to Step 3.
 */
 
 /* Step 4: Pass the data received from Github into your function, 
@@ -45,6 +43,21 @@ const followersArray = [];
 </div>
 
 */
+function createCard( ){
+  //creating the elements 
+  const card = document.createElement('div')
+  const img = document.createElement('img')
+  const cardInfo = document.createElement('div')
+  const name = document.createElement('h3')
+  const username= documnet.createElement('p')
+
+  //set the styles
+  card.classList.add('card')
+  img.classList.add('img')
+  name.classList.add('name')
+  username.classList.add('unsername')
+
+}
 
 /* List of LS Instructors Github username's: 
   tetondan
