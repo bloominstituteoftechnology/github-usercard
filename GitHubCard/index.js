@@ -1,7 +1,9 @@
 /* Step 1: using axios, send a GET request to the following URL 
-           (replacing the palceholder with your Github name):
+           (replacing the placeholder with your Github name):
            https://api.github.com/users/<your name>
 */
+
+axios.get(`https://api.github.com/users/dhoskins97`)
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -43,8 +45,32 @@ const followersArray = [];
     <p>Bio: {users bio}</p>
   </div>
 </div>
-
 */
+
+const cardCreator = function(){
+  const card = document.createElement('div');
+  const cardImage = document.createElement('img');
+  const cardName = document.createElement('h3');
+  const cardUsername = document.createElement('p');
+  const cardLocation = document.createElement('p');
+  const cardProfile = document.createElement('p');
+  const cardLink = document.createElement('a');
+  const cardFollowers = document.createElement('p');
+  const cardFollowing = document.createElement('p');
+  const cardBio =document.createElement('p');
+
+  card.appendChild(cardImage);
+  card.appendChild(cardName);
+  card.appendChild(cardUsername);
+  card.appendChild(cardLocation);
+  card.appendChild(cardProfile);
+  card.appendChild(cardFollowers);
+  card.appendChild(cardFollowing);
+  card.appendChild(cardBio);
+
+  cardProfile.appendChild(cardLink)
+}
+
 
 /* List of LS Instructors Github username's: 
   tetondan
