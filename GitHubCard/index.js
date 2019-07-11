@@ -14,12 +14,9 @@ axios
   .get("https://api.github.com/users/johnschneider1")
   .then(reply => {
     // success here
-
+    console.log("testing:", reply);
     const people = reply.data;
-    const manyPeople = [];
-    manyPeople.push(people);
-    console.log(manyPeople);
-    manyPeople.forEach(currentValue => createCard(currentValue));
+
     const attach = createCard(people);
     cards.appendChild(attach);
   })
@@ -49,7 +46,17 @@ axios
           Using that array, iterate over it, requesting data for each user, creating a new card for each
           user, and adding that card to the DOM.
 */
+// var new_array = arr.map(function callback(currentValue[, index[, array]]) {
+// Return element for new_array
+//}[, thisArg])
 
+//axios.get("https://api.github.com/users/johnschneider1/followers");
+followersArray.forEach(url => {
+  axios.get(url).then(res => {
+    const followers = createCard(res.data);
+    cards.appendChild(followers);
+  });
+});
 const followersArray = [
   "https://api.github.com/users/tetondan",
   "https://api.github.com/users/dustinmyers",
@@ -91,22 +98,11 @@ function createCard(people) {
   const cardName = document.createElement("h3");
   const cardUserName = document.createElement("p");
   const cardLocation = document.createElement("p");
+  const cardAddress = document.createElement("a");
   const cardProfile = document.createElement("p");
   const cardFollowers = document.createElement("p");
   const cardFollowing = document.createElement("p");
   const cardBio = document.createElement("p");
-
-  // setup structure of elements
-
-  card.appendChild(img);
-  card.appendChild(cardInfo);
-  card.appendChild(cardName);
-  card.appendChild(cardUserName);
-  card.appendChild(cardLocation);
-  card.appendChild(cardProfile);
-  card.appendChild(cardFollowers);
-  card.appendChild(cardFollowing);
-  card.appendChild(cardBio);
 
   // set class names
 
@@ -134,6 +130,19 @@ function createCard(people) {
   cardFollowers.textContent = people.followers_url;
   cardFollowing.textContent = people.following_url;
   cardBio.textContent = people.bio;
+
+  // setup structure of elements
+
+  card.appendChild(img);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(cardName);
+  cardInfo.appendChild(cardUserName);
+  cardInfo.appendChild(cardLocation);
+  cardInfo.appendChild(cardProfile);
+  cardInfo.appendChild(cardFollowers);
+  cardInfo.appendChild(cardFollowing);
+  cardInfo.appendChild(cardBio);
+  cardProfile.appendChild(cardAddress);
 
   return card;
 }
