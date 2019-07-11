@@ -2,14 +2,20 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
-axios
+const data = axios
   .get("https://api.github.com/users/francoiscoding", {})
   .then(response => {
-    console.log("data", response.data);
+    const info = response.data;
+    const holder = [];
+    holder.push(info);
+    holder.forEach(data => {
+      card(data);
+    });
   })
   .catch(e => {
     console.log("error", e);
   });
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -20,6 +26,8 @@ axios
 /* Step 4: Pass the data received from Github into your function, 
            create a new component and add it to the DOM as a child of .cards
 */
+const newComponent = document.createElement("main");
+const cards = document.querySelector(".cards");
 
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
@@ -31,7 +39,22 @@ axios
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const data2 = axios
+  .get("https://api.github.com/users/francoiscoding/followers", {})
+  .then(response => {
+    const info = response.data;
+    const holder = [];
+    holder.push(info);
+    holder.forEach(data => {
+      followersArray.push(data);
+    });
+  })
+  .catch(e => {
+    console.log("error", e);
+  });
+var followersArray = [];
+followersArray.forEach(follower => card(follower));
+console.log(followersArray);
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -52,14 +75,14 @@ const followersArray = [];
 </div>
 
 */
-function card(obj) {
+function card(data) {
   // Created Card Div
   var cardDiv = document.createElement("div");
   cardDiv.classList.add("card");
 
   // Created Img
   var newImg = document.createElement("img");
-  newImg.src = "";
+  newImg.src = data.avatar_url;
   cardDiv.appendChild(newImg);
 
   // Created Card-Info Div
@@ -69,38 +92,48 @@ function card(obj) {
 
   // Created H3
   var h3 = document.createElement("h3");
+  h3.textContent = data.name;
   h3.classList.add("name");
   cardInfoDiv.appendChild(h3);
 
   // Username Paragraph
   var userP = document.createElement("p");
+  userP.textContent = data.login;
   userP.classList.add("username");
   cardInfoDiv.appendChild(userP);
 
   // Location Paragraph
   var locationP = document.createElement("p");
+  locationP.textContent = `Location : ${data.location}`;
   cardInfoDiv.appendChild(locationP);
 
   // Profile Paragraph
   var profileP = document.createElement("p");
-  var a = document.createElement("a");
-  a.textContent = "";
-  a.href = "";
-  profileP.appendChild("a");
+  var link = document.createElement("a");
+  profileP.textContent = `Link : ${data.html_url}`;
+  link.href = data.html_url;
+  link.append(profileP);
   cardInfoDiv.appendChild(profileP);
 
   // Followers Paragraph
   var followersP = document.createElement("p");
+  followersP.textContent = `Followers : ${data.followers}`;
   cardInfoDiv.appendChild(followersP);
 
   // Following Paragraph
   var followingP = document.createElement("p");
+  followingP.textContent = `Following : ${data.following}`;
   cardInfoDiv.appendChild(followingP);
 
   // Bio Paragraph
   var bioP = document.createElement("p");
+  bioP.textContent = `Bio : ${data.bio}`;
   cardInfoDiv.appendChild(bioP);
+
+  // Append Div to Page
+  cards.appendChild(cardDiv);
 }
+
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
