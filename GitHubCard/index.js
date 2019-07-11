@@ -3,9 +3,14 @@
            https://api.github.com/users/<your name>
 */
 
-axios.get('https://api.github.com/users/karsevar/followers')
+// obtain the parent for the github cards.
+const cardContainer = document.querySelector('.cards');
+
+// Now let's run the axios call on just one element;
+axios.get('https://api.github.com/users/karsevar')
 	.then(response => {
 		console.log(response);
+		cardContainer.appendChild(cardMarkup(response.data));
 	})
 	.catch(err => {
 		console.log('Can\'t find request');
@@ -85,25 +90,25 @@ function cardMarkup(userObject) {
 
 	// adding classNames and attributes:
 	cardElement.className = 'card';
-	userImage.src = '#'; // placeholder
+	userImage.src = userObject.avatar_url; 
 	cardInfo.className = 'card-info';
-	address.href = 'clickHere'; // placeholder
+	address.href = userObject.html_url; 
 	name.className = 'name';
 	userName.className = 'username';
 
 	// text content and user information:
-	name.textContent = 'placeholder';
-	userName.textContent = 'placeholder';
-	location.textContent = `Location: ${'placeholder'}`;
-	address.textContent = 'placeholder';
+	name.textContent = userObject.name;
+	userName.textContent = userObject.login;
+	location.textContent = `Location: ${userObject.location}`;
+	address.textContent = userObject.html_url;
 	profile.textContent = `Profile: `;
 	profile.appendChild(address); // A little quirk with nesting anchor tags.
 	
-	followersCount.textContent = 'placeholder';
-	followingCount.textContent = 'placeholder';
-	bio.textContent = `Bio: ${'placeholder'}`;
+	followersCount.textContent = userObject.followers;
+	followingCount.textContent = userObject.following;
+	bio.textContent = `Bio: ${userObject.bio}`;
 
-	console.log(cardElement);
+	return cardElement;
 }
 
 /*
@@ -122,9 +127,6 @@ function cardMarkup(userObject) {
   </div>
 </div>
 */
-
-
-cardMarkup();
 
 /* List of LS Instructors Github username's: 
   tetondan
