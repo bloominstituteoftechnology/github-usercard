@@ -54,6 +54,24 @@ const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell']
 
 */
 
+function cardMarkup(followerObject) {
+
+	// 
+	const cardElement = document.createElement('div');
+	const followerImage = document.createElement('img');
+	const cardInfo = document.createElement('div');
+	const name = document.createElement('h3');
+	const userName = document.createElement('p');
+	const location = document.createElement('p');
+	const profile = document.createElement('p');
+	const address = document.createElement('a');
+	const followersCount = document.createElement('p');
+	const followingCount = document.createElement('p');
+	const bio = document.createElement('p');
+
+
+}
+
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
