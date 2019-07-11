@@ -81,7 +81,7 @@ function cardMarkup(userObject) {
 	cardInfo.appendChild(followingCount);
 	cardInfo.appendChild(bio);
 
-	profile.appendChild(address);
+	// profile.appendChild(address);
 
 	// adding classNames and attributes:
 	cardElement.className = 'card';
@@ -95,14 +95,15 @@ function cardMarkup(userObject) {
 	name.textContent = 'placeholder';
 	userName.textContent = 'placeholder';
 	location.textContent = `Location: ${'placeholder'}`;
-	profile.textContent = 'Profile: ';
 	address.textContent = 'placeholder';
+	profile.textContent = `Profile: `;
+	profile.appendChild(address); // A little quirk with nesting anchor tags.
+	
 	followersCount.textContent = 'placeholder';
 	followingCount.textContent = 'placeholder';
 	bio.textContent = `Bio: ${'placeholder'}`;
 
-	//Test html structure:
-	console.log(cardElement); // everything looks good.
+	console.log(cardElement);
 }
 
 /*
