@@ -23,9 +23,27 @@
           Using that array, iterate over it, requesting data for each user, creating a new card for each
           user, and adding that card to the DOM.
 */
+// .then(data => {
+//     // Handles Success: here's where we get the results from server
+//     console.log('response', data)
+//     const images = data.data.message
+//     images.forEach(imageUrl => {
+//       const element = createDogCard(imageUrl, 'terrier')
+//       entry.appendChild(element)
+//     })
+//   })
+//   .catch(error => {
+//     // Handles failure:
+//     console.log('The dogs API is currently down, try again later', error)
+//   })
+const cards = document.querySelector('.cards')
 
 axios.get('https://api.github.com/users/coryhedeen')
-    .then(res => console.log(res))
+    .then(res => {const information = res.data
+    information.forEach(item => {
+      const gitBio = cardCreator(item)
+      cards.appendChild(gitBio)
+    })})
     .catch(err => console.log(err))
 
     function cardCreator(profile){
@@ -61,6 +79,19 @@ axios.get('https://api.github.com/users/coryhedeen')
 
       const bio = document.createElement('p')
       bio.textContent = `Bio: ${profile.data.bio}`
+
+      card.appendChild(proImage)
+      card.appendChild(info)
+      info.appendChild(name)
+      info.appendChild(userName)
+      info.appendChild(location)
+      info.appendChild(profileLink)
+      profileLink.appendChild(link)
+      info.appendChild(followers)
+      info.appendChild(following)
+      info.appendChild(bio)
+
+      return card
     }
 
 const followersArray = [];
