@@ -3,6 +3,18 @@
            https://api.github.com/users/<your name>
 */
 
+axios.get('https://api.github.com/users/misskellymore')
+
+.then(function (response) {
+  console.log(response);
+})
+.catch(function (error){
+  console.log(error)
+})
+.finally(function (){
+  
+})
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -14,6 +26,8 @@
            create a new component and add it to the DOM as a child of .cards
 */
 
+// function createKelly()
+
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
           , manually find some other users' github handles, or use the list found 
@@ -24,7 +38,7 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+// const followersArray = [];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
