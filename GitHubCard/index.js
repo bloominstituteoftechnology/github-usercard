@@ -7,14 +7,14 @@
 const cardContainer = document.querySelector('.cards');
 
 // Now let's run the axios call on just one element;
-axios.get('https://api.github.com/users/karsevar')
-	.then(response => {
-		console.log(response);
-		cardContainer.appendChild(cardMarkup(response.data));
-	})
-	.catch(err => {
-		console.log('Can\'t find request');
-	})
+// axios.get('https://api.github.com/users/karsevar')
+// 	.then(response => {
+// 		console.log(response);
+// 		cardContainer.appendChild(cardMarkup(response.data));
+// 	})
+// 	.catch(err => {
+// 		console.log('Can\'t find request');
+// 	})
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -38,18 +38,18 @@ axios.get('https://api.github.com/users/karsevar')
 */
 
 // Step 5: Adding the following profile usernames to the DOM parent '.cards':
-const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell'];
+// const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell'];
 
-followersArray.forEach( follower => {
-	axios.get(`https://api.github.com/users/${follower}`)
-		.then(response => {
-			console.log(response);
-			cardContainer.appendChild(cardMarkup(response.data));
-		})
-		.catch(err => {
-			console.log('Can\'t find request');
-		})
-})
+// followersArray.forEach( follower => {
+// 	axios.get(`https://api.github.com/users/${follower}`)
+// 		.then(response => {
+// 			console.log(response.data);
+// 			cardContainer.appendChild(cardMarkup(response.data));
+// 		})
+// 		.catch(err => {
+// 			console.log('Can\'t find request');
+// 		})
+// })
 
 // EveryThing renders perfectly.
 
@@ -124,4 +124,46 @@ function cardMarkup(userObject) {
 
 	return cardElement;
 }
+
+// sprint problem programmatically parsing a github user's follower api call 
+// and printing each individual follower onto a dom parent.
+// Using tetondan's profile for this experiment:
+
+// This axios call works perfectly but I might need to refactor it as a means 
+// to make it more readable.
+
+axios.get('https://api.github.com/users/tetondan')
+	.then(results => {
+		cardContainer.appendChild(cardMarkup(results.data));
+		axios.get(results.data.followers_url)
+			.then(result => {
+				const followersAuto = result.data.map(follower => follower.login)
+
+				followersAuto.forEach(follower => {
+					axios.get(`https://api.github.com/users/${follower}`)
+						.then(result => {
+							cardContainer.appendChild(cardMarkup(result.data))
+						})
+						.catch(error => {
+							console.log('Server error', error);
+						})
+				})
+			})
+			.catch(error => {
+				console.log('tetondan has no followers')
+			})
+	})
+	.catch(error => {
+		console.log('Error', error);
+	})
+
+
+
+
+
+
+
+
+
+
 
