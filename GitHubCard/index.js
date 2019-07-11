@@ -2,12 +2,18 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+
+// console.log(cards);
+
 axios.get('https://api.github.com/users/gcj2')
   .then (data => {
     // console.log('data:', data);
     const myInfo = data.data;
     console.log('UserInfo', myInfo);
-    return myInfo;
+    const cards = document.querySelector('.cards');
+    const cardInfo = cardCreator(myInfo);
+    console.log(cardInfo);
+    cards.appendChild(cardInfo);
   })
 /* Step 2: Inspect and study the data coming back, this is YOUR
    github info! You will need to understand the structure of this
@@ -19,10 +25,9 @@ axios.get('https://api.github.com/users/gcj2')
 /* Step 4: Pass the data received from Github into your function,
            create a new component and add it to the DOM as a child of .cards
 */
-const cards = document.querySelector('.cards');
-console.log(cards);
 
-cards.appendChild(creator(myInfo));
+
+// cards.appendChild(creator(myInfo));
 
 /* Step 5: Now that you have your own card getting added to the DOM, either
           follow this link in your browser https://api.github.com/users/<Your github name>/followers
@@ -34,7 +39,28 @@ cards.appendChild(creator(myInfo));
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
+const followersArray = [
+  'tetondan',
+  'thetaylorjacobs',
+  'justsml',
+  'dustinmyers',
+  'bigknell'
+];
+i = 0;
+followersArray.forEach((user, i) => {
+  axios.get(`https://api.github.com/users/${followersArray[i]}`)
+    .then (data => {
+      const myInfo = data.data;
+      console.log('UserInfo', myInfo);
+      const cards = document.querySelector('.cards');
+      const cardInfo = cardCreator(myInfo);
+      console.log(cardInfo);
+      cards.appendChild(cardInfo);
+    }), i++;
+})
+
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -54,8 +80,9 @@ const followersArray = [];
   </div>
 </div>
 */
-
-function creator (argument) {
+const cards = document.querySelector('.cards');
+console.log(cards);
+function cardCreator (arg) {
   const card = document.createElement('div');
   const img = document.createElement('img');
   const cardInfo = document.createElement('div');
@@ -71,21 +98,28 @@ function creator (argument) {
   card.classList.add('card');
   cardInfo.classList.add('card-info');
   name.classList.add('name');
-  name.classList.add('name');
+  userName.classList.add('user-name');
 
-  cards.appendChild('card');
-  card.appendChild('img');
-  card.appendChild('cardInfo');
-  cardInfo.appendChild('name');
-  cardInfo.appendChild('userName');
-  cardInfo.appendChild('location');
-  cardInfo.appendChild('profile');
-  profile.appendChild('profileLink');
-  cardInfo.appendChild('followers');
-  cardInfo.appendChild('following');
-  cardInfo.appendChild('bio');
+  card.appendChild(img);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  profile.appendChild(profileLink);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
 
-  
+  img.src = arg.avatar_url;
+  location.textContent = arg.location;
+  name.textContent = arg.name;
+  userName.textContent = arg.login;
+  const aProfileLink = arg.html_url;
+  profileLink.innerHTML = aProfileLink.link(arg.html_url);
+  followers.textContent = `Followers: ${arg.followers}`;
+  following.textContent = `Following: ${arg.following}`;
+  bio.textContent = arg.bio;
 
   return card;
 }
