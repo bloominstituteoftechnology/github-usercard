@@ -45,6 +45,29 @@ const followersArray = [];
 </div>
 
 */
+axios.get(`https://api.github.com/users/AwDesign71`)
+.then (dataSet=> {
+  console.log(dataSet)
+})
+const cards = document.querySelector('.cards');
+card.appendChild(.cards)
+const gitCards = ()=> {
+  //Creating the elements
+  const card = document.createElement('div');
+  const imageUrl = document.createElement('img')
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const userName = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+  return card;
+  // Appending elements
+  imageUrl.appendChild(card);
+}
+
 
 /* List of LS Instructors Github username's: 
   tetondan
