@@ -54,11 +54,11 @@ const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell']
 
 */
 
-function cardMarkup(followerObject) {
+function cardMarkup(userObject) {
 
-	// 
+	// html elements:
 	const cardElement = document.createElement('div');
-	const followerImage = document.createElement('img');
+	const userImage = document.createElement('img');
 	const cardInfo = document.createElement('div');
 	const name = document.createElement('h3');
 	const userName = document.createElement('p');
@@ -69,8 +69,61 @@ function cardMarkup(followerObject) {
 	const followingCount = document.createElement('p');
 	const bio = document.createElement('p');
 
+	// appending the node tree structure:
+	cardElement.appendChild(userImage);
+	cardElement.appendChild(cardInfo);
 
+	cardInfo.appendChild(name);
+	cardInfo.appendChild(userName);
+	cardInfo.appendChild(location);
+	cardInfo.appendChild(profile);
+	cardInfo.appendChild(followersCount);
+	cardInfo.appendChild(followingCount);
+	cardInfo.appendChild(bio);
+
+	profile.appendChild(address);
+
+	// adding classNames and attributes:
+	cardElement.className = 'card';
+	userImage.src = '#'; // placeholder
+	cardInfo.className = 'card-info';
+	address.href = 'clickHere'; // placeholder
+	name.className = 'name';
+	userName.className = 'username';
+
+	// text content and user information:
+	name.textContent = 'placeholder';
+	userName.textContent = 'placeholder';
+	location.textContent = `Location: ${'placeholder'}`;
+	profile.textContent = 'Profile: ';
+	address.textContent = 'placeholder';
+	followersCount.textContent = 'placeholder';
+	followingCount.textContent = 'placeholder';
+	bio.textContent = `Bio: ${'placeholder'}`;
+
+	//Test html structure:
+	console.log(cardElement); // everything looks good.
 }
+
+/*
+<div class="card">
+  <img src={image url of user} />
+  <div class="card-info">
+    <h3 class="name">{users name}</h3>
+    <p class="username">{users user name}</p>
+    <p>Location: {users location}</p>
+    <p>Profile:  
+      <a href={address to users github page}>{address to users github page}</a>
+    </p>
+    <p>Followers: {users followers count}</p>
+    <p>Following: {users following count}</p>
+    <p>Bio: {users bio}</p>
+  </div>
+</div>
+*/
+
+
+cardMarkup();
 
 /* List of LS Instructors Github username's: 
   tetondan
