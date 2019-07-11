@@ -3,7 +3,13 @@
            https://api.github.com/users/<your name>
 */
 
-axios.get(`https://api.github.com/users/dhoskins97`)
+const cardsDiv = document.querySelector('.cards');
+
+axios.get(`https://api.github.com/users/dhoskins97`).then(res => {
+  console.log(cardsDiv);
+  const userCard = cardCreator(res.data);
+  cardsDiv.appendChild(userCard);
+}).catch(error => console.log(error));
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -15,6 +21,9 @@ axios.get(`https://api.github.com/users/dhoskins97`)
 /* Step 4: Pass the data received from Github into your function, 
            create a new component and add it to the DOM as a child of .cards
 */
+
+
+
 
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
@@ -47,9 +56,10 @@ const followersArray = [];
 </div>
 */
 
-const cardCreator = function(){
+const cardCreator = function(objParam){
   const card = document.createElement('div');
   const cardImage = document.createElement('img');
+  const cardInf = document.createElement('div');
   const cardName = document.createElement('h3');
   const cardUsername = document.createElement('p');
   const cardLocation = document.createElement('p');
@@ -60,15 +70,31 @@ const cardCreator = function(){
   const cardBio =document.createElement('p');
 
   card.appendChild(cardImage);
-  card.appendChild(cardName);
-  card.appendChild(cardUsername);
-  card.appendChild(cardLocation);
-  card.appendChild(cardProfile);
-  card.appendChild(cardFollowers);
-  card.appendChild(cardFollowing);
-  card.appendChild(cardBio);
+  card.appendChild(cardInf);
+  cardInf.appendChild(cardName);
+  cardInf.appendChild(cardUsername);
+  cardInf.appendChild(cardLocation);
+  cardInf.appendChild(cardProfile);
+  cardInf.appendChild(cardFollowers);
+  cardInf.appendChild(cardFollowing);
+  cardInf.appendChild(cardBio);
+  cardProfile.appendChild(cardLink);
 
-  cardProfile.appendChild(cardLink)
+  card.classList.add('card');
+  cardInf.classList.add('card-info');
+  cardName.classList.add('name');
+  cardUsername.classList.add('username');
+
+
+  cardImage.src = objParam.avatar_url;
+  cardName.textContent = objParam.name;
+  cardUsername.textContent = objParam.login;
+  cardLocation.textContent = objParam.location;
+  cardLink.href = objParam.html_url;
+  cardFollowers.textContent = objParam.followers;
+  cardFollowing.textContent = objParam.following;
+
+  return card;
 }
 
 
