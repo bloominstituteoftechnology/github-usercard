@@ -72,10 +72,29 @@ const gitCards = (info)=> {
  
  card.appendChild(cardInfo);
  cardInfo.classList.add('card-Info')
+
   cardInfo.appendChild(name);
   name.classList.add('name');
   name.textContent = info.name;
-  
+
+ cardInfo.appendChild(userName);
+ userName.classList.add('username');
+ userName.textContent = info.login;
+
+ cardInfo.appendChild(location);
+ location.textContent = info.location;
+
+ cardInfo.appendChild(profile);
+ profile.textContent = info.profile;
+
+ cardInfo.appendChild(followers);
+ followers.textContent = info.followers;
+
+ cardInfo.appendChild(following);
+ following.textContent = info.following;
+
+ cardInfo.appendChild(bio);
+ bio.textContent = info.bio;
 
  console.log(card)
   return card;
