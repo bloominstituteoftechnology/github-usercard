@@ -8,7 +8,23 @@
 const cards = document.querySelector(".cards");
 console.log("blackjack:", cards);
 
-axios.get(`https://api.github.com/users/johnschneider1`).then(data => {});
+// consst people = `${}`
+
+axios
+  .get("https://api.github.com/users/johnschneider1")
+  .then(reply => {
+    // success here
+
+    const people = reply.data;
+    const manyPeople = [];
+    manyPeople.push(people);
+    console.log(manyPeople);
+    manyPeople.forEach(currentValue => createCard(currentValue));
+  })
+  // error/failure here
+  .catch(error => {
+    console.log("why wont you work", error);
+  });
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -20,6 +36,8 @@ axios.get(`https://api.github.com/users/johnschneider1`).then(data => {});
 /* Step 4: Pass the data received from Github into your function, 
            create a new component and add it to the DOM as a child of .cards
 */
+const box = document.querySelector(".cards");
+// box.appendChild();
 
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
@@ -31,7 +49,14 @@ axios.get(`https://api.github.com/users/johnschneider1`).then(data => {});
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  "https://api.github.com/users/tetondan",
+  "https://api.github.com/users/dustinmyers",
+  "https://api.github.com/users/justsml",
+  "https://api.github.com/users/luishrd",
+  "https://api.github.com/users/bigknell",
+  "https://api.github.com/users/johnschneider1"
+];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -56,7 +81,8 @@ const followersArray = [];
 
 */
 
-function createCard() {
+function createCard(people) {
+  console.log("I am a person", people);
   //create the elements
   const card = document.createElement("div");
   const img = document.createElement("img");
@@ -68,6 +94,48 @@ function createCard() {
   const cardFollowers = document.createElement("p");
   const cardFollowing = document.createElement("p");
   const cardBio = document.createElement("p");
+
+  // setup structure of elements
+
+  card.appendChild(img);
+  card.appendChild(cardInfo);
+  card.appendChild(cardName);
+  card.appendChild(cardUserName);
+  card.appendChild(cardLocation);
+  card.appendChild(cardProfile);
+  card.appendChild(cardFollowers);
+  card.appendChild(cardFollowing);
+  card.appendChild(cardBio);
+
+  // set class names
+
+  card.classList.add("card");
+  img.classList.add("img");
+  cardInfo.classList.add("card-info");
+  cardName.classList.add("name");
+  cardUserName.classList.add("username");
+  cardLocation.classList.add("location");
+  cardProfile.classList.add("profile");
+  cardFollowers.classList.add("followers");
+  cardFollowing.classList.add("following");
+  cardBio.classList.add("bio");
+
+  // set content
+
+  img.src = people.avatar_url;
+  console.log(img);
+  cardInfo.textContent = people.public_repos;
+  cardName.textContent = people.email;
+  console.log(cardName);
+  cardUserName.textContent = people.Login;
+  cardLocation.textContent = people.location;
+  cardProfile.textContent = people.blog;
+  console.log("im a profile", cardProfile);
+  cardFollowers.textContent = people.followers_url;
+  cardFollowing.textContent = people.following_url;
+  cardBio.textContent = people.bio;
+
+  return card;
 }
 
 /* List of LS Instructors Github username's: 
