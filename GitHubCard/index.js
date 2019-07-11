@@ -1,42 +1,19 @@
-// const axios = require('axios');
-
-
 /* Step 1: using axios, send a GET request to the following URL 
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
-
-// Make a request for a user with a given ID
-// axios.get('https://api.github.com/users/paintedlbird7')
-// // /user?ID=paintedlbird7
-
-//   .then(function (response) {
-//     // handle success
-//     console.log(response);
-//   })
-//   .catch(function (error) {
-//     // handle error
-//     console.log(error);
-//   })
-//   .finally(function () {
-//     // always executed
-//   });
-
 // // select the main dom node to attach our dynamic content
-const cards = document.querySelector('.cards')
-
-// https://api.github.com/users/paintedlbird7
-const users = 'paintedlbird'
 
 axios.get(`https://api.github.com/users/paintedlbird7`)
-.then(data => {
-  console.log('message:', data)
-  const images = data.data.message
-  images.forEach(imageUrl => {
-    const element = createUserCard(imageUrl, users)
-    entry.appendChild(element)
-  })
+.then(response => {
+  console.log(response.data.login);
+  let cards = document.querySelectorAll('.cards');
+  let card = myCard(response.data.login);
+  console.log(card)
+
+  cards.appendChild(card)
 })
+
 .catch(error => {
   // Handles failure:
   console.log('The github API is currently down, try again later', error)
@@ -54,6 +31,29 @@ axios.get(`https://api.github.com/users/paintedlbird7`)
 /* Step 4: Pass the data received from Github into your function, 
            create a new component and add it to the DOM as a child of .cards
 */
+
+
+/*
+creates and returns DOM node
+*/
+function myCard(
+  users) {
+  // create the elements
+  const card = document.createElement('div')
+  const img = document.createElement('img')
+  const name = document.createElement('h3')
+  
+  // set the styles
+  card.classList.add('user-card')
+  img.classList.add('user-image')
+  
+  // set the content
+  name.textContent = `Users: ${users}`
+  
+  // put together
+  card.appendChild(name)
+  return card
+}
 
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
