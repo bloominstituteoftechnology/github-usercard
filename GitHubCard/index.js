@@ -3,6 +3,71 @@
            https://api.github.com/users/<your name>
 */
 
+const cards = document.querySelector('.cards')
+
+
+axios.get('https://api.github.com/users/jonathongre')
+    .then(data => {
+        console.log('data:', data)
+        const theImage = data.data.avatar_url
+
+        theImage.forEach(imageUrl => {
+            const element = createCard(imageUrl)
+            cards.appendChild(element)
+        })
+        //        const theName = data.data.name
+        //        const theUsername = data.data.login
+        //        const theLocation = data.data.location
+        //        const theProfile = data.data.html_url
+        //        const theFollowers = data.data.followers
+        //        const theFollowing = data.data.following
+        //        const theBio = data.data.bio
+
+
+
+
+    })
+
+    .catch(error => {
+        console.log('error:', error)
+    })
+
+function createCard() {
+    const card = document.createElement('div')
+    const image = document.createElement('img')
+    const cardInfo = document.createElement('div')
+    const name = document.createElement('h3')
+    const userName = document.createElement('p')
+    const location = document.createElement('p')
+    const profile = document.createElement('p')
+    const gitPage = document.createElement('a')
+    const followers = document.createElement('p')
+    const following = document.createElement('p')
+    const bio = document.createElement('p')
+
+    card.classList.add('card')
+    cardInfo.classList.add('card-info')
+    name.classList.add('name')
+    userName.classList.add('username')
+
+    image.src = imageUrl
+    name.textContent = thisName
+
+    card.appendChild(image)
+    card.appendChild(cardInfo)
+    cardInfo.appendChild(name)
+    cardInfo.appendChild(userName)
+    cardInfo.appendChild(location)
+    cardInfo.appendChild(profile)
+    cardInfo.appendChild(gitPage)
+    cardInfo.appendChild(followers)
+    cardInfo.appendChild(following)
+    cardInfo.appendChild(bio)
+
+    return card
+}
+
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
