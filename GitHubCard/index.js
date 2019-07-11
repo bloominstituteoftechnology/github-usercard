@@ -6,9 +6,7 @@
 // select the main node to attach content too
 
 const cards = document.querySelector(".cards");
-console.log("blackjack:", cards);
-
-// consst people = `${}`
+//console.log("blackjack:", cards);
 
 axios
   .get("https://api.github.com/users/johnschneider1")
@@ -16,7 +14,6 @@ axios
     // success here
     console.log("testing:", reply);
     const people = reply.data;
-
     const attach = createCard(people);
     cards.appendChild(attach);
   })
@@ -46,25 +43,37 @@ axios
           Using that array, iterate over it, requesting data for each user, creating a new card for each
           user, and adding that card to the DOM.
 */
-// var new_array = arr.map(function callback(currentValue[, index[, array]]) {
-// Return element for new_array
-//}[, thisArg])
 
-//axios.get("https://api.github.com/users/johnschneider1/followers");
-followersArray.forEach(url => {
-  axios.get(url).then(res => {
-    const followers = createCard(res.data);
-    cards.appendChild(followers);
+// const followersArray = [
+//   "johnschneider1",
+//   "tetondan",
+//   "dustinmyers",
+//   "justsml",
+//   "luishrd",
+//   "bigknell"
+// ];
+
+const followersArray = [];
+
+axios
+  .get("https://api.github.com/users/justsml/followers")
+  .then(res => {
+    console.log(res.data);
+    res.data.forEach(name => {
+      followersArray.push(name.login);
+    });
+  })
+  .then(() => {
+    followersArray.forEach(name => {
+      axios.get(`https://api.github.com/users/${name}`).then(res => {
+        const followers = createCard(res.data);
+        cards.appendChild(followers);
+      });
+    });
+  })
+  .catch(err => {
+    console.log("wrong", err);
   });
-});
-const followersArray = [
-  "https://api.github.com/users/tetondan",
-  "https://api.github.com/users/dustinmyers",
-  "https://api.github.com/users/justsml",
-  "https://api.github.com/users/luishrd",
-  "https://api.github.com/users/bigknell",
-  "https://api.github.com/users/johnschneider1"
-];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -90,7 +99,7 @@ const followersArray = [
 */
 
 function createCard(people) {
-  console.log("I am a person", people);
+  //console.log("I am a person", people);
   //create the elements
   const card = document.createElement("div");
   const img = document.createElement("img");
@@ -120,13 +129,13 @@ function createCard(people) {
   // set content
 
   img.src = people.avatar_url;
-  console.log(img);
-  cardName.textContent = people.email;
-  console.log(cardName);
-  cardUserName.textContent = people.name;
+  //console.log(img);
+  cardName.textContent = people.name;
+  //console.log(cardName);
+  cardUserName.textContent = people.login;
   cardLocation.textContent = people.location;
   cardProfile.textContent = people.node_id;
-  console.log("im a profile", cardProfile);
+  //console.log("im a profile", cardProfile);
   cardFollowers.textContent = people.followers_url;
   cardFollowing.textContent = people.following_url;
   cardBio.textContent = people.bio;
@@ -146,11 +155,3 @@ function createCard(people) {
 
   return card;
 }
-
-/* List of LS Instructors Github username's: 
-  tetondan
-  dustinmyers
-  justsml
-  luishrd
-  bigknell
-*/
