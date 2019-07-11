@@ -47,11 +47,13 @@ const followersArray = [];
 */
 axios.get(`https://api.github.com/users/AwDesign71`)
 .then (dataSet=> {
-  console.log(dataSet)
+  const gitInfo = dataSet.data;
+  console.log(gitInfo)
+  cards.appendChild(gitCards(gitInfo));
 })
 const cards = document.querySelector('.cards');
-card.appendChild(.cards)
-const gitCards = ()=> {
+
+const gitCards = (info)=> {
   //Creating the elements
   const card = document.createElement('div');
   const imageUrl = document.createElement('img')
@@ -63,11 +65,22 @@ const gitCards = ()=> {
   const followers = document.createElement('p');
   const following = document.createElement('p');
   const bio = document.createElement('p');
-  return card;
-  // Appending elements
-  imageUrl.appendChild(card);
-}
+  // Appending, ClassList, Adding image;
+  card.appendChild(imageUrl);
+  card.classList.add('card');
+  imageUrl.src = info.avatar_url;
+ 
+ card.appendChild(cardInfo);
+ cardInfo.classList.add('card-Info')
+  cardInfo.appendChild(name);
+  name.classList.add('name');
+  name.textContent = info.name;
+  
 
+ console.log(card)
+  return card;
+}
+cards.appendChild(gitCards())
 
 /* List of LS Instructors Github username's: 
   tetondan
