@@ -37,7 +37,21 @@ axios.get('https://api.github.com/users/karsevar')
           user, and adding that card to the DOM.
 */
 
+// Step 5: Adding the following profile usernames to the DOM parent '.cards':
 const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell'];
+
+followersArray.forEach( follower => {
+	axios.get(`https://api.github.com/users/${follower}`)
+		.then(response => {
+			console.log(response);
+			cardContainer.appendChild(cardMarkup(response.data));
+		})
+		.catch(err => {
+			console.log('Can\'t find request');
+		})
+})
+
+// EveryThing renders perfectly.
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -111,27 +125,3 @@ function cardMarkup(userObject) {
 	return cardElement;
 }
 
-/*
-<div class="card">
-  <img src={image url of user} />
-  <div class="card-info">
-    <h3 class="name">{users name}</h3>
-    <p class="username">{users user name}</p>
-    <p>Location: {users location}</p>
-    <p>Profile:  
-      <a href={address to users github page}>{address to users github page}</a>
-    </p>
-    <p>Followers: {users followers count}</p>
-    <p>Following: {users following count}</p>
-    <p>Bio: {users bio}</p>
-  </div>
-</div>
-*/
-
-/* List of LS Instructors Github username's: 
-  tetondan
-  dustinmyers
-  justsml
-  luishrd
-  bigknell
-*/
