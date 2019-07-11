@@ -39,22 +39,16 @@ const cards = document.querySelector(".cards");
           user, and adding that card to the DOM.
 */
 
-const data2 = axios
-  .get("https://api.github.com/users/francoiscoding/followers", {})
+axios
+  .get("https://api.github.com/users/francoiscoding/followers")
   .then(response => {
-    const info = response.data;
-    const holder = [];
-    holder.push(info);
-    holder.forEach(data => {
-      followersArray.push(data);
+    const followersArray = [];
+    const res = response.data;
+    res.forEach(follower => {
+      card(follower);
     });
   })
-  .catch(e => {
-    console.log("error", e);
-  });
-var followersArray = [];
-followersArray.forEach(follower => card(follower));
-console.log(followersArray);
+  .catch(error => console.log("error", error));
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
