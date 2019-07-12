@@ -30,21 +30,38 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [ 
-  'tetondan',
-  'dustinmyers',
-  'justsml',
-  'luishrd',
- ' bigknell'];
+const followersArray = [];
 
+/* Step 3: Create a function that accepts a single object as its only argument,
+          Using DOM methods and properties, create a component that will return the following DOM element:*/
+
+
+
+
+//     console.log('Looks like we have a problem.  Data didn\t come through, hoss.', error)
+
+
+// let roloDex = document.querySelector('.cards');
+// axios
+// .get('https://api.github.com/users/<juarezfrench>')
+// .then(data => {
+//   "name": "Mark French",
+//   "login": "juarezfrench",
+//   "location": "OKC",
+//   "html_url":"https://github.com/juarezfrench",
+//  "followers_url": "https://api.github.com/users/juarezfrench/followers",
+//  "following_url": "https://api.github.com/users/juarezfrench/following{/other_user}",
+//  "bio": null
+
+
+// })
 
 
 let roloDex = document.querySelector('.cards');
 const devCard = document.createElement("div");
 
-followersArray.forEach(dev =>   {                       
 axios
-.get(`https://api.github.com/users/${dev}`)
+.get(`https://api.github.com/users/juarezfrench`)
   .then(data => {
     // 1. (see above)
     // Handles Success: here's where we get the results from server
@@ -65,8 +82,8 @@ axios
   console.log('index.js -> %cerror:', 'color: green', error)
     // Handles failure:
     
-  })}
-)
+  })
+
 
 
 
