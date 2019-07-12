@@ -69,7 +69,7 @@ axios.get('https://api.github.com/users/coryhedeen')
       profile.textContent = "Profile: ";
 
       const link = document.createElement('a');
-      link.href = profile.login;
+      link.href = profile.html_url;
 
       const followers = document.createElement('p');
       followers.textContent = `Followers: ${profile.followers}`;
@@ -94,7 +94,22 @@ axios.get('https://api.github.com/users/coryhedeen')
       return card
     }
 
-const followersArray = [];
+const followersArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell"
+];
+
+followersArray.forEach(instructor =>{
+  axios.get(`https://api.github.com/users/${instructor}`)
+    .then(res => {
+      const card = cardCreator(res.data);
+      const cards = document.querySelector('.cards')
+      cards.appendChild(card);
+    });
+});
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
