@@ -36,49 +36,49 @@
 //     // Handles failure:
 //     console.log('The dogs API is currently down, try again later', error)
 //   })
-const cards = document.querySelector('.cards')
+
 
 axios.get('https://api.github.com/users/coryhedeen')
-    .then(res => {const information = res.data
-    information.forEach(item => {
-      const gitBio = cardCreator(item)
-      cards.appendChild(gitBio)
-    })})
+    .then(res => {
+      const information = cardCreator(res.data);
+      const cards = document.querySelector('.cards')
+      cards.appendChild(information)
+    })
     .catch(err => console.log(err))
 
     function cardCreator(profile){
-      const card = document.createElement('div')
-      card.classList.add('card')
+      const card = document.createElement('div');
+      card.classList.add('card');
 
-      const proImage = document.createElement('img')
-      proImage.src = profile.data.avatar_url
+      const proImage = document.createElement('img');
+      proImage.setAttribute('src', `${profile.avatar_url}`);
 
-      const info = document.createElement('div')
-      info.classList.add('card-info')
+      const info = document.createElement('div');
+      info.classList.add('card-info');
 
-      const name = document.createElement('h3')
-      name.textContent = profile.data.name
+      const name = document.createElement('h3');
+      name.textContent = profile.name;
 
-      const userName = document.createElement('p')
-      name.textContent = profile.data.login
+      const userName = document.createElement('p');
+      name.textContent = profile.login;
 
-      const location = document.createElement('p')
-      location.textContent = profile.data.location
+      const location = document.createElement('p');
+      location.textContent = profile.location;
 
-      const profileLink = document.createElement('p')
-      profile.textContent = "Profile: "
+      const profileLink = document.createElement('p');
+      profile.textContent = "Profile: ";
 
-      const link = document.createElement('a')
-      link.textContent = profile.data.login
+      const link = document.createElement('a');
+      link.href = profile.login;
 
-      const followers = document.createElement('p')
-      followers.textContent = `Followers: ${profile.data.followers}`
+      const followers = document.createElement('p');
+      followers.textContent = `Followers: ${profile.followers}`;
 
-      const following = document.createElement('p')
-      following.textContent = `Following: ${profile.data.following}`
+      const following = document.createElement('p');
+      following.textContent = `Following: ${profile.following}`;
 
-      const bio = document.createElement('p')
-      bio.textContent = `Bio: ${profile.data.bio}`
+      const bio = document.createElement('p');
+      bio.textContent = `Bio: ${profile.bio || "none"}`;
 
       card.appendChild(proImage)
       card.appendChild(info)
