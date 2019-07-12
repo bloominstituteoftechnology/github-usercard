@@ -13,6 +13,7 @@ console.log("here i am", cards)
 // axios.get(`https://api.github.com/users/${userName}`)
 
 const followersArray = [
+  axios.get(`https://api.github.com/users/paintedlbird7`), 
   axios.get(`https://api.github.com/users/tetondan`), 
   axios.get(`https://api.github.com/users/dustinmyers`),
   axios.get(`https://api.github.com/users/justsml`), 
