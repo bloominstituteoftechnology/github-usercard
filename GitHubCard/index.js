@@ -4,23 +4,23 @@
 */
 
 // select the main dom node to attach our dynamic content
-// const entry = document.querySelector('.entry')
 
-// const myData = 'paintedlbird7'
+let cards = document.querySelector('.cards');
+console.log("here i am", cards)
 
 axios.get(`https://api.github.com/users/paintedlbird7`)
 .then(response => {
+console.log(cards)
   console.log(response.data);
-  let cards = document.querySelectorAll('.cards');
-  let card = myCard(response.data);
+  let card = response.data;
+  const element = myCard(card)
   console.log(card)
-  cards.appendChild(card)
+  cards.appendChild(element)
 })
-
-.catch(error => {
-  // Handles failure:
-  console.log('The github API is currently down, try again later', error)
-})
+// .catch(error => {
+//   // Handles failure:
+//   console.log('The github API is currently down, try again later', error)
+// })
 
 
 
@@ -64,32 +64,56 @@ function myCard(data) {
   const login = document.createElement('h3')
   const username = document.createElement('p')
   const img = document.createElement('img')
+  const cardInfo = document.createElement('div')
+  const location = document.createElement('p')
+  const profileLink = document.createElement('a')
+  const followers = document.createElement('p')
+  const bio = document.createElement('p')
+  const profileCard = document.createElement('p')
+  // const profilePage = document.createElement('p')
 
-  // set the styles
+
+
+  // set the styles/class names
   card.classList.add('card')
   name.classList.add('name')
   login.classList.add('login')
   username.classList.add('username')
   img.classList.add('img')
+  cardInfo.classList.add('card-info')
 
-  // set the content
+
+  // set the text content
   img.src = data.avatar_url;
-  gitHubUrl.href = data.url;
+  // gitHubUrl.href = data.url;
   // title.textContent = paintedlbird7
   card.textContent = data.card;
   name.textContent = data.name;
   login.textContent = data.login;
   username.textContent = data.login;
   location.textContent = data.location;
-  msWriteProfilerMark.textContent = `Profile: ${gitHubUrl}`;
-  bio.textContent = myData.bio;
-  // put together
+  // profilePage.textContent = `Profile: `;
+  profileLink.textContent = data.html_url;
+  bio.textContent = data.bio;
   
-  card.appendChild(card)
-  card.appendChild(name)
-  card.appendChild(login)
-  card.appendChild(username)
-  card.appendChild(img)
+  // put together
+  // creating the HTML structure
+  // card.appendChild(card);
+  card.appendChild(img);
+  card.appendChild(cardInfo);
+
+  cardInfo.appendChild(location);
+  // cardInfo.appendChild(profilePage);
+  cardInfo.appendChild(profileCard);
+  profileCard.appendChild(profileLink);
+
+  cardInfo.appendChild(followers);
+  // card.appendChild(following);
+  cardInfo.appendChild(bio);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(login);
+  cardInfo.appendChild(username);
+  cardInfo.appendChild(img);
 
 
 
