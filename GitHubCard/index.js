@@ -39,7 +39,7 @@
 
 
 axios.get('https://api.github.com/users/coryhedeen')
-    .then(res => {
+    .then(res => { console.log(res.data)
       const information = cardCreator(res.data);
       const cards = document.querySelector('.cards')
       cards.appendChild(information)
@@ -58,18 +58,21 @@ axios.get('https://api.github.com/users/coryhedeen')
 
       const name = document.createElement('h3');
       name.textContent = profile.name;
+      name.classList.add('name')
 
       const userName = document.createElement('p');
-      name.textContent = profile.login;
+      userName.textContent = profile.login;
+      userName.classList.add('username')
 
       const location = document.createElement('p');
-      location.textContent = profile.location;
+      location.textContent = `Location: ${profile.location}`;
 
       const profileLink = document.createElement('p');
       profile.textContent = "Profile: ";
 
       const link = document.createElement('a');
       link.href = profile.html_url;
+      link.textContent = "Profile"
 
       const followers = document.createElement('p');
       followers.textContent = `Followers: ${profile.followers}`;
