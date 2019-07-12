@@ -7,8 +7,10 @@
 
 let cards = document.querySelector('.cards');
 console.log("here i am", cards)
+const userName = 'paintedlbird7'
+// axios.get(`https://api.github.com/users/paintedlbird7`)
+axios.get(`https://api.github.com/users/${userName}`)
 
-axios.get(`https://api.github.com/users/paintedlbird7`)
 .then(response => {
 console.log(cards)
   console.log(response.data);
