@@ -26,7 +26,29 @@ axios.get('https://api.github.com/users/misskellymore')
            create a new component and add it to the DOM as a child of .cards
 */
 
-// function createKelly()
+function createKelly(x) {
+  const card = document.createElement('div');
+  const img = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const userName = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const profileLink = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+
+  
+
+}
+
+
 
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
@@ -38,7 +60,7 @@ axios.get('https://api.github.com/users/misskellymore')
           user, and adding that card to the DOM.
 */
 
-// const followersArray = [];
+const followersArray = [];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
