@@ -24,7 +24,7 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell'];
+const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell', 'alwaysTracieT', 'areumjo'];
 /* for(let i=0; i < followersArray.length; i++) {
   axios.get(`https://api.github.com/users/${followersArray[i]}`)
   .then(dataSet => {
