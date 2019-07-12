@@ -7,11 +7,25 @@
 
 let cards = document.querySelector('.cards');
 console.log("here i am", cards)
-const userName = 'paintedlbird7'
-// axios.get(`https://api.github.com/users/paintedlbird7`)
-axios.get(`https://api.github.com/users/${userName}`)
 
-.then(response => {
+// const userName = 'paintedlbird7'
+// axios.get(`https://api.github.com/users/paintedlbird7`)
+// axios.get(`https://api.github.com/users/${userName}`)
+
+const followersArray = [
+  axios.get(`https://api.github.com/users/tetondan`), 
+  axios.get(`https://api.github.com/users/dustinmyers`),
+  axios.get(`https://api.github.com/users/justsml`), 
+  axios.get(`https://api.github.com/users/luishrd`), 
+  axios.get(`https://api.github.com/users/bigknell`),
+  axios.get(`https://api.github.com/users/danbergelt`)
+  ]
+
+  followersArray.forEach(user => {
+  // put it above the axios
+
+
+user.then(response => {
 console.log(cards)
   console.log(response.data);
   let card = response.data;
@@ -19,6 +33,8 @@ console.log(cards)
   console.log(card)
   cards.appendChild(element)
 })
+})
+
 // .catch(error => {
 //   // Handles failure:
 //   console.log('The github API is currently down, try again later', error)
@@ -133,7 +149,13 @@ function myCard(data) {
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+// const followersArray = [
+//   '',
+//   '',
+// ];
+// followersArray.forEach(userName => {
+//   // put it above the axios
+// })
 
 
 /* List of LS Instructors Github username's: 
