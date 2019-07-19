@@ -32,6 +32,7 @@ const followersArray = [];
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
 
+
 <div class="card">
   <img src={image url of user} />
   <div class="card-info">
@@ -48,6 +49,45 @@ const followersArray = [];
 </div>
 
 */
+
+function createCard(user) {
+  const card = document.createElement('div');
+  card.classList.add('card');
+
+  const avatar = document.createElement('img');
+  card.appendChild(avatar);
+
+  const info = document.createElement('div');
+  info.classList.add('card-info');
+
+  const name = document.createElement('h3');
+  name.classList.add('name');
+  info.appendChild(name)
+
+  const userName = document.createElement('p');
+  userName.classList.add('username');
+  info.appendChild(userName)
+
+  const location = document.createElement('p');
+  info.appendChild(location);
+
+  const profile = document.createElement('p');
+  info.appendChild(profile)
+
+  const address = document.createElement('a');
+  info.appendChild(address);
+
+  const followers = document.createElement('p');
+  info.appendChild(followers);
+
+  const following = document.createElement('p');
+  info.appendChild(following);
+
+  const bio = document.createElement('p');
+  info.appendChild(bio);
+}
+
+
 
 /* List of LS Instructors Github username's: 
   tetondan
