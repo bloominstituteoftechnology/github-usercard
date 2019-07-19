@@ -26,7 +26,11 @@ const getCards = axios.get("https://api.github.com/users/nyomilm")
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+function myCard(followers) {
+  
+  let card = document.createElement('div');
+  // console.log(card)
+  card.classList.add('card');
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -55,3 +59,4 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
