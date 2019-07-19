@@ -3,6 +3,89 @@
            https://api.github.com/users/<your name>
 */
 
+
+
+// Make a request for a user with a given ID
+
+axios.get('https://api.github.com/users/dmunter2')
+    .then(data => {
+        console.log('Success!', data)
+        const cards = document.querySelector('.cards');
+        cards.appendChild(createCard(data.data));
+    })
+    .catch(function(err) {
+        console.log('error', err);
+    })
+
+
+
+
+
+
+
+function createCard(info) {
+    const div1 = document.createElement('div');
+    div1.classList.add('card');
+
+    const infoProfilePic = document.createElement('img');
+    infoProfilePic.classList.add('card');
+
+
+    const contentInfo = document.createElement('div');
+
+    const fullName = document.createElement('h1');
+    fullName.classList.add('name');
+
+    const userName = document.createElement('h2');
+    userName.classList.add('username');
+
+
+
+    const infoLocation = document.createElement('p');
+    const infoProfile = document.createElement('p');
+    const infoFollowers = document.createElement('p');
+    const infoFollowing = document.createElement('p');
+    const infoBio = document.createElement('p');
+
+
+
+    const pTags = document.querySelectorAll('p');
+    pTags.forEach((e) => {
+        e.classList.add('card');
+    })
+
+
+    // appending
+    div1.appendChild(contentInfo);
+    contentInfo.appendChild(fullName);
+    contentInfo.appendChild(userName);
+    contentInfo.appendChild(infoLocation);
+    contentInfo.appendChild(infoProfile);
+    contentInfo.appendChild(infoFollowers);
+    contentInfo.appendChild(infoFollowing);
+    contentInfo.appendChild(infoBio);
+
+
+
+    infoProfilePic.src = info.avatar_url;
+    infoProfile.textContent = info.html_url;
+
+
+
+
+
+    return div1;
+
+
+
+}
+
+
+
+
+
+
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -13,6 +96,9 @@
 /* Step 4: Pass the data received from Github into your function, 
            create a new component and add it to the DOM as a child of .cards
 */
+
+
+
 
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
