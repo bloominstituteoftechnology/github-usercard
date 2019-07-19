@@ -54,7 +54,7 @@ const followersArray = ['https://api.github.com/lcampbe79', 'https://api.github.
   luishrd
   bigknell
 */
-axios.get('https://api.github.com/users/bdavis90', followersArray) 
+axios.get('https://api.github.com/users/Bdavis90') 
 .then((github) => {
   console.log( github.data)
   let cards = document.querySelector('.cards');
@@ -64,7 +64,6 @@ axios.get('https://api.github.com/users/bdavis90', followersArray)
 function myCard(followers) {
   
   let card = document.createElement('div');
-  // console.log(card)
   card.classList.add('card');
   
   let img = document.createElement('img');
@@ -112,8 +111,6 @@ function myCard(followers) {
 }
 
 const followers = followersArray.map(data => {
-  axios.get(followersArray)
   let cards = document.querySelector('.cards');
   cards.appendChild(myCard(data))
 })
-
