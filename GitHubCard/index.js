@@ -24,6 +24,7 @@
           user, and adding that card to the DOM.
 */
 
+axios.get('https://api.github.com/users/AceIsHuman');
 const followersArray = [];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
@@ -45,6 +46,52 @@ const followersArray = [];
 </div>
 
 */
+
+function createComponent(gitHubData) {
+  const card = document.createElement('div');
+  card.classList.add('card');
+
+  const img = document.createElement('img');
+  img.src = gitHubData.avatar_url;
+  card.appendChild(img);
+
+  const cardInfo = document.createElement('div');
+  cardInfo.classList.add('card-info');
+  card.appendChild(cardInfo);
+  
+  const name = document.createElement('h3');
+  name.classList.add('name');
+  name.innerText = gitHubData.name;
+  cardInfo.appendChild(name);
+
+  const username = document.createElement('p');
+  username.classList.add('username');
+  username.innerText = gitHubData.login;
+  cardInfo.appendChild(username);
+
+  const location = document.createElement('p');
+  location.innerText = `Location: ${gitHubData.location}`;
+  cardInfo.appendChild(location);
+
+  const profile = document.createElement('p');
+  profile.innerText = 'Profile: '
+  cardInfo.appendChild(profile);
+  const profileLink = document.createElement('a');
+  profileLink.href = gitHubData.html_url;
+  profileLink.innerText = gitHubData.html_url;
+  profile.appendChild(profileLink);
+
+  const followers = document.createElement('p');
+  followers.innerText = `Followers: ${gitHubData.followers}`;
+  cardInfo.appendChild(followers);
+
+  const following = document.createElement('p');
+  following.innerText = `Following: ${gitHubData.following}`;
+  cardInfo.appendChild(following);
+
+  const bio = document.createElement('p');
+  bio.innerText = `Bio: ${gitHubData.bio}`;
+}
 
 /* List of LS Instructors Github username's: 
   tetondan
