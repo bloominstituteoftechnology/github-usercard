@@ -94,6 +94,7 @@ const followersArray = [];
 
     //return the card
     return card;
+    
   }
 }
 
