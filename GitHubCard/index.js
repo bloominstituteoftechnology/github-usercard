@@ -24,7 +24,12 @@
           user, and adding that card to the DOM.
 */
 
-axios.get('https://api.github.com/users/AceIsHuman');
+axios.get('https://api.github.com/users/AceIsHuman')
+  .then(gitHubData => {
+    const newCard = createComponent(gitHubData.data);
+    const cards = document.querySelector('.cards');
+    cards.appendChild(newCard);
+  })
 const followersArray = [];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
@@ -47,12 +52,12 @@ const followersArray = [];
 
 */
 
-function createComponent(gitHubData) {
+function createComponent(data) {
   const card = document.createElement('div');
   card.classList.add('card');
 
   const img = document.createElement('img');
-  img.src = gitHubData.avatar_url;
+  img.src = data.avatar_url;
   card.appendChild(img);
 
   const cardInfo = document.createElement('div');
@@ -61,36 +66,38 @@ function createComponent(gitHubData) {
   
   const name = document.createElement('h3');
   name.classList.add('name');
-  name.innerText = gitHubData.name;
+  name.innerText = data.name;
   cardInfo.appendChild(name);
 
   const username = document.createElement('p');
   username.classList.add('username');
-  username.innerText = gitHubData.login;
+  username.innerText = data.login;
   cardInfo.appendChild(username);
 
   const location = document.createElement('p');
-  location.innerText = `Location: ${gitHubData.location}`;
+  location.innerText = `Location: ${data.location}`;
   cardInfo.appendChild(location);
 
   const profile = document.createElement('p');
   profile.innerText = 'Profile: '
   cardInfo.appendChild(profile);
   const profileLink = document.createElement('a');
-  profileLink.href = gitHubData.html_url;
-  profileLink.innerText = gitHubData.html_url;
+  profileLink.href = data.html_url;
+  profileLink.innerText = data.html_url;
   profile.appendChild(profileLink);
 
   const followers = document.createElement('p');
-  followers.innerText = `Followers: ${gitHubData.followers}`;
+  followers.innerText = `Followers: ${data.followers}`;
   cardInfo.appendChild(followers);
 
   const following = document.createElement('p');
-  following.innerText = `Following: ${gitHubData.following}`;
+  following.innerText = `Following: ${data.following}`;
   cardInfo.appendChild(following);
 
   const bio = document.createElement('p');
-  bio.innerText = `Bio: ${gitHubData.bio}`;
+  bio.innerText = `Bio: ${data.bio}`;
+
+  return card;
 }
 
 /* List of LS Instructors Github username's: 
