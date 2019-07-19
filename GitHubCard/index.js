@@ -24,7 +24,7 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['https://api.github.com/lcampbe79', 'https://api.github.com/seongck', 'https://api.github.com/pshushereba', 'https://api.github.com/DoubleBridges', 'https://api.github.com/nantonacci'];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -46,6 +46,7 @@ const followersArray = [];
 
 */
 
+
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
@@ -53,3 +54,66 @@ const followersArray = [];
   luishrd
   bigknell
 */
+axios.get('https://api.github.com/users/bdavis90', followersArray) 
+.then((github) => {
+  console.log( github.data)
+  let cards = document.querySelector('.cards');
+  cards.appendChild(myCard(github.data))
+  })
+
+function myCard(followers) {
+  
+  let card = document.createElement('div');
+  // console.log(card)
+  card.classList.add('card');
+  
+  let img = document.createElement('img');
+  img.src = followers.avatar_url;
+  card.appendChild(img);
+  
+  let cardInfo = document.createElement('div');
+  cardInfo.classList.add('card-info');
+  card.appendChild(cardInfo);
+  let h3 = document.createElement('h3');
+  h3.classList.add('name');
+  h3.textContent = followers.name
+  cardInfo.appendChild(h3);
+
+  let anchor = document.createElement('a');
+  anchor.textContent = followers.following_url;
+  
+  let firstParagraph = document.createElement('p');
+  firstParagraph.classList.add('username');
+  firstParagraph.textContent = followers.login;
+  cardInfo.appendChild(firstParagraph);
+  
+  let secondParagraph = document.createElement('p');
+  secondParagraph.textContent = `Location: ${followers.location}`;
+  cardInfo.appendChild(secondParagraph);
+
+  let thirdParagraph = document.createElement('p');
+  thirdParagraph.textContent =`Profile:  ${anchor}`;
+  cardInfo.appendChild(thirdParagraph);
+
+  let fourthParagraph = document.createElement('p');
+  fourthParagraph.textContent = `Followers: ${followers.followers}`
+  cardInfo.appendChild(fourthParagraph);
+
+  let fifthParagraph = document.createElement('p');
+  fifthParagraph.textContent = `Following: ${followers.following}`;
+  cardInfo.appendChild(fifthParagraph);
+
+  let sixthParagraph = document.createElement('p');
+  sixthParagraph.textContent = `Bio: ${followers.bio}`
+  cardInfo.appendChild(sixthParagraph);
+
+  console.log(card)
+  return card;
+}
+
+const followers = followersArray.map(data => {
+  axios.get(followersArray)
+  let cards = document.querySelector('.cards');
+  cards.appendChild(myCard(data))
+})
+
