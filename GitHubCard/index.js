@@ -29,8 +29,68 @@ const getCards = axios.get("https://api.github.com/users/nyomilm")
 function myCard(followers) {
   
   let card = document.createElement('div');
-  // console.log(card)
+  //console.log(card)
   card.classList.add('card');
+
+  let img = document.createElement('div');
+  img.src = followers.avatar_url;
+  card.appendChild(img);
+
+  let cardInfo = document.createElement('div');
+  cardInfo.classList.add('card-info');
+  card.appendChild(cardInfo);
+
+  let h3 = document.createElement('h3');
+  h3.classList.add('name');
+  h3.textContent = followers.name
+  cardInfo.appendChild(h3);
+
+  let anchor = document.createElement('a');
+  anchor.textContent = followers.following_url;
+
+  let firstParagraph = document.createElement('p');
+  firstParagraph.classList.add('username');
+  firstParagraph.textContent = followers.login;
+  cardInfo.appendChild(firstParagraph);
+  
+  let secondParagraph = document.createElement('p');
+  secondParagraph.textContent = `Location: ${followers.location}`;
+  cardInfo.appendChild(secondParagraph);
+
+  let thirdParagraph = document.createElement('p');
+  thirdParagraph.textContent = `Profile: <a href=${followers.html_url}>${followers.html_url}</a>`;
+  cardInfo.appendChild(thirdParagraph);
+
+  let fourthParagraph = document.createElement('p');
+  fourthParagraph.textContent = `Followers: ${followers.followers}`;
+  cardInfo.appendChild(fourthParagraph);
+
+  let fifthParagraph = document.createElement('p');
+  fifthParagraph.textContent = `Following: ${followers.following}`;
+  cardInfo.appendChild(fifthParagraph);
+
+  let sixthParagraph = document.createElement('p');
+  sixthParagraph.textContent = `Bio: ${followers.bio}`;
+  cardInfo.appendChild(sixthParagraph);
+
+  //console.log(card)
+  return card;
+}
+
+axios.get("https://api.github.com/users/nyomilm")
+  .then((github) => {
+    console.log(github.data)
+    let cards = document.querySelector('.cards');
+    cards.appendChild(myCard(github.data))
+  })
+
+
+
+
+
+
+
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
