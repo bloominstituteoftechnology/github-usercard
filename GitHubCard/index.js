@@ -32,7 +32,7 @@ function myCard(followers) {
   //console.log(card)
   card.classList.add('card');
 
-  let img = document.createElement('div');
+  let img = document.createElement('img');
   img.src = followers.avatar_url;
   card.appendChild(img);
 
@@ -77,11 +77,75 @@ function myCard(followers) {
   return card;
 }
 
-axios.get("https://api.github.com/users/nyomilm")
+axios.get("https://api.github.com/users/Amybarba")
   .then((github) => {
     console.log(github.data)
     let cards = document.querySelector('.cards');
     cards.appendChild(myCard(github.data))
+  })
+
+axios.get(`https://api.github.com/users/nyomilm`)
+  .then((github) => {
+    console.log(github.data)
+    let cards = document.querySelector('.cards');
+    cards.appendChild(myCard(github.data))
+  })
+
+  
+  axios.get("https://api.github.com/users/tetondan")
+  .then((github) => {
+    console.log(github.data)
+    let cards = document.querySelector('.cards');
+    cards.appendChild(myCard(github.data))
+  })
+
+  axios.get("https://api.github.com/users/dustinmyers")
+  .then((github) => {
+    console.log(github.data)
+    let cards = document.querySelector('.cards');
+    cards.appendChild(myCard(github.data))
+  })
+
+  axios.get("https://api.github.com/users/justsml")
+  .then((github) => {
+    console.log(github.data)
+    let cards = document.querySelector('.cards');
+    cards.appendChild(myCard(github.data))
+  })
+
+  axios.get("https://api.github.com/users/bigknell")
+  .then((github) => {
+    console.log(github.data)
+    let cards = document.querySelector('.cards');
+    cards.appendChild(myCard(github.data))
+  })
+
+  .catch((err) => {
+    console.log('error: ', err);
+  })
+
+  const followersArray = [];
+axios.get(`https://api.github.com/users/nyomilm/followers`)
+  .then(data => {
+    console.log('Works! Here is the list of your followers: ', data.data);
+    const followersData = data.data;
+    followersData.forEach(followerData => {
+      followersArray.push(followerData.login);
+    })
+   
+
+    followersArray.forEach(follower => {
+      axios.get(`https://api.github.com/users/${follower}`)
+        .then(data => {
+          console.log('Follower info: ', data.data);
+          const cards2 = document.querySelector('.cards');
+          cards2.appendChild(createCard(data.data));
+        })
+        .catch(err => {
+          console.log('Could not retrieve follower info: ', err);
+        })
+    })
+
   })
 
 
