@@ -124,30 +124,7 @@ axios.get(`https://api.github.com/users/nyomilm`)
     console.log('error: ', err);
   })
 
-  const followersArray = [];
-axios.get(`https://api.github.com/users/nyomilm/followers`)
-  .then(data => {
-    console.log('Works! Here is the list of your followers: ', data.data);
-    const followersData = data.data;
-    followersData.forEach(followerData => {
-      followersArray.push(followerData.login);
-    })
-   
-
-    followersArray.forEach(follower => {
-      axios.get(`https://api.github.com/users/${follower}`)
-        .then(data => {
-          console.log('Follower info: ', data.data);
-          const cards2 = document.querySelector('.cards');
-          cards2.appendChild(createCard(data.data));
-        })
-        .catch(err => {
-          console.log('Could not retrieve follower info: ', err);
-        })
-    })
-
-  })
-
+  
 
 
 
