@@ -137,7 +137,7 @@ axios.get("https://api.github.com/users/lex-node/followers")
     })
     .catch(gitErrorData => {
         //    deal with error data
-        console.log("There is an error with your API request");
+        console.log("there is an error with the github API call through axios");
     });
 
 
