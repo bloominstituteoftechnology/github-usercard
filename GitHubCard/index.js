@@ -11,36 +11,6 @@
    Skip to Step 3.
 */
 
-axios.get("https://api.github.com/users/lex-node")
-    .then(gitSuccessData => {
-    //    deal with response data
-        console.log(gitSuccessData);
-        cardMaker(gitSuccessData.data);
-    })
-    .catch(gitErrorData => {
-    //    deal with error data
-        console.log(gitErrorData);
-    });
-
-
-
-
-
-/* Step 4: Pass the data received from Github into your function, 
-           create a new component and add it to the DOM as a child of .cards
-*/
-
-/* Step 5: Now that you have your own card getting added to the DOM, either 
-          follow this link in your browser https://api.github.com/users/<Your github name>/followers 
-          , manually find some other users' github handles, or use the list found 
-          at the bottom of the page. Get at least 5 different Github usernames and add them as
-          Individual strings to the friendsArray below.
-          
-          Using that array, iterate over it, requesting data for each user, creating a new card for each
-          user, and adding that card to the DOM.
-*/
-
-const followersArray = [];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -51,7 +21,7 @@ const followersArray = [];
     <h3 class="name">{users name}</h3>
     <p class="username">{users user name}</p>
     <p>Location: {users location}</p>
-    <p>Profile:  
+    <p>Profile:
       <a href={address to users github page}>{address to users github page}</a>
     </p>
     <p>Followers: {users followers count}</p>
@@ -100,7 +70,7 @@ const cardMaker = obj => {
 
     //creates an a HTML element, sets its link attribute to the user's github page and appends that a to userProfileP
     let userPageURLAnchor = document.createElement("a");
-    userPageURLAnchor.setAttribute("href",  obj.html_url);
+    userPageURLAnchor.setAttribute("href", obj.html_url);
     userProfileP.appendChild(userPageURLAnchor);
 
 
@@ -127,11 +97,52 @@ const cardMaker = obj => {
 }
 
 
-
-/* List of LS Instructors Github username's: 
-  tetondan
-  dustinmyers
-  justsml
-  luishrd
-  bigknell
+/* Step 4: Pass the data received from Github into your function,
+           create a new component and add it to the DOM as a child of .cards
 */
+
+const gitAPICaller = (stringURL, elementCreator) => {
+    axios.get(stringURL)
+        .then(gitSuccessData => {
+            //    call cardMaker using the user info received from the github API
+            console.log(gitSuccessData.data);
+            elementCreator(gitSuccessData.data);
+        })
+        .catch(gitErrorData => {
+            //    deal with error data
+            console.log("there is an error with the github API call through axios");
+        });
+}
+
+gitAPICaller("https://api.github.com/users/lex-node", cardMaker);
+
+
+/* Step 5: Now that you have your own card getting added to the DOM, either 
+          follow this link in your browser https://api.github.com/users/<Your github name>/followers 
+          , manually find some other users' github handles, or use the list found 
+          at the bottom of the page. Get at least 5 different Github usernames and add them as
+          Individual strings to the friendsArray below.
+          
+          Using that array, iterate over it, requesting data for each user, creating a new card for each
+          user, and adding that card to the DOM.
+*/
+
+
+axios.get("https://api.github.com/users/lex-node/followers")
+    .then(gitSuccessData => {
+        console.log(gitSuccessData.data);
+        gitSuccessData.data.forEach(follower => {
+            gitAPICaller(`https://api.github.com/users/${follower.login}`, cardMaker);
+        });
+    })
+    .catch(gitErrorData => {
+        //    deal with error data
+        console.log("There is an error with your API request");
+    });
+
+
+
+
+
+
+
