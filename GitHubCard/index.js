@@ -15,6 +15,7 @@ axios.get("https://api.github.com/users/lex-node")
     .then(gitSuccessData => {
     //    deal with response data
         console.log(gitSuccessData);
+        cardMaker(gitSuccessData.data);
     })
     .catch(gitErrorData => {
     //    deal with error data
@@ -60,6 +61,72 @@ const followersArray = [];
 </div>
 
 */
+
+const cardMaker = obj => {
+    //creates a div HTML element with class of "card"
+    let cardDiv = document.createElement("div");
+    cardDiv.classList.add("card");
+
+    //creates an img HTML element with src of obj.avatar_url (user's avatar), & appends that img to cardDiv
+    let cardImage = document.createElement("img");
+    cardImage.src = obj.avatar_url;
+    cardDiv.appendChild(cardImage);
+
+    //creates a div HTML element with class of "card-info" & appends that div to CardDiv
+    let cardInfoDiv = document.createElement("div");
+    cardInfoDiv.classList.add("card-info");
+    cardDiv.appendChild(cardInfoDiv);
+
+    //creates a h3 HTML element with class of "name" and textContent of obj.name (user's natural name) & appends that h3 to cardInfoDiv
+    let naturalUserNameH3 = document.createElement("h3");
+    naturalUserNameH3.classList.add("name");
+    naturalUserNameH3.textContent = obj.name;
+    cardInfoDiv.appendChild(naturalUserNameH3);
+
+    //creates a p HTML element with class of "username" and textContent of obj.login (user's username) & appends that p to cardInfoDiv
+    let loginUserNameP = document.createElement("p");
+    loginUserNameP.classList.add("username");
+    loginUserNameP.textContent = obj.login;
+    cardInfoDiv.appendChild(loginUserNameP);
+
+    //creates a p HTML element with textContent of obj.location (user's location) & appends that p to cardInfoDiv
+    let userLocationP = document.createElement("p");
+    userLocationP.textContent = `Location: ${obj.location}`;
+    cardInfoDiv.appendChild(userLocationP);
+
+    //creates a p HTML element & appends that p to cardInfoDiv
+    let userProfileP = document.createElement("p");
+    cardInfoDiv.appendChild(userProfileP);
+
+    //creates an a HTML element, sets its link attribute to the user's github page and appends that a to userProfileP
+    let userPageURLAnchor = document.createElement("a");
+    userPageURLAnchor.setAttribute("href",  obj.html_url);
+    userProfileP.appendChild(userPageURLAnchor);
+
+
+    //creates a p HTML element with the user's followers count and appends that p to cardInfoDiv
+    let userFollowersP = document.createElement("p");
+    userFollowersP.textContent = `Followers: ${obj.followers}`;
+    cardInfoDiv.appendChild(userFollowersP);
+
+    //creates a p HTML element with the user's following count and appends that p to cardInfoDiv
+    let userFollowingP = document.createElement("p");
+    userFollowingP.textContent = `Following: ${obj.following}`;
+    cardInfoDiv.appendChild(userFollowingP);
+
+    //creates a p HTML element with the user's bio and appends that p to cardInfoDiv
+    let userBioP = document.createElement("p");
+    userBioP.textContent = `Bio: ${obj.bio}`;
+    cardInfoDiv.appendChild(userBioP);
+
+    //returns the complete cardDiv element that has been created with this function
+    let cardsDiv = document.querySelector(".cards");
+    cardsDiv.appendChild(cardDiv);
+    return cardDiv;
+
+}
+
+
 
 /* List of LS Instructors Github username's: 
   tetondan

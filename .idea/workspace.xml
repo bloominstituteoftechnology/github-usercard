@@ -30,8 +30,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/GitHubCard/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="14" column="29" lean-forward="true" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
+            <state relative-caret-position="483">
+              <caret line="83" column="47" lean-forward="true" selection-start-line="83" selection-start-column="47" selection-end-line="83" selection-end-column="47" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -72,11 +72,11 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="687" />
-    <option name="y" value="27" />
-    <option name="width" value="1259" />
-    <option name="height" value="939" />
+  <component name="ProjectFrameBounds" extendedState="4">
+    <option name="x" value="67" />
+    <option name="y" value="25" />
+    <option name="width" value="1331" />
+    <option name="height" value="941" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -136,19 +136,19 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1563665387721</updated>
-      <workItem from="1563665389097" duration="2967000" />
+      <workItem from="1563665389097" duration="6433000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2967000" />
+    <option name="totallyTimeSpent" value="6433000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="25" width="2661" height="941" extended-state="6" />
+    <frame x="67" y="25" width="1331" height="941" extended-state="4" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.11713419" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.02293578" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" />
@@ -189,8 +189,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/GitHubCard/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="14" column="29" lean-forward="true" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
+        <state relative-caret-position="483">
+          <caret line="83" column="47" lean-forward="true" selection-start-line="83" selection-start-column="47" selection-end-line="83" selection-end-column="47" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
