@@ -2,12 +2,13 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+let cards = document.querySelector('.cards');
 
+let userData = 
 axios.get('https://api.github.com/users/jennl97')
 .then((axiosData) => {
-  console.log('axiosData.data: ', axiosData.data);
-  new CreateUserCard(axiosData.data);
-})
+  cards.appendChild(CreateUserCard(axiosData.data));
+  })
 .catch((err) => {
   console.log('error: ', err)
 })
@@ -33,7 +34,12 @@ axios.get('https://api.github.com/users/jennl97')
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell"];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -55,8 +61,8 @@ const followersArray = [];
 */
 
 
-  class CreateUserCard{
-    constructor(userData){
+  function CreateUserCard (users){
+    
     //creating elements for card
     const card = document.createElement('div');
     const img = document.createElement('img');
@@ -76,10 +82,16 @@ const followersArray = [];
     name.classList.add('name');
     userName.classList.add('username');
 
-    // //set info sources
-    // img.src = ${avitar}
-    // address.href = aHref;
-
+    //connect the info to the elemenets
+    img.src = users.avatar_url;
+    name.textContent = users.name;
+    userName.textContent = users.login;
+    location.textContent = users.location;
+    address.href = users.html_url;
+    followers.textContent = users.followers;
+    following.textContent = users.following;
+    bio.textContent = users.bio;
+    
     //append all elements 
     card.appendChild(img);
     card.appendChild(cardInfo);
@@ -94,9 +106,23 @@ const followersArray = [];
 
     //return the card
     return card;
-    
+
   }
-}
+
+
+  
+  let myCard = CreateUserCard('https://api.github.com/users/jennl97');
+  
+ followersArray.map((arrayItem) => {
+    axios.get(`https://api.github.com/users/${arrayItem}`)
+      .then((axiosData) => {
+        cards.appendChild(CreateUserCard(axiosData.data));
+      })
+      .catch((err) => {
+         console.log('error: ', err)
+      })
+  })
+
 
 
 /* List of LS Instructors Github username's: 
