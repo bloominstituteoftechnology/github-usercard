@@ -10,6 +10,17 @@
    Skip to Step 3.
 */
 
+const mainCard = document.querySelector('.cards');
+
+
+
+  axios.get('https://api.github.com/users/irisjitomo')
+  .then((res) => {
+    mainCard.appendChild(cardCreator(res.data));
+    console.log(res.data);
+  })
+
+
 /* Step 4: Pass the data received from Github into your function, 
            create a new component and add it to the DOM as a child of .cards
 */
@@ -45,6 +56,57 @@ const followersArray = [];
 </div>
 
 */
+
+window.addEventListener('load', cardCreator);
+
+
+function cardCreator(obj) {
+  const cardDiv = document.createElement('div');
+  cardDiv.classList.add('card');
+
+  const newImg = document.createElement('img');
+  newImg.src = obj.avatar_url;
+  
+  const cardInfoDiv = document.createElement('div');
+  cardInfoDiv.classList.add('card-info');
+  
+  const nameTitle = document.createElement('h3');
+  nameTitle.classList.add('name');
+  
+  const usernameP = document.createElement('p');
+  usernameP.classList.add('username');
+  usernameP.textContent = obj.login;
+  
+  const locationP = document.createElement('p');
+  
+  const profileP = document.createElement('p');
+  profileP.textContent = 'Profile: ';
+  
+  const profileLink = document.createElement('a');
+  profileLink.textContent = obj.html_url;
+  
+  const followersP = document.createElement('p');
+  followersP.textContent = 'Followers: ' + obj.followers;
+  
+  const followingP = document.createElement('p');
+  followingP.textContent = "Following: " + obj.following;
+  
+  const bioP = document.createElement('p');
+  bioP.textContent = "Bio: " + obj.bio;
+
+	cardDiv.appendChild(newImg);
+	cardDiv.appendChild(cardInfoDiv);
+	cardInfoDiv.appendChild(nameTitle);
+	cardInfoDiv.appendChild(usernameP);
+	cardInfoDiv.appendChild(locationP);
+	cardInfoDiv.appendChild(profileP);
+	profileP.appendChild(profileLink);
+	cardInfoDiv.appendChild(followersP);
+	cardInfoDiv.appendChild(followingP);
+	cardInfoDiv.appendChild(bioP);
+
+	return cardDiv;
+}
 
 /* List of LS Instructors Github username's: 
   tetondan
