@@ -3,6 +3,24 @@
            https://api.github.com/users/<your name>
 */
 
+
+
+//Axios, send a GET request to the following URL 
+
+axios.get('https://api.github.com/users/BenSolt')
+    .then( (response )=> {
+        // deal with the response data in here
+        console.log(response);
+    })
+    .catch( err => {
+        // deal with the error in here
+    })
+
+
+
+
+
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -53,3 +71,29 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+
+
+function create(arg) 
+ 
+
+
+//DOM methods and properties, create a component
+
+function createCard(title){
+
+  //define new elements
+
+  const card = document.createElement('div');
+  const image = document.createElement('img');
+  const cardinfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const username = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+    const anchor = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');  
+  const bio = document.createElement('p');
+
+}
