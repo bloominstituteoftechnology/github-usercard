@@ -24,7 +24,7 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd','bigknell' ]
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -54,26 +54,35 @@ const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd','bigknel
   bigknell
 */
 
-const cardCon = document.querySelector('.cards')
-
-axios.get('https://api.github.com/users/zpallday')
-.then((data) => {
-  cardCon.appendChild(createCard(data.data));
-  console.log(data);
-})
-.catch((data) => {
-  console.log('data not available')
-});
 
 
 
-followersArray.forEach(followers => {
-  axios.get(`https://api.github.com/users/${followers}`)
+
+
+// axios.get('https://api.github.com/users/zpallday')
+// .then((data) => {
+//   cardCon.appendChild(createCard(data.data));
+//   console.log(data);
+// })
+// .catch((data) => {
+//   console.log('data not available')
+// });
+
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd','bigknell','zpallday' ];
+
+followersArray.forEach(name => {
+  let cardCon = document.querySelector('.cards');
+  axios.get(`https://api.github.com/users/${name}`)
   .then(user => {
-    console.log(user.data);
-    cardCon.append(createCard(user.data));
+    cardCon.appendChild(createCard(user.data));
   })
+  .catch(error => {
+    console.log(error);
+  })
+
 })
+
+
 
 function createCard(userObj) {
   const card = document.createElement('div');
@@ -87,25 +96,45 @@ function createCard(userObj) {
   const userFollowers = document.createElement('p');
   const userFollowing = document.createElement('p');
   const userBio= document.createElement('p');
+  const address = document.createElement('a');
  
-  card.appendChild(card)
-  card.appendChild(userImg)
-  cardInfo.appendChild(fullName)
-  cardInfo.appendChild(userName)
-  cardInfo.appendChild(userLocation)
-  cardInfo.appendChild(userPro)
-  cardInfo.appendChild(link)
-  cardInfo.appendChild(userFollowers)
-  cardInfo.appendChild(userFollowing)
-  cardInfo.appendChild(userBio)
 
   card.classList.add('card');
   cardInfo.classList.add('card-info');
   fullName.classList.add('name');
   userName.classList.add('username');
+  userImg.setAttribute('src', userObj['avatar_url']);
+  address.setAttribute('href', userObj['html_url']);
 
+  fullName.textContent = userObj['name'];
+  userName.textContent = userObj['login'];
+  userLocation.textContent = 'Location: ' + userObj['location'];
+  address.textContent = 'Profile: ' + userObj['html_url'];
+  userFollowers.textContent = 'Followers:' +userObj['followers'];
+  userFollowing.textContent = 'Following:' +userObj['following'];
+  userBio.textContent = 'Bio:' + userObj['bio'];
+
+
+
+   card.appendChild(userImg)
+   card.appendChild(cardInfo)
+   cardInfo.appendChild(fullName)
+   cardInfo.appendChild(userName)
+   cardInfo.appendChild(userLocation)
+   link.appendChild(address)
+   cardInfo.appendChild(userPro)
+   cardInfo.appendChild(link)
+   cardInfo.appendChild(userFollowers)
+   cardInfo.appendChild(userFollowing)
+   cardInfo.appendChild(userBio)
+
+
+
+
+
+
+
+   return card;
+}
   
 
-
-
-}
