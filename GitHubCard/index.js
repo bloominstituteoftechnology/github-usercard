@@ -74,3 +74,38 @@ followersArray.forEach(followers => {
     cardCon.append(createCard(user.data));
   })
 })
+
+function createCard(userObj) {
+  const card = document.createElement('div');
+  const userImg = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const fullName = document.createElement('h3');
+  const userName = document.createElement('p');
+  const userLocation = document.createElement('p');
+  const userPro = document.createElement('p');
+  const link = document.createElement('p');
+  const userFollowers = document.createElement('p');
+  const userFollowing = document.createElement('p');
+  const userBio= document.createElement('p');
+ 
+  card.appendChild(card)
+  card.appendChild(userImg)
+  cardInfo.appendChild(fullName)
+  cardInfo.appendChild(userName)
+  cardInfo.appendChild(userLocation)
+  cardInfo.appendChild(userPro)
+  cardInfo.appendChild(link)
+  cardInfo.appendChild(userFollowers)
+  cardInfo.appendChild(userFollowing)
+  cardInfo.appendChild(userBio)
+
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  fullName.classList.add('name');
+  userName.classList.add('username');
+
+  
+
+
+
+}
