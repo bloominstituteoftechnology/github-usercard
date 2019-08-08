@@ -32,7 +32,7 @@ axios.get('https://api.github.com/users/gdhaliwal22')
           user, and adding that card to the DOM.
 */
 
-const followersArray = ['rleslie1015', 'SGonzalez44', 'deegrams221', 'AceMouty'];
+const followersArray = ['gdhaliwal22', 'rleslie1015', 'SGonzalez44', 'deegrams221', 'AceMouty', 'Bangstry'];
 
 followersArray.forEach(follower => {
   axios.get('https://api.github.com/users/' + follower)
@@ -94,9 +94,6 @@ function userCard(data){
   
   const cards = document.querySelector('.cards');
   cards.appendChild(newCard);
-    
- 
-  
   
   return newCard
 }
