@@ -53,3 +53,14 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+const cardCon = document.querySelector('.cards')
+
+axios.get('https://api.github.com/users/zpallday')
+.then((data) => {
+  cardCon.appendChild(createCard(data.data));
+  console.log(data);
+})
+.catch((data) => {
+  console.log('data not available')
+})
