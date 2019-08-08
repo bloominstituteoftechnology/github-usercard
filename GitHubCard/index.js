@@ -5,22 +5,6 @@
 
 
 
-//Axios, send a GET request to the following URL 
-
-axios.get('https://api.github.com/users/BenSolt')
-    .then( (response )=> {
-        // deal with the response data in here
-        console.log(response);
-    })
-    .catch( err => {
-        // deal with the error in here
-    })
-
-
-
-
-
-
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -80,9 +64,31 @@ const followersArray = [];
 
 //DOM methods and properties, create a component
 
-function createCard(title){
 
-  //define new elements
+
+const cards = document.querySelector('.card');
+//Axios, send a GET request to the following URL 
+
+axios.get('https://api.github.com/users/BenSolt')
+    .then( (response)=> {
+        // deal with the response data in here
+        console.log(response.data);
+        newCard(response.data)
+        //cards.append(card1);
+    
+        })
+    .catch( (err) => {
+      console.log(err)
+        // deal with the error in here
+    })
+
+
+
+
+
+function newCard(data){
+
+  //define new elements//
 
   const card = document.createElement('div');
   const image = document.createElement('img');
@@ -91,27 +97,67 @@ function createCard(title){
   const username = document.createElement('p');
   const location = document.createElement('p');
   const profile = document.createElement('p');
-    const anchor = document.createElement('a');
+  //const anchor = document.createElement('a');
   const followers = document.createElement('p');
   const following = document.createElement('p');  
   const bio = document.createElement('p');
 
 
-// Setup structure of elements
+// Setup structure of elements//
 
-  card.appendChild(image)
+  
   card.appendChild(cardinfo)
+
   card.appendChild(name)
+  name.textContent = data.name
+
   card.appendChild(username)
+  username.textContent = data.login
+
   card.appendChild(location) 
+  location.textContent = data.location
+
   card.appendChild(profile)
-  profile.appendChild(anchor)
+  profile.textContent = data.
+
+
   card.appendChild(followers)
+  followers.textContent = data.followers
+
   card.appendChild(following)
+  following.textContent = data.following
+
   card.appendChild(bio)
+  bio.textContent = data.bio
 
-// set Class Names
+// set Class Names//
+
+  card.classList.add('card')
+  //image.classList.add('img')
+  cardinfo.classList.add('card-info')
+  name.classList.add('name')
+  username.classList.add('username')
 
 
 
+
+
+
+//
+//
+
+// IMAGE 
+
+image.src = data.avatar_url;
+card.appendChild(image);
+
+
+
+let entrypoint = document.querySelector('.cards')
+entrypoint.appendChild(card)
+
+return card
     }
+
+    // followersArray.forEach(items =>
+    //   )
