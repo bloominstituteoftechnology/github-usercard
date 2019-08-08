@@ -74,7 +74,7 @@ const followersArray = [];
 
 
 
-function create(arg) 
+//function create(arg) 
  
 
 
@@ -96,4 +96,22 @@ function createCard(title){
   const following = document.createElement('p');  
   const bio = document.createElement('p');
 
-}
+
+// Setup structure of elements
+
+  card.appendChild(image)
+  card.appendChild(cardinfo)
+  card.appendChild(name)
+  card.appendChild(username)
+  card.appendChild(location) 
+  card.appendChild(profile)
+  profile.appendChild(anchor)
+  card.appendChild(followers)
+  card.appendChild(following)
+  card.appendChild(bio)
+
+// set Class Names
+
+
+
+    }
