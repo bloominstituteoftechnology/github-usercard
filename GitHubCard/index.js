@@ -26,7 +26,7 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -55,6 +55,17 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+
+const followersArray = [
+
+  'paulsolt',
+  'rojcewiczj',
+  'rogermcconkiejr',
+   'tetondan',
+  'dustinmyers',
+];
+
 
 
 
@@ -97,7 +108,7 @@ function newCard(data){
   const username = document.createElement('p');
   const location = document.createElement('p');
   const profile = document.createElement('p');
-  //const anchor = document.createElement('a');
+  const anchor = document.createElement('a');
   const followers = document.createElement('p');
   const following = document.createElement('p');  
   const bio = document.createElement('p');
@@ -105,51 +116,51 @@ function newCard(data){
 
 // Setup structure of elements//
 
+// Image
+  image.src = data.avatar_url;
+  card.appendChild(image);
   
+// Card info
   card.appendChild(cardinfo)
 
-  card.appendChild(name)
+// name
+  cardinfo.appendChild(name)
   name.textContent = data.name
 
-  card.appendChild(username)
-  username.textContent = data.login
+  //username
+   cardinfo.appendChild(username)
+   username.textContent = data.login
 
-  card.appendChild(location) 
-  location.textContent = data.location
-
-  card.appendChild(profile)
-  profile.textContent = data.
+   //location
+   cardinfo.appendChild(location) 
+   location.textContent = data.location
 
 
-  card.appendChild(followers)
-  followers.textContent = data.followers
+   cardinfo.appendChild(profile)
+   profile.textContent= 'Profile:'
 
-  card.appendChild(following)
-  following.textContent = data.following
+   profile.appendChild(anchor)
+   anchor.textContent = data.blog
+   anchor.href = data.html_url;
 
-  card.appendChild(bio)
-  bio.textContent = data.bio
+   cardinfo.appendChild(followers)
+   followers.textContent = data.followers
+
+   cardinfo.appendChild(following)
+   following.textContent = data.following
+
+   cardinfo.appendChild(bio)
+   bio.textContent = data.bio
 
 // set Class Names//
 
   card.classList.add('card')
-  //image.classList.add('img')
+  
   cardinfo.classList.add('card-info')
   name.classList.add('name')
   username.classList.add('username')
 
 
-
-
-
-
-//
-//
-
-// IMAGE 
-
-image.src = data.avatar_url;
-card.appendChild(image);
 
 
 
@@ -159,5 +170,12 @@ entrypoint.appendChild(card)
 return card
     }
 
-    // followersArray.forEach(items =>
-    //   )
+    followersArray.forEach(items => {
+      axios.get(`https://api.github.com/users/${items}`)
+      .then( (response)=> {
+      const newCard2 = newCard(response.data)
+     card.appendChild(newCard2);
+    }
+       )
+
+    });
