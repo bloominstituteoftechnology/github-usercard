@@ -112,6 +112,39 @@ function cardCreator(obj) {
   const bioP = document.createElement('p');
   bioP.textContent = `Bio: ${obj.bio || 'none'}`;
 
+  // const span = document.createElement('span');
+  // span.classList.add('expandButton')
+  // // span.style.borderRadius = '20%';
+  // span.style.background = 'white';
+  // span.style.color = 'black';
+  // span.style.fontSize = '2rem';
+  // span.style.margin = '30%';
+  // span.textContent = 'More info';
+
+  // const buttonOpen = document.createElement('p')
+  // span.addEventListener('click', () =>{
+  //   cardDiv.classList.toggle('button-open')
+  // })
+
+  const span = document.createElement('button');
+  span.classList.add('expandButton')
+  span.style.background = 'white';
+  span.style.color = 'black';
+  span.style.fontSize = '2rem';
+  span.textContent = 'More info';
+
+  span.addEventListener('click', () =>{
+    cardDiv.classList.toggle('button-open')
+    cardDiv.style.background = '#BA1434';
+    cardDiv.style.color = "white";
+    profileLink.style.color = 'white';
+
+  })
+
+  // const buttonOpen = document.createElement('div');
+  // buttonOpen = document.className.add('button-open')
+
+
 	cardDiv.appendChild(newImg);
 	cardDiv.appendChild(cardInfoDiv);
 	cardInfoDiv.appendChild(nameTitle);
@@ -121,6 +154,7 @@ function cardCreator(obj) {
 	cardInfoDiv.appendChild(followersP);
 	cardInfoDiv.appendChild(followingP);
   cardInfoDiv.appendChild(bioP);
+  cardInfoDiv.appendChild(span);
   
   profileP.append(profileLink);
 
