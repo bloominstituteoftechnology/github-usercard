@@ -16,8 +16,8 @@ const mainCard = document.querySelector('.cards');
 
   axios.get('https://api.github.com/users/irisjitomo')
   .then((res) => {
-    mainCard.appendChild(cardCreator(res.data));
     console.log(res.data);
+    mainCard.appendChild(cardCreator(res.data));
   })
 
 
@@ -35,7 +35,22 @@ const mainCard = document.querySelector('.cards');
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
+const followersArray = [
+  "jonyonson",
+  "allisonkydy",
+  "CameronAlvarado",
+  "jeffreywhitaker",
+  "NicholasInterest1",
+]
+
+followersArray.forEach(follower => {
+  axios.get(`https://api.github.com/users/${follower}`)
+  .then(res => {
+    mainCard.appendChild(cardCreator(res.data));
+    console.log(res.data);
+  })
+})
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -57,7 +72,7 @@ const followersArray = [];
 
 */
 
-window.addEventListener('load', cardCreator);
+// window.addEventListener('load', cardCreator);
 
 
 function cardCreator(obj) {
@@ -72,27 +87,30 @@ function cardCreator(obj) {
   
   const nameTitle = document.createElement('h3');
   nameTitle.classList.add('name');
+  nameTitle.textContent = obj.name;
   
   const usernameP = document.createElement('p');
   usernameP.classList.add('username');
   usernameP.textContent = obj.login;
   
   const locationP = document.createElement('p');
+  locationP.textContent = `Location: ${obj.location || 'none'}`
   
   const profileP = document.createElement('p');
   profileP.textContent = 'Profile: ';
   
   const profileLink = document.createElement('a');
+  profileLink.href = obj.html_url;
   profileLink.textContent = obj.html_url;
   
   const followersP = document.createElement('p');
-  followersP.textContent = 'Followers: ' + obj.followers;
+  followersP.textContent = `Followers:  ${obj.followers}`;
   
   const followingP = document.createElement('p');
-  followingP.textContent = "Following: " + obj.following;
+  followingP.textContent = `Following:  ${obj.following}`;
   
   const bioP = document.createElement('p');
-  bioP.textContent = "Bio: " + obj.bio;
+  bioP.textContent = `Bio: ${obj.bio || 'none'}`;
 
 	cardDiv.appendChild(newImg);
 	cardDiv.appendChild(cardInfoDiv);
@@ -100,10 +118,11 @@ function cardCreator(obj) {
 	cardInfoDiv.appendChild(usernameP);
 	cardInfoDiv.appendChild(locationP);
 	cardInfoDiv.appendChild(profileP);
-	profileP.appendChild(profileLink);
 	cardInfoDiv.appendChild(followersP);
 	cardInfoDiv.appendChild(followingP);
-	cardInfoDiv.appendChild(bioP);
+  cardInfoDiv.appendChild(bioP);
+  
+  profileP.append(profileLink);
 
 	return cardDiv;
 }
