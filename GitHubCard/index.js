@@ -16,7 +16,7 @@ const followersArray = [];
 
 axios.get("https://api.github.com/users/Bangstry/followers")
 .then(response =>{
-  console.log(respone);
+  console.log(response);
   response.data.forEach( element =>{
     followersArray.push(element);
   })
@@ -51,9 +51,6 @@ console.log(followersArray)
           user, and adding that card to the DOM.
 */
 
-const followersArray = [{
-
-}];
 
 followersArray.forEach(item =>{
   let followerCards = superComp(item);
@@ -109,7 +106,7 @@ function superComp(obj){
   cCardInfo.appendChild(following);
   cCardInfo.appendChild(bio);
 
-  img.src = `${obj.data.avatar_url}`;
+  img.src = `${obj.avatar_url}`;
   nameH3.textContent = `${obj.login}`;
   userP.textContent = `${obj.login}`;
   userLoc.textContent = `${obj.location}`;
