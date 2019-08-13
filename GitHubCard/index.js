@@ -24,7 +24,83 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const logData = ({ data }) => {
+  console.log(data);
+};
+
+const myProfile = "depadiernos";
+const myFollowers = "depadiernos/followers";
+const instructors = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell"
+];
+
+const getUser = (endpoint, callback) => {
+  axios
+    .get(`https://api.github.com/users/${endpoint}`)
+    .then(response => callback(response))
+    .catch(error => console.log(error));
+};
+
+const cardComponent = ({ data }) => {
+  let card = document.createElement("div");
+  card.className = "card";
+
+  const elementCreator = (parent, type, elementAttribute, content) => {
+    let element = document.createElement(type);
+    elementAttribute
+      ? element.setAttribute(elementAttribute[0], elementAttribute[1])
+      : null;
+    content ? (element.textContent = content) : null;
+    parent.appendChild(element);
+    return element;
+  };
+
+  let avatar = elementCreator(card, "img", ["src", data.avatar_url]);
+  let cardInfo = elementCreator(card, "div", ["class", "card-info"]);
+  let name = elementCreator(cardInfo, "h3", ["class", "name"], data.name);
+  let username = elementCreator(
+    cardInfo,
+    "p",
+    ["class", "username"],
+    data.login
+  );
+  let location = elementCreator(
+    cardInfo,
+    "p",
+    null,
+    `Location: ${data.location}`
+  );
+  let profile = elementCreator(cardInfo, "p");
+  let profileLink = elementCreator(profile, "a", ["href", data.url], data.url);
+  let followers = elementCreator(
+    cardInfo,
+    "p",
+    null,
+    `Followers: ${data.followers}`
+  );
+  let following = elementCreator(
+    cardInfo,
+    "p",
+    null,
+    `Following: ${data.following}`
+  );
+  let bio = elementCreator(cardInfo, "p", null, `Bio: ${data.bio}`);
+  document.querySelector(".cards").appendChild(card);
+};
+
+const addFollowers = ({ data }) => {
+  data.map(follower => {
+    followerData = {data: follower}
+    cardComponent(followerData);
+  });
+};
+instructors.forEach(profile => getUser(profile, cardComponent));
+getUser(myProfile, cardComponent);
+getUser(myFollowers, addFollowers);
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -43,7 +119,6 @@ const followersArray = [];
     <p>Bio: {users bio}</p>
   </div>
 </div>
-
 */
 
 /* List of LS Instructors Github username's: 
