@@ -54,44 +54,50 @@ const followersArray = [];
   bigknell
 */
 
-axios.get('https://api.github.com/users/Sara-Pettigrew')
-
 const container = document.querySelector('.container')
 
-function Cards (array)
+function Cards (array) {
 const card = document.createElement('div')
-card.classList.add('.card-info')
+card.classList.add('.card')
 
 const image = document.createElement('img')
 image.classList = imageUrls
 card.appendChild(image)
 
-const h3 = document.createElement('h3')
+const div = document.createElement('div')
+card.classList.add('.card-info')
+
+const title = document.createElement('h3')
 title.textContent = titleText
 card.appendChild(title)
 
 const username = document.createElement('.username')
-p.textContent = pText
+username.textContent = pText
 card.appendChild(username)
 
 const location = document.createElement('location')
-p.textContent = p
+location.textContent = p
 card.appendChild(location)
 
 const profile = document.createElement('profile')
-p.textContent = 
-card.appendChild()
+profile.textContent = 
+card.appendChild(profile)
 
+const aTag = document.createElement('a')
+aTag.textContent = href
 
 const followers = document.createElement('followers')
-p.textContent = p
-card.appendChild()
+followers.textContent = p
+card.appendChild(followers)
 
 const following = document.createElement('following')
-p.textContent = 
-card.appendChild()
+following.textContent = 
+card.appendChild(following)
 
 const bio = document.createElement('bio')
-p.textContent = pText
-card.appendChild()
+bio.textContent = pText
+card.appendChild(bio)
 
+}
+
+axios.get('https://api.github.com/users/spettigrew')
