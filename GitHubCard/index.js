@@ -129,7 +129,7 @@ function githubCard(item) {
   cardInfo.appendChild(followers);
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
-  cardInfo.appendChild(graph);
+  card.appendChild(graph);
 
   // adding textContent and source values to the elemements
   image.src = item.avatar_url;
@@ -143,8 +143,7 @@ function githubCard(item) {
   followers.textContent = `Followers: ${item.followers}`;
   following.textContent = `Follow: ${item.following}`;
   bio.textContent = item.bio;
-  
-  GitHubCalendar('.calendar', item.login);
+  graph.textContent = GitHubCalendar('.calendar', item.login);
 
   return card;
 }

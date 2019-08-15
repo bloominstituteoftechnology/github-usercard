@@ -95,6 +95,7 @@ body {
   width: 100%;
   padding: 20px;
   display: flex;
+  flex-wrap: wrap;
   border-radius: 5px;
   box-shadow: 0 1px 6px -2px #000;
   background-color: #FFF;
@@ -107,6 +108,10 @@ body {
   border-radius: 3px;
   margin-right: 20px;
   object-fit: cover;
+}
+
+.card-info {
+  width: 70%;
 }
 
 .card .name {
@@ -125,12 +130,13 @@ body {
 }
 
 .calendar {
+  width: 100%;
   font-family: Helvetica, arial;
   border: 1px solid #DDDDDD;
   border-radius: 3px;
   min-height: 243px;
   text-align: center;
-  margin: 0 auto;
+  margin: 1% auto;
 }
 
 .calendar-graph text.wday,
@@ -143,7 +149,6 @@ body {
   text-align: right;
   padding: 0 14px 10px 0;
   display: inline-block;
-  float: right;
 }
 
 .contrib-legend .legend {
@@ -248,4 +253,16 @@ h2.f4.text-normal.mb-3 {
 }
 #user-activity-overview{
   display:none;
+}
+
+.position-relative {
+  width: 100%;
+}
+
+.border {
+  width: 100%;
+}
+
+.js-calendar-graph-svg {
+  width: 100%;
 }
