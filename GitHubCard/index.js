@@ -29,27 +29,57 @@ const followersArray = [];
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
 
-<div class="card">
-  <img src={image url of user} />
-  <div class="card-info">
-    <h3 class="name">{users name}</h3>
-    <p class="username">{users user name}</p>
-    <p>Location: {users location}</p>
-    <p>Profile:  
-      <a href={address to users github page}>{address to users github page}</a>
-    </p>
-    <p>Followers: {users followers count}</p>
-    <p>Following: {users following count}</p>
-    <p>Bio: {users bio}</p>
-  </div>
-</div>
-
 */
 
-/* List of LS Instructors Github username's: 
-  tetondan
-  dustinmyers
-  justsml
-  luishrd
-  bigknell
-*/
+const cards = document.querySelector('.cards');
+
+function githubCard (card) {
+  // creating the variables
+  const card = document.createElement('div');
+  const image = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const userName = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const address = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  // adding the classes to the elements
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  userName.classList.add('username');
+
+  // appending the elements
+  card.appendChild(image);
+  card.appendChild(cardinfo);
+  cardinfo.appendChild(name);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  profile.appendChild(address);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+
+  // adding textContent to the elemements
+  image.textContent = card.image;
+  name.textContent = card.name;
+  userName.textContent = card.username;
+  location.textContent = card.location;
+  profile.textContent = card.profile;
+  address.textContent = card.address;
+  followers.textContent = card.followers;
+  following.tetContent = card.following;
+  bio.tetContent = card.bio;
+}
+
+axios.get(https://api.github.com/users/nickdurbin)
+axios.get(https://api.github.com/users/tetondan)
+axios.get(https://api.github.com/users/dustinmyers)
+axios.get(https://api.github.com/users/justml)
+axios.get(https://api.github.com/users/luishrd)
+axios.get(https://api.github.com/users/bigKnell)
