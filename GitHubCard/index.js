@@ -76,12 +76,11 @@ let followers = followersBtn.addEventListener('click', () => {
     .catch((error) => {
       console.log(error);
     })
-
   })
 })    
     
 // EventListener to render small group cards with an Axios request
-groupBtn.addEventListener('click', () => {
+let group = groupBtn.addEventListener('click', () => {
   smallGroup.forEach((follower) => {
 
   axios.get(`https://api.github.com/users/${follower}`)
@@ -92,7 +91,6 @@ groupBtn.addEventListener('click', () => {
     .catch((error) => {
       console.log(error);
     })
-
   })   
 });
 
@@ -110,12 +108,15 @@ function githubCard(item) {
   const followers = document.createElement('p');
   const following = document.createElement('p');
   const bio = document.createElement('p');
+  const graph = document.createElement('div');
 
   // adding the classes to the elements
   card.classList.add('card');
   cardInfo.classList.add('card-info');
   name.classList.add('name');
   userName.classList.add('username');
+  graph.classList.add('calendar');
+  graph.classList.add('calendar-responsive');
 
   // appending the elements
   card.appendChild(image);
@@ -128,6 +129,7 @@ function githubCard(item) {
   cardInfo.appendChild(followers);
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
+  cardInfo.appendChild(graph);
 
   // adding textContent and source values to the elemements
   image.src = item.avatar_url;
@@ -141,6 +143,8 @@ function githubCard(item) {
   followers.textContent = `Followers: ${item.followers}`;
   following.textContent = `Follow: ${item.following}`;
   bio.textContent = item.bio;
+  
+  GitHubCalendar('.calendar', item.login);
 
   return card;
 }
