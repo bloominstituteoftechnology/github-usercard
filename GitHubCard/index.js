@@ -25,7 +25,7 @@ followersArray.forEach((follower) => {
     .catch((error) => {
       console.log(error);
     })
-    
+
 })    
 
 const cards = document.querySelector('.cards');
@@ -52,8 +52,8 @@ function githubCard(item) {
 
   // appending the elements
   card.appendChild(image);
-  card.appendChild(cardinfo);
-  cardinfo.appendChild(name);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
   cardInfo.appendChild(userName);
   cardInfo.appendChild(location);
   cardInfo.appendChild(profile);
@@ -62,16 +62,18 @@ function githubCard(item) {
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
 
-  // adding textContent to the elemements
-  image.textContent = `${item.image}`;
-  name.textContent = `${item.name}`;
-  userName.textContent = `${item.username}`;
-  location.textContent = `${item.location}`;
-  profile.textContent = `${item.profile}`;
-  address.textContent = `${item.address}`;
-  followers.textContent = `${item.followers}`;
-  following.tetContent = `${item.following}`;
-  bio.tetContent = `${item.bio}`;
+  // adding textContent and source values to the elemements
+  image.src = item.avatar_url;
+  image.textContent = item.image;
+  name.textContent = item.name;
+  userName.textContent = item.username;
+  location.textContent = item.location;
+  profile.textContent = 'address to the user profile page:';
+  address.href = item.html_url;
+  address.textContent = item.address;
+  followers.textContent = item.followers;
+  following.tetContent = item.following;
+  bio.tetContent = item.bio;
 
   return card;
 }
