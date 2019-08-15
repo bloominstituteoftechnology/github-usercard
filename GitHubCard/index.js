@@ -1,5 +1,4 @@
-let data;
-let isOpen;
+let isOpen = false;
 
 const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
@@ -15,10 +14,12 @@ const container = document.createElement('div');
 // Adding Class and TextContent to Buttons
 container.classList.add('btn-container');
 followersBtn.classList.add('followBtn');
-followersBtn.classList.add('btn')
+followersBtn.classList.add('btn');
+followersBtn.classList.add('button-open');
 followersBtn.textContent = 'Followers';
 groupBtn.classList.add('groupBtn');
-groupBtn.classList.add('btn')
+groupBtn.classList.add('btn');
+groupBtn.classList.add('button-open');
 groupBtn.textContent = 'Small Group';
 
 // Appending Buttons
@@ -60,9 +61,13 @@ button.forEach(item => item.addEventListener('mouseover', (e) => e.currentTarget
 button.forEach(item => item.addEventListener('mouseout', (e) => e.currentTarget.style.transform = 'scale(1.0)'));
 
 // Function to render only one dataset
-// button.forEach((e) => e.addEventListener('click', () => {
-
-// })) 
+button.forEach((e) => e.addEventListener('click', () => {
+  if (button.classList.toggle('button-open')) {
+    isOpen = true;
+  } else {
+    isOpen = false;
+  }
+}));
 
 // EventListener to render followers cards with an Axios request
 let followers = followersBtn.addEventListener('click', () => {
@@ -81,9 +86,9 @@ let followers = followersBtn.addEventListener('click', () => {
     
 // EventListener to render small group cards with an Axios request
 let group = groupBtn.addEventListener('click', () => {
-  smallGroup.forEach((follower) => {
+  smallGroup.forEach((groupMember) => {
 
-  axios.get(`https://api.github.com/users/${follower}`)
+  axios.get(`https://api.github.com/users/${groupMember}`)
     .then((response) => {
       data = response.data;
       cards.appendChild(githubCard(data));
@@ -131,7 +136,7 @@ function githubCard(item) {
   cardInfo.appendChild(bio);
   card.appendChild(graph);
 
-  // adding textContent and source values to the elemements
+  // adding textContent and source values to the elements
   image.src = item.avatar_url;
   image.textContent = item.image;
   name.textContent = item.name;
