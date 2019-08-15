@@ -15,7 +15,10 @@ let data;
 
 const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
-followersArray.forEach((follower) => {
+const smallGroup = ['nickdurbin', 'bobbidigi', 'Fractured2K', 'leachcoding', 'miklo88', 'AislynnEdmiston', 'IanCarreras', 'raythurman2386', 'Sherexmykes'];
+
+followersButton.addEventListener('click', () => {
+  followersArray.forEach((follower) => {
 
   axios.get(`https://api.github.com/users/${follower}`)
     .then((response) => {
@@ -26,9 +29,38 @@ followersArray.forEach((follower) => {
       console.log(error);
     })
 
+  })
 })    
 
+groupButton.addEventListener('click', () => {
+  smallGroup.forEach((follower) => {
+
+  axios.get(`https://api.github.com/users/${follower}`)
+    .then((response) => {
+      data = response.data;
+      cards.appendChild(githubCard(data));
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+
+  })   
+});
+
+// Global variables
+const followersButton = document.querySelector('.followBtn');
+const groupButton = document .querySelector('.groupBtn');
 const cards = document.querySelector('.cards');
+
+// Adding Class and Text Content
+followersButton.classList.add('followBtn');
+followersButton.textContent = 'Followers';
+groupButton.classList.add('groupBtn');
+groupButton.textContent = 'Small Group';
+
+// Appending Buttons
+cards.appendChild(followersButton);
+cards.appendChild(groupButton);
 
 function githubCard(item) {
   // creating the variables
@@ -66,14 +98,14 @@ function githubCard(item) {
   image.src = item.avatar_url;
   image.textContent = item.image;
   name.textContent = item.name;
-  userName.textContent = item.username;
+  userName.textContent = item.login;
   location.textContent = item.location;
-  profile.textContent = 'address to the user profile page:';
+  profile.textContent = `Profile: ${item.html_url}`;
   address.href = item.html_url;
   address.textContent = item.address;
-  followers.textContent = item.followers;
-  following.tetContent = item.following;
-  bio.tetContent = item.bio;
+  followers.textContent = `Followers: ${item.followers}`;
+  following.textContent = `Follow: ${item.following}`;
+  bio.textContent = item.bio;
 
   return card;
 }
