@@ -1,17 +1,5 @@
-/* Step 4: Pass the data received from Github into your function, 
-           create a new component and add it to the DOM as a child of .cards
-*/
-
-/* Step 5: Now that you have your own card getting added to the DOM, either 
-          follow this link in your browser https://api.github.com/users/<Your github name>/followers 
-          , manually find some other users' github handles, or use the list found 
-          at the bottom of the page. Get at least 5 different Github usernames and add them as
-          Individual strings to the friendsArray below.
-          
-          Using that array, iterate over it, requesting data for each user, creating a new card for each
-          user, and adding that card to the DOM.
-*/
 let data;
+let isOpen;
 
 const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
@@ -19,20 +7,39 @@ const smallGroup = ['nickdurbin', 'bobbidigi', 'Fractured2K', 'leachcoding', 'mi
 
 // Global variables
 const cards = document.querySelector('.cards');
+const button = document.querySelectorAll('.btn');
 const followersBtn = document.createElement('button');
 const groupBtn = document.createElement('button');
+const container = document.createElement('div');
 
-// Adding Class and Text Content
+// Adding Class and TextContent to Buttons
+container.classList.add('btn-container');
 followersBtn.classList.add('followBtn');
+followersBtn.classList.add('btn')
 followersBtn.textContent = 'Followers';
 groupBtn.classList.add('groupBtn');
+groupBtn.classList.add('btn')
 groupBtn.textContent = 'Small Group';
 
 // Appending Buttons
-cards.appendChild(followersBtn);
-cards.appendChild(groupBtn);
+cards.appendChild(container)
+container.appendChild(followersBtn);
+container.appendChild(groupBtn);
 
-followersBtn.addEventListener('click', () => {
+// Styling for container and buttons
+container.style.display = 'flex';
+container.style.justifyContent = 'space-evenly';
+container.style.alignItems = 'center';
+container.style.width = '100%';
+container.style.height = '100px';
+
+// Function to render only one dataset
+// button.forEach((e) => e.addEventListener('click', () => {
+
+// })) 
+
+// EventListener to render followers cards with an Axios request
+let followers = followersBtn.addEventListener('click', () => {
   followersArray.forEach((follower) => {
 
   axios.get(`https://api.github.com/users/${follower}`)
@@ -46,7 +53,8 @@ followersBtn.addEventListener('click', () => {
 
   })
 })    
-
+    
+// EventListener to render small group cards with an Axios request
 groupBtn.addEventListener('click', () => {
   smallGroup.forEach((follower) => {
 
@@ -62,6 +70,7 @@ groupBtn.addEventListener('click', () => {
   })   
 });
 
+// Card component to render the data from the API calls
 function githubCard(item) {
   // creating the variables
   const card = document.createElement('div');
