@@ -1,5 +1,5 @@
 /* Step 1: using axios, send a GET request to the following URL 
-           (replacing the palceholder with your Github name):
+           (replacing the placeholder with your Github name):
            https://api.github.com/users/<your name>
 */
 
@@ -53,3 +53,45 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+axios.get('https://api.github.com/users/Sara-Pettigrew')
+
+const container = document.querySelector('.container')
+
+function Cards (array)
+const card = document.createElement('div')
+card.classList.add('.card-info')
+
+const image = document.createElement('img')
+image.classList = imageUrls
+card.appendChild(image)
+
+const h3 = document.createElement('h3')
+title.textContent = titleText
+card.appendChild(title)
+
+const username = document.createElement('.username')
+p.textContent = pText
+card.appendChild(username)
+
+const location = document.createElement('location')
+p.textContent = p
+card.appendChild(location)
+
+const profile = document.createElement('profile')
+p.textContent = 
+card.appendChild()
+
+
+const followers = document.createElement('followers')
+p.textContent = p
+card.appendChild()
+
+const following = document.createElement('following')
+p.textContent = 
+card.appendChild()
+
+const bio = document.createElement('bio')
+p.textContent = pText
+card.appendChild()
+
