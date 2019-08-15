@@ -55,9 +55,9 @@ groupBtn.style.borderRadius = '30px';
 groupBtn.style.border = 'none';
 
 // EventListeners to style buttons on hover
-button.forEach((item) => item.addEventListener('mouseover', (e) => e.currentTarget.style.transform = 'scale(1.1)'));
+button.forEach(item => item.addEventListener('mouseover', (e) => e.currentTarget.style.transform = 'scale(1.1)'));
 
-button.forEach((e) => e.addEventListener('mouseout', (e) => e.currentTarget.style.transform = 'scale(1.0)'));
+button.forEach(item => item.addEventListener('mouseout', (e) => e.currentTarget.style.transform = 'scale(1.0)'));
 
 // Function to render only one dataset
 // button.forEach((e) => e.addEventListener('click', () => {
