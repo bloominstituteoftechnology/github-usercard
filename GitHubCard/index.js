@@ -17,7 +17,22 @@ const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigkne
 
 const smallGroup = ['nickdurbin', 'bobbidigi', 'Fractured2K', 'leachcoding', 'miklo88', 'AislynnEdmiston', 'IanCarreras', 'raythurman2386', 'Sherexmykes'];
 
-followersButton.addEventListener('click', () => {
+// Global variables
+const cards = document.querySelector('.cards');
+const followersBtn = document.createElement('button');
+const groupBtn = document.createElement('button');
+
+// Adding Class and Text Content
+followersBtn.classList.add('followBtn');
+followersBtn.textContent = 'Followers';
+groupBtn.classList.add('groupBtn');
+groupBtn.textContent = 'Small Group';
+
+// Appending Buttons
+cards.appendChild(followersBtn);
+cards.appendChild(groupBtn);
+
+followersBtn.addEventListener('click', () => {
   followersArray.forEach((follower) => {
 
   axios.get(`https://api.github.com/users/${follower}`)
@@ -32,7 +47,7 @@ followersButton.addEventListener('click', () => {
   })
 })    
 
-groupButton.addEventListener('click', () => {
+groupBtn.addEventListener('click', () => {
   smallGroup.forEach((follower) => {
 
   axios.get(`https://api.github.com/users/${follower}`)
@@ -46,21 +61,6 @@ groupButton.addEventListener('click', () => {
 
   })   
 });
-
-// Global variables
-const followersButton = document.querySelector('.followBtn');
-const groupButton = document .querySelector('.groupBtn');
-const cards = document.querySelector('.cards');
-
-// Adding Class and Text Content
-followersButton.classList.add('followBtn');
-followersButton.textContent = 'Followers';
-groupButton.classList.add('groupBtn');
-groupButton.textContent = 'Small Group';
-
-// Appending Buttons
-cards.appendChild(followersButton);
-cards.appendChild(groupButton);
 
 function githubCard(item) {
   // creating the variables
