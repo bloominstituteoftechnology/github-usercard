@@ -26,12 +26,38 @@ cards.appendChild(container)
 container.appendChild(followersBtn);
 container.appendChild(groupBtn);
 
-// Styling for container and buttons
+// Styling for button container 
 container.style.display = 'flex';
 container.style.justifyContent = 'space-evenly';
 container.style.alignItems = 'center';
 container.style.width = '100%';
 container.style.height = '100px';
+
+// Styling for buttons
+followersBtn.style.cursor = 'pointer';
+followersBtn.style.width = '40%';
+followersBtn.style.height = '50px';
+followersBtn.style.backgroundColor = 'blue';
+followersBtn.style.color = 'white';
+followersBtn.style.fontSize = '1.6rem';
+followersBtn.style.fontWeight = '600';
+followersBtn.style.borderRadius = '30px';
+followersBtn.style.border = 'none';
+
+groupBtn.style.cursor = 'pointer';
+groupBtn.style.width = '40%';
+groupBtn.style.height = '50px';
+groupBtn.style.backgroundColor = 'blue';
+groupBtn.style.color = 'white';
+groupBtn.style.fontSize = '1.6rem';
+groupBtn.style.fontWeight = '600';
+groupBtn.style.borderRadius = '30px';
+groupBtn.style.border = 'none';
+
+// EventListeners to style buttons on hover
+button.forEach((item) => item.addEventListener('mouseover', (e) => e.currentTarget.style.transform = 'scale(1.1)'));
+
+button.forEach((e) => e.addEventListener('mouseout', (e) => e.currentTarget.style.transform = 'scale(1.0)'));
 
 // Function to render only one dataset
 // button.forEach((e) => e.addEventListener('click', () => {
