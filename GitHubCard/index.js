@@ -18,13 +18,11 @@
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
           , manually find some other users' github handles, or use the list found 
           at the bottom of the page. Get at least 5 different Github usernames and add them as
-          Individual strings to the friendsArray below.
+          // Individual strings to the friendsArray below. Needs to be followerArray
           
           Using that array, iterate over it, requesting data for each user, creating a new card for each
           user, and adding that card to the DOM.
 */
-
-const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell', 'wallacecs007', 'raythurman2386', 'bobbidigi', 'krboelter', 'nickdurbin', 'rupolgit '];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -54,18 +52,6 @@ const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigkne
   bigknell
 */
 
-followersArray.forEach((name) => {
-  axios.get(`https://api.github.com/users/${name}`)
-    .then(response => {
-
-      const cards = document.querySelector('.cards')
-      cards.appendChild(
-        gitCard(response.data.avatar_url, response.data.name, response.data.login, response.data.location, response.data.html_url, response.data.followers, response.data.following, response.data.bio)
-      )
-    })
-    .catch(err => console.log(err))
-})
-
 // Every time you do a .get(response), you must do a .then and .catch to get axios work.
 // `${}` names of list username's
 axios.get('https://api.github.com/users/spettigrew')
@@ -73,32 +59,9 @@ axios.get('https://api.github.com/users/spettigrew')
   console.log(response)
   document.querySelector('.cards').appendChild(Cards(response.data)) 
 })
-// .catch((error) => {
-//   console.log(error)
-// })
-
-const cardsSection = document.querySelector('.cards');
-axios.get('https://api.github.com/users/spettigrew')
-  .then(userData => {
-    let followersArray = [];
-    axios.get('https://api.github.com/users/spettigrew/followers')
-      .then(followers => {
-        followersArray = followers.data.map(follower => follower.login)
-
-        followersArray.forEach(followerLogin => {
-          axios.get(`https://api.github.com/users/${followerLogin}`)
-            .then(followerData => {
-              cardsSection.appendChild(createCard(followerData.data))
-            })
-            .catch(error => console.error(error))
-        })
-      })
-      .catch(error => console.error(error))
-    cardsSection.appendChild(createCard(userData.data));
-  })
-  .catch(error => {
-    console.log(error)
-  });
+.catch((error) => {
+  console.log(error)
+})
 
 
 const container = document.querySelector('.container')
@@ -153,3 +116,40 @@ return card
 }
 
 
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell', 'wallacecs007', 'raythurman2386', 'bobbidigi', 'krboelter', 'nickdurbin', 'rupolgit'];
+
+
+followersArray.forEach((name) => {
+  axios.get(`https://api.github.com/users/${name}`)
+    .then(response => {
+      document.querySelector('.cards').appendChild(Cards(response.data)) 
+    })
+    .catch(err => console.log(err))
+})
+
+// const cardsSection = document.querySelector('.cards');
+// axios.get('https://api.github.com/users/spettigrew')
+//   .then(userData => {
+//     let followersArray = [];
+// Separate API call to get MY followers in an Array
+
+//     axios.get('https://api.github.com/users/spettigrew/followers')
+//       .then(followers => {
+//         followersArray = followers.data.map(follower => follower.login)
+
+// Using .forEach method
+
+//         followersArray.forEach(followerLogin => {
+//           axios.get(`https://api.github.com/users/${followerLogin}`)
+//             .then(followerData => {
+//               cardsSection.appendChild(createCard(followerData.data))
+//             })
+//             .catch(error => console.error(error))
+//         })
+//       })
+//       .catch(error => console.error(error))
+//     cardsSection.appendChild(createCard(userData.data));
+//   })
+//   .catch(error => {
+//     console.log(error)
+//   });
