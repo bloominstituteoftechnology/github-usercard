@@ -75,8 +75,7 @@ let followers = followersBtn.addEventListener('click', () => {
 
   axios.get(`https://api.github.com/users/${follower}`)
     .then((response) => {
-      data = response.data;
-      cards.appendChild(githubCard(data));
+      cards.appendChild(githubCard(response.data));
     })
     .catch((error) => {
       console.log(error);
@@ -90,8 +89,7 @@ let group = groupBtn.addEventListener('click', () => {
 
   axios.get(`https://api.github.com/users/${groupMember}`)
     .then((response) => {
-      data = response.data;
-      cards.appendChild(githubCard(data));
+      cards.appendChild(githubCard(response.data));
     })
     .catch((error) => {
       console.log(error);
