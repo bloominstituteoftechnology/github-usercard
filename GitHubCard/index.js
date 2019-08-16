@@ -54,7 +54,7 @@
 
 // Every time you do a .get(response), you must do a .then and .catch to get axios work.
 // `${}` names of list username's
-axios.get('https://api.github.com/users/spettigrew')
+axios.get('https://api.github.com/users/spettigrew') 
 .then(response => {
   console.log(response)
   document.querySelector('.cards').appendChild(Cards(response.data)) 
@@ -75,7 +75,7 @@ image.src = array.avatar_url
 card.appendChild(image)
 
 const div = document.createElement('div')
-card.classList.add('.card-info')
+div.classList.add('card-info')
 card.appendChild(div)
 
 const title = document.createElement('h3')
@@ -98,6 +98,7 @@ const aTag = document.createElement('p')
 aTag.setAttribute('href', array.html_url)
 aTag.textContent = array.html_url
 profile.appendChild(aTag)
+// The setAttribute() method adds the specified attribute to an element, and gives it the specified value.
 
 const followers = document.createElement('p')
 followers.textContent = `Followers: ${array.followers}`
@@ -116,7 +117,7 @@ return card
 }
 
 
-const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell', 'wallacecs007', 'raythurman2386', 'bobbidigi', 'krboelter', 'nickdurbin', 'rupolgit'];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell', 'wallacecs007', 'raythurman2386', 'bobbidigi', 'krboelter', 'nickdurbin', 'rupol'];
 
 
 followersArray.forEach((name) => {
