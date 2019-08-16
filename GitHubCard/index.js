@@ -53,7 +53,8 @@ const followersArray = [];
   luishrd
   bigknell
 */
-
+// Every time you do a .get(response), you must do a .then and .catch to get axios work.
+// `${} names of list username's
 axios.get('https://api.github.com/users/spettigrew')
 .then(response => {
   console.log(response)
@@ -61,10 +62,32 @@ axios.get('https://api.github.com/users/spettigrew')
 })
 .catch((error) => {
   console.log(error)
-});
+})
+
+// const cardsSection = document.querySelector('.cards');
+// axios.get('https://api.github.com/users/spettigrew')
+//   .then(userData => {
+//     let followersArray = [];
+//     axios.get('https://api.github.com/users/spettigrew/followers')
+//     .then(followers => {
+//       followersArray = followers.data.map(follower => follower.login)
+//       'https://api.github.com/users/spettigrew/followers${followerLogin}'
+//       followersArray.forEach(followerLogin => {
+
+//       })
+//     })
+//     .catch(error => console.error(error))
+//     console.log(createCard((userData.data)))
+//     cardsSection.appendChild(createCards(userData.data));
+//   })
+//   .catch(error => {
+//     console.error(error)
+//   })
+  
+
 
 const container = document.querySelector('.container')
-
+// (image, name, username, location, github, followers, following, bio) instead of (array)
 function Cards (array) {
 const card = document.createElement('div')
 card.classList.add('.card')
@@ -75,40 +98,55 @@ card.appendChild(image)
 
 const div = document.createElement('div')
 card.classList.add('.card-info')
+card.appendChild(div)
 
 const title = document.createElement('h3')
-title.textContent = titleText
+title.textContent = `Name: ${array.name}`
 card.appendChild(title)
 
 const username = document.createElement('p')
-username.textContent = pText
-card.appendChild(username)
+username.textContent = array.login
+card.appendChild(login)
 
 const location = document.createElement('p')
-location.textContent = array.location
+location.textContent = `Location: ${array.location}`
 card.appendChild(location)
 
 const profile = document.createElement('p')
-profile.textContent = array.html_url
+profile.textContent = 'profile: '
 card.appendChild(profile)
 
 const aTag = document.createElement('p')
-aTag.textContent = href
+aTag.setAttribute('href', array.html_url)
+aTag.textContent = array.html_url
 profile.appendChild(aTag)
 
 const followers = document.createElement('p')
-followers.textContent = array.followers
+followers.textContent = `Followers: ${array.followers}`
 card.appendChild(followers)
 
 const following = document.createElement('p')
-following.textContent = array.following
+following.textContent = `Following: ${array.following}`
 card.appendChild(following)
 
 const bio = document.createElement('p')
-bio.textContent = array.bio
+bio.textContent = `Bio: ${array.bio}`
 card.appendChild(bio)
 
 return card
 
 }
 
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+
+followersArray.forEach((name) => {
+  axios.get(`https://api.github.com/users/${name}`)
+    .then(response => {
+
+      const cards = document.querySelector('.cards')
+      cards.appendChild(
+        gitCard(response.data.avatar_url, response.data.name, response.data.login, response.data.location, response.data.html_url, response.data.followers, response.data.following, response.data.bio)
+      )
+    })
+    .catch(err => console.log(err))
+})
