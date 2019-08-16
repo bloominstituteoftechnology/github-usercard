@@ -24,7 +24,7 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell', 'wallacecs007', 'raythurman2386', 'bobbidigi', 'krboelter', 'nickdurbin', 'rupolgit '];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -53,43 +53,58 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+followersArray.forEach((name) => {
+  axios.get(`https://api.github.com/users/${name}`)
+    .then(response => {
+
+      const cards = document.querySelector('.cards')
+      cards.appendChild(
+        gitCard(response.data.avatar_url, response.data.name, response.data.login, response.data.location, response.data.html_url, response.data.followers, response.data.following, response.data.bio)
+      )
+    })
+    .catch(err => console.log(err))
+})
+
 // Every time you do a .get(response), you must do a .then and .catch to get axios work.
-// `${} names of list username's
+// `${}` names of list username's
 axios.get('https://api.github.com/users/spettigrew')
 .then(response => {
   console.log(response)
   document.querySelector('.cards').appendChild(Cards(response.data)) 
 })
-.catch((error) => {
-  console.log(error)
-})
+// .catch((error) => {
+//   console.log(error)
+// })
 
-// const cardsSection = document.querySelector('.cards');
-// axios.get('https://api.github.com/users/spettigrew')
-//   .then(userData => {
-//     let followersArray = [];
-//     axios.get('https://api.github.com/users/spettigrew/followers')
-//     .then(followers => {
-//       followersArray = followers.data.map(follower => follower.login)
-//       'https://api.github.com/users/spettigrew/followers${followerLogin}'
-//       followersArray.forEach(followerLogin => {
+const cardsSection = document.querySelector('.cards');
+axios.get('https://api.github.com/users/spettigrew')
+  .then(userData => {
+    let followersArray = [];
+    axios.get('https://api.github.com/users/spettigrew/followers')
+      .then(followers => {
+        followersArray = followers.data.map(follower => follower.login)
 
-//       })
-//     })
-//     .catch(error => console.error(error))
-//     console.log(createCard((userData.data)))
-//     cardsSection.appendChild(createCards(userData.data));
-//   })
-//   .catch(error => {
-//     console.error(error)
-//   })
-  
+        followersArray.forEach(followerLogin => {
+          axios.get(`https://api.github.com/users/${followerLogin}`)
+            .then(followerData => {
+              cardsSection.appendChild(createCard(followerData.data))
+            })
+            .catch(error => console.error(error))
+        })
+      })
+      .catch(error => console.error(error))
+    cardsSection.appendChild(createCard(userData.data));
+  })
+  .catch(error => {
+    console.log(error)
+  });
 
 
 const container = document.querySelector('.container')
 // (image, name, username, location, github, followers, following, bio) instead of (array)
 function Cards (array) {
-const card = document.createElement('div')
+let card = document.createElement('div')
 card.classList.add('.card')
 
 const image = document.createElement('img')
@@ -106,7 +121,7 @@ card.appendChild(title)
 
 const username = document.createElement('p')
 username.textContent = array.login
-card.appendChild(login)
+card.appendChild(username)
 
 const location = document.createElement('p')
 location.textContent = `Location: ${array.location}`
@@ -137,16 +152,4 @@ return card
 
 }
 
-const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
-followersArray.forEach((name) => {
-  axios.get(`https://api.github.com/users/${name}`)
-    .then(response => {
-
-      const cards = document.querySelector('.cards')
-      cards.appendChild(
-        gitCard(response.data.avatar_url, response.data.name, response.data.login, response.data.location, response.data.html_url, response.data.followers, response.data.following, response.data.bio)
-      )
-    })
-    .catch(err => console.log(err))
-})
