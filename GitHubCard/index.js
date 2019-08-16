@@ -54,6 +54,15 @@ const followersArray = [];
   bigknell
 */
 
+axios.get('https://api.github.com/users/spettigrew')
+.then(response => {
+  console.log(response)
+  document.querySelector('.cards').appendChild(Cards(response.data)) 
+})
+.catch((error) => {
+  console.log(error)
+});
+
 const container = document.querySelector('.container')
 
 function Cards (array) {
@@ -61,7 +70,7 @@ const card = document.createElement('div')
 card.classList.add('.card')
 
 const image = document.createElement('img')
-image.classList = imageUrls
+image.src = array.avatar_url
 card.appendChild(image)
 
 const div = document.createElement('div')
@@ -71,33 +80,35 @@ const title = document.createElement('h3')
 title.textContent = titleText
 card.appendChild(title)
 
-const username = document.createElement('.username')
+const username = document.createElement('p')
 username.textContent = pText
 card.appendChild(username)
 
-const location = document.createElement('location')
-location.textContent = p
+const location = document.createElement('p')
+location.textContent = array.location
 card.appendChild(location)
 
-const profile = document.createElement('profile')
-profile.textContent = 
+const profile = document.createElement('p')
+profile.textContent = array.html_url
 card.appendChild(profile)
 
-const aTag = document.createElement('a')
+const aTag = document.createElement('p')
 aTag.textContent = href
+profile.appendChild(aTag)
 
-const followers = document.createElement('followers')
-followers.textContent = p
+const followers = document.createElement('p')
+followers.textContent = array.followers
 card.appendChild(followers)
 
-const following = document.createElement('following')
-following.textContent = 
+const following = document.createElement('p')
+following.textContent = array.following
 card.appendChild(following)
 
-const bio = document.createElement('bio')
-bio.textContent = pText
+const bio = document.createElement('p')
+bio.textContent = array.bio
 card.appendChild(bio)
+
+return card
 
 }
 
-axios.get('https://api.github.com/users/spettigrew')
