@@ -68,7 +68,7 @@ const container = document.querySelector('.container')
 // (image, name, username, location, github, followers, following, bio) instead of (array)
 function Cards (array) {
 let card = document.createElement('div')
-card.classList.add('.card')
+card.classList.add('card')
 
 const image = document.createElement('img')
 image.src = array.avatar_url
