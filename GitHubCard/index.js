@@ -47,7 +47,7 @@
 */
 
 
-const cards = document.querySelector('.cards');
+
 const MyInfo = function (gitResponse) {
   const card = document.createElement('div');
   card.classList.add('card');
@@ -93,7 +93,6 @@ const MyInfo = function (gitResponse) {
   return card; 
 }
 
-
 const appendToPage = card => {
   const cards = document.querySelector('.cards');
   cards.appendChild(card)
@@ -113,9 +112,10 @@ axios.get('https://api.github.com/users/jacobcalv')
 const followersArray = ['clifhodges13', 'RobertRamosJr', 'Amber-Pittman', 'bobbidigi', 'raythurman2386'];
 
 function githubLink(gitHandle) {
-  return axios.get(`http://api.github.com/users/${gitHandle}`)}
+  return axios.get(`http://api.github.com/users/${gitHandle}`)
+} 
 
-followersArray.map(user => {
+followersArray.forEach(user => {
   githubLink(user)
     .then(MyInfo)
     .then(appendToPage)
