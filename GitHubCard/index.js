@@ -2,17 +2,7 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
-// axios.get('https://api.github.com/users/jacobcalv')
-//   .then((gitResponse) => {
-//     gitResponse.userData.forEach((item) => {
-//       const myInfo = MyInfo(item)
-//       cards.appendChild(myInfo)
-//     })
-//   })
-//   .catch((error) => {
-//     console.log('failed');
-//     console.log(error)
-//   })
+
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -57,14 +47,13 @@
 */
 
 
-
+const cards = document.querySelector('.cards');
 const MyInfo = function (gitResponse) {
-  const userData = gitResponse.data;
   const card = document.createElement('div');
   card.classList.add('card');
 
   const img = document.createElement('img');
-  img.src = userData.avatar_url;
+  img.src = gitResponse.data.avatar_url;
   card.appendChild(img);
 
   const cardInfo = document.createElement('div');
@@ -73,72 +62,63 @@ const MyInfo = function (gitResponse) {
 
   const header = document.createElement('h3');
   header.classList.add('name');
-  header.textContent = userData.name;
+  header.textContent = gitResponse.data.name;
 
   const username = document.createElement('p');
   username.classList.add('username');
-  username.textContent = userData.login;
+  username.textContent = gitResponse.data.login;
   cardInfo.appendChild(username);
 
   const location = document.createElement('p');
-  location.textContent = `Location: ${userData.location}`;
+  location.textContent = `Location: ${gitResponse.data.location}`;
   cardInfo.appendChild(location);
 
-
   const profile = document.createElement('p');
-  profile.setAttribute('href', userData.html_url);
-  profile.textContent = userData.html_url;
+  profile.setAttribute('href', gitResponse.data.html_url);
+  profile.textContent = gitResponse.data.html_url;
   cardInfo.appendChild(profile);
 
   const followers = document.createElement('p');
-  followers.textContent = `Followers: ${userData.followers}`;
+  followers.textContent = `Followers: ${gitResponse.data.followers}`;
   cardInfo.appendChild(followers);
 
   const following = document.createElement('p');
-  following.textContent = `Following: ${userData.following}`;
+  following.textContent = `Following: ${gitResponse.data.following}`;
   cardInfo.appendChild(following);
 
   const bio = document.createElement('p');
-  bio.textContent = `Bio: ${userData.bio}`;
+  bio.textContent = `Bio: ${gitResponse.data.bio}`;
   cardInfo.appendChild(bio);
 
   return card; 
 }
 
 
-
-console.log(MyInfo)
-
 const appendToPage = card => {
   const cards = document.querySelector('.cards');
   cards.appendChild(card)
 }
-
+  
 function errorOut(error){
+  console.log('failed');
   console.log(error);
 }
-function githubLink(gitHandle){
-  return axios.get(`http://api.github.com/users/${gitHandle}`)
-}
 
-const myself = ['jacobcalv'];
-myself.map(user => {
-  githubLink(user)
-    .then(MyInfo, errorOut)
-    .then(appendToPage, errorOut)
-})
+axios.get('https://api.github.com/users/jacobcalv')
+  .then(MyInfo)
+  .then(appendToPage)
+  .catch(errorOut)
+
 
 const followersArray = ['clifhodges13', 'RobertRamosJr', 'Amber-Pittman', 'bobbidigi', 'raythurman2386'];
 
+function githubLink(gitHandle) {
+  return axios.get(`http://api.github.com/users/${gitHandle}`)}
+
 followersArray.map(user => {
   githubLink(user)
-    .then(MyInfo, errorOut)
-    .then(appendToPage, errorOut )
+    .then(MyInfo)
+    .then(appendToPage)
+    .catch(errorOut)
 })
-/* List of LS Instructors Github username's: 
-  tetondan
-  dustinmyers
-  justsml
-  luishrd
-  bigknell
-*/
+
