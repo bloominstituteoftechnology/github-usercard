@@ -2,14 +2,17 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
-axios.get('https://api.github.com/users/jacobcalv')
-  .then((response) => {
-    console.log(response)
-  })
-  .catch((error) => {
-    console.log('failed');
-    console.log(error)
-  })
+// axios.get('https://api.github.com/users/jacobcalv')
+//   .then((gitResponse) => {
+//     gitResponse.userData.forEach((item) => {
+//       const myInfo = MyInfo(item)
+//       cards.appendChild(myInfo)
+//     })
+//   })
+//   .catch((error) => {
+//     console.log('failed');
+//     console.log(error)
+//   })
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -32,7 +35,6 @@ axios.get('https://api.github.com/users/jacobcalv')
           user, and adding that card to the DOM.
 */
 
-const followersArray = ['clifhodges13', 'RobertRamosJr', 'Amber-Pittman', 'bobbidigi', 'raythurman2386'];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -54,12 +56,15 @@ const followersArray = ['clifhodges13', 'RobertRamosJr', 'Amber-Pittman', 'bobbi
 
 */
 
-const myInfo = function (imageUrl, realName, githubName, userLocation, githubProfile, githubFollowers, githubFollowing, githubBio) {
+
+
+const MyInfo = function (gitResponse) {
+  const userData = gitResponse.data;
   const card = document.createElement('div');
-  card.classList.add('card-info');
+  card.classList.add('card');
 
   const img = document.createElement('img');
-  img.src = imageUrl;
+  img.src = userData.avatar_url;
   card.appendChild(img);
 
   const cardInfo = document.createElement('div');
@@ -68,40 +73,68 @@ const myInfo = function (imageUrl, realName, githubName, userLocation, githubPro
 
   const header = document.createElement('h3');
   header.classList.add('name');
-  header.textContent = realName;
-  cardInfo.classList.add('header');
+  header.textContent = userData.name;
 
   const username = document.createElement('p');
   username.classList.add('username');
-  username.textContent = githubName;
+  username.textContent = userData.login;
   cardInfo.appendChild(username);
 
   const location = document.createElement('p');
-  location.textContent = userLocation;
+  location.textContent = `Location: ${userData.location}`;
   cardInfo.appendChild(location);
 
 
   const profile = document.createElement('p');
-  profile.href = githubProfile;
+  profile.setAttribute('href', userData.html_url);
+  profile.textContent = userData.html_url;
   cardInfo.appendChild(profile);
 
   const followers = document.createElement('p');
-  followers.textContent = githubFollowers;
+  followers.textContent = `Followers: ${userData.followers}`;
   cardInfo.appendChild(followers);
 
   const following = document.createElement('p');
-  following.textContent = githubFollowing;
+  following.textContent = `Following: ${userData.following}`;
   cardInfo.appendChild(following);
 
   const bio = document.createElement('p');
-  bio.textContent = githubBio;
+  bio.textContent = `Bio: ${userData.bio}`;
   cardInfo.appendChild(bio);
 
   return card; 
 }
 
 
-console.log(myInfo)
+
+console.log(MyInfo)
+
+const appendToPage = card => {
+  const cards = document.querySelector('.cards');
+  cards.appendChild(card)
+}
+
+function errorOut(error){
+  console.log(error);
+}
+function githubLink(gitHandle){
+  return axios.get(`http://api.github.com/users/${gitHandle}`)
+}
+
+const myself = ['jacobcalv'];
+myself.map(user => {
+  githubLink(user)
+    .then(MyInfo, errorOut)
+    .then(appendToPage, errorOut)
+})
+
+const followersArray = ['clifhodges13', 'RobertRamosJr', 'Amber-Pittman', 'bobbidigi', 'raythurman2386'];
+
+followersArray.map(user => {
+  githubLink(user)
+    .then(MyInfo, errorOut)
+    .then(appendToPage, errorOut )
+})
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
