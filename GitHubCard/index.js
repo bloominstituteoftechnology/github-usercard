@@ -4,7 +4,37 @@
 */
 //api.github.com/users/Reticent93
 
-https: /* Step 2: Inspect and study the data coming back, this is YOUR 
+
+
+const cardSection = document.querySelector(".cards");
+
+let followersArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell"
+];
+
+axios
+  .get(`https://api.github.com/users/Reticent93`)
+  .then(userData => {
+    cardSection.appendChild(createCard(userData.data));
+  })
+  .catch(error => console.error(error))
+
+
+
+followersArray.forEach(followerLogin => {
+  axios
+    .get(`https://api.github.com/users/${followerLogin}`)
+    .then(followerData => {
+      cardSection.appendChild(createCard(followerData.data));
+    })
+    .catch(error => console.error(error));
+});
+
+/* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
 
@@ -56,21 +86,21 @@ https: /* Step 2: Inspect and study the data coming back, this is YOUR
 */
 
 function createCard(user) {
-  const oneCard = document.createElement("div");
-  oneCard.classList.add("cards");
+  const card = document.createElement("div");
+  card.classList.add("card");
 
-  const image = document.createElement("img");
-  image.src = user["avatar_url"];
+  const img = document.createElement("img");
+  img.setAttribute("src", user["avatar_url"]);
 
   const cardInfo = document.createElement("div");
   cardInfo.classList.add("card-info");
 
   const h3 = document.createElement("h3");
   h3.classList.add("name");
-  h3.textContent = user.name;
+  h3.textContent = user.name || user.login;
 
   const pTags = [];
-  for (let i = 0; i > 6; i++) {
+  for (let i = 0; i < 6; i++) {
     pTags.push(document.createElement("p"));
   }
 
@@ -83,35 +113,20 @@ function createCard(user) {
 
   pTags[3].textContent = `Followers:  ${user.followers}`;
 
-  pTags[4].textContent = `Following: ${user.following}`
+  pTags[4].textContent = `Following: ${user.following}`;
 
-   pTags[5].textContent = `Bio: ${user.bio}`
+  pTags[5].textContent = `Bio: ${user.bio || "Not Available"}`;
 
   const a = document.createElement("a");
-
-  const aUrl = user["html_url"];
-  a.hre = aURL;
+  const aURL = user["html_url"];
+  a.setAttribute("href", aURL);
   a.textContent = aURL;
   pTags[2].appendChild(a);
 
-  cardInfo.appendChild(h2);
+  cardInfo.appendChild(h3);
   pTags.forEach(p => cardInfo.appendChild(p));
-
   card.appendChild(img);
   card.appendChild(cardInfo);
 
-  return oneCard;
+  return card;
 }
-
-
-
-const cardSection = document.querySelector(".cards");
-cardSection.appendChild(card);
-createCard();
-
-axios
-  .get("https://api.github.com/users/Reticent93")
-  .then(response => {})
-  .catch(error => {
-    console.log("you have messed up");
-  });
