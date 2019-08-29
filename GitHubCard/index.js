@@ -126,7 +126,7 @@ followersArray.forEach((name) => {
       document.querySelector('.cards').appendChild(Cards(response.data)) 
     })
     .catch(err => console.log(err))
-})
+});
 
 // const cardsSection = document.querySelector('.cards');
 // axios.get('https://api.github.com/users/spettigrew')
