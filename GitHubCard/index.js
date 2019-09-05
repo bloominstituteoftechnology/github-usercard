@@ -4,11 +4,12 @@
 */
 axios.get('https://api.github.com/users/Ziggyss')
   .then(response => {
-    debugger
+    const cards = document.querySelector('.cards');
+    cards.appendChild(cardMaker(response.data))
   })
   .catch(error => {
-    debugger
-  });
+     document.body.innerText = error.message;
+  }); 
 
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
@@ -32,7 +33,25 @@ axios.get('https://api.github.com/users/Ziggyss')
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'];
+
+followersArray.forEach(function(user){
+    axios.get(`https://api.github.com/users/${user}`)
+    .then(response => {
+      const cards = document.querySelector('.cards');
+      cards.appendChild(cardMaker(response.data))
+    })
+    .catch(error => {
+       document.body.innerText = error.message;
+    }); 
+  });
+
+//The above code seems to work but my API limit has now been reached. I am looking into how to fix this now.  
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -54,10 +73,11 @@ const followersArray = [];
 
 */
 
-function cardMaker (object){
+function cardMaker(data){
+
    const cardDiv = document.createElement('div');
-   const cardInfo = document.createElement('div');
    const cardImage = document.createElement('img');
+   const cardInfo = document.createElement('div'); 
    const cardName = document.createElement('h3');
    const cardProfile = document.createElement('p');
    const cardGitAddress = document.createElement('a');
@@ -67,8 +87,39 @@ function cardMaker (object){
    const cardFollowing = document.createElement('p');
    const cardBio = document.createElement('p');
 
+   cardDiv.classList.add('card');
+   cardInfo.classList.add('card-info');
+   cardName.classList.add('name');
+   cardUserName.classList.add('username');
 
-}
+   cardImage.src = data.avatar_url;
+   cardName.textContent = data.name;
+   cardUserName.textContent = data.login;
+   cardLocation.textContent = `Location: ${data.location}`;
+   cardGitAddress.src = `Profile: ${data.url}`;
+   cardFollowers.textContent = `Followers: ${data.followers}`;
+   cardFollowing.textContent = `Following: ${data.following}`;
+   cardBio.textContent = `Bio: ${data.bio}`;
+   
+   cardDiv.appendChild(cardImage);
+   cardDiv.appendChild(cardInfo);
+   cardInfo.appendChild(cardName);
+   cardInfo.appendChild(cardUserName);
+   cardInfo.appendChild(cardLocation);
+   cardInfo.appendChild(cardProfile);
+   cardInfo.appendChild(cardFollowers);
+   cardInfo.appendChild(cardFollowing);
+   cardInfo.appendChild(cardBio);
+   cardProfile.appendChild(cardGitAddress);
+
+   return cardDiv;
+
+};
+
+
+
+
+
 
 /* List of LS Instructors Github username's: 
   tetondan
