@@ -48,8 +48,30 @@ followersArray.forEach(function(user){
        document.body.innerText = error.message;
     }); 
   });
+ //The above code seems to work but my API limit has now been reached. I am looking into how to fix this now.  
 
-//The above code seems to work but my API limit has now been reached. I am looking into how to fix this now.  
+
+//Attempt at stretch goal:
+
+  axios.get('http://api.github.com/Ziggyss')
+     .then(response => {
+         axios.get(`response.data.followers_url`)
+             .then(response => {
+             const myFollowers = Object.values(response.data.login);
+              myFollowers.forEach(function(data){
+             cards.appendChild(cardMaker(data))
+            }) 
+          })
+            .catch(error => {
+            document.body.innerText = error.message;
+             });
+       
+           })
+       .catch(error => {
+         document.body.innerText = error.message;
+        });
+
+   
 
 
 /* Step 3: Create a function that accepts a single object as its only argument,
@@ -85,6 +107,7 @@ function cardMaker(data){
    const cardFollowers = document.createElement('p');
    const cardFollowing = document.createElement('p');
    const cardBio = document.createElement('p');
+   
 
    cardDiv.classList.add('card');
    cardInfo.classList.add('card-info');
