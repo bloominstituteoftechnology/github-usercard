@@ -72,6 +72,9 @@ function MakeCard(dataObj) {
   location.textContent = `Location: ${dataObj.data.location}`;
   pageAddress.href = dataObj.data.html_url;
   pageAddress.textContent = dataObj.data.html_url;
+  profile.innerHTML = `Profile: ${profile.innerHTML}`;
+  // profile.textContent = `Profile:`;
+
   followers.textContent = "Followers: " + dataObj.data.followers;
   following.textContent = "Following: " + dataObj.data.following;
   bio.textContent = `Bio: ${dataObj.data.bio}`
