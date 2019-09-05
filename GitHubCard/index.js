@@ -49,14 +49,12 @@ const followersArray = [];
 */
 axios.get('https://api.github.com/users/hillan1152')
   .then(function (response) {
-    console.log(response)
-    response.data.message.forEach(item => {
-      const newCard = cardCreator(item);
+    console.log(response);
+      const newCard = cardCreator(response.data);
       profile.appendChild(newCard);
-    });
   })
   .catch(function(error) {
-    console.log(error, 'error');
+    console.log(error);
   })
 
 const profile = document.querySelector('.cards');
@@ -99,13 +97,11 @@ function cardCreator (arr) {
     cardName.textContent = arr.name;
     userName.textContent = arr.login;
     userLocation.textContent = `Location: ${arr.location}`;
-    userProfile.textContent = `Profile: `;
+    userProfile.textContent = `Profile: ${pageLink.href}`;
     pageLink.href = arr.html_url;
     followers.textContent = `Followers: ${arr.follwers}`;
     following.textContent = `Following: ${arr.following}`;
-    userBio.textContent = `Bio ${arr.bio}`;
-
-
+    userBio.textContent = `Bio: ${arr.bio}`;
 
   return divCard
 }
