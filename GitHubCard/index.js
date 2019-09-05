@@ -2,7 +2,14 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
-
+axios
+  .get("https://api.github.com/users/Steverenner1")
+  .then(response => 
+    console.log(response)
+  )
+  .catch(error =>
+    console.log('No Data', error)
+  )
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -25,6 +32,45 @@
 */
 
 const followersArray = [];
+
+function gitCard(imgUrl) {
+  const newCard = document.createElement('div');
+  const newImage = document.createElement('img');
+  const newCardInfo = document.createElement('div');
+  const newName = document.createElement('h3');
+  const newUsername = document.createElement('p');
+  const newLocation = document.createElement('p');
+  const newProfile = document.createElement('p');
+  const newFollowers = document.createElement('p');
+  const newFollowing = document.createElement('p');
+  const newBio = document.createElement('p');
+
+  newCard.classList.add('card');
+  newCardInfo.classList.add('card-info');
+  newName.classList.add('name');
+  newUsername.classList.add('username');
+
+  newImage.src = imgUrl;
+  newName.textContent = "Steve Renner";
+  newUsername.textContent = "Steverenner1";
+  newLocation.textContent = "Seattle, Washington";
+  newProfile.src = github.com/Steverenner1;
+  newFollowers.textContent = "users followers count";
+  newFollowing.textContent = "users following count";
+  newBio.textContent = "my bio";
+
+  newCard.appendChild(newImage);
+  newCard.appendChild(newCardInfo);
+  newCardInfo.appendChild(newName);
+  newCardInfo.appendChild(newUsername);
+  newCardInfo.appendChild(newLocation);
+  newCardInfo.appendChild(newProfile);
+  newCardInfo.appendChild(newFollowers);
+  newCardInfo.appendChild(newFollowing);
+  newCardInfo.appendChild(newBio);
+
+  return newCard;
+};
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
