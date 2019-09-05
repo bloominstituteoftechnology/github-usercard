@@ -2,6 +2,16 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+axios.get('https://api.github.com/users/Gavin-Dreyer')
+
+.then(function (response) {
+  // handle success
+  console.log(response);
+})
+.catch(function (error) {
+  // handle error
+  console.log(error);
+})
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -45,6 +55,70 @@ const followersArray = [];
 </div>
 
 */
+const Gavin = {
+  "login": "Gavin-Dreyer",
+  "id": 53788046,
+  "node_id": "MDQ6VXNlcjUzNzg4MDQ2",
+  "avatar_url": "https://avatars3.githubusercontent.com/u/53788046?v=4",
+  "gravatar_id": "",
+  "url": "https://api.github.com/users/Gavin-Dreyer",
+  "html_url": "https://github.com/Gavin-Dreyer",
+  "followers_url": "https://api.github.com/users/Gavin-Dreyer/followers",
+  "following_url": "https://api.github.com/users/Gavin-Dreyer/following{/other_user}",
+  "name": "Gavin Dreyer",
+  "location": "Santa Cruz",
+  "bio": null,
+  "followers": 20,
+  "following": 20
+}
+
+const container = document.querySelector('.container');
+
+function gitHutCard(object) {
+  const card = document.createElement('div');
+  const userImg = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const userName = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  //structure 
+  card.append(userImg);
+  card.append(cardInfo);
+  cardInfo.append(name);
+  cardInfo.append(userName);
+  cardInfo.append(location);
+  cardInfo.append(profile);
+  cardInfo.append(followers);
+  cardInfo.append(following);
+  cardInfo.append(bio);
+
+  //classes
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  userName.classList.add('username')
+
+  //content
+  userImg.setAttribute('src', object.avatar_url);
+  userImg.setAttribute('alt', 'Profile Picture');
+  name.textContent = object.name;
+  userName.textContent = object.login;
+  location.textContent = `Location: ${object.location}`;
+  profile.textContent = `Profile: ${object.url}`;
+  followers.textContent = `Followers: ${object.followers}`;
+  following.textContent = `Following: ${object.following}`;
+  bio.textContent = `Bio: ${object.bio}`
+
+  return card
+
+}
+
+console.log(container.append(gitHutCard(Gavin)));
 
 /* List of LS Instructors Github username's: 
   tetondan
