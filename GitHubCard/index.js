@@ -4,12 +4,12 @@
 */
 
 function gitCreator(data) {
-  console.log(data);
+  
   const div1 = document.createElement("div");
   div1.classList.add("card");
  
  const img = document.createElement("img");
- img.setAttribute("src","https://upload.wikimedia.org/wikipedia/en/thumb/d/d4/Mickey_Mouse.png/220px-Mickey_Mouse.png");
+ img.setAttribute("src",data.data.avatar_url);
  
  const div2 = document.createElement("div");
  div2.classList.add("card-info");
@@ -24,7 +24,7 @@ function gitCreator(data) {
  
  const p2 = document.createElement("p");
  p2.textContent = data.data.location;
- console.log(p2);
+ 
 
  const anchor = document.createElement("a");
  anchor.setAttribute("href", data.data.url);
@@ -41,8 +41,6 @@ function gitCreator(data) {
 
  const p6 = document.createElement("p");
  p6.textContent = "Bio: " + data.data.bio;
-
- console.log(div1);
 
 const divCards = document.querySelector(".cards");
 divCards.appendChild(div1);
@@ -61,20 +59,21 @@ return divCards;
 
 }
 
-const followersArray = ["tetondan","dustinmyers","justsml","luishrd"
-  ,"bigknell"];
+const followersArray = ["tetondan","dustinmyers","justsml","luishrd","bigknell", "awuorm"];
 
-followersArray.forEach( el => 
-  { const newUsers =  newUsers.concant("https://api.github.com/users/" + el)});
-console.log(newUsers);
-
-axios.get(newUsers)
-.then( response => { 
+  let newUsers = followersArray.map( el => {
+  
+  axios.get("https://api.github.com/users/" + el)
+  .then( response => { 
   return gitCreator(response);
  })
  .catch( err => 
     "Error could not read data from server"
- )
+ )   
+ }
+ ); 
+
+
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
