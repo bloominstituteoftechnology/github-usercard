@@ -2,15 +2,6 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
-axios.get('https://api.github.com/users/hillan1152')
-  .then(function (response) {
-    console.log(response);
-  })
-  .catch(function(error) {
-    console.log(error);
-  })
-  .finally(function(){
-  });
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -56,6 +47,18 @@ const followersArray = [];
 </div>
 
 */
+axios.get('https://api.github.com/users/hillan1152')
+  .then(function (response) {
+    console.log(response)
+    response.data.message.forEach(item => {
+      const newCard = cardCreator(item);
+      profile.appendChild(newCard);
+    });
+  })
+  .catch(function(error) {
+    console.log(error, 'error');
+  })
+
 const profile = document.querySelector('.cards');
 
 function cardCreator (arr) {
@@ -97,17 +100,16 @@ function cardCreator (arr) {
     userName.textContent = arr.login;
     userLocation.textContent = `Location: ${arr.location}`;
     userProfile.textContent = `Profile: `;
-    pageLink.href = arr.url;
-    followers.textContent = arr.follwers;
-    following.textContent = arr.following;
-    userBio.textContent = arr.bio;
+    pageLink.href = arr.html_url;
+    followers.textContent = `Followers: ${arr.follwers}`;
+    following.textContent = `Following: ${arr.following}`;
+    userBio.textContent = `Bio ${arr.bio}`;
 
 
 
   return divCard
 }
 
-console.log(cardCreator);
 
 
 /* List of LS Instructors Github username's: 
