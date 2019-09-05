@@ -123,15 +123,8 @@ function cardMaker(data){
    cardFollowing.textContent = `Following: ${data.following}`;
    cardBio.textContent = `Bio: ${data.bio}`;
    
-   cardDiv.appendChild(cardImage);
-   cardDiv.appendChild(cardInfo);
-   cardInfo.appendChild(cardName);
-   cardInfo.appendChild(cardUserName);
-   cardInfo.appendChild(cardLocation);
-   cardInfo.appendChild(cardProfile);
-   cardInfo.appendChild(cardFollowers);
-   cardInfo.appendChild(cardFollowing);
-   cardInfo.appendChild(cardBio);
+   cardDiv.append(cardImage, cardInfo);
+   cardInfo.append(cardName, cardUserName, cardLocation, cardProfile, cardFollowers, cardFollowing, cardBio);
    cardProfile.appendChild(cardGitAddress);
 
    return cardDiv;
