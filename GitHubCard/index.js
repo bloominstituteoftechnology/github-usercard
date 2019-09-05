@@ -59,7 +59,7 @@ followersArray.forEach(function(user){
              .then(response => {
              const myFollowers = Object.values(response.data.login);
               myFollowers.forEach(function(data){
-             cards.appendChild(cardMaker(data))
+             cards.appendChild(cardMaker(response.data))
             }) 
           })
             .catch(error => {
