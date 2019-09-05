@@ -5,7 +5,7 @@
 const HTMLcards = document.querySelector('.cards');
 axios.get('https://api.github.com/users/robomantis19')
   .then(response => {
-    //console.log(response);
+    console.log('my html card: ', response);
     HTMLcards.appendChild(Cards(response.data));
   })
   .catch(err => {
@@ -37,21 +37,45 @@ axios.get('https://api.github.com/users/robomantis19')
           user, and adding that card to the DOM.
 */
 
-const followersArray = ["alecblkly","ChrisRDaniels","DTJohnson5","raaudain","mary-clayton","emilyelri"];
-//const followersArray = ['1', '2', '3']
-followersArray.forEach(function(log) {
-   console.log(log);
+// const followersArray = ["alecblkly","ChrisRDaniels","DTJohnson5","raaudain","mary-clayton","emilyelri"];
 
-  axios.get(`https://api.github.com/users/${log}`)
+// followersArray.forEach(function(log) {
+   
+
+//   axios.get(`https://api.github.com/users/${log}`)
+//     .then(res => {
+//       //console.log(res);
+//       //return followersArray;
+//       HTMLcards.appendChild(Cards(res.data));
+//     })
+//     .catch(err => {
+//       console.log('error: ', err); 
+//     })
+// });
+//-----------------------stretch------------------
+//let loginArray = [];
+axios.get(`https://api.github.com/users/robomantis19/followers`)
     .then(res => {
-      console.log(res);
-      //return followersArray;
-      HTMLcards.appendChild(Cards(res.data));
+      console.log('stretch: ' , res);
+      
+      let loginArray = res.data.map( x => {
+        axios.get(`https://api.github.com/users/${x.login}`)
+          .then(res1 => {
+            
+            HTMLcards.appendChild(Cards(res1.data));
+          })
+          .catch(err1 => {
+            console.log('err1: ' , err1)
+          })
+        
+      })
+      
+        
+      
     })
     .catch(err => {
       console.log('error: ', err); 
     })
-});
 
 
 /* Step 3: Create a function that accepts a single object as its only argument,
