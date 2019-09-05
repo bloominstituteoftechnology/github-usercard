@@ -4,10 +4,12 @@
 */
 axios.get('https://api.github.com/users/Ziggyss')
   .then(response => {
+    debugger
     const cards = document.querySelector('.cards');
     cards.appendChild(cardMaker(response.data))
   })
   .catch(error => {
+    debugger
      document.body.innerText = error.message;
   }); 
 
@@ -33,7 +35,7 @@ axios.get('https://api.github.com/users/Ziggyss')
           user, and adding that card to the DOM.
 */
 
-const followersArray = ['tetondan',
+/* const followersArray = ['tetondan',
   'dustinmyers',
   'justsml',
   'luishrd',
@@ -42,21 +44,23 @@ const followersArray = ['tetondan',
 followersArray.forEach(function(user){
     axios.get(`https://api.github.com/users/${user}`)
     .then(response => {
+      debugger
       cards.appendChild(cardMaker(response.data))
     })
     .catch(error => {
+      debugger
        document.body.innerText = error.message;
     }); 
-  });
+  }); */
  //The above code seems to work but my API limit has now been reached. I am looking into how to fix this now.  
 
 
 //Attempt at stretch goal:
 
-  axios.get('http://api.github.com/users/Ziggyss')
+  /* axios.get('http://api.github.com/users/Ziggyss')
      .then(response => {
        debugger
-         axios.get(`${data.followers_url}`)
+         axios.get(response.data.followers_url)
              .then(response => {
              const myFollowers = Object.values(data.login);
               myFollowers.forEach(function(data){
@@ -70,7 +74,7 @@ followersArray.forEach(function(user){
            })
        .catch(error => {
          document.body.innerText = error.message;
-        });
+        }); */
 
    
 
