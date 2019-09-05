@@ -2,14 +2,15 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
-axios
-  .get("https://api.github.com/users/Steverenner1")
-  .then(response => 
-    console.log(response)
-  )
-  .catch(error =>
-    console.log('No Data', error)
-  )
+axios.get("https://api.github.com/users/Steverenner1")
+  .then(dataSet => {
+    const gitInfo = dataSet.data;
+    cards.appendChild(gitInfo)
+  }); 
+  try {
+  } catch (error) {
+    document.querySelector('.cards').textContent = 'No Data'
+  }
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -31,45 +32,84 @@ axios
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['Steverenner1', 'tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+followersArray.forEach(user => {
+  axios.get(`https://api.github.com/users/${user}`)
 
-const cards = document.querySelector('.cards')
+  .then (data => {
+    const card = gitCard(data.data)
+    const cards = document.querySelector('.cards')
+    cards.appendChild(card)
+  })
+
+})
+
 
 function gitCard(info) {
   const newCard = document.createElement('div');
   const newImage = document.createElement('img');
   const newCardInfo = document.createElement('div');
   const newName = document.createElement('h3');
-  const newUsername = document.createElement('p');
+  const newUserName = document.createElement('p');
   const newLocation = document.createElement('p');
   const newProfile = document.createElement('p');
   const newFollowers = document.createElement('p');
   const newFollowing = document.createElement('p');
   const newBio = document.createElement('p');
 
-  newCard.classList.add('card');
-  newCardInfo.classList.add('card-info');
-  newName.classList.add('name');
-  newUsername.classList.add('username');
-
-  newImage.src = imgUrl;
-  newName.textContent = "Steve Renner";
-  newUsername.textContent = "Steverenner1";
-  newLocation.textContent = "Seattle, Washington";
-  newProfile.src = github.com/Steverenner1;
-  newFollowers.textContent = "users followers count";
-  newFollowing.textContent = "users following count";
-  newBio.textContent = "my bio";
-
   newCard.appendChild(newImage);
+  newCard.classList.add('card');
+  newImage.src = info.avatar_url;
+
   newCard.appendChild(newCardInfo);
+  newCardInfo.classList.add('card-info');
+
   newCardInfo.appendChild(newName);
-  newCardInfo.appendChild(newUsername);
+  newName.classList.add('name');
+  newName.textContent = info.name;
+
+  newCardInfo.appendChild(newUserName);
+  newUserName.classList.add('username');
+  newUserName.textContent = info.login;
+
   newCardInfo.appendChild(newLocation);
+  newLocation.textContent = info.newLocation;
+
   newCardInfo.appendChild(newProfile);
+  newProfile.textContent = info.profile;
+
   newCardInfo.appendChild(newFollowers);
+  newFollowers.textContent = info.followers;
+
   newCardInfo.appendChild(newFollowing);
+  newFollowing.textContent = info.following;
+
   newCardInfo.appendChild(newBio);
+  newBio.textContent = info.bio;
+  
+  // newCard.classList.add('card');
+  // newCardInfo.classList.add('card-info');
+  // newName.classList.add('name');
+  // newUsername.classList.add('username');
+
+  // newImage.src = imgUrl;
+  // newName.textContent = "Steve Renner";
+  // newUsername.textContent = "Steverenner1";
+  // newLocation.textContent = "Seattle, Washington";
+  // newProfile.src = github.com/Steverenner1;
+  // newFollowers.textContent = "users followers count";
+  // newFollowing.textContent = "users following count";
+  // newBio.textContent = "my bio";
+
+  // newCard.appendChild(newImage);
+  // newCard.appendChild(newCardInfo);
+  // newCardInfo.appendChild(newName);
+  // newCardInfo.appendChild(newUsername);
+  // newCardInfo.appendChild(newLocation);
+  // newCardInfo.appendChild(newProfile);
+  // newCardInfo.appendChild(newFollowers);
+  // newCardInfo.appendChild(newFollowing);
+  // newCardInfo.appendChild(newBio);
 
   return newCard;
 };
