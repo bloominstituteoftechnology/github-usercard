@@ -33,7 +33,9 @@ axios
 
 const followersArray = [];
 
-function gitCard(imgUrl) {
+const cards = document.querySelector('.cards')
+
+function gitCard(info) {
   const newCard = document.createElement('div');
   const newImage = document.createElement('img');
   const newCardInfo = document.createElement('div');
