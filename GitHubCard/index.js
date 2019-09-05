@@ -2,11 +2,15 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+
 axios.get('https://api.github.com/users/Gavin-Dreyer')
 
 .then(function (response) {
   // handle success
   console.log(response);
+  const newData = response.data;
+  const newCard = gitHubCard(newData);
+  container.append(newCard);
 })
 .catch(function (error) {
   // handle error
@@ -34,7 +38,27 @@ axios.get('https://api.github.com/users/Gavin-Dreyer')
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['https://api.github.com/users/DannyManzietti', 'https://api.github.com/users/rashmipoddar', 'https://api.github.com/users/YenniLee', 'https://api.github.com/users/Techne3', 'https://api.github.com/users/LenWinkler'];
+
+
+
+axios.get(followersArray)
+
+.then(function (response) {
+  // handle success
+  console.log(response);
+  response.data.forEach(item => {
+    const newData = item;
+    const newCard = gitHubCard(newData);
+    container.append(newCard);
+  });
+  
+})
+.catch(function (error) {
+  // handle error
+  console.log(error);
+})
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -55,26 +79,9 @@ const followersArray = [];
 </div>
 
 */
-const Gavin = {
-  "login": "Gavin-Dreyer",
-  "id": 53788046,
-  "node_id": "MDQ6VXNlcjUzNzg4MDQ2",
-  "avatar_url": "https://avatars3.githubusercontent.com/u/53788046?v=4",
-  "gravatar_id": "",
-  "url": "https://api.github.com/users/Gavin-Dreyer",
-  "html_url": "https://github.com/Gavin-Dreyer",
-  "followers_url": "https://api.github.com/users/Gavin-Dreyer/followers",
-  "following_url": "https://api.github.com/users/Gavin-Dreyer/following{/other_user}",
-  "name": "Gavin Dreyer",
-  "location": "Santa Cruz",
-  "bio": null,
-  "followers": 20,
-  "following": 20
-}
-
 const container = document.querySelector('.container');
 
-function gitHutCard(object) {
+function gitHubCard(object) {
   const card = document.createElement('div');
   const userImg = document.createElement('img');
   const cardInfo = document.createElement('div');
@@ -82,6 +89,7 @@ function gitHutCard(object) {
   const userName = document.createElement('p');
   const location = document.createElement('p');
   const profile = document.createElement('p');
+  const profileLink = document.createElement('A');
   const followers = document.createElement('p');
   const following = document.createElement('p');
   const bio = document.createElement('p');
@@ -93,6 +101,7 @@ function gitHutCard(object) {
   cardInfo.append(userName);
   cardInfo.append(location);
   cardInfo.append(profile);
+  cardInfo.append(profileLink);
   cardInfo.append(followers);
   cardInfo.append(following);
   cardInfo.append(bio);
@@ -109,7 +118,9 @@ function gitHutCard(object) {
   name.textContent = object.name;
   userName.textContent = object.login;
   location.textContent = `Location: ${object.location}`;
-  profile.textContent = `Profile: ${object.url}`;
+  profile.textContent = `Profile: `;
+  profileLink.textContent = object.html_url;
+  profileLink.setAttribute('href', object.html_url);
   followers.textContent = `Followers: ${object.followers}`;
   following.textContent = `Following: ${object.following}`;
   bio.textContent = `Bio: ${object.bio}`
@@ -117,8 +128,6 @@ function gitHutCard(object) {
   return card
 
 }
-
-console.log(container.append(gitHutCard(Gavin)));
 
 /* List of LS Instructors Github username's: 
   tetondan
