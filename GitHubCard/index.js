@@ -58,7 +58,7 @@ followersArray.forEach(function(user){
        debugger
          axios.get(`${data.followers_url}`)
              .then(response => {
-             const myFollowers = Object.values(response.data.login);
+             const myFollowers = Object.values(data.login);
               myFollowers.forEach(function(data){
              cards.appendChild(cardMaker(response.data))
             }) 
