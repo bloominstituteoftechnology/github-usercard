@@ -53,3 +53,75 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+
+axios.get('https://api.github.com/users/beautytechy')
+  .then(response => {
+    console.log(response.data);
+    const newCard = CreateCard(response.data);
+
+    const entryPoint = document.querySelector(".cards")
+    entryPoint.appendChild(newCard);
+    })
+  .catch(error => {
+    console.log("The data was not returned", error);
+  });
+
+function CreateCard(param) {
+
+  //Elements
+  const mainCard = document.createElement('div');
+  const profileImage = document.createElement('img');
+  const info = document.createElement('div');
+  const personName = document.createElement('h3');
+  const userName = document.createElement('p');
+  const userLoc = document.createElement('p');
+  const profilePage = document.createElement('p');
+  const githubLink = document.createElement('a');
+  const userFollowers = document.createElement('p');
+  const userFollowing = document.createElement('p');
+  const userBio = document.createElement('p');
+
+  //Structure
+  mainCard.appendChild(profileImage)
+  mainCard.appendChild(info)
+  info.appendChild(personName)
+  info.appendChild(userName)
+  info.appendChild(userLoc)
+  info.appendChild(profilePage)
+  profilePage.appendChild(githubLink)
+  info.appendChild(userFollowers)
+  info.appendChild(userFollowing)
+  info.appendChild(userBio)
+
+  //Styling
+  mainCard.classList.add('card')
+  info.classList.add('card-info')
+  personName.classList.add('name')
+  userName.classList.add('username')
+
+  profileImage.src = '${data.avatar_url}'
+  personName.textContent = '{data.name}'
+  userName.textContent = '${login}'
+  userLoc.textContent = '${location}'
+  userFollowers.textContent = '${followersArray}'
+  userFollowing.textContent = '${following}'
+  userBio.textContent = '${bio}'
+
+
+  return CreateCard
+
+}
+
+
+
+
+// console.log(CreateCard())
+
+
+// CreateCard(response.data);
+
+
+
+
+
