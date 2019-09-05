@@ -53,9 +53,10 @@ followersArray.forEach(function(user){
 
 //Attempt at stretch goal:
 
-  axios.get('http://api.github.com/Ziggyss')
+  axios.get('http://api.github.com/users/Ziggyss')
      .then(response => {
-         axios.get(`response.data.followers_url`)
+       debugger
+         axios.get(`${data.followers_url}`)
              .then(response => {
              const myFollowers = Object.values(response.data.login);
               myFollowers.forEach(function(data){
