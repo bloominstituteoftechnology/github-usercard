@@ -6,14 +6,28 @@
 function gitCreator(data) {
   
   const div1 = document.createElement("div");
-  div1.classList.add("card");
- 
- const img = document.createElement("img");
- img.setAttribute("src",data.data.avatar_url);
- 
- const div2 = document.createElement("div");
- div2.classList.add("card-info");
- 
+  div1.classList.add("card", "card--toggle");
+
+
+  
+  
+  const img = document.createElement("img");
+  img.setAttribute("src",data.data.avatar_url);
+  
+  const div2 = document.createElement("div");
+  div2.classList.add("card-info");
+  div2.style.width = "100%";
+  
+  const spanToggle = document.createElement("span");
+  spanToggle.classList.add("toggle");
+  spanToggle.textContent = "click to open";
+  spanToggle.addEventListener("click",(event) => {
+    event.stopImmediatePropagation();
+    event.target.style.backgroundColor = "green";
+    
+}
+);
+
  const h3 = document.createElement("h3");
  h3.classList.add("name");
  h3.textContent = data.data.name;
@@ -42,6 +56,12 @@ function gitCreator(data) {
  const p6 = document.createElement("p");
  p6.textContent = "Bio: " + data.data.bio;
 
+ const divCal = document.createElement("img");
+  divCal.classList.add("calendar");
+  divCal.setAttribute("src", "http://ghchart.rshah.org/" + data.data.login);
+  divCal.style.width ="100%";
+  divCal.style.margin = "3px";
+
 const divCards = document.querySelector(".cards");
 divCards.appendChild(div1);
 
@@ -54,6 +74,8 @@ div2.appendChild(p3);
 div2.appendChild(p4);
 div2.appendChild(p5);
 div2.appendChild(p6);
+div2.appendChild(divCal);
+div2.appendChild(spanToggle);
 
 return divCards;
 
@@ -65,6 +87,7 @@ const followersArray = ["tetondan","dustinmyers","justsml","luishrd","bigknell",
   
   axios.get("https://api.github.com/users/" + el)
   .then( response => { 
+    console.log(response);
   return gitCreator(response);
  })
  .catch( err => 
