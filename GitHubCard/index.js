@@ -42,7 +42,6 @@ const followersArray = ['tetondan',
 followersArray.forEach(function(user){
     axios.get(`https://api.github.com/users/${user}`)
     .then(response => {
-      const cards = document.querySelector('.cards');
       cards.appendChild(cardMaker(response.data))
     })
     .catch(error => {
