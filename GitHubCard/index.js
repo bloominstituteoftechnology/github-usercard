@@ -2,6 +2,15 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+axios.get('https://api.github.com/users/hillan1152')
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function(error) {
+    console.log(error);
+  })
+  .finally(function(){
+  });
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -13,6 +22,8 @@
 /* Step 4: Pass the data received from Github into your function, 
            create a new component and add it to the DOM as a child of .cards
 */
+
+
 
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
@@ -45,6 +56,59 @@ const followersArray = [];
 </div>
 
 */
+const profile = document.querySelector('.cards');
+
+function cardCreator (arr) {
+    const divCard = document.createElement('div');
+    const userImg = document.createElement('img')
+    const cardInfo = document.createElement('div');
+    const cardName = document.createElement('h3');
+    const userName = document.createElement('p')
+    const userLocation = document.createElement('p');
+    const userProfile = document.createElement('p')
+    const pageLink = document.createElement('a');
+    const followers = document.createElement('p')
+    const following = document.createElement('p');
+    const userBio = document.createElement('p')
+
+    //Attach Elements
+    profile.appendChild(divCard);
+    divCard.appendChild(userImg);
+    divCard.appendChild(cardInfo);
+    cardInfo.appendChild(cardName);
+    cardInfo.appendChild(userName);
+    cardInfo.appendChild(userLocation);
+    cardInfo.appendChild(userProfile);
+    cardInfo.appendChild(followers);
+    cardInfo.appendChild(following);
+    cardInfo.appendChild(userBio);
+    userProfile.appendChild(pageLink);
+
+
+    //Classes
+    divCard.classList.add('card');
+    cardInfo.classList.add('card-info');
+    cardName.classList.add('name');
+    userName.classList.add('username');
+
+    //Content
+    userImg.src = arr.avatar_url;
+    cardName.textContent = arr.name;
+    userName.textContent = arr.login;
+    userLocation.textContent = `Location: ${arr.location}`;
+    userProfile.textContent = `Profile: `;
+    pageLink.href = arr.url;
+    followers.textContent = arr.follwers;
+    following.textContent = arr.following;
+    userBio.textContent = arr.bio;
+
+
+
+  return divCard
+}
+
+console.log(cardCreator);
+
 
 /* List of LS Instructors Github username's: 
   tetondan
