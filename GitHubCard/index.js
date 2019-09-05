@@ -3,58 +3,65 @@
            https://api.github.com/users/<your name>
 */
 axios.get('https://api.github.com/users/Manjukcthapa')
-.then(data =>{
-  const myInfo = data.data;
-    console.log('UserInfo', myInfo);
-    const cardInfo = cardCreator(myInfo);
-    console.log(cardInfo);
-    cards.appendChild(cardInfo);
+.then(response =>{
+  const info = response.data
+  const newCard = Card(info.avatar_url, info.name, info.login, info.location, info.url, info.followers, info.following, info.bio)
+ console.log(info)
+  let cards = document.querySelector('.cards')
+  cards.appendChild(newCard)
 })
 
+const Card = (imgSrc, name, username, location, url, followerCount, followingCount, userBio) => {
+  // This creates the user card container
+  const div = document.createElement('div')
+  div.classList.add('card')
+  
+  const profileImage = document.createElement('img')
+  profileImage.src = imgSrc
+  div.appendChild(profileImage)
 
-const cards = document.querySelector('.cards');
-console.log(cards);
-function cardCreator (arg) {
-  const card = document.createElement('div');
-  const img = document.createElement('img');
-  const cardInfo = document.createElement('div');
-  const name = document.createElement('h3');
-  const userName = document.createElement('p');
-  const location = document.createElement('p');
-  const profile = document.createElement('p');
-  const profileLink = document.createElement('a');
-  const followers = document.createElement('p');
-  const following = document.createElement('p');
-  const bio = document.createElement('p');
+  // Here we create the nested div for the user info
+  const nestedDiv = document.createElement('div')
+  nestedDiv.classList.add('card-info')
+  div.appendChild(nestedDiv)
 
-  card.classList.add('card');
-  cardInfo.classList.add('card-info');
-  name.classList.add('name');
-  userName.classList.add('user-name');
+  const nameTag = document.createElement('h3')
+  nameTag.classList.add('username')
+  nameTag.textContent = name
+  nestedDiv.appendChild(nameTag)
 
-  card.appendChild(img);
-  card.appendChild(cardInfo);
-  cardInfo.appendChild(name);
-  cardInfo.appendChild(userName);
-  cardInfo.appendChild(location);
-  cardInfo.appendChild(profile);
-  profile.appendChild(profileLink);
-  cardInfo.appendChild(followers);
-  cardInfo.appendChild(following);
-  cardInfo.appendChild(bio);
+  const userTag = document.createElement('p')
+  userTag.classList.add('username')
+  userTag.textContent = username
+  nestedDiv.appendChild(userTag)
 
-  img.src = arg.avatar_url;
-  location.textContent = arg.location;
-  name.textContent = arg.name;
-  userName.textContent = arg.login;
-  const aProfileLink = arg.html_url;
-  profileLink.innerHTML = aProfileLink.link(arg.html_url);
-  followers.textContent = `Followers: ${arg.followers}`;
-  following.textContent = `Following: ${arg.following}`;
-  bio.textContent = arg.bio;
+  const userLocation = document.createElement('p')
+  userLocation.textContent = `Location: ${location}`
+  nestedDiv.appendChild(userLocation)
 
-  return card;
+  const profile = document.createElement('p')
+  profile.textContent = `Profile: `
+  nestedDiv.appendChild(profile)
+
+  const githubPage = document.createElement('p')
+  githubPage.textContent = url
+  profile.appendChild(githubPage)
+
+  const followers = document.createElement('p')
+  followers.textContent = `Followers: ${followerCount}`
+  nestedDiv.appendChild(followers)
+
+  const following = document.createElement('p')
+  following.textContent = `Following: ${followingCount}`
+  nestedDiv.appendChild(following)
+
+  const bio = document.createElement('p')
+  bio.textContent = `Bio: ${userBio}`
+  nestedDiv.appendChild(bio)
+
+  return div
 }
+
 
 
 
@@ -70,16 +77,23 @@ const followersArray = [
 ];
 
 
-  i = 0;
-  followersArray.forEach((user, i) => {
-  axios.get(`https://api.github.com/users/${followersArray[i]}`)
-    .then (data => {
-      const myInfo = data.data;
-      console.log('UserInfo', myInfo);
-      const cards = document.querySelector('.cards');
-      const cardInfo = cardCreator(myInfo);
-      console.log(cardInfo);
-      cards.appendChild(cardInfo);
-    }), i++;
-}) 
+
+const getUser = (array) => {
+  array.forEach((user) => {
+    axios.get(`https://api.github.com/users/${user}`)
+    .then(response => {
+      const info = response.data
+      const otherCard = Card(info.avatar_url, info.name, info.login, info.location, info.url, info.followers, info.following, info.bio)
+      console.log(info)
+      return otherCard
+    })
+    .then(response => {
+      const cards = document.querySelector('.cards')
+      cards.appendChild(response)
+    })
+  })
+
+}
+
+getUser(followersArray)
 
