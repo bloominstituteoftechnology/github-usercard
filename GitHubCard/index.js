@@ -2,6 +2,14 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+axios.get('https://api.github.com/users/Ziggyss')
+  .then(response => {
+    debugger
+  })
+  .catch(error => {
+    debugger
+  });
+
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -45,6 +53,22 @@ const followersArray = [];
 </div>
 
 */
+
+function cardMaker (object){
+   const cardDiv = document.createElement('div');
+   const cardInfo = document.createElement('div');
+   const cardImage = document.createElement('img');
+   const cardName = document.createElement('h3');
+   const cardProfile = document.createElement('p');
+   const cardGitAddress = document.createElement('a');
+   const cardUserName = document.createElement('p');
+   const cardLocation = document.createElement('p');
+   const cardFollowers = document.createElement('p');
+   const cardFollowing = document.createElement('p');
+   const cardBio = document.createElement('p');
+
+
+}
 
 /* List of LS Instructors Github username's: 
   tetondan
