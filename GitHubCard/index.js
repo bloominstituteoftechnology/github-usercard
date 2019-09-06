@@ -29,8 +29,8 @@ axios.get("https://api.github.com/users/vishalicious213")
   .then(response => {
     console.log("Got data from GitHub");
     console.log(response);
-    console.log('hello');
     const gitProfile = gitCard(response.data);
+    // console.log('hello');
     console.log(gitProfile);
     gitOnPage.appendChild(gitProfile)
   })
@@ -114,12 +114,13 @@ function gitCard(object) {
   imgSrc.src = object.avatar_url; // its not text!
   name.textContent = object.name;
   userName.textContent = object.login;
-  location.textContent = object.location;
-  profile.textContent = "Profile: ";
-  gitPage.textContent = object.html_url;
-  followers.textContent = object.followers_url;
-  following.textContent = object.following_url;
-  bio.textContent = object.bio;
+  location.textContent = `Location: ${object.location}`;
+  profile.textContent = `Profile: ${object.html_url}`;  // When this is commented out, gitPage
+  gitPage.href = object.html_url;                       // shows up and works as a link. Its not
+  gitPage.textContent = ` ${object.html_url}`;          // working when I have them both.
+  followers.textContent = `Followers: ${object.followers}`;
+  following.textContent = `Following: ${object.following}`;
+  bio.textContent = `Bio: ${object.bio}`;
 
   return card;
 }
