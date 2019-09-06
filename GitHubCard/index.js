@@ -66,6 +66,15 @@ const followersArray = [];
   bigknell
 */
 
+const myFollowers = [
+ "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell"
+]
+
+
 function createCard(data){
   const newCard = document.createElement('div');
   const cardImg = document.createElement('img');
@@ -96,6 +105,12 @@ function createCard(data){
   //format of elements
   newCard.appendChild(cardImg);
   new.card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profileLink);
+  cardInfo.appendChild(numberOfFollowers);
+  cardInfo.appendChild(bio);
 
   return newCard;
 
