@@ -48,6 +48,24 @@ function gitCard(arr) {
   const followers = document.createElement("p");
   const following = document.createElement("p");
   const bio = document.createElement("p");
+
+  // setup structure of elements (append as a whole unit later)
+  card.appendChild("img");
+  card.appendChild("cardInfo");
+  cardInfo.appendChild("name");
+  cardInfo.appendChild("userName");
+  cardInfo.appendChild("location");
+  cardInfo.appendChild("profile");
+  cardInfo.appendChild("gitPage"); // should this be nested in profile?
+  cardInfo.appendChild("followers");
+  cardInfo.appendChild("following");
+  cardInfo.appendChild("bio");
+
+  // set class names (from HTML)
+  card.classList.add("card");
+  cardInfo.classList.add("card-info");
+  name.classList.add("name");
+  userName.classList.add("username");
 }
 
 /* Step 3: Create a function that accepts a single object as its only argument,
