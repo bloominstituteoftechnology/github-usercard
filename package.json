@@ -1,0 +1,8 @@
+{
+  "name": "github-usercard",
+  "version": "1.0.0",
+  "dependencies": {},
+  "devDependencies": {
+    "axios": "^0.19.0"
+  }
+}
