@@ -84,7 +84,10 @@ function createCard(data){
   name.classList.add('name');
   userName.classList.add('username');
 
-   //
+  //Set text content
+  location.textContent = `Location: ${data.location}`;
+  profileLink.textContent = `Profile: ${data.profileLink}`
+  numberOfFollowers.textContent = `Folowers: ${data.followers}`
 
 
 
