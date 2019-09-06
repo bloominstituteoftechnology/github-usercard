@@ -38,7 +38,7 @@ const followersArray = [];
 function gitCard(arr) {
   // define new elements
   const card = document.createElement("div");
-  const img = document.createElement("img");
+  const imgSrc = document.createElement("img");
   const cardInfo = document.createElement("div");
   const name = document.createElement("h3");
   const userName = document.createElement("p");
@@ -50,7 +50,7 @@ function gitCard(arr) {
   const bio = document.createElement("p");
 
   // setup structure of elements (append as a whole unit later)
-  card.appendChild("img");
+  card.appendChild("imgSrc");
   card.appendChild("cardInfo");
   cardInfo.appendChild("name");
   cardInfo.appendChild("userName");
@@ -66,6 +66,17 @@ function gitCard(arr) {
   cardInfo.classList.add("card-info");
   name.classList.add("name");
   userName.classList.add("username");
+
+  // set text content (get from function parameter names)
+  imgSrc.textContent = arr.avatar_url;
+  name.textContent = arr.name;
+  userName.textContent = arr.login;
+  location.textContent = arr.location;
+  profile.textContent = "Profile: ";
+  gitPage.textContent = arr.html_url;
+  followers.textContent = arr.followers_url;
+  following.textContent = arr.following_url;
+  bio.textContent = arr.bio;
 }
 
 /* Step 3: Create a function that accepts a single object as its only argument,
