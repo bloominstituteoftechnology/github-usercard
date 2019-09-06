@@ -85,12 +85,18 @@ function createCard(data){
   userName.classList.add('username');
 
   //Set text content
+  cardImg.src = data.avatar_url;
+  name.textContent = data.name;
+  userName.textContent = data.login;
   location.textContent = `Location: ${data.location}`;
-  profileLink.textContent = `Profile: ${data.profileLink}`
-  numberOfFollowers.textContent = `Folowers: ${data.followers}`
+  profileLink.textContent = `Profile: ${data.profileLink}`;
+  numberOfFollowers.textContent = `Folowers: ${data.followers}`;
+  bio.textContent = `Bio: ${data.bio}`;
 
+  //format of elements
+  newCard.appendChild(cardImg);
+  new.card.appendChild(cardInfo);
 
-
-
+  return newCard;
 
 }
