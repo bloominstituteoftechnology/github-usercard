@@ -20,21 +20,7 @@ axios
    Skip to Step 3.
 */
 
-function createCard(data){
-  const newCard = document.createElement('div');
-  const cardImg = document.createElement('img');
-  const cardInfo = document.createElement('div');
-  const name = document.createElement('p');
-  const userName = document.createElement('p');
-  const location = document.createElement('p');
-  const profileLink = document.createElement('a');
-  const numberOfFollowers = document.createElement('p');
-  const bio = document.createElement('p');
 
-  
-
-
-}
 
 /* Step 4: Pass the data received from Github into your function, 
            create a new component and add it to the DOM as a child of .cards
@@ -80,81 +66,28 @@ const followersArray = [];
   bigknell
 */
 
-
-
-
-
-
-const followersArray = [
-  'tetondan',
-  'dustinmyers',
-  'justsml',
-  'luishrd',
-  'bigknell',
-];
-// Entrypoint on website(in the .cards div)
-const cardsEntry = document.querySelector('.cards');
-//Followers Array API
-followersArray.forEach(follower => {
-  axios.get(`https://api.github.com/users/${follower}`)
-    .then((response) => {
-      console.log(response.data);
-      let newPerson = createCard(response.data);
-      cardsEntry.appendChild(newPerson);
-  });
-});
-//Personal Profile API
-axios.get('https://api.github.com/users/nathanmelby')
-  .then(response => {
-    console.log(response.data);
- 
-    cardsEntry.appendChild(createCard(response.data));
-  
-});
-//card creator function
-function createCard(data) {
+function createCard(data){
   const newCard = document.createElement('div');
-  const newImage = document.createElement('img');
-  const newCardInfo = document.createElement('div');
-  const newName = document.createElement('h3');
-  const newUserName = document.createElement('p');
-  const newLocation = document.createElement('p');
-  const newProfile = document.createElement('p');
-  const newProfileLink = document.createElement('a');
-  const newFollowers = document.createElement('p');
-  const newFollowing = document.createElement('p');
-  const newBio = document.createElement('p');
- 
+  const cardImg = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('p');
+  const userName = document.createElement('p');
+  const location = document.createElement('p');
+  const profileLink = document.createElement('a');
+  const numberOfFollowers = document.createElement('p');
+  const bio = document.createElement('p');
+
+
   //set class names
   newCard.classList.add('card');
-  newCardInfo.classList.add('card-info');
-  newName.classList.add('name');
-  newUserName.classList.add('username');
-  
-  //set content
- 
-  newImage.src = `${data.avatar_url}`;
-  newName.textContent = `${data.name}`;
-  newUserName.textContent = `${data.login}`;
-  newLocation.textContent = `Location: ${data.location}`;
-  newProfile.textContent = `Profile: `;
-  newProfileLink.textContent = `${data.html_url}`;
-  newProfileLink.href = `${data.html_url}`;
-  
-  newFollowers.textContent = `Followers: ${data.followers}`;
-  newFollowing.textContent = `Following: ${data.following}`;
-  newBio.textContent = `Bio: ${data.bio}`;
- //setup structure of elements
- 
-  newCard.appendChild(newImage);
-  newCard.appendChild(newCardInfo);
-  newCardInfo.appendChild(newName);
-  newCardInfo.appendChild(newUserName);
-  newCardInfo.appendChild(newLocation);
-  newCardInfo.appendChild(newProfile);
-  newProfile.appendChild(newProfileLink);
-  newCardInfo.appendChild(newFollowers);
-  newCardInfo.appendChild(newFollowing);
-  newCardInfo.appendChild(newBio);
-  return newCard;
-};
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  userName.classList.add('username');
+
+   //
+
+
+
+
+
+}
