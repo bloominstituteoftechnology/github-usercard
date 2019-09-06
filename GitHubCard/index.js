@@ -95,22 +95,22 @@ function gitHubCard(object) {
   const userName = document.createElement('p');
   const location = document.createElement('p');
   const profile = document.createElement('p');
-  const profileLink = document.createElement('A');
+  const profileLink = document.createElement('a');
   const followers = document.createElement('p');
   const following = document.createElement('p');
   const bio = document.createElement('p');
 
   //structure 
-  card.append(userImg);
-  card.append(cardInfo);
-  cardInfo.append(name);
-  cardInfo.append(userName);
-  cardInfo.append(location);
-  cardInfo.append(profile);
-  cardInfo.append(profileLink);
-  cardInfo.append(followers);
-  cardInfo.append(following);
-  cardInfo.append(bio);
+  card.appendChild(userImg);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+  
 
   //classes
   card.classList.add('card');
@@ -124,12 +124,15 @@ function gitHubCard(object) {
   name.textContent = object.name;
   userName.textContent = object.login;
   location.textContent = `Location: ${object.location}`;
-  profile.textContent = `Profile: `;
+  profile.textContent = 'Profile: '
+  // profile.innerHTML = `Profile: <a href=${object.html_url}>${object.html_url}</a>`
+  profileLink.href = object.html_url;
   profileLink.textContent = object.html_url;
-  profileLink.setAttribute('href', object.html_url);
   followers.textContent = `Followers: ${object.followers}`;
   following.textContent = `Following: ${object.following}`;
   bio.textContent = `Bio: ${object.bio}`
+
+  profile.appendChild(profileLink);
 
   return card
 
