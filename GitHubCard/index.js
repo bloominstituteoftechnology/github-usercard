@@ -157,7 +157,7 @@ followersArray= ["tetondan","dustinmyers","justsml","luishrd","bigknell"];
 //Instead of manually creating a list of followers, do it programmatically.
 // Create a function that requests the followers data from the API after it has 
 //received your data and create a card for each of your followers. Hint: you can chain promises.
-followersArray = axios
+axios
   .get("https://api.github.com/users/shiva-banihashem/followers")
   .then(res => {
     
