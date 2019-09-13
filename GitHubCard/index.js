@@ -17,12 +17,14 @@ const createGithubCard = (user) => {
 
   const userName = document.createElement('p');
   userName.className = 'username';
-  userName.textContent = user.data.username;
+  userName.textContent = user.data.login;
   cardInfo.appendChild(userName);
 
-  const location = document.createElement('p');
-  location.textContent = `Location: ${user.data.location}`;
-  cardInfo.appendChild(location);
+  if (user.data.location) {
+    const location = document.createElement('p');
+    location.textContent = `Location: ${user.data.location}`;
+    cardInfo.appendChild(location);
+  }
 
   const profile = document.createElement('p');
   profile.textContent = 'Profile: ';
@@ -38,12 +40,14 @@ const createGithubCard = (user) => {
   cardInfo.appendChild(followers);
 
   const following = document.createElement('p');
-  followers.textContent = `Following: ${user.data.following}`;
+  following.textContent = `Following: ${user.data.following}`;
   cardInfo.appendChild(following);
 
-  const bio = document.createElement('p');
-  bio.textContent = `Bio: ${user.data.bio}`;
-  cardInfo.appendChild(bio);
+  if (user.data.bio) {
+    const bio = document.createElement('p');
+    bio.textContent = `Bio: ${user.data.bio}`;
+    cardInfo.appendChild(bio);
+  }
 
   document.querySelector('.cards').appendChild(card);
 };
