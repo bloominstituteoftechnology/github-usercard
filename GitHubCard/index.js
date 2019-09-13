@@ -2,19 +2,7 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
           
-*/
-// const getUserData = username => {
-//  return axios.get('http://api.github.com/users/Katrina-Dierking')
-
-//     .then((response) => {
-//       console.log(response);
-//     })
-
-//     .catch((error) => {
-//       console.log(error);
-//     })
-//   }
-
+*
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
