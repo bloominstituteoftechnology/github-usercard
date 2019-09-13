@@ -49,6 +49,17 @@ const createGithubCard = (user) => {
     cardInfo.appendChild(bio);
   }
 
+  axios.get(`https://github.com/users/${user.data.login}/contributions`)
+    .then(((result) => {
+      const calendar = document.createRange().createContextualFragment(result.data);
+      calendar.querySelector('h2').remove();
+      calendar.querySelector('.contrib-footer').remove();
+      card.appendChild(calendar);
+    }))
+    .catch((error) => {
+      console.log(error);
+    });
+
   document.querySelector('.cards').appendChild(card);
 };
 

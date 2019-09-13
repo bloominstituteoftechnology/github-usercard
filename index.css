@@ -141,14 +141,16 @@ body,
 html {
   font-size: 62.5%;
 }
+
 body {
   background: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
 }
+
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 800px;
+  width: 925px;
   margin: 50px auto;
   padding: 30px;
 }
@@ -176,12 +178,17 @@ body {
 
 .card {
   display: flex;
+  flex-wrap: wrap;
   width: 100%;
   margin-bottom: 30px;
   padding: 20px;
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 1px 6px -2px #000;
+}
+
+.js-yearly-contributions {
+  margin-top: 2rem;
 }
 
 .card img {
