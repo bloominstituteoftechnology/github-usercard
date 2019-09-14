@@ -50,7 +50,7 @@ function cardMaker(profileInfo){
      cardLoc.textContent = `Location: ${profileInfo.location}`
      cardPic.setAttribute('alt', `${profileInfo.name}'s photo`)
      cardLink.setAttribute('href', profileInfo.html_url)
-     cardLink.textContent = profileInfo.html_url
+     cardLink.textContent = `Profile: ${profileInfo.html_url}`
      cardFollowers.textContent = `Followers: ${profileInfo.followers}`
      cardFollowing.textContent = `Following: ${profileInfo.followers}`
      cardBio.textContent =  `Bio: ${profileInfo.bio}`
