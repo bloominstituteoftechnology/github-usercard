@@ -21,7 +21,7 @@ axios.get('https://api.github.com/users/richardmachado')
     
   })
   .catch((err) => {
-    console.log(err);
+    console.log(err); 
 })
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
