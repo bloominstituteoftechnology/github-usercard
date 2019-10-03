@@ -11,13 +11,16 @@ axios
     console.log(cardCreator(myInfo));
     cards.appendChild(cardCreator(myInfo));
 
-    axios.get(`https://api.github.com/users/Schrese/followers`)
-    .then(response => {
-      const theirInfo = response.data;
-      console.log(theirInfo);
-      cardCreator(theirInfo);
-      cards.appendChild(cardCreator(theirInfo));
+
     })
+
+        
+axios.get('https://api.github.com/users/Schrese/followers')
+  .then(response => {
+    const theirInfo = response.data;
+    console.log(theirInfo);
+    cardCreator(theirInfo);
+    cards.appendChild(cardCreator(theirInfo));
   })
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
