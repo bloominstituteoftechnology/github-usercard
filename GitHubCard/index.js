@@ -169,7 +169,7 @@ function CreateCard(attr) {
 // });
 
 // STRETCH
-// - - - - - - - - -
+// - - - - - - - -
 axios
     .get("https://api.github.com/users/itsericfig/followers ")
     .then(response => {
