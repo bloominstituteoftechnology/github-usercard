@@ -84,12 +84,12 @@ time,
 mark,
 audio,
 video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
 article,
@@ -103,29 +103,29 @@ hgroup,
 menu,
 nav,
 section {
-  display: block;
+    display: block;
 }
 body {
-  line-height: 1;
+    line-height: 1;
 }
 ol,
 ul {
-  list-style: none;
+    list-style: none;
 }
 blockquote,
 q {
-  quotes: none;
+    quotes: none;
 }
 blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: "";
-  content: none;
+    content: "";
+    content: none;
 }
 table {
-  border-collapse: collapse;
-  border-spacing: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
 /* Reset above, our CSS below */
@@ -133,74 +133,113 @@ table {
 html,
 body,
 * {
-  font-family: "Roboto", sans-serif;
-  box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+    box-sizing: border-box;
 }
 
 html {
-  font-size: 62.5%;
+    font-size: 62.5%;
 }
 body {
-  background: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+    background: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
 }
 .container {
-  max-width: 800px;
-  margin: 50px auto;
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .header {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
 }
 
 .header img {
-  width: 150px;
-  height: 150px;
+    width: 150px;
+    height: 150px;
 }
 
 .header p {
-  font-size: 48px;
+    font-size: 48px;
 }
 
 .cards {
-  width: 100%;
+    width: 100%;
 }
 
 .card {
-  width: 100%;
-  padding: 20px;
-  display: flex;
-  border-radius: 5px;
-  box-shadow: 0 1px 6px -2px #000;
-  background-color: #fff;
-  margin-bottom: 30px;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    border-radius: 5px;
+    box-shadow: 0 1px 6px -2px #000;
+    background-color: #fff;
+    margin-bottom: 30px;
 }
 
 .card img {
-  width: 150px;
-  height: 150px;
-  border-radius: 3px;
-  margin-right: 20px;
+    width: 150px;
+    height: 150px;
+    border-radius: 3px;
+    margin-right: 20px;
 }
 
 .card .name {
-  font-size: 3.4rem;
+    font-size: 3.4rem;
 }
 
 .card p {
-  font-size: 1.4rem;
-  margin-bottom: 3px;
+    font-size: 1.4rem;
+    margin-bottom: 3px;
 }
 
 .card .username {
-  font-size: 1.8rem;
-  font-style: italic;
-  margin: 3px 0 10px;
+    font-size: 1.8rem;
+    font-style: italic;
+    margin: 3px 0 10px;
 }
+
+/* STRETCH */
+/* - - - - - - - - - */
+
+h3 {
+    font-size: 1.75rem;
+}
+
+ul {
+    list-style: disc;
+    padding-left: 2.5rem;
+}
+
+ul li {
+    margin: 0.66rem 0;
+}
+
+ul li a {
+    color: inherit;
+    font-size: 1.33rem;
+}
+
+button {
+    outline: none;
+    color: white;
+    border: none;
+    font-size: 1.3rem;
+    padding: 0.66rem 2rem;
+    border-radius: 0.33rem;
+    background-color: orange;
+    cursor: pointer;
+    margin-top: 0.33rem;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: darkorange;
+}
+/* - - - - - - - - - */

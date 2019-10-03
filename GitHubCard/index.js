@@ -5,7 +5,7 @@
 axios
     .get("https://api.github.com/users/itsericfig")
     .then(response => {
-        console.log("✅", response);
+        // console.log("✅", response);
         let card = CreateCard(response);
         let cards = document.querySelector(".cards");
         cards.appendChild(card);
@@ -38,6 +38,12 @@ function CreateCard(attr) {
     const card_followers = document.createElement("p");
     const card_following = document.createElement("p");
     const card_bio = document.createElement("p");
+    // STRETCH
+    // - - - - - - - - -
+    const card_repos_h3 = document.createElement("h3");
+    const card_repos = document.createElement("ul");
+    const card_repos_btn = document.createElement("button");
+    // - - - - - - - - -
 
     // ADD CLASSES TO ELEMENTS
     card.classList.add("card");
@@ -56,6 +62,35 @@ function CreateCard(attr) {
     card_followers.textContent = `Followers: ${attr.data.followers}`;
     card_following.textContent = `Following: ${attr.data.following}`;
     card_bio.textContent = `Bio: ${attr.data.bio}`;
+    // STRETCH
+    // - - - - - - - - -
+    card_repos_h3.textContent = "Repos";
+    card_repos_btn.textContent = "View Repos";
+    card_repos_btn.addEventListener("click", function() {
+        if (card_repos.textContent.length == 0) {
+            axios
+                .get(`https://api.github.com/users/${attr.data.login}/repos`)
+                .then(response => {
+                    let repos = response.data;
+
+                    repos.forEach(repo => {
+                        const repo_li = document.createElement("li");
+                        const repo_a = document.createElement("a");
+
+                        repo_a.textContent = repo.name;
+                        repo_a.setAttribute("href", `${repo.html_url}`);
+                        repo_li.appendChild(repo_a);
+                        card_repos.appendChild(repo_li);
+                    });
+                })
+                .catch(error => {
+                    console.log("🚨", error);
+                });
+        } else {
+            card_repos.textContent = "";
+        }
+    });
+    // - - - - - - - - -
 
     // APPEND TO CARD ELEMENT
     card_info.appendChild(card_name);
@@ -69,6 +104,12 @@ function CreateCard(attr) {
     card_profile.appendChild(card_followers);
     card_profile.appendChild(card_following);
     card_profile.appendChild(card_bio);
+    // STRETCH
+    // - - - - - - - - -
+    card_info.appendChild(card_repos_h3);
+    card_info.appendChild(card_repos);
+    card_info.appendChild(card_repos_btn);
+    // - - - - - - - - -
 
     // RETURN CARD ELEMENT
     return card;
@@ -84,7 +125,7 @@ function CreateCard(attr) {
           user, and adding that card to the DOM.
 */
 
-const followersArray = ["colinbazzano", "mdlevick", "hayesdev", "jailang", "jhaydendev"];
+// const followersArray = ["colinbazzano", "mdlevick", "hayesdev", "jailang", "jhaydendev"];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -114,16 +155,38 @@ const followersArray = ["colinbazzano", "mdlevick", "hayesdev", "jailang", "jhay
   bigknell
 */
 
-followersArray.forEach(person => {
-    axios
-        .get(`https://api.github.com/users/${person}`)
-        .then(response => {
-            console.log("✅", response);
-            let card = CreateCard(response);
-            let cards = document.querySelector(".cards");
-            cards.appendChild(card);
-        })
-        .catch(error => {
-            console.log("🚨", error);
+// followersArray.forEach(person => {
+//     axios
+//         .get(`https://api.github.com/users/${person}`)
+//         .then(response => {
+//             let card = CreateCard(response);
+//             let cards = document.querySelector(".cards");
+//             cards.appendChild(card);
+//         })
+//         .catch(error => {
+//             console.log("🚨", error);
+//         });
+// });
+
+// STRETCH
+// - - - - - - - - -
+axios
+    .get("https://api.github.com/users/itsericfig/followers ")
+    .then(response => {
+        let followers = response.data;
+        followers.forEach(follower => {
+            axios
+                .get(`https://api.github.com/users/${follower.login}`)
+                .then(response => {
+                    let card = CreateCard(response);
+                    let cards = document.querySelector(".cards");
+                    cards.appendChild(card);
+                })
+                .catch(error => {
+                    console.log("🚨", error);
+                });
         });
-});
+    })
+    .catch(error => {
+        console.log("🚨", error);
+    });
