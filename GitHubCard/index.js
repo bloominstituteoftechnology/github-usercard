@@ -44,6 +44,9 @@
     <p>Following: {users following count}</p>
     <p>Bio: {users bio}</p>
   </div>
+
+<span class='expandButton'></span>
+
 </div>
 
 */
@@ -101,7 +104,7 @@ function newCard(data){
 
   //define new elements//
 
-  const card = document.createElement('div');
+  const carda = document.createElement('div');
   const image = document.createElement('img');
   const cardinfo = document.createElement('div');
   const name = document.createElement('h3');
@@ -113,15 +116,22 @@ function newCard(data){
   const following = document.createElement('p');  
   const bio = document.createElement('p');
 
+  const btnSpan = document.createElement('span');
 
 // Setup structure of elements//
 
 // Image
   image.src = data.avatar_url;
-  card.appendChild(image);
+  carda.appendChild(image);
   
 // Card info
-  card.appendChild(cardinfo)
+  carda.appendChild(cardinfo)
+
+
+//button
+  carda.appendChild(btnSpan)
+  btnSpan.textContent = '\u25bc'
+
 
 // name
   cardinfo.appendChild(name)
@@ -152,9 +162,12 @@ function newCard(data){
    cardinfo.appendChild(bio)
    bio.textContent = data.bio
 
+
+
+
 // set Class Names//
 
-  card.classList.add('card')
+  carda.classList.add('card')
   
   cardinfo.classList.add('card-info')
   name.classList.add('name')
@@ -165,11 +178,13 @@ function newCard(data){
 
 
 let entrypoint = document.querySelector('.cards')
-entrypoint.appendChild(card)
+entrypoint.appendChild(carda)
 
-return card
+return carda
     }
 
+
+    
     followersArray.forEach(items => {
       axios.get(`https://api.github.com/users/${items}`)
       .then( (response)=> {
