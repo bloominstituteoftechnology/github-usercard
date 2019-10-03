@@ -23,6 +23,55 @@ axios
            create a new component and add it to the DOM as a child of .cards
 */
 
+function CreateCard(attr) {
+    // CREATING ELEMENTS
+    const card = document.createElement("div");
+    const card_img = document.createElement("img");
+    const card_info = document.createElement("div");
+    const card_name = document.createElement("h3");
+    const card_username = document.createElement("p");
+    const card_location = document.createElement("p");
+    const card_profile = document.createElement("p");
+    const card_profile_a = document.createElement("a");
+    const card_followers = document.createElement("p");
+    const card_following = document.createElement("p");
+    const card_bio = document.createElement("p");
+
+    // ADD CLASSES TO ELEMENTS
+    card.classList.add("card");
+    card_info.classList.add("card-info");
+    card_name.classList.add("name");
+    card_username.classList.add("username");
+
+    // ADD TEXT/VALUES TO ELEMENTS
+    card_img.setAttribute("src", attr.data.avatar_url);
+    card_name.textContent = attr.data.name;
+    card_username.textContent = attr.data.login;
+    card_location.textContent = `Location: ${attr.data.location}`;
+    card_profile.textContent = `Profile: `;
+    card_profile_a.setAttribute("href", attr.data.html_url);
+    card_profile_a.textContent = attr.data.html_url;
+    card_followers.textContent = `Followers: ${attr.data.followers}`;
+    card_following.textContent = `Following: ${attr.data.following}`;
+    card_bio.textContent = `Bio: ${attr.data.bio}`;
+
+    // APPEND TO CARD ELEMENT
+    card_info.appendChild(card_name);
+    card.appendChild(card_img);
+    card.appendChild(card_info);
+    card_info.appendChild(card_name);
+    card_info.appendChild(card_username);
+    card_info.appendChild(card_location);
+    card_info.appendChild(card_profile);
+    card_profile.appendChild(card_profile_a);
+    card_profile.appendChild(card_followers);
+    card_profile.appendChild(card_following);
+    card_profile.appendChild(card_bio);
+
+    // RETURN CARD ELEMENT
+    return card;
+}
+
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
           , manually find some other users' github handles, or use the list found 
