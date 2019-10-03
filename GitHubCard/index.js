@@ -113,3 +113,17 @@ const followersArray = ["colinbazzano", "mdlevick", "hayesdev", "jailang", "jhay
   luishrd
   bigknell
 */
+
+followersArray.forEach(person => {
+    axios
+        .get(`https://api.github.com/users/${person}`)
+        .then(response => {
+            console.log("✅", response);
+            let card = CreateCard(response);
+            let cards = document.querySelector(".cards");
+            cards.appendChild(card);
+        })
+        .catch(error => {
+            console.log("🚨", error);
+        });
+});
