@@ -6,7 +6,9 @@ axios
     .get("https://api.github.com/users/itsericfig")
     .then(response => {
         console.log("✅", response);
-        console.log("✅", response.data);
+        let card = CreateCard(response);
+        let cards = document.querySelector(".cards");
+        cards.appendChild(card);
     })
     .catch(error => {
         console.log("🚨", error);
@@ -82,7 +84,7 @@ function CreateCard(attr) {
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ["colinbazzano", "mdlevick", "hayesdev", "jailang", "jhaydendev"];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
