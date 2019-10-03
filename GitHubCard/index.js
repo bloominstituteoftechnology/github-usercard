@@ -45,7 +45,7 @@
     <p>Bio: {users bio}</p>
   </div>
 
-<span class='expandButton'></span>
+<span> </span>
 
 </div>
 
@@ -174,11 +174,24 @@ function newCard(data){
   username.classList.add('username')
 
 
-
+  btnSpan.classList.add('btnSpan')
 
 
 let entrypoint = document.querySelector('.cards')
 entrypoint.appendChild(carda)
+
+
+// STRETCH SPAN CLICKED - expand card.
+
+btnSpan.addEventListener('click', () => {
+  console.log('card Open')
+  carda.classList.toggle('card-open');
+
+});  
+
+//cardinfo, card-open
+
+
 
 return carda
     }
