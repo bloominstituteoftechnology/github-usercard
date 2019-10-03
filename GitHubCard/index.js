@@ -45,7 +45,7 @@
     <p>Bio: {users bio}</p>
   </div>
 
-<span> </span>
+<span> click </span>
 
 </div>
 
@@ -80,7 +80,8 @@ const followersArray = [
 
 
 
-const cards = document.querySelector('.card');
+// const cards = document.querySelector('.card');
+
 //Axios, send a GET request to the following URL 
 
 axios.get('https://api.github.com/users/BenSolt')
@@ -181,11 +182,13 @@ let entrypoint = document.querySelector('.cards')
 entrypoint.appendChild(carda)
 
 
-// STRETCH SPAN CLICKED - expand card.
+///////////////////////////////////////////////
+//// STRETCH SPAN CLICKED - expand card.///////
 
 btnSpan.addEventListener('click', () => {
   console.log('card Open')
   carda.classList.toggle('card-open');
+  
 
 });  
 
@@ -202,7 +205,7 @@ return carda
       axios.get(`https://api.github.com/users/${items}`)
       .then( (response)=> {
       const newCard2 = newCard(response.data)
-     card.appendChild(newCard2);
+    //  card.appendChild(newCard2);
     }
        )
 

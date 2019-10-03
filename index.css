@@ -124,16 +124,22 @@ body {
 }
 
 
+/* STRETCH making button expand functionality */
+
 .card-open {
   height: 400px;
 }
 
+/* .card-info {
+ height: 60px;
+} */
+
 .btnSpan{
   /* position: absolute; */
   
-  font-size: 12px;
+  font-size: 18px;
   background-color: gray;
   border: 2px solid black;
-  margin-left: 90px;
+  margin-left: 20px;
   height: 30px;
 }
