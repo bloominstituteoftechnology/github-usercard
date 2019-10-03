@@ -60,6 +60,7 @@ axios
 function newCard(obj) {
   //create elements
   const card = document.createElement("div");
+  const calendar = document.createElement("div");
   const img = document.createElement("img");
   const cardInfo = document.createElement("div");
   const name = document.createElement("h3");
@@ -82,12 +83,14 @@ function newCard(obj) {
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
   profile.appendChild(gitHandle);
+  card.appendChild(calendar);
 
   //assigning classes
   card.classList.add("card");
   cardInfo.classList.add("card-info");
   name.classList.add("name");
   userName.classList.add("username");
+  calendar.classList.add("calendar");
 
   //set content
   img.src = obj.avatar_url;
