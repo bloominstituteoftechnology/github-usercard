@@ -5,7 +5,19 @@
 axios 
   .get('https://api.github.com/users/Schrese')
   .then(response => {
-    console.log(response);
+    const myInfo = response.data;
+    console.log(myInfo);
+    cardCreator(myInfo);
+    console.log(cardCreator(myInfo));
+    cards.appendChild(cardCreator(myInfo));
+
+    axios.get(`https://api.github.com/users/Schrese/followers`)
+    .then(response => {
+      const theirInfo = response.data;
+      console.log(theirInfo);
+      cardCreator(theirInfo);
+      cards.appendChild(cardCreator(theirInfo));
+    })
   })
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
@@ -31,10 +43,12 @@ axios
 
 const followersArray = [];
 
-function cardCreator(something) {
+const cards = document.querySelector('.cards');
+
+function cardCreator(user) {
   const 
   card = document.createElement('div'),
-  profilePic = docmuent.createElement('img'), 
+  profilePic = document.createElement('img'), 
   cardInfo = document.createElement('div'), 
   realName = document.createElement('h3'),
   userName = document.createElement('p'),
@@ -51,21 +65,32 @@ function cardCreator(something) {
 
   card.appendChild(profilePic);
   card.appendChild(cardInfo);
-  card.appendChild(realName);
-  card.appendChild(userName);
-  card.appendChild(userLocation);
-  card.appendChild(userProfile);
-  card.appendChild(userFollowers);
-  card.appendChild(userFollowing);
-  card.appendChild(userBio);
+  cardInfo.appendChild(realName);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(userLocation);
+  cardInfo.appendChild(userProfile);
+  cardInfo.appendChild(userFollowers);
+  cardInfo.appendChild(userFollowing);
+  cardInfo.appendChild(userBio);
 
-  realName.textContent = data.name;
+  realName.textContent = user.name;
+  profilePic.src = user.avatar_url;
+  realName.textContent = user.name;
+  userName.textContent = user.login;
+  userLocation.textContent = `Location: ${user.location}`;
+  userProfile.textContent = `Profile: ${user.html_url}`;
+  userFollowers.textContent = `Followers: ${user.followers}`;
+  userFollowing.textContent = `Following: ${user.following}`;
+  userBio.textContent = `About: ${user.bio}`;
 
   return card;
 
 
 
 } 
+
+// cards.appendChild(cardCreator());
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
