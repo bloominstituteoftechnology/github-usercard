@@ -2,7 +2,7 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
-
+  
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -24,7 +24,7 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -53,3 +53,72 @@ const followersArray = [];
   luishrd
   bigknell
 */
+const userInfo = function (gitResponse) {
+  //create elements
+  const card = document.createElement('div');
+  const img = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const header = document.createElement('h3');
+  const userName = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  //add class
+  card.classList.add('card');
+  img.src = gitResponse.data.avatar_url;
+  cardInfo.classList.add('card-info');
+  header.classList.add('name');
+  userName.classList.add('username');
+  
+  //append
+  card.appendChild(img);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+
+  //add content/meaning
+  header.textContent = gitResponse.data.name;
+  userName.textContent = gitResponse.data.login;
+  location.textContent = `Location: ${gitResponse.data.location}`;
+  profile.setAttribute('href', gitResponse.data.html_url);
+  profile.textContent = gitResponse.data.html_url;
+  followers.textContent = `Followers: ${gitResponse.data.followers}`;
+  following.textContent = `Following: ${gitResponse.data.following}`;
+  bio.textContent = `Bio: ${gitResponse.data.bio}`;
+
+  return card
+}
+const appendToPage = card => {
+  const cards = document.querySelector('.cards');
+  cards.appendChild(card)
+}
+
+function errorOut(error){
+  console.log('failed');
+  console.log(error);
+}
+
+axios.get('https://api.github.com/users/Cireimu')
+.then(userInfo)
+.then(appendToPage)
+.catch(errorOut)
+
+const followersArray = ['Robert-D-Campbell', 'NadeemAnvaritafti', 'lflores0214', 'primelos', 'justinwilly'];
+
+function githubLink(gitHandle) {
+  return axios.get(`http://api.github.com/users/${gitHandle}`)
+}
+
+followersArray.forEach(user => {
+  githubLink(user)
+    .then(userInfo)
+    .then(appendToPage)
+    .catch(errorOut)
+})
