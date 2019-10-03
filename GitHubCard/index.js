@@ -1,6 +1,6 @@
 /* Step 1: using axios, send a GET request to the following URL 
            (replacing the palceholder with your Github name):
-           https://api.github.com/users/<your name>
+           https://api.github.com/users/sara-dlc>
 */
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
@@ -24,8 +24,6 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
-
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
 
@@ -33,7 +31,7 @@ const followersArray = [];
   <img src={image url of user} />
   <div class="card-info">
     <h3 class="name">{users name}</h3>
-    <p class="username">{users user name}</p>
+    <p class="username">User name: {users user name}</p>
     <p>Location: {users location}</p>
     <p>Profile:  
       <a href={address to users github page}>{address to users github page}</a>
@@ -45,11 +43,81 @@ const followersArray = [];
 </div>
 
 */
+const allData = document.querySelector(".cards");
 
-/* List of LS Instructors Github username's: 
-  tetondan
-  dustinmyers
-  justsml
-  luishrd
-  bigknell
-*/
+axios
+  .get("https://api.github.com/users/sara-dlc")
+
+  .then(response => {
+    console.log(response);
+    const newData = newCard(response.data);
+    allData.appendChild(newData);
+  })
+  .catch(error => {
+    console.log("Could not fetch GitHub Data", error);
+  });
+
+function newCard(obj) {
+  //create elements
+  const card = document.createElement("div");
+  const img = document.createElement("img");
+  const cardInfo = document.createElement("div");
+  const name = document.createElement("h3");
+  const userName = document.createElement("p");
+  const location = document.createElement("p");
+  const gitHandle = document.createElement("a");
+  const profile = document.createElement("p");
+  const followers = document.createElement("p");
+  const following = document.createElement("p");
+  const bio = document.createElement("p");
+
+  //assigning to children to elements
+  card.appendChild(img);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+  profile.appendChild(gitHandle);
+
+  //assigning classes
+  card.classList.add("card");
+  cardInfo.classList.add("card-info");
+  name.classList.add("name");
+  userName.classList.add("username");
+
+  //set content
+  img.src = obj.avatar_url;
+  name.textContent = obj.name;
+  userName.textContent = `Username: ${obj.login}`;
+  location.textContent = `Location: ${obj.location}`;
+  profile.textContent = `Profile: ${obj.html_url}`;
+  gitHandle.href = obj.url;
+  gitHandle.textContent = obj.html_url;
+  followers.textContent = `Followers: ${obj.followers}`;
+  following.textContent = `Following: ${obj.following}`;
+  bio.textContent = obj.bio;
+
+  return card;
+}
+
+let followersArray = [];
+followersArray = [
+  "briworkman",
+  "easyas123l1",
+  "Joshua-Edgerton",
+  "jregner20",
+  "primelos"
+];
+
+followersArray.forEach(follower =>
+  axios
+    .get(`https://api.github.com/users/${follower}`)
+    .then(response => {
+      allData.appendChild(newCard(response.data));
+    })
+    .catch(error => console.log("Could not fetch GitHub Data", error))
+);
