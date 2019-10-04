@@ -24,8 +24,18 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+// axios
+//   .get("https://api.github.com/users/hayesdev")
+//   .then(response => {
+//     console.log(response);
+//     response.data.forEach(item => {
+//     const newFollow = gitCards(item);
+//     entryPoint.appendChild(newFollow);
+//   })
 
+//   .catch(error => {
+//     console.log("The data was not returned", error);
+//   });
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
 
@@ -54,7 +64,7 @@ const followersArray = [];
   bigknell
 */
 
-function gitCards(obj) {
+function gitCards(data) {
   const newCard = document.createElement("div"),
     newImg = document.createElement("img"),
     newCardInfo = document.createElement("div"),
@@ -68,17 +78,18 @@ function gitCards(obj) {
     bio = document.createElement("p");
 
   // setting content
-  newImg.src = obj.data.avatar_url;
-  name.textContent = obj.data.name;
-  username.textContent = obj.data.login;
-  location.textContent = obj.data.location;
-  profile.textContent = obj.data.name;
-  profileUrl.href = obj.data.html_url;
-  followers.textContent = obj.data.followers;
-  following.textContent = obj.data.following;
-  bio.textContent = obj.data.bio;
+  newImg.src = data.avatar_url;
+  name.textContent = data.name;
+  username.textContent = data.login;
+  location.textContent = `Location: ${data.location}`;
+  profile.textContent = `Profile: ${data.name}`;
+  profileUrl.href = `Link: ${data.html_url}`;
+  followers.textContent = `Followers: ${data.followers}`;
+  following.textContent = `Following: ${data.following}`;
+  bio.textContent = `Bio: ${data.bio}`;
 
   // creating structure
+  //*****REMEMBER YOU DO NOT NEED " " FOR APPEND/APPENDCHILD ******/
   newCard.appendChild(newImg);
   newCard.appendChild(newCardInfo);
   newCardInfo.appendChild(name);
@@ -92,7 +103,7 @@ function gitCards(obj) {
 
   // applying styles
   newCard.classList.add("card");
-  // newCardInfo.classList.add("card-info");
+  newCardInfo.classList.add("card-info");
   name.classList.add("name");
   username.classList.add("username");
 
@@ -101,21 +112,53 @@ function gitCards(obj) {
   return newCard;
 }
 
-// console.log(gitCards);
+const followersArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell"
+];
 
 const entryPoint = document.querySelector(".cards");
 
+// this is follower git Card but hardcoded
+// followersArray.forEach(names => {
+//   name = `https://api.github.com/users/${names}`;
+//   axios
+//     .get(name)
+//     .then(response => {
+//       console.log(response);
+//       const newFollow = gitCards(response);
+//       entryPoint.appendChild(newFollow);
+//     })
+//     .catch(error => {
+//       console.log("The data was not returned", error);
+//     });
+// });
+
+// this is my gitCard
 axios
   .get("https://api.github.com/users/hayesdev")
   .then(response => {
     console.log(response);
-    const newFollow = gitCards(response);
-    entryPoint.appendChild(newFollow);
+    // const newFollow = gitCards(response);
+    entryPoint.appendChild(gitCards(response.data));
   })
-  // response.data.forEach(item => {
-  //   const newFollow = gitCards(item);
-  //   entryPoint.appendChild(newFollow);
-  // });
+
+  .catch(error => {
+    console.log("The data was not returned", error);
+  });
+
+axios
+  .get("https://api.github.com/users/hayesdev/followers")
+  .then(response => {
+    console.log(response);
+    response.data.forEach(item => {
+      // const followers = gitCards(item);
+      entryPoint.appendChild(gitCards(item));
+    });
+  })
 
   .catch(error => {
     console.log("The data was not returned", error);
