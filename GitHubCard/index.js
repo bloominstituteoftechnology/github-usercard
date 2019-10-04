@@ -53,3 +53,58 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+function gitCards(obj) {
+  const newCard = document.createElement("div"),
+    newImg = document.createElement("img"),
+    newCardInfo = document.createElement("div"),
+    name = document.createElement("h3"),
+    username = document.createElement("p"),
+    location = document.createElement("p"),
+    profile = document.createElement("p"),
+    profileUrl = document.createElement("a"),
+    followers = document.createElement("p"),
+    following = document.createElement("p"),
+    bio = document.createElement("p");
+
+  // creating structure
+  newCard.appendChild("newImg");
+  newCard.appendChild("newCardInfo");
+  newCardInfo.appendChild("name");
+  newCardInfo.appendChild("username");
+  newCardInfo.appendChild("location");
+  newCardInfo.appendChild("profile");
+  newCardInfo.appendChild("followers");
+  newCardInfo.appendChild("following");
+  newCardInfo.appendChild("bio");
+  profile.appendChild("profileUrl");
+
+  // setting content
+  newImg.src = obj.data[avatar_url];
+  name.textContent = obj.data.name;
+  username.textContent = obj.data.login;
+  location.textContent = obj.data.location;
+  profile.textContent = obj.data.name;
+  profileUrl.href = obj.data[html_url];
+  followers.textContent = obj.data.followers;
+  following.textContent = obj.data.following;
+  bio.textContent = obj.data.bio;
+
+  // applying styles
+  newCard.classList.add("card");
+  newCardInfo.classList.add("card-info");
+  name.classList.add("name");
+  username.classList.add("username");
+
+  // event handlers go here
+
+  return newCard;
+}
+
+console.log(followersArray);
+
+const entryPoint = document.querySelector(".cards");
+
+axios.get("https://api.github.com/users/hayesdev").then(response => {
+  console.log(response);
+});
