@@ -67,32 +67,32 @@ function gitCards(obj) {
     following = document.createElement("p"),
     bio = document.createElement("p");
 
-  // creating structure
-  newCard.appendChild("newImg");
-  newCard.appendChild("newCardInfo");
-  newCardInfo.appendChild("name");
-  newCardInfo.appendChild("username");
-  newCardInfo.appendChild("location");
-  newCardInfo.appendChild("profile");
-  newCardInfo.appendChild("followers");
-  newCardInfo.appendChild("following");
-  newCardInfo.appendChild("bio");
-  profile.appendChild("profileUrl");
-
   // setting content
-  newImg.src = obj.data[avatar_url];
+  newImg.src = obj.data.avatar_url;
   name.textContent = obj.data.name;
   username.textContent = obj.data.login;
   location.textContent = obj.data.location;
   profile.textContent = obj.data.name;
-  profileUrl.href = obj.data[html_url];
+  profileUrl.href = obj.data.html_url;
   followers.textContent = obj.data.followers;
   following.textContent = obj.data.following;
   bio.textContent = obj.data.bio;
 
+  // creating structure
+  newCard.appendChild(newImg);
+  newCard.appendChild(newCardInfo);
+  newCardInfo.appendChild(name);
+  newCardInfo.appendChild(username);
+  newCardInfo.appendChild(location);
+  newCardInfo.appendChild(profile);
+  newCardInfo.appendChild(followers);
+  newCardInfo.appendChild(following);
+  newCardInfo.appendChild(bio);
+  profile.appendChild(profileUrl);
+
   // applying styles
   newCard.classList.add("card");
-  newCardInfo.classList.add("card-info");
+  // newCardInfo.classList.add("card-info");
   name.classList.add("name");
   username.classList.add("username");
 
@@ -101,10 +101,22 @@ function gitCards(obj) {
   return newCard;
 }
 
-console.log(followersArray);
+// console.log(gitCards);
 
 const entryPoint = document.querySelector(".cards");
 
-axios.get("https://api.github.com/users/hayesdev").then(response => {
-  console.log(response);
-});
+axios
+  .get("https://api.github.com/users/hayesdev")
+  .then(response => {
+    console.log(response);
+    const newFollow = gitCards(response);
+    entryPoint.appendChild(newFollow);
+  })
+  // response.data.forEach(item => {
+  //   const newFollow = gitCards(item);
+  //   entryPoint.appendChild(newFollow);
+  // });
+
+  .catch(error => {
+    console.log("The data was not returned", error);
+  });
