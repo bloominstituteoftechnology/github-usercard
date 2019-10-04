@@ -11,16 +11,32 @@ axios
     console.log(cardCreator(myInfo));
     cards.appendChild(cardCreator(myInfo));
 
+    
 
     })
 
-        
-axios.get('https://api.github.com/users/Schrese/followers')
+
+axios.get(`https://api.github.com/users/Schrese/followers`)
   .then(response => {
     const theirInfo = response.data;
-    console.log(theirInfo);
-    cardCreator(theirInfo);
-    cards.appendChild(cardCreator(theirInfo));
+    let followers = '';
+    response.data.forEach(e => {
+      axios.get(`https://api.github.com/users/${e.login}`)
+      .then(response => {
+        console.log(response);
+        const myVar = response.data;
+        cardCreator(myVar);
+        cards.appendChild(cardCreator(myVar));
+
+      })
+      // followers += e.login;
+      // console.log(e.login);
+    })
+    // followers.split('');
+    // console.log(followers);
+    // console.log(theirInfo);
+    // cardCreator(theirInfo);
+    // cards.appendChild(cardCreator(theirInfo));
   })
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
