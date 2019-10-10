@@ -123,5 +123,3 @@ followersArray.forEach(person => {
   axios.get(`https://api.github.com/users/${person}`)
   .then((response) => theCards.appendChild(createCard(response.data)))
 });
-
-followersArray.forEach
