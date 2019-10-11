@@ -46,7 +46,7 @@ const followersArray = [];
 
 */
 
-function followerCard(imgsrc, name, login, location, URL, followers, following, bio){
+function followerCard(gitUserInfo){
   //new Elements in order of how they appear above. 
   const newFollowerCard = document.createElement('div');
   const followerImg = document.createElement('img');
@@ -68,14 +68,16 @@ function followerCard(imgsrc, name, login, location, URL, followers, following, 
   followerGitUN.classList.add('username');
 
   //content for each element
-  followerImg.src = imgsrc;
-    followerUN.textContent = name;
-    followerGitUN.textContent = login;
-    followerLocation.textContent = location;
-      profileLink.href = URL;
-    userFollowerCount.textContent = followers;
-    userFollowing.textContent = following;
-    userBio.textContent = bio;
+  followerImg.src = gitUserInfo.avatar_url;
+    followerUN.textContent = gitUserInfo.name;
+    followerGitUN.textContent = gitUserInfo.login;
+    followerLocation.textContent = `Location: ${gitUserInfo.location}`;
+    followerGitProfile.textContent = "Profile:"
+      profileLink.href = gitUserInfo.html_url;
+      profileLink.textContent = gitUserInfo.html_url;
+    userFollowerCount.textContent = `Followers: ${gitUserInfo.followers}`;
+    userFollowing.textContent = `Following: ${gitUserInfo.following}`;
+    userBio.textContent = `Bio: ${gitUserInfo.bio}`;
 
   //Append and building the DIV
   newFollowerCard.appendChild(followerImg);
@@ -95,34 +97,34 @@ function followerCard(imgsrc, name, login, location, URL, followers, following, 
 // //TESTING to make sure the function works. 
 // const newGitFollower = followerCard();
 // console.log(newGitFollower);
+
+//newcard
+const cards = document.querySelector('.cards');
+
 //My own Card
+
 axios
   .get('https://api.github.com/users/ChiragThesia')
   .then(response =>{
-    const gitUserInfo = response.data;
-    const newGitCard = followerCard(gitUserInfo.avatar_url, gitUserInfo.name, gitUserInfo.login,
-      gitUserInfo.location, gitUserInfo.URL, gitUserInfo.followers, gitUserInfo.following, 
-      gitUserInfo.bio);
-
-    const cards = document.querySelector('.cards');
-    cards.appendChild(newGitCard);
+    console.log(response.data)
+    cards.appendChild(followerCard(response.data));
   })
+
 
 
 //My Follower's Cards
 axios
   .get('https://api.github.com/users/ChiragThesia/followers')
   .then(response =>{
-    const gitUserInfo = response.data;
-    const myFollowerCards = followerCard(gitUserInfo.avatar_url, gitUserInfo.name, gitUserInfo.login,
-      gitUserInfo.location, gitUserInfo.URL, gitUserInfo.followers, gitUserInfo.following, 
-      gitUserInfo.bio);
-      
-      return myFollowerCards;
+    response.data.forEach((element) => {
+      const newGitUserCard = new followerCard(element);
+      cards.appendChild(newGitUserCard);
+    });
+  
   })
-  .then(response =>{
-    const cards = document.querySelector('.cards');
-    cards.appendChild(response);
+
+  .catch((you_did_wrong) =>{
+    console.log(you_did_wrong);
   })
 /* List of LS Instructors Github username's: 
   tetondan
