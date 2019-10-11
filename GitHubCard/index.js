@@ -24,7 +24,8 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -54,62 +55,98 @@ const followersArray = [];
   bigknell
 */
 
-// function createCard(data) {
-//   const newCard = document.createElement('div');
-//   newCard.classList.add('card');
-
-//   const newImg = document.createElement('img');
-//   newImg.classList.add('card img');
-//   newImg.src = response.data.avatar_url;
-
-//   const newName = document.createElement('h3');
-//   newName.classList.add('card name');
-//   newName.textContent = data;
-  
-//   const newUserName = document.createElement('p');
-//   newUserName.classList.add('card username');
-//   newUserName.textContent = data;
-
-//   const newUserLocation = document.createElement('p');
-//   newUserLocation.classList.add('card p');
-//   newUserLocation.textContent = data;
-
-//   const newURL = document.createElement('a');
-//   newURL.textContent = data;
-
-//   const newFollowers = document.createElement('p');
-//   newFollowers.textContent = data;
-
-//   const newFollowing = document.createElement('p');
-//   newFollowing.textContent = data;
-
-//   const newBio = document.createElement('p');
-//   newBio.textContent = data;
-
-//   // newCard.appendChild('newImg');
-//   newCard.appendChild('newName');
-//   newCard.appendChild('newUserName');
-//   newCard.appendChild('newUserLocation');
-//   newCard.appendChild('newURL');
-//   newCard.appendChild('newFollowers');
-//   newCard.appendChild('newFollowing');
-//   newCard.appendChild('newBio');
-
-//   return newCard;  
-// }
-
-// const cards = document.querySelector('.cards');
 
 
+const createCard = (user) => {
 
+    // Creating Elements
+  const card = document.createElement('div');
+  const image = document.createElement('img');
+
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const userName = document.createElement('p');
+  const location = document.createElement('p');
+
+  const profile = document.createElement('p');
+  const profileLink = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  // Adding Class Lists to Elements
+  card.classList.add('card');
+  name.classList.add('name');
+  userName.classList.add('username');
+  cardInfo.classList.add('card-info');
+
+  // Adding text to Elements
+  image.src = user.data.avatar_url;
+  name.textContent = user.data.name;
+  userName.textContent = user.data.login;
+  location.textContent = `Location: ${user.data.location}`;
+  profile.textContent = `Profile: `;
+  profileLink.setAttribute('href', user.data.html_url);
+  profileLink.textContent = user.data.html_url;
+  followers.textContent = `Followers: ${user.data.followers}`;
+  following.textContent = `Following: ${user.data.following}`;
+  bio.textContent = `Bio: ${user.data.bio}`;
+
+  // Appending children to Element
+  card.appendChild(image);
+  card.appendChild(cardInfo);
+
+  cardInfo.appendChild(name)
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+
+  profile.appendChild(profileLink);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+
+document.querySelector('.cards').appendChild(card);
+};
+
+
+
+// Get Request
 axios
 .get('https://api.github.com/users/banksenterprises')
   .then((response) => {       
-    console.log('working', response);
-    console.log('yup, workinng', response.data);
-    console.log('mic check', response.data.company);
-     })
-  .catch((err) =>
-  {
+
+    createCard(response);
+
+  })
+  .catch((err) => {
+
     console.log("Error: The data has not returned.", err);
+
   });
+
+// Followers Array
+
+let followersArray = [];
+followersArray =   [
+  "tetondan",
+ "dustinmyers",
+ "justsml",
+ "luishrd",
+ "bigknell"
+];
+
+followersArray.forEach(follower => {
+  axios
+  .get(`https://api.github.com/users/${follower}`)
+  .then((response) => {
+
+    createCard(response);
+
+  })
+  .catch((err) => {
+    
+    console.log("Error: The data has not returned.", err);
+
+});
+});
