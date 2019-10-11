@@ -2,6 +2,20 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+const mainCard = document.querySelector('.cards');
+
+axios
+
+.get('https://api.github.com/users/chefboyrdeuce')
+.then(response => {
+  // const newUserCard = new githubCard(data);
+  mainCard.appendChild(githubCard(response.data));
+  console.log(response);
+})
+
+.catch(error => {
+  console.error(error)
+})
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -45,6 +59,60 @@ const followersArray = [];
 </div>
 
 */
+
+function githubCard(data){
+  const userCard = document.createElement('div');
+  userCard.classList.add('card');
+
+  const userImage = document.createElement('img');
+  userImage.src = data.avatar_url;
+
+  const userInfo = document.createElement('div');
+  userInfo.classList.add('card-info');
+
+  const githubName = document.createElement('h3');
+  githubName.classList.add('name');
+  githubName.textContent = data.name;
+
+  const userName = document.createElement('p');
+  userName.classList.add('username');
+  userName.textContent = data.login;
+
+  const userLocation = document.createElement('p');
+  userLocation.textContent = `Location: ${data.location}`;
+
+  const userProfile = document.createElement('p');
+  userProfile.textContent = 'Profile: ';
+
+  const userAtag = document.createElement('a');
+  userAtag.href = data.html_url;
+  userAtag.textContent = data.html_url;
+
+  const userFollowers = document.createElement('p');
+  userFollowers.textContent = `Followers: ${data.followers}`;
+
+  const userFollowing = document.createElement('p');
+  userFollowing.textContent = `Following: ${data.following}`;
+
+  const userBio = document.createElement('p');
+  userBio.textContent = `Bio: ${data.bio}`;
+
+  userInfo.appendChild(githubName);
+  userInfo.appendChild(userName);
+  userInfo.appendChild(userLocation);
+  userInfo.appendChild(userProfile);
+  userInfo.appendChild(userFollowers);
+  userInfo.appendChild(userFollowing);
+  userInfo.appendChild(userBio);
+  
+  userCard.appendChild(userImage);
+  userCard.appendChild(userInfo);
+
+  userProfile.appendChild(userAtag);
+
+  return userCard;
+} 
+
 
 /* List of LS Instructors Github username's: 
   tetondan
