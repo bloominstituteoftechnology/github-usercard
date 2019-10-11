@@ -46,6 +46,84 @@ const followersArray = [];
 
 */
 
+function followerCard(imgsrc, name, login, location, URL, followers, following, bio){
+  //new Elements in order of how they appear above. 
+  const newFollowerCard = document.createElement('div');
+  const followerImg = document.createElement('img');
+    const followerInformation = document.createElement('div')
+    const followerUN = document.createElement('h3');
+    const followerGitUN = document.createElement('p');
+    const followerLocation = document.createElement('p')
+    const followerGitProfile = document.createElement('p');
+      const profileLink = document.createElement('a');
+    const userFollowerCount = document.createElement('p');
+    const userFollowing = document.createElement('p');
+    const userBio = document.createElement('p');
+
+
+  //Classes to new elements. 
+  newFollowerCard.classList.add('card');
+  followerInformation.classList.add('card-info');
+  followerUN.classList.add('name');
+  followerGitUN.classList.add('username');
+
+  //content for each element
+  followerImg.src = imgsrc;
+    followerUN.textContent = name;
+    followerGitUN.textContent = login;
+    followerLocation.textContent = location;
+      profileLink.href = URL;
+    userFollowerCount.textContent = followers;
+    userFollowing.textContent = following;
+    userBio.textContent = bio;
+
+  //Append and building the DIV
+  newFollowerCard.appendChild(followerImg);
+  newFollowerCard.appendChild(followerInformation);
+    followerInformation.appendChild(followerUN);
+    followerInformation.appendChild(followerGitUN);
+    followerInformation.appendChild(followerLocation);
+    followerInformation.appendChild(followerGitProfile);
+      followerGitProfile.appendChild(profileLink);
+    followerInformation.appendChild(userFollowerCount);
+    followerInformation.appendChild(userFollowing);
+    followerInformation.appendChild(userBio);
+
+  return newFollowerCard;
+
+}
+// //TESTING to make sure the function works. 
+// const newGitFollower = followerCard();
+// console.log(newGitFollower);
+//My own Card
+axios
+  .get('https://api.github.com/users/ChiragThesia')
+  .then(response =>{
+    const gitUserInfo = response.data;
+    const newGitCard = followerCard(gitUserInfo.avatar_url, gitUserInfo.name, gitUserInfo.login,
+      gitUserInfo.location, gitUserInfo.URL, gitUserInfo.followers, gitUserInfo.following, 
+      gitUserInfo.bio);
+
+    const cards = document.querySelector('.cards');
+    cards.appendChild(newGitCard);
+  })
+
+
+//My Follower's Cards
+axios
+  .get('https://api.github.com/users/ChiragThesia/followers')
+  .then(response =>{
+    const gitUserInfo = response.data;
+    const myFollowerCards = followerCard(gitUserInfo.avatar_url, gitUserInfo.name, gitUserInfo.login,
+      gitUserInfo.location, gitUserInfo.URL, gitUserInfo.followers, gitUserInfo.following, 
+      gitUserInfo.bio);
+      
+      return myFollowerCards;
+  })
+  .then(response =>{
+    const cards = document.querySelector('.cards');
+    cards.appendChild(response);
+  })
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
