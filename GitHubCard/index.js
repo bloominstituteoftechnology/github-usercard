@@ -53,3 +53,63 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+// function createCard(data) {
+//   const newCard = document.createElement('div');
+//   newCard.classList.add('card');
+
+//   const newImg = document.createElement('img');
+//   newImg.classList.add('card img');
+//   newImg.src = response.data.avatar_url;
+
+//   const newName = document.createElement('h3');
+//   newName.classList.add('card name');
+//   newName.textContent = data;
+  
+//   const newUserName = document.createElement('p');
+//   newUserName.classList.add('card username');
+//   newUserName.textContent = data;
+
+//   const newUserLocation = document.createElement('p');
+//   newUserLocation.classList.add('card p');
+//   newUserLocation.textContent = data;
+
+//   const newURL = document.createElement('a');
+//   newURL.textContent = data;
+
+//   const newFollowers = document.createElement('p');
+//   newFollowers.textContent = data;
+
+//   const newFollowing = document.createElement('p');
+//   newFollowing.textContent = data;
+
+//   const newBio = document.createElement('p');
+//   newBio.textContent = data;
+
+//   // newCard.appendChild('newImg');
+//   newCard.appendChild('newName');
+//   newCard.appendChild('newUserName');
+//   newCard.appendChild('newUserLocation');
+//   newCard.appendChild('newURL');
+//   newCard.appendChild('newFollowers');
+//   newCard.appendChild('newFollowing');
+//   newCard.appendChild('newBio');
+
+//   return newCard;  
+// }
+
+// const cards = document.querySelector('.cards');
+
+
+
+axios
+.get('https://api.github.com/users/banksenterprises')
+  .then((response) => {       
+    console.log('working', response);
+    console.log('yup, workinng', response.data);
+    console.log('mic check', response.data.company);
+     })
+  .catch((err) =>
+  {
+    console.log("Error: The data has not returned.", err);
+  });
