@@ -2,6 +2,13 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+axios.get("https://api.github.com/users/jarrod847")
+.then(info=>{
+
+  const cards = document.querySelector('.cards');
+  cards.append(createCard(info.data));
+
+})
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -24,7 +31,17 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+
+followersArray.forEach(follower=>{
+  axios.get(`https://api.github.com/users/${follower}`)
+    .then(info=>{
+    
+      const cards = document.querySelector('.cards');
+      cards.append(createCard(info.data));
+    })
+
+})
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -45,6 +62,34 @@ const followersArray = [];
 </div>
 
 */
+
+function createCard(obj){
+  function Null(str){
+    if(str) return str;
+    return '';
+  }
+  
+  const card = document.createElement('div');
+  card.classList.add('card');
+  card.innerHTML = `<img src=${Null(obj.avatar_url)} />
+  <div class="card-info">
+    <h3 class="name">${Null(obj.name)}</h3>
+    <p class="username">${obj.login}</p>
+    <p>Location: ${Null(obj.location)}</p>
+    <p>Profile:  
+      <a href=${obj.html_url}>${obj.html_url}</a>
+    </p>
+    <p>Followers: ${obj.followers}</p>
+    <p>Following: ${obj.following}</p>
+    <p>Bio: ${Null(obj.bio)}</p>
+  </div>`;
+  
+
+  return card;
+}
+
+
+
 
 /* List of LS Instructors Github username's: 
   tetondan
