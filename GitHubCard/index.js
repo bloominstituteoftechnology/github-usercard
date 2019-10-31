@@ -53,3 +53,90 @@ const followersArray = [];
   luishrd
   bigknell
 */
+function followerCard(gitUserInfo){
+  //new Elements in order of how they appear above. 
+  const newFollowerCard = document.createElement('div');
+  const followerImg = document.createElement('img');
+    const followerInformation = document.createElement('div')
+    const followerUN = document.createElement('h3');
+    const followerGitUN = document.createElement('p');
+    const followerLocation = document.createElement('p')
+    const followerGitProfile = document.createElement('p');
+      const profileLink = document.createElement('a');
+    const userFollowerCount = document.createElement('p');
+    const userFollowing = document.createElement('p');
+    const userBio = document.createElement('p');
+
+
+  //Classes to new elements. 
+  newFollowerCard.classList.add('card');
+  followerInformation.classList.add('card-info');
+  followerUN.classList.add('name');
+  followerGitUN.classList.add('username');
+
+  //content for each element
+  followerImg.src = gitUserInfo.avatar_url;
+    followerUN.textContent = gitUserInfo.name;
+    followerGitUN.textContent = gitUserInfo.login;
+    followerLocation.textContent = `Location: ${gitUserInfo.location}`;
+    followerGitProfile.textContent = "Profile:"
+      profileLink.href = gitUserInfo.html_url;
+      profileLink.textContent = gitUserInfo.html_url;
+    userFollowerCount.textContent = `Followers: ${gitUserInfo.followers}`;
+    userFollowing.textContent = `Following: ${gitUserInfo.following}`;
+    userBio.textContent = `Bio: ${gitUserInfo.bio}`;
+
+  //Append and building the DIV
+  newFollowerCard.appendChild(followerImg);
+  newFollowerCard.appendChild(followerInformation);
+    followerInformation.appendChild(followerUN);
+    followerInformation.appendChild(followerGitUN);
+    followerInformation.appendChild(followerLocation);
+    followerInformation.appendChild(followerGitProfile);
+      followerGitProfile.appendChild(profileLink);
+    followerInformation.appendChild(userFollowerCount);
+    followerInformation.appendChild(userFollowing);
+    followerInformation.appendChild(userBio);
+
+  return newFollowerCard;
+
+}
+// //TESTING to make sure the function works. 
+// const newGitFollower = followerCard();
+// console.log(newGitFollower);
+
+//newcard
+const cards = document.querySelector('.cards');
+
+//My own Card
+
+axios
+  .get('https://api.github.com/users/meowyadoin')
+  .then(response =>{
+    console.log(response.data)
+    cards.appendChild(followerCard(response.data));
+  })
+
+
+
+//My Follower's Cards
+axios
+  .get('https://api.github.com/users/meowyadoin/followers')
+  .then(response =>{
+    response.data.forEach((element) => {
+      const newGitUserCard = new followerCard(element);
+      cards.appendChild(newGitUserCard);
+    });
+  
+  })
+
+  .catch((you_did_wrong) =>{
+    console.log(you_did_wrong);
+  })
+/* List of LS Instructors Github username's: 
+  tetondan
+  dustinmyers
+  justsml
+  luishrd
+  bigknell
+*/
