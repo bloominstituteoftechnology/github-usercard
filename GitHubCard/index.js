@@ -5,15 +5,14 @@
 
 // const entryPoint = document.querySelector('.cards');
 
-//  axios.get('https://api.github.com/users/msearles25')
-//   .then(response => {
-//     // console.log(response.data);
-//     const newInfo = createCard(response.data);
-//     entryPoint.appendChild(newInfo);
-//   })
-//   .catch(error => {
-//     console.log('You messed up', error);
-//   });
+axios.get('https://api.github.com/users/msearles25')
+  .then(response => {
+    // console.log(response.data);
+    createCard(response.data);
+  })
+  .catch(error => {
+    console.log('You messed up', error);
+  });
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -26,8 +25,6 @@
            create a new component and add it to the DOM as a child of .cards
 */
 
-
-
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
           , manually find some other users' github handles, or use the list found 
@@ -38,7 +35,24 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'keveightysev',
+  'lyndsiWilliams',
+  'brittanymae01',
+  'skyesaj',
+  'robby-o'
+];
+
+followersArray.forEach(user => {
+  axios.get(`https://api.github.com/users/${user}`)
+    .then(response => {
+      // createCard(response.data);
+      createCard(response.data);
+    })
+    .catch(error => {
+      console.log('You messed up', error);
+    })
+});
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -63,16 +77,16 @@ const followersArray = [];
 function createCard(object) {
 
   const card = document.createElement('div'),
-        profileImg = document.createElement('img'),
-        cardInfo = document.createElement('div'),
-        name = document.createElement('h3'),
-        username = document.createElement('p'),
-        location = document.createElement('p'),
-        profile = document.createElement('p'),
-        profileLink = document.createElement('a'),
-        followers = document.createElement('p'),
-        following = document.createElement('p'),
-        bio = document.createElement('p');
+    profileImg = document.createElement('img'),
+    cardInfo = document.createElement('div'),
+    name = document.createElement('h3'),
+    username = document.createElement('p'),
+    location = document.createElement('p'),
+    profile = document.createElement('p'),
+    profileLink = document.createElement('a'),
+    followers = document.createElement('p'),
+    following = document.createElement('p'),
+    bio = document.createElement('p');
 
 
   card.appendChild(profileImg);
@@ -81,7 +95,6 @@ function createCard(object) {
   cardInfo.appendChild(username);
   cardInfo.appendChild(location);
   cardInfo.appendChild(profile);
-  profile.appendChild(profileLink); // a link
   cardInfo.appendChild(followers);
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
@@ -90,21 +103,26 @@ function createCard(object) {
   cardInfo.classList.add('card-info');
   name.classList.add('name');
   username.classList.add('username');
-  
+
   profileImg.src = object.avatar_url;
   name.textContent = object.name;
   username.textContent = object.login;
   location.textContent = `Location: ${object.location}`;
-  profileLink.textContent = `Profile: ${object.html_url}`;
+  profile.textContent = 'Profile: ';
+  profileLink.textContent = object.html_url;
   profileLink.href = object.html_url;
   followers.textContent = `Followers: ${object.followers}`;
-  following.textContent =`Following: ${object.following}`;
+  following.textContent = `Following: ${object.following}`;
   bio.textContent = `Bio: ${object.bio}`;
 
-  return card;
-} 
+  profile.appendChild(profileLink); // appending the link to the a link
 
-/* List of LS Instructors Github username's: 
+  document.querySelector('.cards').appendChild(card);
+
+  return card;
+}
+
+/* List of LS Instructors Github username's:
   tetondan
   dustinmyers
   justsml
