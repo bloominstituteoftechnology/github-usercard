@@ -4,7 +4,7 @@
 */
 const cardsContainer = document.querySelector('.cards');
 function addGithubUserCard(username){
-axios.get('https://api.github.com/users/maxjamb')
+axios.get(`https://api.github.com/users/${username}`)
 	.then(response => {
 		console.log(response);
 		cardsContainer.appendChild(createCardComponent(response.data));
@@ -15,7 +15,7 @@ axios.get('https://api.github.com/users/maxjamb')
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
 
-   Skip to Step 3.
+   Skip to Step 3. 
 */
 
 /* Step 4: Pass the data received from Github into your function, 
@@ -42,7 +42,7 @@ const followersArray = [
 ];
 
 followersArray.forEach(addGithubUserCard);
-
+console.log(addGithubUserCard);
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
 
