@@ -3,12 +3,17 @@
            https://api.github.com/users/<your name>
 */
 
-const entryPoint = document.querySelector('.cards');
+// const entryPoint = document.querySelector('.cards');
 
 //  axios.get('https://api.github.com/users/msearles25')
 //   .then(response => {
 //     // console.log(response.data);
+//     const newInfo = createCard(response.data);
+//     entryPoint.appendChild(newInfo);
 //   })
+//   .catch(error => {
+//     console.log('You messed up', error);
+//   });
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -89,11 +94,12 @@ function createCard(object) {
   profileImg.src = object.avatar_url;
   name.textContent = object.name;
   username.textContent = object.login;
-  location.textContent = object.location;
-  profileLink.textContent = object.html_url;
-  followers.textContent = object.followers;
-  following.textContent = object.following;
-  bio.textContent = object.bio;
+  location.textContent = `Location: ${object.location}`;
+  profileLink.textContent = `Profile: ${object.html_url}`;
+  profileLink.href = object.html_url;
+  followers.textContent = `Followers: ${object.followers}`;
+  following.textContent =`Following: ${object.following}`;
+  bio.textContent = `Bio: ${object.bio}`;
 
   return card;
 } 
