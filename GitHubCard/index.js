@@ -40,6 +40,8 @@ axios.get('https://api.github.com/users/weng7533')
           user, and adding that card to the DOM.
 */
 
+// Strach from here
+
 axios.get('https://api.github.com/users/weng7533/followers')
   .then(followers => {
     console.log(followers)
@@ -62,7 +64,7 @@ axios.get('https://api.github.com/users/weng7533/followers')
     console.log("The data was not returned", error);
   })
 
-
+// Strach ends here.
 
 
 
