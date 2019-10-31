@@ -1,7 +1,31 @@
 /* Step 1: using axios, send a GET request to the following URL 
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
+
 */
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+
+followersArray.forEach(cur => {
+  axios.get(`https://api.github.com/users/${cur}`)
+
+  .then(response => {
+    console.log(response);
+    const container = document.querySelector('.cards');
+  
+    
+    container.appendChild(myCard(response.data));
+  
+   
+    
+  
+  
+  })
+  .catch(error => alert('There are some error returned', error));
+
+
+
+})
+
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -14,6 +38,59 @@
            create a new component and add it to the DOM as a child of .cards
 */
 
+
+
+function myCard(obj){
+  //create elements
+  const cardDiv = document.createElement('div'),
+        image = document.createElement('img'),
+        disc = document.createElement('div'),
+        nameDiv = document.createElement('div'),
+        following = document.createElement('p'),
+        location = document.createElement('p'),
+        profile = document.createElement('p'),
+        followers = document.createElement('p'),
+        bio = document.createElement('p'),
+        usernameDiv = document.createElement('div');
+
+  // assgin values
+  image.src = obj.avatar_url;
+  nameDiv.textContent = obj.name;
+  usernameDiv.textContent = obj.login;
+  location.textContent = `Location: ${obj.location}`;
+  profile.textContent = `Profile: ${obj.html_url}`;
+  followers.textContent = `Followers: ${obj.followers}`;
+  following.textContent = `Following: ${obj.following}`;
+  bio.textContent = `Bio: ${obj.bio}`;
+
+  //styling
+
+  disc.style.display = 'flex';
+  disc.style.flexDirection = 'column';
+
+  // structure
+
+  cardDiv.appendChild(image);
+  cardDiv.appendChild(disc);
+  disc.appendChild(nameDiv);
+  disc.appendChild(usernameDiv);
+  disc.appendChild(location);
+  disc.appendChild(profile);
+  disc.appendChild(followers);
+  disc.appendChild(following);
+  disc.appendChild(bio);
+
+  // assign classes
+
+  cardDiv.classList.add('card');
+  usernameDiv.classList.add('username');
+  nameDiv.classList.add('name');
+
+  return cardDiv
+
+
+
+}
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
           , manually find some other users' github handles, or use the list found 
@@ -24,7 +101,7 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+//const followersArray = ['tetondan', 'dustinmyers', ' justsml', 'luishrd', 'bigknell'];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
