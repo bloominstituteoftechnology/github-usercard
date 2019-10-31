@@ -26,39 +26,39 @@
           user, and adding that card to the DOM.
 */
 
-// let myData = {
-//   "login": "zimashima",
-//   "id": 52222646,
-//   "node_id": "MDQ6VXNlcjUyMjIyNjQ2",
-//   "avatar_url": "https://avatars3.githubusercontent.com/u/52222646?v=4",
-//   "gravatar_id": "",
-//   "url": "https://api.github.com/users/zimashima",
-//   "html_url": "https://github.com/zimashima",
-//   "followers_url": "https://api.github.com/users/zimashima/followers",
-//   "following_url": "https://api.github.com/users/zimashima/following{/other_user}",
-//   "gists_url": "https://api.github.com/users/zimashima/gists{/gist_id}",
-//   "starred_url": "https://api.github.com/users/zimashima/starred{/owner}{/repo}",
-//   "subscriptions_url": "https://api.github.com/users/zimashima/subscriptions",
-//   "organizations_url": "https://api.github.com/users/zimashima/orgs",
-//   "repos_url": "https://api.github.com/users/zimashima/repos",
-//   "events_url": "https://api.github.com/users/zimashima/events{/privacy}",
-//   "received_events_url": "https://api.github.com/users/zimashima/received_events",
-//   "type": "User",
-//   "site_admin": false,
-//   "name": "Mashima Button",
-//   "company": null,
-//   "blog": "",
-//   "location": "Florida, USA",
-//   "email": null,
-//   "hireable": null,
-//   "bio": "A Florida woman studying Web Dev at Lambda School",
-//   "public_repos": 20,
-//   "public_gists": 0,
-//   "followers": 17,
-//   "following": 18,
-//   "created_at": "2019-06-25T23:03:16Z",
-//   "updated_at": "2019-10-31T19:01:09Z"
-// }
+let myData = {
+  "login": "zimashima",
+  "id": 52222646,
+  "node_id": "MDQ6VXNlcjUyMjIyNjQ2",
+  "avatar_url": "https://avatars3.githubusercontent.com/u/52222646?v=4",
+  "gravatar_id": "",
+  "url": "https://api.github.com/users/zimashima",
+  "html_url": "https://github.com/zimashima",
+  "followers_url": "https://api.github.com/users/zimashima/followers",
+  "following_url": "https://api.github.com/users/zimashima/following{/other_user}",
+  "gists_url": "https://api.github.com/users/zimashima/gists{/gist_id}",
+  "starred_url": "https://api.github.com/users/zimashima/starred{/owner}{/repo}",
+  "subscriptions_url": "https://api.github.com/users/zimashima/subscriptions",
+  "organizations_url": "https://api.github.com/users/zimashima/orgs",
+  "repos_url": "https://api.github.com/users/zimashima/repos",
+  "events_url": "https://api.github.com/users/zimashima/events{/privacy}",
+  "received_events_url": "https://api.github.com/users/zimashima/received_events",
+  "type": "User",
+  "site_admin": false,
+  "name": "Mashima Button",
+  "company": null,
+  "blog": "",
+  "location": "Florida, USA",
+  "email": null,
+  "hireable": null,
+  "bio": "A Florida woman studying Web Dev at Lambda School",
+  "public_repos": 20,
+  "public_gists": 0,
+  "followers": 17,
+  "following": 18,
+  "created_at": "2019-06-25T23:03:16Z",
+  "updated_at": "2019-10-31T19:01:09Z"
+}
 
 // const fArray = [{
 //   "login": "crutledgedev",
@@ -225,8 +225,9 @@ function cardCreator(fArray){
   theName.textContent = fArray.name
   theUsername.textContent = fArray.login
   theLocation.textContent = `Location: ${fArray.location}`
-  linkToProfile.textContent = `Profile: ${fArray.html_url}`
-  linkToProfile.setAttribute('href', fArray.html_url)
+  theProfile.textContent = 'Profile: '
+  linkToProfile.setAttribute('href', 'fArray.html_url')
+  linkToProfile.textContent = `${fArray.html_url}`
   followerCount.textContent = `Followers Count: ${fArray.followers}`
   followingCount.textContent = `Following Count: ${fArray.following}`
   userBio.textContent = `Bio: ${fArray.bio}`
@@ -234,10 +235,31 @@ function cardCreator(fArray){
   return aCard
 }
 
-axios.get('https://api.github.com/users/zimashima')
-  .then( response=>{
-    document.querySelector('.cards').appendChild(cardCreator(response.data))
+
+document.querySelector('.cards').appendChild(cardCreator(myData))
+
+axios.get('https://api.github.com/users/zimashima/followers').then( response => {
+  response.data.forEach(follower=>{
+    axios.get(follower.url)
+      .then(res =>{
+        document.querySelector('.cards').appendChild(cardCreator(res.data))
+      })
   })
+})
+//       document.querySelector('.cards').appendChild(cardCreator(follower))
+//     })
+//   })
+
+// axios.get('https://api.github.com/users/zimashima/followers')
+//    .then( response=>{
+//      response.data.forEach(follower->{
+//        axios.get(follower.url)
+//         .then(res =>{
+//           document.querySelector('.cards').appendChild(cardCreator(res.data))
+//         })
+//      })
+//    })
+
 
 
 
