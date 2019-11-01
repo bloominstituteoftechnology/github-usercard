@@ -2,6 +2,13 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+const cards = document.querySelector('.cards');
+
+axios.get("https://api.github.com/users/YaniWessi")
+.then(response => {
+  cards.append(gitCard(response.data))
+  // console.log(response)
+});
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -24,8 +31,14 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
-
+const followersArray = ['jevoncochran', 'Hail91', 'Gio5298'];
+followersArray.forEach(item =>{axios.get(`https://api.github.com/users/${item}`)
+.then(response => {
+  cards.append(gitCard(response.data))
+  // console.log(response)
+});
+})
+ 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
 
@@ -45,6 +58,46 @@ const followersArray = [];
 </div>
 
 */
+
+function gitCard(obj){
+
+  const card = document.createElement('div'),
+      cardInfo = document.createElement('div')
+        img = document.createElement('img'),
+        h3  = document.createElement('h3'),
+        p1  = document.createElement('p'),
+        p2  = document.createElement('p'),
+        p3  = document.createElement('p'),
+        p4  = document.createElement('p'),
+        p5  = document.createElement('p'),
+        p6  = document.createElement('p'),
+        a   = document.createElement('a'),
+ 
+        card.append(img);
+        card.append(cardInfo);
+        cardInfo.append(h3, p1, p2, p3, p4, p5,p6);
+        p3.append(a);
+
+        card.classList.add('card');
+        cardInfo.classList.add('card-info');
+        h3.classList.add('name');
+        p1.classList.add('username');
+
+        img.src = obj.avatar_url;
+        img.alt = 'this is an image';
+        h3.textContent = obj.name;
+        p1.textContent = obj.login;
+        p2.textContent = obj.location;
+        a.textContent = obj.html_url
+        a.link = obj.html_url;
+        p4.textContent = obj.followers;
+        p5.textContent = obj.following;
+        p6.textContent = obj.bio;
+
+
+
+      return card;
+}
 
 /* List of LS Instructors Github username's: 
   tetondan
