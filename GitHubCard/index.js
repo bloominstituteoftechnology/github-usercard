@@ -15,7 +15,7 @@ axios.get(`https://api.github.com/users/${username}`)
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
 
-   Skip to Step 3. 
+   Skip to Step 3. This is done
 */
 
 /* Step 4: Pass the data received from Github into your function, 
@@ -102,6 +102,7 @@ function createCardComponent(data) {
 
 	card.appendChild(img);
 	card.appendChild(cardInfo);
+
 
 	return card;
 }
