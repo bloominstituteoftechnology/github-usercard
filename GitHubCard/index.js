@@ -2,15 +2,7 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
-  const cardSelector = document.querySelector('.cards');
-  axios.get('https://api.github.com/users/JRodDvlpr')
-  .then(response => {
-    cardSelector.appendChild(followersArray(response));
-  })
-  .catch(err => {
-    console.log(err);
-  })
-
+  
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -32,7 +24,7 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['Adrian-Guadalupe', 'karapeoples', 'Catherinesjkim', 'PrinceD96', 'oashtari'];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -61,9 +53,9 @@ const followersArray = [];
   luishrd
   bigknell
 */
-function cardCreator(userObject){
+const cardCreator = (userObject) => {
 
-  //definition
+  // ### Create Element
 
   const card = document.createElement('div')
   const imageCard = document.createElement('img')
@@ -77,7 +69,7 @@ function cardCreator(userObject){
   const following = document.createElement('p')
   const userBio = document.createElement('p')
 
-  // structure
+  // ### Nesting Elements
   card.appendChild(imageCard)
   card.appendChild(cardInfo)
 
@@ -91,16 +83,14 @@ function cardCreator(userObject){
 
   profile.appendChild(urlProfile)
 
-  //class
-
-
+  // ### Class
   card.classList.add('card')
   cardInfo.classList.add('card-info')
   name.classList.add('name')
   userName.classList.add('username') 
   
 
-  // content
+  // ### Content Element
   imageCard.src = userObject.avatar_url
   name.textContent = userObject.name
   userName.textContent = userObject.login
@@ -114,7 +104,20 @@ function cardCreator(userObject){
   return card
 }
 
-axios.get('https://api.github.com/users/JRodDvlpr')
-  .then( response=>{
-    document.querySelector('.cards').appendChild(cardCreator(response.data))
+  const cardSelector = document.querySelector('.cards');
+  axios.get('https://api.github.com/users/JRodDvlpr')
+  .then(response => {
+    const theCard = cardCreator(response.data);
+    cardSelector.appendChild(theCard);
   })
+  .catch(err => {
+    console.log('Could Not Retrieve the Data', err);
+  })
+
+  followersArray.forEach(follower => {
+    axios.get(`https://api.github.com/users/${follower}`)
+    .then(response => {
+      const followers = cardCreator(response.data);
+      cardSelector.appendChild(followers);
+    })
+  });
