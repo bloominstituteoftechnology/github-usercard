@@ -2,6 +2,14 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+  const cardSelector = document.querySelector('.cards');
+  axios.get('https://api.github.com/users/JRodDvlpr')
+  .then(response => {
+    cardSelector.appendChild(followersArray(response));
+  })
+  .catch(err => {
+    console.log(err);
+  })
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -53,3 +61,60 @@ const followersArray = [];
   luishrd
   bigknell
 */
+function cardCreator(userObject){
+
+  //definition
+
+  const card = document.createElement('div')
+  const imageCard = document.createElement('img')
+  const cardInfo = document.createElement('div')
+  const name = document.createElement('h3')
+  const userName = document.createElement('p')
+  const location = document.createElement('p')
+  const profile = document.createElement('p')
+  const urlProfile = document.createElement('a')
+  const followers = document.createElement('p')
+  const following = document.createElement('p')
+  const userBio = document.createElement('p')
+
+  // structure
+  card.appendChild(imageCard)
+  card.appendChild(cardInfo)
+
+  cardInfo.appendChild(name)
+  cardInfo.appendChild(userName)
+  cardInfo.appendChild(location)
+  cardInfo.appendChild(profile)
+  cardInfo.appendChild(followers)
+  cardInfo.appendChild(following)
+  cardInfo.appendChild(userBio)
+
+  profile.appendChild(urlProfile)
+
+  //class
+
+
+  card.classList.add('card')
+  cardInfo.classList.add('card-info')
+  name.classList.add('name')
+  userName.classList.add('username') 
+  
+
+  // content
+  imageCard.src = userObject.avatar_url
+  name.textContent = userObject.name
+  userName.textContent = userObject.login
+  location.textContent = `Location: ${userObject.location}`
+  urlProfile.textContent = `Profile: ${userObject.html_url}`
+  urlProfile.setAttribute('href', userObject.html_url)
+  followers.textContent = `Followers ${userObject.followers}`
+  following.textContent = `Following ${userObject.following}`
+  userBio.textContent = `Bio: ${userObject.bio}`
+
+  return card
+}
+
+axios.get('https://api.github.com/users/JRodDvlpr')
+  .then( response=>{
+    document.querySelector('.cards').appendChild(cardCreator(response.data))
+  })
