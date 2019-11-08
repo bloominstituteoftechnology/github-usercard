@@ -2,6 +2,14 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+axios.get('https://api.github.com/users/emster7013')
+.then((results) => {
+  console.log(results);
+  newCard(results);
+})
+.catch((err) =>{
+  console.log(err);
+})
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -24,8 +32,22 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
-
+const followersArray = [
+  'wktg623',
+  'raudelf',
+  'tauanlongaretti',
+  'VitaliyM3',
+  'gustavo-yepez',
+];
+followersArray.forEach((user)=>{
+  axios.get(`https://api.github.com/users/${user}`)
+  .then(((result)=>{
+    newCard(result);
+  }))
+  .catch((err)=>{
+    console.log(err);
+  })
+})
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
 
@@ -53,3 +75,46 @@ const followersArray = [];
   luishrd
   bigknell
 */
+function newCard(user){
+  let card = document.createElement('div');
+  let img = document.createElement('img');
+  let cardInfo = document.createElement('div');
+  let name = document.createElement('h3');
+  let username = document.createElement('p');
+  let location = document.createElement('p');
+  let profile = document.createElement('p');
+  let cardLink = document.createElement('a');
+  let followers = document.createElement('p');
+  let following = document.createElement('p');
+  let bio = document.createElement('p');
+//attach data to dom Elements
+  img.src = user.data.avatar_url;
+  username.textContent = user.data.login;
+  followers.textContent = user.data.followers;
+  following.textContent = user.data.following;
+  name.textContent = user.data.name;
+  location.textContent = user.data.location;
+  cardLink.textContent = user.data.url;
+  cardLink.href = user.data.url;
+  profile.textContent = 'Profile:';
+  bio.textContent = `Bio: ${user.data.bio}`;
+
+  //css classes
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  username.classList.add('username');
+
+   //structure
+   card.appendChild(img);
+   card.appendChild(cardInfo);
+   cardInfo.appendChild(name);
+   cardInfo.appendChild(username);
+   cardInfo.appendChild(location);
+   cardInfo.appendChild(profile);
+   cardInfo.appendChild(cardLink);
+   cardInfo.appendChild(followers);
+   cardInfo.appendChild(following);
+   cardInfo.appendChild(bio);
+   document.querySelector('.cards').appendChild(card);
+};
