@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="278e0272-27a0-402f-9dc6-3090e31f6e67" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/GitHubCard/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/GitHubCard/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,6 +20,8 @@
   </component>
   <component name="ProjectId" id="1TGxznPM6vEjbjPgOmaq5S8yhTz" />
   <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -71,7 +72,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1573100497946</updated>
-      <workItem from="1573100499987" duration="2089000" />
+      <workItem from="1573100499987" duration="2165000" />
     </task>
     <servers />
   </component>
