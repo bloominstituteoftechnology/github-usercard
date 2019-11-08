@@ -2,8 +2,6 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
-console.log('promise', axios
-	.get('https://api.github.com/users/mikepadiernos'));
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -26,8 +24,6 @@ console.log('promise', axios
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
-
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
 
@@ -47,13 +43,32 @@ const followersArray = [];
 </div>
 
 */
+/* List of LS Instructors Github username's:
+  tetondan
+  dustinmyers
+  justsml
+  luishrd
+  bigknell
+*/
+console.log('promise',
+	axios
+		.get('https://api.github.com/users/mikepadiernos')
+);
+console.log('followers',
+	axios
+		.get('https://api.github.com/users/mikepadiernos/followers')
+);
+console.log('following',
+	axios
+		.get('https://api.github.com/users/mikepadiernos/following')
+);
 
 function meCard(user) {
 
 	// ELEMENTS
 	const card = document.createElement('article');
 	const cardImage = document.createElement('img');
-	const cardInfo = document.createElement('div')
+	const cardInfo = document.createElement('div');
 	const cardName = document.createElement('h3');
 	const cardUsername = document.createElement('p');
 	const cardLocation = document.createElement('p');
@@ -84,32 +99,69 @@ function meCard(user) {
 	// CONTENT
 	cardName.textContent = user.name;
 	cardUsername.textContent = user.login;
-	cardLocation.textContent = user.location;
+	cardLocation.textContent = `Location: ${user.location}`;
 	cardProfileLink.textContent = user.html_url;
 	cardProfileLink.href = user.html_url;
-	cardFollowers.textContent = '';
-	cardFollowing.textContent = '';
-	cardBio.textContent = user.bio;
+	cardFollowers.textContent = `Followers: ${user.followers}`;
+	cardFollowing.textContent = `Following: ${user.following}`;
+	cardBio.textContent = `Bio: ${user.bio}`;
 	cardImage.src = user.avatar_url;
 
 	return card;
 }
-/* List of LS Instructors Github username's: 
-  tetondan
-  dustinmyers
-  justsml
-  luishrd
-  bigknell
-*/
 
 const entryPoint = document.querySelector('.cards');
+
+const followersArray = [
+	{
+		name: `Him`,
+		login: `him_login`,
+		location: `Every where`,
+		html_url: `#him`,
+		followers: `1000`,
+		following: `0`,
+		bio: `It's me`,
+		avatar_url: ``,
+	},
+	{
+		name: `Her`,
+		login: `her_login`,
+		location: `No where`,
+		html_url: `#her`,
+		followers: `too many`,
+		following: `all`,
+		bio: `Not me`,
+		avatar_url: ``,
+	}
+];
+
+axios
+	.get('https://api.github.com/users/mikepadiernos/followers')
+	.then(response => {
+		const followers = response.data;
+		console.log('response: followers', followers);
+		followers.forEach(i => {
+			const myFollower = meCard(i);
+			entryPoint.appendChild(myFollower)
+		})
+	})
+	.catch(error => {
+			if (error.includes('Network Error')) {
+				console.log('Network Error');
+			}
+			console.log('No Data Returned');
+	});
+
+followersArray.forEach(i => {
+	const newCard = meCard(i);
+	entryPoint.appendChild(newCard);
+});
 
 axios
 	.get('https://api.github.com/users/mikepadiernos')
 	.then(response => {
-		console.log('response', response);
 		const me = response.data;
-		console.log('me', me);
+		console.log('response: me', me);
 		entryPoint.appendChild(meCard(me));
 	})
 	.catch(error => {
