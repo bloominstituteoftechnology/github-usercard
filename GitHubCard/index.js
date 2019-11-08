@@ -1,11 +1,9 @@
-/* Step 1: using axios, send a GET request to the following URL 
+/* Step 1: using axios, send a GET request to the following URL
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
-const gitData =
-	axios
-		.get('https://api.github.com/users/mikepadiernos');
-console.log(gitData);
+console.log('promise', axios
+	.get('https://api.github.com/users/mikepadiernos'));
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -17,35 +15,8 @@ console.log(gitData);
 /* Step 4: Pass the data received from Github into your function, 
            create a new component and add it to the DOM as a child of .cards
 */
-function gitCard(name, username, bio, imgsrc) {
 
-	// ELEMENTS
-	const card = document.createElement('article');
-	const cardName = document.createElement('div');
-	const cardUsername = document.createElement('div');
-	const cardBio = document.createElement('p');
-	const cardImage = document.createElement('img');
-
-	// CLASSES
-	card.classList.add('card');
-	cardName.classList.add('name');
-	cardUsername.classList.add('username');
-
-	// BUILD CARD
-	card.appendChild(cardImage);
-	card.appendChild(cardName);
-	card.appendChild(cardUsername);
-	card.appendChild(cardBio);
-
-	// CONTENT
-	cardName.textContent = name;
-	cardUsername.textContent = username;
-	cardBio.textContent = bio;
-	cardImage.src = imgsrc;
-
-	return card;
-}
-/* Step 5: Now that you have your own card getting added to the DOM, either 
+/* Step 5: Now that you have your own card getting added to the DOM, either
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
           , manually find some other users' github handles, or use the list found 
           at the bottom of the page. Get at least 5 different Github usernames and add them as
@@ -77,6 +48,52 @@ const followersArray = [];
 
 */
 
+function meCard(user) {
+
+	// ELEMENTS
+	const card = document.createElement('article');
+	const cardImage = document.createElement('img');
+	const cardInfo = document.createElement('div')
+	const cardName = document.createElement('h3');
+	const cardUsername = document.createElement('p');
+	const cardLocation = document.createElement('p');
+	const cardProfile = document.createElement('p');
+	const cardProfileLink = document.createElement('a');
+	const cardFollowers = document.createElement('p');
+	const cardFollowing = document.createElement('p');
+	const cardBio = document.createElement('p');
+
+
+	// CLASSES
+	card.classList.add('card');
+	cardName.classList.add('name');
+	cardUsername.classList.add('username');
+
+	// BUILD CARD
+	card.appendChild(cardImage);
+	card.appendChild(cardInfo);
+	cardInfo.appendChild(cardName);
+	cardInfo.appendChild(cardUsername);
+	cardInfo.appendChild(cardLocation);
+	cardInfo.appendChild(cardProfile);
+	cardProfile.appendChild(cardProfileLink);
+	cardInfo.appendChild(cardFollowers);
+	cardInfo.appendChild(cardFollowing);
+	cardInfo.appendChild(cardBio);
+
+	// CONTENT
+	cardName.textContent = user.name;
+	cardUsername.textContent = user.login;
+	cardLocation.textContent = user.location;
+	cardProfileLink.textContent = user.html_url;
+	cardProfileLink.href = user.html_url;
+	cardFollowers.textContent = '';
+	cardFollowing.textContent = '';
+	cardBio.textContent = user.bio;
+	cardImage.src = user.avatar_url;
+
+	return card;
+}
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
@@ -84,3 +101,20 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+const entryPoint = document.querySelector('.cards');
+
+axios
+	.get('https://api.github.com/users/mikepadiernos')
+	.then(response => {
+		console.log('response', response);
+		const me = response.data;
+		console.log('me', me);
+		entryPoint.appendChild(meCard(me));
+	})
+	.catch(error => {
+		if (error.includes('Network Error')) {
+			console.log('Network Error');
+		}
+		console.log('No Data Returned');
+	});
