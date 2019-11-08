@@ -2,6 +2,10 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+const gitData =
+	axios
+		.get('https://api.github.com/users/mikepadiernos');
+console.log(gitData);
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -13,7 +17,34 @@
 /* Step 4: Pass the data received from Github into your function, 
            create a new component and add it to the DOM as a child of .cards
 */
+function gitCard(name, username, bio, imgsrc) {
 
+	// ELEMENTS
+	const card = document.createElement('article');
+	const cardName = document.createElement('div');
+	const cardUsername = document.createElement('div');
+	const cardBio = document.createElement('p');
+	const cardImage = document.createElement('img');
+
+	// CLASSES
+	card.classList.add('card');
+	cardName.classList.add('name');
+	cardUsername.classList.add('username');
+
+	// BUILD CARD
+	card.appendChild(cardImage);
+	card.appendChild(cardName);
+	card.appendChild(cardUsername);
+	card.appendChild(cardBio);
+
+	// CONTENT
+	cardName.textContent = name;
+	cardUsername.textContent = username;
+	cardBio.textContent = bio;
+	cardImage.src = imgsrc;
+
+	return card;
+}
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
           , manually find some other users' github handles, or use the list found 
