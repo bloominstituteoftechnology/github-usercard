@@ -26,7 +26,7 @@
           Using that array, iterate over it, requesting data for each user, creating a new card for each
           user, and adding that card to the DOM.
 */
-const followersArray = [];
+
 
 
 const userCard = (info) => {
@@ -86,10 +86,28 @@ const cards = document.querySelector('.cards');
 
 axios.get('https://api.github.com/users/wktg623')
 .then((response) => {
- 
+  let followersArray = [];
+  axios.get('https://api.github.com/users/wktg623/followers')
+  .then((followerLogin) => {
+    followersArray = followerLogin.data.map(follower=>follower.login);
+
+    followersArray.forEach(followerlogins => 
+      {
+        axios.get(`https://api.github.com/users/${followerlogins}`)
+        .then(followerData => cards.appendChild(userCard(followerData.data)))
+      })
+    .catch((error =>{
+      console.log(error)
+    }))
+   
+    //cards.appendChild(userCard(response.data.followers))
+  })
+  .catch((error =>{
+    console.log(error)
+  }))
 
 
-  
+
   cards.appendChild(userCard(response.data))
   })
   //const newCard = userCard(info);
