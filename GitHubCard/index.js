@@ -18,9 +18,10 @@
 
 */
 function cardMaker(profileInfo) {
-
+  
   // create all elements
   const newCard = document.createElement('div');
+  const divInfo = document.createElement('div');
   const cardPic = document.createElement('img')
   const cardContent = document.createElement('div');
   const cardName = document.createElement('h3')
@@ -30,43 +31,51 @@ function cardMaker(profileInfo) {
   const cardLinkBtn = document.createElement('a');
   const cardFollowers = document.createElement('p');
   const cardFollowing = document.createElement('p');
+  const repos = document.createElement('p')
   const cardBio = document.createElement('p');
   const userCalendar = document.createElement('div')
 
   // create structure
-  newCard.appendChild(cardPic);
-  newCard.appendChild(cardContent);
+  newCard.appendChild(divInfo);
+  divInfo.appendChild(cardPic);
+  divInfo.appendChild(cardContent);
   cardContent.appendChild(cardName);
-  cardContent.appendChild(cardUserName);
+  cardContent.appendChild(cardUserName); 
+  cardContent.appendChild(cardLinkBtn);
   cardContent.appendChild(cardLoc);
   cardContent.appendChild(cardLink);
-  cardContent.appendChild(cardLinkBtn);
   cardContent.appendChild(cardFollowers);
   cardContent.appendChild(cardFollowing);
+  cardContent.appendChild(repos);
   cardContent.appendChild(cardBio);
   newCard.appendChild(userCalendar);
 
   // set the content
   cardPic.setAttribute('src', profileInfo.avatar_url)
   cardName.textContent = profileInfo.name
-  cardUserName.textContent = profileInfo.login
+  cardUserName.textContent = `Handle: ${profileInfo.login}`
+  cardLinkBtn.setAttribute('href', profileInfo.html_url)
   cardLoc.textContent = `Location: ${profileInfo.location}`
   cardPic.setAttribute('alt', `${profileInfo.name}'s photo`)
-  cardLink.setAttribute('href', profileInfo.html_url)
-  cardLink.textContent = `Profile: ${profileInfo.html_url}`
-  cardLinkBtn.setAttribute('href', profileInfo.html_url)
+  repos.textContent=` Repositores: ${ profileInfo.public_repos}`
   cardFollowers.textContent = `Followers: ${profileInfo.followers}`
   cardFollowing.textContent = `Following: ${profileInfo.followers}`
   cardBio.textContent = `Bio: ${profileInfo.bio}`
-
+  if(profileInfo.bio===null){
+    cardBio.textContent ="Bio: Future web developer"
+  }
+  if(profileInfo.location===null){
+    cardLoc.textContent = "Location: USA"
+  }
   // apply styles
   newCard.classList.add('card');
+  divInfo.classList.add('divInfo')
   cardContent.classList.add('card-info');
   cardName.classList.add('name');
   cardUserName.classList.add('username');
   userCalendar.classList.add(`${profileInfo.login}`)
   cardLinkBtn.classList.add('fa','fa-github');
-  cardLinkBtn.style.fontSize ='30px';
+  cardLinkBtn.style.fontSize ='39px';
   cardLinkBtn.style.textDecoration ='none';
   cardLinkBtn.style.color ='black';
 
@@ -76,7 +85,6 @@ function cardMaker(profileInfo) {
   //return newCard;
   const cards = document.querySelector('.cards');
   cards.appendChild(newCard);
-
   new GitHubCalendar(`.${profileInfo.login}`, profileInfo.login);
 
 }
@@ -104,71 +112,13 @@ function cardMakerAPI(fullname) {
       console.log(err);
     })
 }
-const gitUsers = ["AnaTulea", "JesseBentley", "Rodney-Race", "dcastaneda82", "Alphaseinor", "MileyWright"];
+const gitUsers = ["AnaTulea", "JesseBentley", "Rodney-Race", "dcastaneda82", "Alphaseinor", "K-JHarris", "Rayne1993", "Heather-Ridgill","jessharrison83" ];
 
 gitUsers.forEach(user => {
   console.log("user", user);
   cardMakerAPI(user);
 });
 
-
-
-// axios.get(`https://api.github.com/users/AnaTulea`)
-// .then(res => {
-//   console.log("hhhhhhh", res)
-//   cardMaker(res.data)
-//   })
-//   .catch(err => {
-//     console.log(err)
-//   })
-
-//   axios.get(`https://api.github.com/users/JesseBentley`)
-// .then(res => {
-//   console.log(res.data)
-//   cardMaker(res.data)
-//   })
-//   .catch(err => {
-//     console.log(err)
-//   })
-
-
-//   axios.get(`https://api.github.com/users/dcastaneda82`)
-//   .then(res => {
-//     console.log(res.data)
-//     cardMaker(res.data)
-//     })
-//     .catch(err => {
-//       console.log(err)
-//     })
-
-
-//   axios.get(`https://api.github.com/users/Rodney-Race`)
-//   .then(res => {
-//     console.log(res.data)
-//     cardMaker(res.data)
-//     })
-//     .catch(err => {
-//       console.log(err)
-//     })
-
-
-//     axios.get(`https://api.github.com/users/Alphaseinor`)
-//     .then(res => {
-//       console.log(res.data)
-//       cardMaker(res.data)
-//       })
-//       .catch(err => {
-//         console.log(err)
-//       })
-
-//       axios.get(`https://api.github.com/users/MileyWright`)
-//       .then(res => {
-//         console.log(res.data)
-//         cardMaker(res.data)
-//         })
-//         .catch(err => {
-//           console.log(err)
-//         })
 
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
@@ -179,8 +129,6 @@ gitUsers.forEach(user => {
           Using that array, iterate over it, requesting data for each user, creating a new card for each
           user, and adding that card to the DOM.
 */
-
-const followersArray = ['https://api.github.com/users/JesseBentley', 'https://api.github.com/users/cesarhj19', 'https://api.github.com/users/Rodney-Race', 'https://api.github.com/users/Alphaseinor', 'https://api.github.com/users/MileyWright'];
 
 /* List of LS Instructors Github username's: 
   tetondan

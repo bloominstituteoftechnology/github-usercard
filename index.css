@@ -103,7 +103,10 @@ body {
   background-color: #FFF;
   margin-bottom: 30px;
 }
-
+.divInfo{
+  display: flex;
+  flex-direction: row;
+}
 .card img {
   width: 150px;
   height: 150px;
