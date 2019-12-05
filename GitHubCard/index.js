@@ -55,7 +55,32 @@
 const cardsDiv = document.querySelector('.cards');
   axios.get('https://api.github.com/users/premputtegowda')
     .then((response) => {
-      cardsDiv.appendChild(createCard(response.data))
+      cardsDiv.appendChild(createCard(response.data));
+      return response.data.followers_url;
+    })
+    .then(followersData => {
+      axios.get(followersData)
+        .then(response => {
+          return response.data
+        })
+        .then( followers => {
+          followers.forEach( follower => {
+            axios.get(`https://api.github.com/users/${follower.login}`)
+            .then(response => {
+              cardsDiv.appendChild(createCard(response.data))
+            })
+          })
+          
+            
+        } )
+      
+        
+        
+     
+    })
+    
+    .catch((error) => {
+      console.log(error);
     })
 
 
@@ -73,7 +98,7 @@ const cardsDiv = document.querySelector('.cards');
           user, and adding that card to the DOM.
 */
 
-const followersArray = ["tetondan",
+/* const followersArray = ["tetondan",
   "dustinmyers",
   "justsml",
   "luishrd",
@@ -86,7 +111,7 @@ const followersArray = ["tetondan",
          cardsDiv.appendChild(createCard(response.data));
       })
 
-  })
+  }) */
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
 
@@ -120,15 +145,18 @@ function createCard(obj) {
   const followersCount= document.createElement('p');
   const followingCount = document.createElement('p');
   const userBio = document.createElement('p');
+  const followersHeading = document.createElement('h2');
 
   //add css classes
   newCard.classList.add('card');
   nameofUser.classList.add('name');
   userName.classList.add('username');
+  cardInfo.classList.add('card-info');
 
   //append elements to .card
   newCard.appendChild(image);
   newCard.appendChild(cardInfo);
+
   //append elements to .card-info
   cardInfo.appendChild(nameofUser);
   cardInfo.appendChild(userName);
@@ -144,12 +172,12 @@ function createCard(obj) {
   image.src = obj.avatar_url;
   nameofUser.textContent = obj.name;
   userName.textContent = obj.login;
-  userName.textContent = obj.location;
+  userLocation.textContent = `Location ${obj.location}`;
   profileLink.href = obj.html_url;
-  profileLink.textContent = obj.html_url;
-  followersCount.textContent = obj.followers;
-  followingCount.textContent = obj.following
-  userBio.textContent = obj.bio;
+  profileLink.textContent = `Profile: ${obj.html_url}`;
+  followersCount.textContent = `Followers: ${obj.followers}`;
+  followingCount.textContent = `Following ${obj.following}`;
+  userBio.textContent = `Bio: ${obj.bio}`;
 
   return newCard 
 
@@ -158,54 +186,23 @@ function createCard(obj) {
 
 
 
-function createFollowersCard(obj) {
-  //create elements
-  
+function errorMessage(error) {
   const newCard = document.createElement('div');
-  const image = document.createElement('img');
   const cardInfo = document.createElement('div');
   const nameofUser = document.createElement('h3');
-  const userName = document.createElement('p');
-  const userLocation = document.createElement('p');
-  const profilePara = document.createElement('p');
-  const profileLink = document.createElement('a');
-  const followersCount= document.createElement('p');
-  const followingCount = document.createElement('p');
-  const userBio = document.createElement('p');
-
-  //add css classes
+  //add classes
   newCard.classList.add('card');
   nameofUser.classList.add('name');
-  userName.classList.add('username');
+  cardInfo.classList.add('card-info');
 
-  //append elements to .card
-  newCard.appendChild(image);
+  //append
+  
+  
   newCard.appendChild(cardInfo);
-  //append elements to .card-info
   cardInfo.appendChild(nameofUser);
-  cardInfo.appendChild(userName);
-  cardInfo.appendChild(userLocation);
-  cardInfo.appendChild(profilePara);
-  cardInfo.appendChild(followersCount);
-  cardInfo.appendChild(followingCount);
-  cardInfo.appendChild(userBio);
-  // append elements to profile para
-  profilePara.appendChild(profileLink);
 
-  //fill in obj
-  image.src = obj.avatar_url;
-  nameofUser.textContent = obj.name;
-  userName.textContent = obj.login;
-  userName.textContent = obj.location;
-  profileLink.href = obj.html_url;
-  profileLink.textContent = obj.html_url;
-  followersCount.textContent = obj.followers;
-  followingCount.textContent = obj.following
-  userBio.textContent = obj.bio;
-
-  return newCard 
-
-
+  //fillin
+  nameofUser.textContent = error;
 }
 /* List of LS Instructors Github username's: 
   tetondan

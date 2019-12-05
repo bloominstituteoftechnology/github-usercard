@@ -123,5 +123,28 @@ body {
   margin: 3px 0 10px;
 }
 
+svg {
+  width: 700px;
+  
+}
+.text-gray{
+  margin-top:2%;
+}
+.contrib-legend{
+  margin:2% 0;
+}
 
-
+.calendar{
+  background:black;
+  color:white;
+}
+.contrib-number {
+  font-weight: 300;
+  line-height: 1.3em;
+  font-size: 24px;
+  display: block;
+  color: white;
+}
+.text-gray a{
+  color:white;
+}
