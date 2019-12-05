@@ -82,7 +82,8 @@ function createCard(object){
         cardInfo.append(followers);
         cardInfo.append(following);
         cardInfo.append(bio);
-        profile.append(userLink);
+        //when using the a tag. It has to use appendChild (append DOESN'T WORK!)
+        profile.appendChild(userLink);
 
         card.classList.add('card');
         cardInfo.classList.add('card-info');
@@ -94,7 +95,10 @@ function createCard(object){
         userName.textContent = object.login;
         location.textContent = `Location: ${object.location}`;
         profile.textContent = 'Profile:';
+        // userLink.setAttribute('href', object.html_url);
         userLink.href = object.html_url;
+        userLink.textContent = object.html_url;
+        // profile.appendChild(userLink);
         followers.textContent = `Followers: ${object.followers}`;
         following.textContent = `Following: ${object.following}`;
         bio.textContent = `Bio: ${object.bio}`
@@ -102,11 +106,6 @@ function createCard(object){
 
         return card;
 }
-
-// const card = document.querySelector('.card');
-// card.forEach(object =>{
-
-// })
 
 /* List of LS Instructors Github username's: 
   tetondan
