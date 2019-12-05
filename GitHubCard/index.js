@@ -93,6 +93,7 @@ function createCard(user){
   // console.log(calendar);
 
   const calendar = new GitHubCalendar(calDiv, user.login);
+  console.log(calendar);
   return card;
 }
 

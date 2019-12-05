@@ -63,12 +63,13 @@ body {
 }
 .container {
   /* max-width: 1000px; */
-  /* width: 80%; */
+  width: 80%;
   margin: 50px auto;
   padding: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* background: red; */
 }
 
 .header {
@@ -124,9 +125,9 @@ body {
   margin: 3px 0 10px;
 }
 
-/* .card-info {
+.card-info {
   width: 100%;
-} */
+}
 
 .calendar {
   width: 100%;
