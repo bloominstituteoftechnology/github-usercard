@@ -5,9 +5,9 @@
 
 axios.get('https://api.github.com/users/wesley-moody')
   .then (response => {
-    console.log(response.data)
+    // console.log(response.data)
     // const myInfo = response.data;
-    // gitHubFollowers(response.data);
+    gitHubFollowers(response.data);
     // const mainCard = document.querySelector('.cards');
     // const cardInfo = document.gitHubFollowers(myInfo);
     // console.log(myInfo);
@@ -88,7 +88,7 @@ axios.get('https://api.github.com/users/wesley-moody')
 */
 
 const cards = document.querySelector('.cards');
-console.log(cards);
+//console.log(cards);
 
 function gitHubFollowers(data) {
 
@@ -108,7 +108,7 @@ function gitHubFollowers(data) {
 
   //class list
 
-  card.classList.add('card');
+  gitCard.classList.add('card');
   cardInfo.classList.add('card-info');
   h3Name.classList.add('name');
   pUser.classList.add('username');
@@ -117,26 +117,26 @@ function gitHubFollowers(data) {
 
   gitCard.appendChild(img);
   gitCard.appendChild(cardInfo);
-  cardInfo.appendChild(name);
+  cardInfo.appendChild(h3Name);
   cardInfo.appendChild(userName);
-  cardInfo.appendChild(location);
-  cardInfo.appendChild(profile);
-  pProfile.appendChild(profileLink);
-  cardInfo.appendChild(followers);
-  cardInfo.appendChild(following);
-  cardInfo.appendChild(bio);
+  cardInfo.appendChild(pLocation);
+  cardInfo.appendChild(pProfile);
+  pProfile.appendChild(pProfileUrl);
+  cardInfo.appendChild(pFollowers);
+  cardInfo.appendChild(pFollowing);
+  cardInfo.appendChild(Bio);
 
   // textcontent
 
-  // img.src = `${data.avatar_url}`;
+  img.setAttribute('src', data.avatar_url);
   h3Name.textContent = data.name;
-  pUser.textContent = data.login;
+  userName.textContent = data.login;
   pLocation.textContent = data.location;
   pProfile.textContent = `Profile: ${data.html_url}`
   aProfileUrl.textContent = data.html_url;
   pFollowers.textContent = data.followers;
   pFollowing.textContent = data.following;
-  pBio.textContent = data.bio;
+  Bio.textContent = data.bio;
   cards.appendChild(gitCard);
   console.log(gitCard);
   return gitCard
@@ -149,10 +149,3 @@ function gitHubFollowers(data) {
 
 
 
-/* List of LS Instructors Github username's: 
-  tetondan
-  dustinmyers
-  justsml
-  luishrd
-  bigknell
-*/
