@@ -36,18 +36,41 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = ["tetondan", "dustinmyers", "justsml", "luishrd", "bigknell"];
 
-followersArray.map(user => {
-  let profileURL = "https://api.github.com/users/" + user;
-  axios.get(profileURL)
-  .then(response => {
-    let container = document.querySelector(".cards");
-    container.appendChild(createCard(response.data));
-    // console.log(response.data);
-  })
-  .catch(err => console.log(err));
-})
+axios.get("https://api.github.com/users/JHaydenDev/followers")
+  .then(obj => {
+    let otherfollowersArray = obj.data;
+    console.log(otherfollowersArray);
+    return otherfollowersArray;})
+  
+  .then(
+    arr => arr.map(user => {
+      let profileURL = "https://api.github.com/users/" + user.login;
+      axios.get(profileURL)
+      .then(response => {
+        console.log(profileURL);
+        let container = document.querySelector(".cards");
+        container.appendChild(createCard(response.data));
+        console.log(response.data); })
+      console.log(profileURL);
+    })
+    
+  )
+  .catch(error => console.log(error))
+
+
+// const followersArray = ["tetondan", "dustinmyers", "justsml", "luishrd", "bigknell"];
+
+// followersArray.map(user => {
+//   let profileURL = "https://api.github.com/users/" + user;
+//   axios.get(profileURL)
+//   .then(response => {
+//     let container = document.querySelector(".cards");
+//     container.appendChild(createCard(response.data));
+//     // console.log(response.data);
+//   })
+//   .catch(err => console.log(err));
+// })
 
 
 
