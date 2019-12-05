@@ -3,19 +3,7 @@
 */
 // const axios = require('axios');
 
-axios.get('https://api.github.com/users/wesley-moody')
-  .then (response => {
-    // console.log(response.data)
-    // const myInfo = response.data;
-    gitHubFollowers(response.data);
-    // const mainCard = document.querySelector('.cards');
-    // const cardInfo = document.gitHubFollowers(myInfo);
-    // console.log(myInfo);
-    // mainCard.appendChild(cardInfo);
-  })
-  .catch(error => {
-    console.log (error);
-  })
+
 
     // Step 4
 
@@ -47,8 +35,7 @@ axios.get('https://api.github.com/users/wesley-moody')
           user, and adding that card to the DOM.
 */
 // const followersArray = [];
-// const followersArray = [ 
-// ];
+// const followersArray = [];
 
 // i = 0;
 // followersArray.forEach((user, i) => {
@@ -86,7 +73,14 @@ axios.get('https://api.github.com/users/wesley-moody')
 </div>
 
 */
-
+axios.get('https://api.github.com/users/wesley-moody')
+  .then (response => {
+    console.log(response);
+    gitHubFollowers(response.data); 
+  })
+  .catch(error => {
+    console.log (error);
+  })
 const cards = document.querySelector('.cards');
 //console.log(cards);
 
@@ -104,7 +98,7 @@ function gitHubFollowers(data) {
     const pProfileUrl = document.createElement('a');
   const pFollowers = document.createElement('p');
   const pFollowing = document.createElement('p');
-  const Bio = document.createElement('p');
+  const bio = document.createElement('p');
 
   //class list
 
@@ -118,32 +112,50 @@ function gitHubFollowers(data) {
   gitCard.appendChild(img);
   gitCard.appendChild(cardInfo);
   cardInfo.appendChild(h3Name);
-  cardInfo.appendChild(userName);
+  cardInfo.appendChild(pUser);
   cardInfo.appendChild(pLocation);
   cardInfo.appendChild(pProfile);
-  pProfile.appendChild(pProfileUrl);
+    pProfileUrl.appendChild(pProfile);
   cardInfo.appendChild(pFollowers);
   cardInfo.appendChild(pFollowing);
-  cardInfo.appendChild(Bio);
+  cardInfo.appendChild(bio);
 
   // textcontent
 
   img.setAttribute('src', data.avatar_url);
   h3Name.textContent = data.name;
-  userName.textContent = data.login;
+  pUser.textContent = data.login;
   pLocation.textContent = data.location;
   pProfile.textContent = `Profile: ${data.html_url}`
-  aProfileUrl.textContent = data.html_url;
-  pFollowers.textContent = data.followers;
-  pFollowing.textContent = data.following;
-  Bio.textContent = data.bio;
+    pProfileUrl.textContent = data.html_url;
+  pFollowers.textContent = `Followers: ${data.followers}` 
+  pFollowing.textContent = `Following: ${data.following}` 
+  bio.textContent = data.bio;
   cards.appendChild(gitCard);
-  console.log(gitCard);
+  // console.log(gitCard);
+
   return gitCard
 }
 
+axios.get('https://api.github.com/users/wesley-moody/followers')
+.then( response => {
+  console.log(response);
 
-
+response.data.forEach(el => {
+  console.log(el)
+  // gitHubFollowers(el)
+  axios.get(el.url)
+  .then(response => {    
+      console.log(response);
+      gitHubFollowers(response.data);
+  }).catch(error => {
+    console.log(error);
+  })
+});
+  
+}).catch(error => {
+  console.log(error);
+}) 
 
 
 
