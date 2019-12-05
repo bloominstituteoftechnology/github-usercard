@@ -24,7 +24,7 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+// const followersArray = [];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -53,3 +53,78 @@ const followersArray = [];
   luishrd
   bigknell
 */
+const parentComp = document.querySelector(".cards");
+
+const followersArray = [
+  `tetondan`,
+  `dustinmyers`,
+  `justsml`,
+  `luishrd`,
+  `bigknell`,
+];
+
+axios.get("https://api.github.com/users/dgcash01").then(res => {
+    const newCard = ghCard(res.data);
+    parentComp.appendChild(newCard);
+  })
+  .catch(err => {
+    console.log("the data was not returned", err);
+  });
+
+followersArray.forEach(event => {
+  axios.get(`https://api.github.com/users/${event}`).then(res => {
+    const cardRes = ghCard(res.data);
+    const allCards = document.querySelector(".cards");
+    parentComp.appendChild(cardRes);
+  });
+});
+
+function ghCard(ghUser) {
+  // Elements
+  const card = document.createElement("div");
+  const cardImg = document.createElement("img");
+  const cardInfo = document.createElement("div");
+  const name = document.createElement("h3");
+  const username = document.createElement("p");
+  const location = document.createElement("p");
+  const profile = document.createElement("p");
+  const profileUrl = document.createElement("a");
+  const followers = document.createElement("p");
+  const following = document.createElement("p");
+  const bio = document.createElement("p");
+
+  // Classes
+  card.classList.add("card");
+  cardInfo.classList.add("card-info");
+  name.classList.add("name");
+  username.classList.add("username");
+
+  // Element Content
+  cardImg.src = ghUser.avatar_url;
+  name.textContent = ghUser.name;
+  username.textContent = ghUser.username;
+  location.textContent = `Location: ${ghUser.location}`;
+  profileUrl.href = ghUser.html_url;
+  profileUrl.textContent = ghUser.html_url;
+  profileUrl.target = "_blank";
+  profile.textContent = `Profile: `;
+  followers.textContent = `Followers: ${ghUser.followers}`;
+  following.textContent = `Following: ${ghUser.following}`;
+  bio.textContent = ghUser.bio;
+
+  // Append
+  card.appendChild(cardImg);
+  card.appendChild(cardInfo);
+
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(username);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+
+  profile.appendChild(profileUrl);
+
+   return card;
+}
