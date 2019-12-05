@@ -62,7 +62,8 @@ body {
   background: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
 }
 .container {
-  max-width: 800px;
+  /* max-width: 1000px; */
+  /* width: 80%; */
   margin: 50px auto;
   padding: 30px;
   display: flex;
@@ -121,6 +122,14 @@ body {
   font-size: 1.8rem;
   font-style: italic;
   margin: 3px 0 10px;
+}
+
+/* .card-info {
+  width: 100%;
+} */
+
+.calendar {
+  width: 100%;
 }
 
 
