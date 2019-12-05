@@ -2,6 +2,10 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+// axios.get('https://api.github.com/users/premputtegowda')
+//   .then((response) => {
+//     console.log(response);
+//   })
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -45,6 +49,38 @@ const followersArray = [];
 </div>
 
 */
+
+function createCard(obj) {
+  //create elements
+  const newCard = document.createElement('div');
+  const image = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const nameofUser = document.createElement('h3');
+  const userName = document.createElement('p');
+  const userLocation = document.createElement('p');
+  const profilePara = document.createElement('p');
+  const profileLink = document.createElement('a');
+  const userFollowers = document.createElement('p');
+  const userFollowing = document.createElement('p');
+  const userBio = document.createElement('p');
+
+  //append elements to .card
+  newCard.appendChild(image);
+  newCard.appendChild(cardInfo);
+  //append elements to .card-info
+  cardInfo.appendChild(nameofUser);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(userLocation);
+  cardInfo.appendChild(profilePara);
+  cardInfo.appendChild(userFollowers);
+  cardInfo.appendChild(userFollowing);
+  cardInfo.appendChild(userBio);
+  // append elements to profile para
+  profilePara.appendChild(profileLink);
+
+  
+
+}
 
 /* List of LS Instructors Github username's: 
   tetondan
