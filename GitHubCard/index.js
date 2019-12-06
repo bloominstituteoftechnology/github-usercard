@@ -10,6 +10,9 @@ axios.get('https://api.github.com/users/scurtis6')
     const cards = document.querySelector('.cards');
     cards.append(createCard(response.data))
   })
+  .catch(err =>{
+    console.log('The data was not returned', err)
+  })
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -37,9 +40,8 @@ followersArray.forEach(item =>{
   .then(response =>{
     console.log(response);
     cards.append(createCard(response.data));
-  })
+  });
 })
-
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -56,10 +58,16 @@ followersArray.forEach(item =>{
     <p>Followers: {users followers count}</p>
     <p>Following: {users following count}</p>
     <p>Bio: {users bio}</p>
+    // <div class=button>
+    // <button class= "btn-open">Open</button>
+    // <button class= "btn-close">Close</button>
+    // </div>
+  </div>
+  <div class="btn-content">
   </div>
 </div>
-
 */
+
 function createCard(object){
   const card = document.createElement('div'),
         img = document.createElement('img'),
@@ -82,8 +90,6 @@ function createCard(object){
         cardInfo.append(followers);
         cardInfo.append(following);
         cardInfo.append(bio);
-        //when using the a tag. It has to use appendChild (append DOESN'T WORK!)
-        profile.appendChild(userLink);
 
         card.classList.add('card');
         cardInfo.classList.add('card-info');
@@ -98,13 +104,73 @@ function createCard(object){
         // userLink.setAttribute('href', object.html_url);
         userLink.href = object.html_url;
         userLink.textContent = object.html_url;
-        // profile.appendChild(userLink);
+        //when using the a tag. It has to use appendChild (append DOESN'T WORK!)
+        profile.appendChild(userLink);
         followers.textContent = `Followers: ${object.followers}`;
         following.textContent = `Following: ${object.following}`;
         bio.textContent = `Bio: ${object.bio}`
 
+        // * Look into adding more info as an expanding card. You will need to create some new CSS and a button that expands and contracts the card. 
+        // const btn = document.createElement('div');
+        // const btnOpen = document.createElement('button');
+        // const btnClose = document.createElement('button');
+        // const btnContent = document.createElement('div');
+
+        // btn.classList.add('buttons');
+        // btnOpen.classList.add('btn-open');
+        // btnClose.classList.add('btn-close', 'hide-btn');
+        // btnContent.classList.add('btn-content');
+
+        // cardInfo.appendChild(btn);
+        // btn.appendChild(btnOpen);
+        // btn.appendChild(btnClose);
+        // card.appendChild(btnContent);
+
+        // btnContent.textContent = `Public repo: ${object.public_repos}`;
+        // btnOpen.textContent = 'Open \u25bc';
+        // btnClose.textContent = 'Close \u25b2';
+
+        // btn.addEventListener('click', event => {
+        //   btnOpen.classList.toggle('hide-btn');
+        //   btnClose.classList.toggle('hide-btn');
+        //   btnContent.classList.toggle('btn-open');
+
+        const btnSpan = document.createElement('span');
+        btnSpan.classList.add('button');
+        cardInfo.appendChild(btnSpan);
+        btnSpan.textContent = 'Close \u25b2';
+
+        const btnContent = document.createElement('p');
+        btnSpan.appendChild(btnContent);
+        btnContent.textContent = `Public repo: ${object.public_repos}`;
+
+        btnSpan.addEventListener('click', event => {
+          // btnSpan.classList.toggle('hide-btn');
+          // btnClose.classList.toggle('hide-btn');
+          btnContent.classList.toggle('btn-content');
+        })
 
         return card;
+}
+
+function addContent(object){
+  
+        
+
+  
+        // btnOpen.classList.add('btn-open');
+        // btnClose.classList.add('btn-close', 'hide-btn');
+        btnContent.classList.add('btn-content');
+
+        
+        // btn.appendChild(btnOpen);
+        // btn.appendChild(btnClose);
+
+        
+       
+        // btnClose.textContent = 'Close \u25b2';
+
+        
 }
 
 /* List of LS Instructors Github username's: 
