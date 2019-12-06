@@ -11,11 +11,23 @@
         <img src="./assets/lambdalogo.png" alt="Lambda Logo"/>
         <p>❤️'s</p>
         <img src="./assets/githublogo.png" alt="GitHub Logo" />
+        
       </div>
-      <div class="cards"></div>
+      <section>
+        <div class="cards">
+        </div>
+        <div class=".calender"></div>
+      </section>
+      
+        <link  rel="stylesheet"  href="https://cdn.rawgit.com/IonicaBizau/github-calendar/gh-pages/dist/github-calendar.css"/>
+      
     </div>
-    <!-- TODO: add CDN library here -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./GitHubCard/index.js"></script>
+    <script src="https://cdn.rawgit.com/IonicaBizau/github-calendar/gh-pages/dist/github-calendar.min.js"></script>
+    <script>
+      const calender = new GitHubCalendar(".card", "proach123");
+    </script>
   </body>
 </html>
 <!-- Do NOT change anything here except TODO line -->
