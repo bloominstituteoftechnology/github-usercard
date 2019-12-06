@@ -78,12 +78,15 @@ function CardCreator(object) {
   location.textContent = `Location: ${object.location}`;
   cardInfo.appendChild(location);
 
+
+
   const profile = document.createElement('p');
   profile.textContent = 'Profile:';
   cardInfo.appendChild(profile);
 
-  
-  
+  const url = document.createElement('a');
+  url.textContent = object.html_url;
+  profile.appendChild(url);
 
   const followers = document.createElement('p');
   followers.textContent = `Followers: ${object.followers}`;
