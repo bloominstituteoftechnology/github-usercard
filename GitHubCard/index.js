@@ -6,6 +6,10 @@
 axios.get("https://api.github.com/users/TylerAlsop")
   .then((response) => {
     console.log(response);
+    response.forEach((user) => {
+      const newUser = githubCardCreator(user);
+      cards.appendChild(newUser);
+    })
   })
   .catch((error) => {
     console.log("You reached an error ", error);
@@ -18,9 +22,13 @@ axios.get("https://api.github.com/users/TylerAlsop")
    Skip to Step 3.
 */
 
+const cards = document.querySelector('.cards');
+
 /* Step 4: Pass the data received from Github into your function, 
            create a new component and add it to the DOM as a child of .cards
 */
+
+
 
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
@@ -54,7 +62,7 @@ const followersArray = [];
 
 */
 
-function createCard (object) {
+function githubCardCreator (object) {
   ////////////////  Create Elements  ////////////////
   const card = document.createElement('div');
   const cardImg = document.createElement('img');
@@ -89,7 +97,7 @@ function createCard (object) {
   bio.textContent = `Bio: ${object.data.bio}`
 
 
-  ////////////////  Nest/Append  ////////////////
+  ////////////////  Append/Nest  ////////////////
   card.appendChild(cardImg);
   card.appendChild(cardInfo);
   cardInfo.appendChild(usersName);
@@ -101,8 +109,17 @@ function createCard (object) {
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
 
-
+  return card;
 }
+
+
+
+
+
+
+
+
+
 
 /* List of LS Instructors Github username's: 
   tetondan
