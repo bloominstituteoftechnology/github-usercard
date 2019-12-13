@@ -3,13 +3,27 @@
            https://api.github.com/users/<your name>
 */
 
+
+const cardsElement = document.querySelector('.cards');
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+
 axios.get("https://api.github.com/users/TylerAlsop")
   .then((response) => {
     const user = response.data;
-    
+    const newCard = gitHubCardCreator(user);
+    cardsElement.appendChild(newCard);
   })
   .catch((error) => {
     console.log("You reached an error ", error);
+  })
+
+  followersArray.forEach((user) => {
+    axios.get(`https://api.github.com/users/${user}`)
+      .then((response) => {
+        const followerArrayUser = response.data;
+        const newCard = gitHubCardCreator(followerArrayUser);
+        cardsElement.appendChild(newCard);
+      })
   })
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
@@ -19,7 +33,6 @@ axios.get("https://api.github.com/users/TylerAlsop")
    Skip to Step 3.
 */
 
-const cards = document.querySelector('.cards');
 
 /* Step 4: Pass the data received from Github into your function, 
            create a new component and add it to the DOM as a child of .cards
@@ -37,7 +50,7 @@ const cards = document.querySelector('.cards');
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -107,7 +120,7 @@ function gitHubCardCreator (object) {
   following.textContent = `Following: ${object.following}`;
   bio.textContent = `Bio: ${object.bio}`;
 
-  // console.log(card);
+  console.log(card);
   
   return card;
 }
