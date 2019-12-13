@@ -62,36 +62,36 @@ const followersArray = [];
 
 */
 
-function githubCardCreator (object) {
+function gitHubCardCreator (object) {
   ////////////////  Create Elements  ////////////////
   const card = document.createElement('div');
   const cardImg = document.createElement('img');
   const cardInfo = document.createElement('div');
-  const usersName = document.createElement('h3');
-  const usersUserName = document.createElement('p');
+  const name = document.createElement('h3');
+  const username = document.createElement('p');
   const location = document.createElement('p')
-  const usersProfile = document.createElement('p');
-  const usersGitHub = document.createElement('a');
+  const profile = document.createElement('p');
+  const gitHub = document.createElement('a');
   const followers = document.createElement('p');
   const following = document.createElement('p');
   const bio = document.createElement('p');
 
   ////////////////  Add Attributes  ////////////////
   cardImg.src = object.data.avatar_url;
-  usersGitHub.href = object.data.html_url;
+  gitHub.href = object.data.html_url;
 
   ////////////////  Add Classes  ////////////////
   card.classList.add('card');
   cardInfo.classList.add('card-info');
-  usersName.classList.add('name');
-  usersUserName.classList.add('username');
+  name.classList.add('name');
+  username.classList.add('username');
 
   ////////////////  Add Content  ////////////////
-  usersName.textContent = `${object.data.name}`;
-  usersUserName.textContent = `${object.data.login}`;
+  name.textContent = `${object.data.name}`;
+  username.textContent = `${object.data.login}`;
   location.textContent = `Location: ${object.data.location}`;
-  usersProfile.textContent = `Profile: `;
-  usersGitHub.textContent = `${object.data.html_url}`;
+  profile.textContent = `Profile: `;
+  gitHub.textContent = `${object.data.html_url}`;
   followers.textContent = `Followers: ${object.data.followers_url}`;
   following.textContent = `Following: ${object.data.following_url}`;
   bio.textContent = `Bio: ${object.data.bio}`
@@ -100,11 +100,11 @@ function githubCardCreator (object) {
   ////////////////  Append/Nest  ////////////////
   card.appendChild(cardImg);
   card.appendChild(cardInfo);
-  cardInfo.appendChild(usersName);
-  cardInfo.appendChild(usersUserName);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(username);
   cardInfo.appendChild(location);
-  cardInfo.appendChild(usersProfile);
-  usersProfile.appendChild(usersGitHub);
+  cardInfo.appendChild(profile);
+  profile.appendChild(gitHub);
   cardInfo.appendChild(followers);
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
