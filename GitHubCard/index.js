@@ -3,20 +3,22 @@
            https://api.github.com/users/<your name>
 */
 const gitCard = document.querySelector(".cards");
+
 //Pulling Data from github:
 axios
 .get('https://api.github.com/users/jeffglanville')
 
 .then(res => {
   const data = res.data;
-  for( const property in data) {
-    console.log(`${property}: ${data[property]}`);
-  }
-
+  const newInfo = cardCreator(data);
+  gitCard.appendChild(newInfo);
 })
+
 .catch(err => {
   console.log(err);
 });
+
+
 
 
 /* Step 2: Inspect and study the data coming back, this is YOUR
@@ -43,6 +45,7 @@ const name = document.createElement('h3');
 const login = document.createElement('p');
 const loc = document.createElement('p');
 const profile = document.createElement('p');
+const profileLink = document.createElement('a');
 const followers = document.createElement('p');
 const following = document.createElement('p');
 const bio = document.createElement('p');
@@ -54,18 +57,23 @@ cardInfo.appendChild(name);
 cardInfo.appendChild(login);
 cardInfo.appendChild(loc);
 cardInfo.appendChild(profile);
+profile.appendChild(profileLink);
+cardInfo.appendChild(profileLink);
 cardInfo.appendChild(followers);
 cardInfo.appendChild(following);
 cardInfo.appendChild(bio);
 
-userImg.src = avatar_url;
-name.textContent = name;
-login.textContent = login;
-loc.textContent = location;
-profile.textContent = html_url;
-followers.textContent = followers;
-following.textContent = following;
-bio.textContent = bio;
+userImg.src = obj.avatar_url;
+userImg.alt = 'github user';
+name.textContent = obj.name;
+login.textContent = obj.login;
+loc.textContent = obj.location;
+profile.textContent = 'Profile:';
+profileLink.href = obj.html_url
+profileLink.textContent = obj.html_url;
+followers.textContent = `Followers: ${obj.followers}`;
+following.textContent = `Following: ${obj.following}`;
+bio.textContent = `Bio: ${obj.bio}`;
 
 //adding classes
 newCard.classList.add('card');
@@ -86,8 +94,20 @@ return newCard;
           Using that array, iterate over it, requesting data for each user, creating a new card for each
           user, and adding that card to the DOM.
 */
+const cardFromIndex = document.querySelector('.cards');
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
-const followersArray = [];
+followersArray.forEach((user) => {
+  axios.get(`https://api.github.com/users/${user}`)
+  .then((res) => {
+    const newData = res.data;
+    const newestCard = cardCreator(newData);
+    cardFromIndex.appendChild(newestCard);
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+})
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
