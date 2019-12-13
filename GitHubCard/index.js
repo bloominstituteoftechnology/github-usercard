@@ -63,6 +63,7 @@ cardInfo.appendChild(followers);
 cardInfo.appendChild(following);
 cardInfo.appendChild(bio);
 
+//adding textContent
 userImg.src = obj.avatar_url;
 userImg.alt = 'github user';
 name.textContent = obj.name;
@@ -97,6 +98,8 @@ return newCard;
 const cardFromIndex = document.querySelector('.cards');
 const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
+
+//adding our friends!!
 followersArray.forEach((user) => {
   axios.get(`https://api.github.com/users/${user}`)
   .then((res) => {
