@@ -20,28 +20,26 @@ axios
 
 //get a list of followers programmatically
 
-const getFollowers = document.querySelector('.cards');
+const cardFromIndex = document.querySelector('.cards');
 
 axios
 
   .get('https://api.github.com/users/jeffglanville/followers')
 
   .then((res) => {
-    const followerCard = res.data;
-    const list = followerCard.map((follower) => {
-      return follower.login;
-
+    const followersArray = res.data;
+    const followersList = followersArray.map((user) => {
+      return user.login;
     })
-    const followersSlice = list.slice(0, 16);
-    return followersSlice;
+    return followersList;
   })
-
-  .then((followersSlice ) => {
-    followersSlice.forEach((follower) => {
-      axios.get(`https://api.github.com/users/${follower}`).then((res) => {
-        const usersData = res.data;
-        const userCard = cardCreator(usersData);
-        getFollowers.appendChild(userCard);
+  .then((followersList) => {
+    followersList.forEach((user) => {
+      axios.get(`https://api.github.com/users/${user}`)
+      .then(res => {
+        const data = res.data;
+        const newCard = cardCreator(data);
+        cardFromIndex.appendChild(newCard);
       })
     })
   })
@@ -114,11 +112,13 @@ return newCard;
 
 }
 
+
+// adding our friends manually!!
 // const cardFromIndex = document.querySelector('.cards');
 // const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell', 'mtrew2015', 'CJStryker', 'franzferdinan51', 'DaniWinston25', 'tommyconner96', 'HeyMichelle', 'remoo1901', 'williamschwindt', 'keirankozlowski'];
 
 
-// //adding our friends!!
+
 // followersArray.forEach((user) => {
 //   axios.get(`https://api.github.com/users/${user}`)
 //   .then((res) => {
