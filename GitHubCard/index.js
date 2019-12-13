@@ -4,16 +4,15 @@
 */
 
 axios.get("https://api.github.com/users/TylerAlsop")
-  .then((response) => {
-    console.log(response);
-    response.forEach((user) => {
-      const newUser = githubCardCreator(user);
-      cards.appendChild(newUser);
-    })
-  })
-  .catch((error) => {
-    console.log("You reached an error ", error);
-  })
+  .then((response) => console.log(response)
+    // response.forEach((user) => {
+    //   const newUser = githubCardCreator(user);
+    //   cards.appendChild(newUser);
+    // })
+  )
+  // .catch((error) => {
+  //   console.log("You reached an error ", error);
+  // })
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -69,33 +68,12 @@ function gitHubCardCreator (object) {
   const cardInfo = document.createElement('div');
   const name = document.createElement('h3');
   const username = document.createElement('p');
-  const location = document.createElement('p')
+  const location = document.createElement('p');
   const profile = document.createElement('p');
-  const gitHub = document.createElement('a');
+  const gitHubLink = document.createElement('a');
   const followers = document.createElement('p');
   const following = document.createElement('p');
   const bio = document.createElement('p');
-
-  ////////////////  Add Attributes  ////////////////
-  cardImg.src = object.data.avatar_url;
-  gitHub.href = object.data.html_url;
-
-  ////////////////  Add Classes  ////////////////
-  card.classList.add('card');
-  cardInfo.classList.add('card-info');
-  name.classList.add('name');
-  username.classList.add('username');
-
-  ////////////////  Add Content  ////////////////
-  name.textContent = `${object.data.name}`;
-  username.textContent = `${object.data.login}`;
-  location.textContent = `Location: ${object.data.location}`;
-  profile.textContent = `Profile: `;
-  gitHub.textContent = `${object.data.html_url}`;
-  followers.textContent = `Followers: ${object.data.followers_url}`;
-  following.textContent = `Following: ${object.data.following_url}`;
-  bio.textContent = `Bio: ${object.data.bio}`
-
 
   ////////////////  Append/Nest  ////////////////
   card.appendChild(cardImg);
@@ -104,15 +82,38 @@ function gitHubCardCreator (object) {
   cardInfo.appendChild(username);
   cardInfo.appendChild(location);
   cardInfo.appendChild(profile);
-  profile.appendChild(gitHub);
+  profile.appendChild(gitHubLink);
   cardInfo.appendChild(followers);
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
 
-  return card;
+  ////////////////  Add Classes  ////////////////
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  username.classList.add('username');
+
+  ////////////////  Add Attributes  ////////////////
+  cardImg.src = object.avatar_url;
+  cardImg.alt = "GitHub User Image";
+  gitHubLink.href = object.html_url;
+
+  ////////////////  Add Content  ////////////////
+  name.textContent = object.name;
+  username.textContent = object.login;
+  location.textContent = `Location: ${object.location}`;
+  profile.textContent = `Profile: ${gitHubLink}`;
+  gitHubLink.textContent = object.html_url;
+  followers.textContent = `Followers: ${object.followers}`;
+  following.textContent = `Following: ${object.following}`;
+  bio.textContent = `Bio: ${object.bio}`;
+
+  console.log(card);
+  
+  // return card;
 }
 
-
+gitHubCardCreator();
 
 
 
