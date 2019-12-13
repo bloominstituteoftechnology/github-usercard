@@ -4,15 +4,13 @@
 */
 
 axios.get("https://api.github.com/users/TylerAlsop")
-  .then((response) => console.log(response)
-    // response.forEach((user) => {
-    //   const newUser = githubCardCreator(user);
-    //   cards.appendChild(newUser);
-    // })
-  )
-  // .catch((error) => {
-  //   console.log("You reached an error ", error);
-  // })
+  .then((response) => {
+    const user = response.data;
+    
+  })
+  .catch((error) => {
+    console.log("You reached an error ", error);
+  })
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -104,22 +102,15 @@ function gitHubCardCreator (object) {
   location.textContent = `Location: ${object.location}`;
   profile.textContent = `Profile: ${gitHubLink}`;
   gitHubLink.textContent = object.html_url;
+  gitHubLink.style.cursor = 'pointer';
   followers.textContent = `Followers: ${object.followers}`;
   following.textContent = `Following: ${object.following}`;
   bio.textContent = `Bio: ${object.bio}`;
 
-  console.log(card);
+  // console.log(card);
   
-  // return card;
+  return card;
 }
-
-gitHubCardCreator();
-
-
-
-
-
-
 
 
 /* List of LS Instructors Github username's: 
