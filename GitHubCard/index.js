@@ -31,10 +31,6 @@ axios
            create a new component and add it to the DOM as a child of .cards
 */
 
-
-
-
-
 function cardCreator (obj) {
 
 //elements:
@@ -45,36 +41,10 @@ const name = document.createElement('h3');
 const login = document.createElement('p');
 const loc = document.createElement('p');
 const profile = document.createElement('p');
-const profileLink = document.createElement('a');
+const anchor = document.createElement('a');
 const followers = document.createElement('p');
 const following = document.createElement('p');
 const bio = document.createElement('p');
-
-//append to card
-newCard.appendChild(cardInfo);
-newCard.appendChild(userImg);
-cardInfo.appendChild(name);
-cardInfo.appendChild(login);
-cardInfo.appendChild(loc);
-cardInfo.appendChild(profile);
-profile.appendChild(profileLink);
-cardInfo.appendChild(profileLink);
-cardInfo.appendChild(followers);
-cardInfo.appendChild(following);
-cardInfo.appendChild(bio);
-
-//adding textContent
-userImg.src = obj.avatar_url;
-userImg.alt = 'github user';
-name.textContent = obj.name;
-login.textContent = obj.login;
-loc.textContent = obj.location;
-profile.textContent = 'Profile:';
-profileLink.href = obj.html_url
-profileLink.textContent = obj.html_url;
-followers.textContent = `Followers: ${obj.followers}`;
-following.textContent = `Following: ${obj.following}`;
-bio.textContent = `Bio: ${obj.bio}`;
 
 //adding classes
 newCard.classList.add('card');
@@ -82,21 +52,40 @@ cardInfo.classList.add('card-info');
 name.classList.add('name');
 login.classList.add('username');
 
+
+//adding textContent
+userImg.src = obj.avatar_url;
+userImg.alt = 'github user';
+name.textContent = obj.name;
+login.textContent = obj.login;
+loc.textContent = obj.location;
+profile.textContent = 'Profile: ';
+anchor.href = obj.html_url
+anchor.textContent = obj.html_url;
+followers.textContent = `Followers: ${obj.followers}`;
+following.textContent = `Following: ${obj.following}`;
+bio.textContent = `Bio: ${obj.bio}`;
+
+//append to card
+newCard.appendChild(userImg);
+newCard.appendChild(cardInfo);
+cardInfo.appendChild(name);
+cardInfo.appendChild(login);
+cardInfo.appendChild(loc);
+cardInfo.appendChild(profile);
+profile.appendChild(anchor);
+cardInfo.appendChild(followers);
+cardInfo.appendChild(following);
+cardInfo.appendChild(bio);
+
+
+
 return newCard;
 
 }
 
-/* Step 5: Now that you have your own card getting added to the DOM, either
-          follow this link in your browser https://api.github.com/users/<Your github name>/followers
-          , manually find some other users' github handles, or use the list found
-          at the bottom of the page. Get at least 5 different Github usernames and add them as
-          Individual strings to the friendsArray below.
-
-          Using that array, iterate over it, requesting data for each user, creating a new card for each
-          user, and adding that card to the DOM.
-*/
 const cardFromIndex = document.querySelector('.cards');
-const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell', 'mtrew2015', 'CJStryker', 'franzferdinan51', 'DaniWinston25', 'tommyconner96', 'HeyMichelle', 'remoo1901', 'williamschwindt', 'keirankozlowski'];
 
 
 //adding our friends!!
@@ -111,6 +100,18 @@ followersArray.forEach((user) => {
     console.log(err);
   })
 })
+
+
+/* Step 5: Now that you have your own card getting added to the DOM, either
+          follow this link in your browser https://api.github.com/users/<Your github name>/followers
+          , manually find some other users' github handles, or use the list found
+          at the bottom of the page. Get at least 5 different Github usernames and add them as
+          Individual strings to the friendsArray below.
+
+          Using that array, iterate over it, requesting data for each user, creating a new card for each
+          user, and adding that card to the DOM.
+*/
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
