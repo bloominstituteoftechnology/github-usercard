@@ -23,8 +23,8 @@ axios.get("https://api.github.com/users/TylerAlsop")
         const followerArrayUser = response.data;
         const newCard = gitHubCardCreator(followerArrayUser);
         cardsElement.appendChild(newCard);
-      })
-  })
+      });
+  });
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
