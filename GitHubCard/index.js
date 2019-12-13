@@ -18,6 +18,36 @@ axios
   console.log(err);
 });
 
+//get a list of followers programmatically
+
+const getFollowers = document.querySelector('.cards');
+
+axios
+
+  .get('https://api.github.com/users/jeffglanville/followers')
+
+  .then((res) => {
+    const followerCard = res.data;
+    const list = followerCard.map((follower) => {
+      return follower.login;
+
+    })
+    const followersSlice = list.slice(0, 16);
+    return followersSlice;
+  })
+
+  .then((followersSlice ) => {
+    followersSlice.forEach((follower) => {
+      axios.get(`https://api.github.com/users/${follower}`).then((res) => {
+        const usersData = res.data;
+        const userCard = cardCreator(usersData);
+        getFollowers.appendChild(userCard);
+      })
+    })
+  })
+  .catch((err) => {
+    console.log(err);
+  })
 
 
 
@@ -84,22 +114,22 @@ return newCard;
 
 }
 
-const cardFromIndex = document.querySelector('.cards');
-const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell', 'mtrew2015', 'CJStryker', 'franzferdinan51', 'DaniWinston25', 'tommyconner96', 'HeyMichelle', 'remoo1901', 'williamschwindt', 'keirankozlowski'];
+// const cardFromIndex = document.querySelector('.cards');
+// const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell', 'mtrew2015', 'CJStryker', 'franzferdinan51', 'DaniWinston25', 'tommyconner96', 'HeyMichelle', 'remoo1901', 'williamschwindt', 'keirankozlowski'];
 
 
-//adding our friends!!
-followersArray.forEach((user) => {
-  axios.get(`https://api.github.com/users/${user}`)
-  .then((res) => {
-    const newData = res.data;
-    const newestCard = cardCreator(newData);
-    cardFromIndex.appendChild(newestCard);
-  })
-  .catch((err) => {
-    console.log(err);
-  })
-})
+// //adding our friends!!
+// followersArray.forEach((user) => {
+//   axios.get(`https://api.github.com/users/${user}`)
+//   .then((res) => {
+//     const newData = res.data;
+//     const newestCard = cardCreator(newData);
+//     cardFromIndex.appendChild(newestCard);
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   })
+// })
 
 
 /* Step 5: Now that you have your own card getting added to the DOM, either
@@ -140,4 +170,8 @@ followersArray.forEach((user) => {
   luishrd
   bigknell
 */
+
+
+
+
 
