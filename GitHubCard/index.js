@@ -62,7 +62,7 @@ function createCard (object) {
   const usersName = document.createElement('h3');
   const usersUserName = document.createElement('p');
   const location = document.createElement('p')
-  const userProfile = document.createElement('p');
+  const usersProfile = document.createElement('p');
   const usersGitHub = document.createElement('a');
   const followers = document.createElement('p');
   const following = document.createElement('p');
@@ -87,6 +87,15 @@ function createCard (object) {
   ////////////////  Nest/Append  ////////////////
   card.appendChild(cardImg);
   card.appendChild(cardInfo);
+  cardInfo.appendChild(usersName);
+  cardInfo.appendChild(usersUserName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(usersProfile);
+  usersProfile.appendChild(usersGitHub);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+
 
 }
 
