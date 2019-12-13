@@ -69,10 +69,8 @@ function createCard (object) {
   const bio = document.createElement('p');
 
   ////////////////  Add Attributes  ////////////////
-  cardImg.src = object
-  // .data.avatar_url;
-  usersGitHub.href = object
-  // .data.html_url;
+  cardImg.src = object.data.avatar_url;
+  usersGitHub.href = object.data.html_url;
 
   ////////////////  Add Classes  ////////////////
   card.classList.add('card');
@@ -81,7 +79,14 @@ function createCard (object) {
   usersUserName.classList.add('username');
 
   ////////////////  Add Content  ////////////////
-  
+  usersName.textContent = `${object.data.name}`;
+  usersUserName.textContent = `${object.data.login}`;
+  location.textContent = `Location: ${object.data.location}`;
+  usersProfile.textContent = `Profile: `;
+  usersGitHub.textContent = `${object.data.html_url}`;
+  followers.textContent = `Followers: ${object.data.followers_url}`;
+  following.textContent = `Following: ${object.data.following_url}`;
+  bio.textContent = `Bio: ${object.data.bio}`
 
 
   ////////////////  Nest/Append  ////////////////
