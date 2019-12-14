@@ -7,20 +7,19 @@
 
 
 
-// let gitData = [];
-// axios
-//   .get('https://api.github.com/users/avpimblesr')
-//   .then( response => {
-//     // deal with the response data in here
-//     console.log(response.data)
-// })
-// .catch( err => {
-//     // deal with the error in here
-// })
-//
-// console.log(gitData)
+let gitData = {};
 
+axios
+  .get('https://api.github.com/users/avpimblesr')
+  .then( response => {
+    // deal with the response data in here
+    console.log(response.data.avatar_url)
+})
+.catch( err => {
+    // deal with the error in here
+})
 
+console.log(gitData)
 
 
 
@@ -55,12 +54,12 @@ const followersArray = [];
 // console.log(gitData.data.avatar_url)
 
 
-function createGitComponent() {
+function createGitComponent(gitUser) {
   const theCard = document.createElement('div')
   theCard.classList.add("card")
 
   const usrAvatar = document.createElement('img')
-  usrAvatar.src = "https://avatars3.githubusercontent.com/u/22718695?v=4";
+  usrAvatar.src = gitUser.avatar;
   usrAvatar.alt = "User's Image";
 
   const usrCardInfo = document.createElement('div')
@@ -68,30 +67,30 @@ function createGitComponent() {
 
   const usrName = document.createElement('h3')
   usrName.classList.add("name")
-  usrName.innerHTML = "";
+  usrName.innerHTML = gitUser.name;
 
   const usrUserName = document.createElement('p')
   usrUserName.classList.add("username")
-  usrUserName.innerText = "";
+  usrUserName.innerText = gitUser.userName;
 
   const usrLocation = document.createElement('p')
-  usrLocation.innerHTML = `Profile: `;
+  usrLocation.innerHTML = `Location: ${gitUser.location}`;
 
   const usrProfile = document.createElement('p')
   usrProfile.innerHTML = `Profile: `
 
   const usrPageURL = document.createElement('a')
-  usrPageURL.href = "";
-  usrPageURL.innerText = "";
+  usrPageURL.href = gitUser.pageURL;
+  usrPageURL.innerText = gitUser.pageURL;
 
   const usrFollowers = document.createElement('p')
-  usrFollowers.innerText = "";
+  usrFollowers.innerText = `Followers: ${gitUser.followers}`;
 
   const usrFollowing = document.createElement('p')
-  usrFollowing.innerText = ;
+  usrFollowing.innerText = `Following: ${gitUser.following}`;
 
   const usrBio = document.createElement('p')
-  usrBio.innerText = ;
+  usrBio.innerText = `Bio: ${gitUser.bio}`;
 
   // Assemble the elements
   theCard.appendChild(usrAvatar)
@@ -105,14 +104,24 @@ function createGitComponent() {
   usrCardInfo.appendChild(usrFollowers)
   usrCardInfo.appendChild(usrFollowing)
   usrCardInfo.appendChild(usrBio)
-
-
-
-  return myComponent;
+  return theCard;
 }
 
+const gitUser = {
+  avatar: "https://avatars3.githubusercontent.com/u/22718695?v=4",
+  name: "Allan V Pimble Sr",
+  userName: "avpimblesr",
+  location: "Bronx, NY",
+  pageURL: "https:/www.github.com/avpimblesr",
+  followers: 20,
+  following: 34,
+  bio: "<no Bio>"
+}
+
+fred = createGitComponent(gitUser);
+
 const theCards = document.querySelector('.cards')
-theCards.appendChild(avatar)
+theCards.appendChild(fred)
 
 // This will return my card at this time
 // theCards.appendChild(gitComponent(gitData))
