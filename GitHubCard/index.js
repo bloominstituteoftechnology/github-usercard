@@ -34,9 +34,7 @@ const followersArray =
     'mtrew2015',
     'codeasaglacier',
     'keirankozlowski',
-    'tanveersaleem786',
     'tlewandowski18',
-    'HeyMichelle',
     'Damico-Williams',
     'jeffglanville',
     'swaCreates',
@@ -116,7 +114,7 @@ function showLambdaStudentCards(follower) {
         usrCardInfo.appendChild(usrFollowers)
         usrCardInfo.appendChild(usrFollowing)
         usrCardInfo.appendChild(usrBio)
-        
+
         return theCard;
       }
 
