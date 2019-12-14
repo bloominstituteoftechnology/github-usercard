@@ -4,130 +4,132 @@
 */
 
 const followersArray =
-['CJStryker',
-'candaceyw',
-'franzferdinan51',
-'abrobins',
-'asvka',
-'hmerritt',
-'DaniWinston25',
-'vospader13',
-'tommyconner96',
-'ElleTinajero',
-'fnumilat',
-'fuston05',
-'sophiasagan',
-'JC8747',
-'dvwhite',
-'Cberumen51',
-'HeyMichelle',
-'CDuenas',
-'ShawnBatson',
-'remoo1901',
-'Broast42',
-'jtkoch',
-'LukeSalik',
-'april5622',
-'williamschwindt',
-'tanveersaleem786',
-'mtrew2015',
-'codeasaglacier',
-'keirankozlowski',
-'tanveersaleem786',
-'tlewandowski18',
-'HeyMichelle',
-'Damico-Williams',
-'jeffglanville',
-'swaCreates',
-'dscromer',
-'tetondan',
-'dustinmyers',
-'justsml',
-'luishrd',
-'bigknell'
-];
+  ['avpimblesr',
+    'CJStryker',
+    'candaceyw',
+    'franzferdinan51',
+    'abrobins',
+    'asvka',
+    'hmerritt',
+    'DaniWinston25',
+    'vospader13',
+    'tommyconner96',
+    'ElleTinajero',
+    'fnumilat',
+    'fuston05',
+    'sophiasagan',
+    'JC8747',
+    'dvwhite',
+    'Cberumen51',
+    'HeyMichelle',
+    'CDuenas',
+    'ShawnBatson',
+    'remoo1901',
+    'Broast42',
+    'jtkoch',
+    'LukeSalik',
+    'april5622',
+    'williamschwindt',
+    'tanveersaleem786',
+    'mtrew2015',
+    'codeasaglacier',
+    'keirankozlowski',
+    'tanveersaleem786',
+    'tlewandowski18',
+    'HeyMichelle',
+    'Damico-Williams',
+    'jeffglanville',
+    'swaCreates',
+    'dscromer',
+    'tetondan',
+    'dustinmyers',
+    'justsml',
+    'luishrd',
+    'bigknell'
+  ];
 
 function showLambdaStudentCards(follower) {
-axios
-  .get(follower)
-  .then( response => {
-    // deal with the response data in here
-    const gitData = response.data;
-        const gitUser = {
-          avatar: gitData.avatar_url,
-          name: gitData.name,
-          userName: gitData.login,
-          location: (gitData.location) ? gitData.location : '(Not Available)',
-          pageURL: gitData.url,
-          followers: gitData.followers,
-          following: gitData.following,
-          bio: (gitData.bio) ? gitData.bio : '(Not Available)'
-        }
+  axios
+    .get(follower)
+    .then(response => {
+      // deal with the response data in here
+      const gitData = response.data;
+      const gitUser = {
+        avatar: gitData.avatar_url,
+        name: gitData.name,
+        userName: gitData.login,
+        location: (gitData.location) ? gitData.location : '(Not Available)',
+        pageURL: gitData.url,
+        followers: gitData.followers,
+        following: gitData.following,
+        bio: (gitData.bio) ? gitData.bio : '(Not Available)'
+      }
 
-    // Create the card here
-    function createGitComponent(gitUser) {
-      const theCard = document.createElement('div')
-      theCard.classList.add("card")
+      // Create the card here
+      function createGitComponent(gitUser) {
+        const theCard = document.createElement('div')
+        theCard.classList.add("card")
 
-      const usrAvatar = document.createElement('img')
-      usrAvatar.src = gitUser.avatar;
-      usrAvatar.alt = "User's Image";
+        const usrAvatar = document.createElement('img')
+        usrAvatar.src = gitUser.avatar;
+        usrAvatar.alt = "User's Image";
 
-      const usrCardInfo = document.createElement('div')
-      usrCardInfo.classList.add("card-info")
+        const usrCardInfo = document.createElement('div')
+        usrCardInfo.classList.add("card-info")
 
-      const usrName = document.createElement('h3')
-      usrName.classList.add("name")
-      usrName.innerHTML = gitUser.name;
+        const usrName = document.createElement('h3')
+        usrName.classList.add("name")
+        usrName.innerHTML = gitUser.name;
 
-      const usrUserName = document.createElement('p')
-      usrUserName.classList.add("username")
-      usrUserName.innerText = gitUser.userName;
+        const usrUserName = document.createElement('p')
+        usrUserName.classList.add("username")
+        usrUserName.innerText = gitUser.userName;
 
-      const usrLocation = document.createElement('p')
-      usrLocation.innerHTML = `Location: ${gitUser.location}`;
+        const usrLocation = document.createElement('p')
+        usrLocation.innerHTML = `Location: ${gitUser.location}`;
 
-      const usrProfile = document.createElement('p')
-      usrProfile.innerHTML = `Profile: `
+        const usrProfile = document.createElement('p')
+        usrProfile.innerHTML = `Profile: `
 
-      const usrPageURL = document.createElement('a')
-      usrPageURL.href = gitUser.pageURL;
-      usrPageURL.innerText = gitUser.pageURL;
+        const usrPageURL = document.createElement('a')
+        usrPageURL.href = gitUser.pageURL;
+        usrPageURL.innerText = gitUser.pageURL;
 
-      const usrFollowers = document.createElement('p')
-      usrFollowers.innerText = `Followers: ${gitUser.followers}`;
+        const usrFollowers = document.createElement('p')
+        usrFollowers.innerText = `Followers: ${gitUser.followers}`;
 
-      const usrFollowing = document.createElement('p')
-      usrFollowing.innerText = `Following: ${gitUser.following}`;
+        const usrFollowing = document.createElement('p')
+        usrFollowing.innerText = `Following: ${gitUser.following}`;
 
-      const usrBio = document.createElement('p')
-      usrBio.innerText = `Bio: ${gitUser.bio}`;
+        const usrBio = document.createElement('p')
+        usrBio.innerText = `Bio: ${gitUser.bio}`;
 
-      // Assemble the elements
-      theCard.appendChild(usrAvatar)
-      theCard.appendChild(usrCardInfo)
+        // Assemble the elements
+        theCard.appendChild(usrAvatar)
+        theCard.appendChild(usrCardInfo)
 
-      usrCardInfo.appendChild(usrName)
-      usrCardInfo.appendChild(usrUserName)
-      usrCardInfo.appendChild(usrLocation)
-      usrCardInfo.appendChild(usrProfile)
-      usrProfile.appendChild(usrPageURL)
-      usrCardInfo.appendChild(usrFollowers)
-      usrCardInfo.appendChild(usrFollowing)
-      usrCardInfo.appendChild(usrBio)
-      return theCard;
-    }
+        usrCardInfo.appendChild(usrName)
+        usrCardInfo.appendChild(usrUserName)
+        usrCardInfo.appendChild(usrLocation)
+        usrCardInfo.appendChild(usrProfile)
+        usrProfile.appendChild(usrPageURL)
+        usrCardInfo.appendChild(usrFollowers)
+        usrCardInfo.appendChild(usrFollowing)
+        usrCardInfo.appendChild(usrBio)
+        
+        return theCard;
+      }
 
-    fred = createGitComponent(gitUser);
+      fred = createGitComponent(gitUser);
 
-    const theCards = document.querySelector('.cards')
-    theCards.appendChild(fred)
+      const theCards = document.querySelector('.cards')
+      theCards.appendChild(fred)
 
-})
-.catch( err => {
-    // deal with the error in here
-    console.log(err)
-})
+    })
+    .catch(err => {
+      // deal with the error in here
+      console.log(err)
+    })
 }
 
 const githubURL = 'https://api.github.com/users/';
