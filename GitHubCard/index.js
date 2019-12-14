@@ -3,23 +3,68 @@
            https://api.github.com/users/<your name>
 */
 
+const followersArray =
+['CJStryker',
+'candaceyw',
+'franzferdinan51',
+'abrobins',
+'asvka',
+'hmerritt',
+'DaniWinston25',
+'vospader13',
+'tommyconner96',
+'ElleTinajero',
+'fnumilat',
+'fuston05',
+'sophiasagan',
+'JC8747',
+'dvwhite',
+'Cberumen51',
+'HeyMichelle',
+'CDuenas',
+'ShawnBatson',
+'remoo1901',
+'Broast42',
+'jtkoch',
+'LukeSalik',
+'april5622',
+'williamschwindt',
+'tanveersaleem786',
+'mtrew2015',
+'codeasaglacier',
+'keirankozlowski',
+'tanveersaleem786',
+'tlewandowski18',
+'HeyMichelle',
+'Damico-Williams',
+'jeffglanville',
+'swaCreates',
+'dscromer',
+'tetondan',
+'dustinmyers',
+'justsml',
+'luishrd',
+'bigknell'
+];
+
+function showLambdaStudentCards(follower) {
 axios
-  .get('https://api.github.com/users/avpimblesr')
+  .get(follower)
   .then( response => {
     // deal with the response data in here
     const gitData = response.data;
-    console.log(gitData);
         const gitUser = {
-          // avatar: "https://avatars3.githubusercontent.com/u/22718695?v=4",
           avatar: gitData.avatar_url,
           name: gitData.name,
           userName: gitData.login,
-          location: gitData.location,
+          location: (gitData.location) ? gitData.location : '(Not Available)',
           pageURL: gitData.url,
           followers: gitData.followers,
           following: gitData.following,
           bio: (gitData.bio) ? gitData.bio : '(Not Available)'
         }
+
+    // Create the card here
     function createGitComponent(gitUser) {
       const theCard = document.createElement('div')
       theCard.classList.add("card")
@@ -73,7 +118,6 @@ axios
       return theCard;
     }
 
-
     fred = createGitComponent(gitUser);
 
     const theCards = document.querySelector('.cards')
@@ -84,7 +128,14 @@ axios
     // deal with the error in here
     console.log(err)
 })
+}
 
+const githubURL = 'https://api.github.com/users/';
+let githubUser = followersArray[2];
+
+followersArray.forEach(student => {
+  showLambdaStudentCards(githubURL + student)
+})
 
 
 /* Step 2: Inspect and study the data coming back, this is YOUR
@@ -108,19 +159,10 @@ axios
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
 */
-
-// This will return my card at this time
-// theCards.appendChild(gitComponent(gitData))
-
-
-
-
-
 
 /*
 <div class="card">
