@@ -2,23 +2,6 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
-const gitCard = document.querySelector(".cards");
-
-//Pulling Data from github:
-axios
-.get('https://api.github.com/users/jeffglanville')
-
-.then(res => {
-  const data = res.data;
-  const newInfo = cardCreator(data);
-  gitCard.appendChild(newInfo);
-})
-
-.catch(err => {
-  console.log(err);
-});
-
-//get a list of followers programmatically
 
 const cardFromIndex = document.querySelector('.cards');
 
@@ -62,6 +45,7 @@ axios
 function cardCreator (obj) {
 
 //elements:
+
 const newCard = document.createElement('div');
 const userImg = document.createElement('img');
 const cardInfo = document.createElement('div');
@@ -75,6 +59,7 @@ const following = document.createElement('p');
 const bio = document.createElement('p');
 
 //adding classes
+
 newCard.classList.add('card');
 cardInfo.classList.add('card-info');
 name.classList.add('name');
@@ -82,6 +67,7 @@ login.classList.add('username');
 
 
 //adding textContent
+
 userImg.src = obj.avatar_url;
 userImg.alt = 'github user';
 name.textContent = obj.name;
@@ -95,6 +81,7 @@ following.textContent = `Following: ${obj.following}`;
 bio.textContent = `Bio: ${obj.bio}`;
 
 //append to card
+
 newCard.appendChild(userImg);
 newCard.appendChild(cardInfo);
 cardInfo.appendChild(name);
@@ -114,9 +101,9 @@ return newCard;
 
 
 // adding our friends manually!!
+
 // const cardFromIndex = document.querySelector('.cards');
 // const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell', 'mtrew2015', 'CJStryker', 'franzferdinan51', 'DaniWinston25', 'tommyconner96', 'HeyMichelle', 'remoo1901', 'williamschwindt', 'keirankozlowski'];
-
 
 
 // followersArray.forEach((user) => {
@@ -130,6 +117,25 @@ return newCard;
 //     console.log(err);
 //   })
 // })
+
+
+//get a list of followers programmatically
+
+const gitCard = document.querySelector(".cards");
+
+//Pulling Data from github:
+axios
+.get('https://api.github.com/users/jeffglanville')
+
+.then(res => {
+  const data = res.data;
+  const newInfo = cardCreator(data);
+  gitCard.appendChild(newInfo);
+})
+
+.catch(err => {
+  console.log(err);
+});
 
 
 /* Step 5: Now that you have your own card getting added to the DOM, either
