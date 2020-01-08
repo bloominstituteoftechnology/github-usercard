@@ -2,11 +2,22 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+const cardFromIndex = document.querySelector('.cards');
 
+axios
+  .get("https://api.github.com/users/ElleTinajero")
+  .then((res) => {
+    const user = res.data;
+    const newCard = cardCreator(user)
+    cardFromIndex.appendChild(newCard);
+  })
+  .catch((err) => console.log(err));
+
+  
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
-
+  
    Skip to Step 3.
 */
 
@@ -25,6 +36,52 @@
 */
 
 const followersArray = [];
+
+function cardCreator(obj) {
+  
+  const card = document.createElement('div');
+  const cardImg = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const userName = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const profileLink = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  card.appendChild(cardImg);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+  profile.appendChild(profileLink);
+
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  userName.classList.add('username');
+
+  cardImg.src = obj.avatar_url;
+  cardImg.alt = 'github user';
+  name.textContent = obj.name;
+  userName.textContent = obj.login;
+  location.textContent = obj.location;
+  profile.textContent = 'Profile:'
+  profileLink.href = obj.html_url;
+  profileLink.textContent = obj.html_url;
+  profileLink.style.cursor = 'pointer';
+  followers.textContent = `Followers: ${obj.followers}`;
+  followers.textContent = `Following: ${obj.following}`;
+  bio.textContent = `Bio: ${obj.bio}`;
+
+  return card;
+}
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -53,3 +110,4 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
