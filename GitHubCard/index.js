@@ -47,23 +47,22 @@ const followersArray = [];
 */
 
 
+const entryPoint = document.querySelector('.cards');
+axios.get("https://api.github.com/users/ksemenza")
+.then((response) => {
+  createCard(response);
+  console.log(response);
+  
+  const newCard = createCard(response);
+  entryPoint.append(newCard)
+})
+.catch( error => {
+  console.log("the data was not returned", error)
+})
 
 
 
-const obj = {
-  img: '', 
-  name: '',
-  profile:'',
-  user:' ',
-  loc:'',
-  profile:'',
-  link: '',
-  followers:'',
-  following:'',
-  bio:'',
-}
-
-function createCard(obj) {
+function createCard(object) {
 
 let card =document.createElement('div')
 let img =  document.createElement('img')
@@ -77,37 +76,46 @@ let followers = document.createElement('p')
 let following = document.createElement('p')
 let bio = document.createElement('p')
 
-card.classList.add('card')
-cardInfo.classList.add('card-info')
-name.classList.add('name')
-userName.classList.add('userName')
-
-loc.textContent =('Location: ')
-profile.textContent = ('Profile: ')
-followers.textContent = ('Followers: ')
-following.textContent = ('Following: ')
-bio.textContent = ('Bio')
 
 card.append(img)
 card.append(cardInfo)
 cardInfo.append(name)
 cardInfo.append(userName)
 cardInfo.append(loc)
-cardInfo.append(profile)
 cardInfo.append(link)
+link.append(profile)
 cardInfo.append(followers)
-cardInfo.append(followers)
+cardInfo.append(following)
 cardInfo.append(bio)
 
+card.classList.add('card')
+img.classList.add('card-img')
+profile.classList.add('p')
+cardInfo.classList.add('card-info')
+name.classList.add('name')
+userName.classList.add('user-name')
+loc.classList.add('p')
+followers.classList.add('p')
+following.classList.add('p')
+bio.classList.add('p')
+
+
+img.src = object.data.avatar_url;
+name.textContent = object.data.name;
+userName.textContent = `Username: ${object.data.login}`
+loc.textContent = `Location: ${object.data.location}`
+profile.textContent =  object.data.html_url
+followers.textContent = `Followers: ${object.data.followers}`
+following.textContent = `Following: ${object.data.following}`
+bio.textContent = `Bio: ${object.data.bio}`
+
+link.href = object.data.html_url
 
 return card
 
 }
 
-let newObj = createCard(obj)
 
-let cards = document.querySelector('.cards')
-cards.append(newObj)
 
 
 
