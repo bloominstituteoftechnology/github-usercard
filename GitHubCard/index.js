@@ -21,4 +21,12 @@ const followersArray = [
 ];
 
 
+followersArray.forEach(follower => {
+  axios.get(`https://api.github.com/users/${follower}`)
+  .then(response=>{
+    console.log(response.data);
+    cardLocation.appendChild(createCard(response.data));
+  });
+});
+
 
