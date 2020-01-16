@@ -28,7 +28,7 @@ const followersArray = [];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
-
+/*
 <div class="card">
   <img src={image url of user} />
   <div class="card-info">
@@ -45,6 +45,50 @@ const followersArray = [];
 </div>
 
 */
+
+let cards = document.querySelector('.cards')
+let body = document.querySelector('body')
+
+let card =document.createElement('div')
+let img =  document.createElement('img')
+let cardInfo = document.createElement('div')
+let name = document.createElement('h3')
+let userName = document.createElement('p')
+let loc = document.createElement('p')
+let profile = document.createElement('p')
+let link = document.createElement('a')
+let followers = document.createElement('p')
+let following = document.createElement('p')
+let bio = document.createElement('p')
+
+card.classList.add('card')
+cardInfo.classList.add('card-info')
+name.classList.add('name')
+userName.classList.add('userName')
+
+cards.append(card)
+card.append(img)
+card.append(cardInfo)
+cardInfo.append(name)
+cardInfo.append(userName)
+cardInfo.append(loc)
+cardInfo.append(profile)
+cardInfo.append(link)
+cardInfo.append(followers)
+cardInfo.append(followers)
+cardInfo.append(bio)
+
+
+
+name.textContent = ('Name')
+
+loc.textContent =('Location: ')
+profile.textContent = ('Profile: ')
+followers.textContent = ('Followers: ')
+following.textContent = ('Following: ')
+bio.textContent = ('Bio')
+
+
 
 /* List of LS Instructors Github username's: 
   tetondan
