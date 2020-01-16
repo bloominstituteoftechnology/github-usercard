@@ -46,8 +46,24 @@ const followersArray = [];
 
 */
 
-let cards = document.querySelector('.cards')
-let body = document.querySelector('body')
+
+
+
+
+const obj = {
+  img: '', 
+  name: '',
+  profile:'',
+  user:' ',
+  loc:'',
+  profile:'',
+  link: '',
+  followers:'',
+  following:'',
+  bio:'',
+}
+
+function createCard(obj) {
 
 let card =document.createElement('div')
 let img =  document.createElement('img')
@@ -66,7 +82,12 @@ cardInfo.classList.add('card-info')
 name.classList.add('name')
 userName.classList.add('userName')
 
-cards.append(card)
+loc.textContent =('Location: ')
+profile.textContent = ('Profile: ')
+followers.textContent = ('Followers: ')
+following.textContent = ('Following: ')
+bio.textContent = ('Bio')
+
 card.append(img)
 card.append(cardInfo)
 cardInfo.append(name)
@@ -79,14 +100,14 @@ cardInfo.append(followers)
 cardInfo.append(bio)
 
 
+return card
 
-name.textContent = ('Name')
+}
 
-loc.textContent =('Location: ')
-profile.textContent = ('Profile: ')
-followers.textContent = ('Followers: ')
-following.textContent = ('Following: ')
-bio.textContent = ('Bio')
+let newObj = createCard(obj)
+
+let cards = document.querySelector('.cards')
+cards.append(newObj)
 
 
 
