@@ -53,3 +53,49 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+function createChild (childTitle) {
+  let newCard = document.createElement('div'),
+      newChild = document.createElement('div'),
+      newImg = document.createElement('img'),
+      newName = document.createElement('h3'),
+      newUser = document.createElement('p'),
+      newLoc = document.createElement('p'),
+      newPro = document.createElement('p'),
+      newA = document.createElement('a'),
+      newFol = document.createElement('p'),
+      newFlg = document.createElement('p'),
+      newBio = document.createElement('p');
+  
+  newCard.append(newImg);    
+  newCard.append(newChild);
+  newChild.append(newName);
+  newChild.append(newUser);
+  newChild.append(newLoc);
+  newChild.append(newPro);
+  newPro.append(newA);
+  newChild.append(newFol);
+  newChild.append(newFlg);
+  newChild.append(newBio);
+  
+  
+  newCard.classList.add('.card');
+  newChild.classList.add('.card-info');
+  newName.classList.add('.name');
+  newUser.classList.add('.username')
+
+  return newCard;
+}
+
+const newCard = document.querySelector('card')
+
+axios.get('https://api.github.com/users/SethC16')
+  .then( response => {
+     response.data.forEach( item => {
+       let cardChild = createChild(item);
+       newCard.append(cardChild);
+     })
+  })
+  .catch( err => {
+    console.log('Nothing to display.');
+  })
