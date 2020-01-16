@@ -6,6 +6,9 @@ axios.get('https://api.github.com/users/aliciapetgrave')
 .then(response => {
   console.log(response)
 })
+.catch(error => {
+  console.log('There was an error!')
+})
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -90,8 +93,10 @@ function myCards(users){
   cardInfo.append(following);
   cardInfo.append(bio);
 
+
+  //text content
   
 
 
-
+  
 }
