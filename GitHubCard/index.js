@@ -69,7 +69,9 @@ function cardCreator(obj) {
   cardInfo.append(cardFollowers);
   cardInfo.append(cardFollowing);
   cardInfo.append(cardBio);
-  cardProfile.append(cardProfileLink);
+
+  console.log(cardProfile);
+  console.log(cardProfileLink);
 
   // add classes to elements
   card.classList.add("card");
@@ -82,12 +84,17 @@ function cardCreator(obj) {
   cardName.textContent = obj.name;
   cardUserName.textContent = obj.login;
   cardLocation.textContent = `Location: ${obj.location}`;
-  cardProfile.textContent = "Profile:";
-  cardProfileLink.src = obj.html_url;
+  cardProfileLink.href = obj.html_url;
   cardProfileLink.textContent = obj.html_url;
+  cardProfile.textContent = "Profile: ";
   cardFollowers.textContent = `Followers: ${obj.followers}`;
   cardFollowing.textContent = `Following: ${obj.following}`;
   cardBio.textContent = `Bio: ${obj.bio}`;
+
+  // nest anchor tag
+  cardProfile.append(cardProfileLink);
+
+  console.log(card);
 
   // return DOM element
   return card;
