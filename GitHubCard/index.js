@@ -3,31 +3,37 @@
            https://api.github.com/users/<your name>
 */
 
-axios.get("https://api.github.com/users/haase1020/followers")
-.then(response =>{
-  followersArray.push(response.data);
-  console.log(response);
+// axios.get("https://api.github.com/users/haase1020")
+// .then(response =>{
+//   followersArray.push(response.data);
+//   console.log("reponse here", response);
   
   
   // response.data.login.forEach(item =>{
   //   const newStudent = studentCard(item);
   //   entryPoint.appendChild(newStudent);
   // })
-})
-.catch(error =>{
-  console.log("the data was not returned", error)
+// })
+// .catch(error =>{
+//   console.log("the data was not returned", error)
+// })
+
+
+
+const followersArray = ["jvillalp","mrzacsmith","caw442000","amberlowe1001"];
+const entryPoint = document.querySelector(".cards")
+followersArray.forEach(user =>{
+  axios.get('https://api.github.com/users/' + user)
+  .then(response =>{
+    entryPoint.append(studentCard(response));
+  })
+  .catch(error =>{
+    console.log("The user borked", error);
+  })
 })
 
-const followersArray = [];
-console.log(followersArray);
 
-const entryPoint = document.querySelector(".cards");
-console.log ("entrypoint",entryPoint)
-followersArray.forEach(data=>{
-  const newCard = gitCard(data);
-  entryPoint.append(newCard);
-  console.log (newCard);
-})
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -72,7 +78,7 @@ followersArray.forEach(data=>{
 </div>
 
 */
-function studentCard(ghcard){
+function studentCard(user){
   const newCard= document.createElement('div'),
         newImg = document.createElement('img'),
         cardInfo = document.createElement('div'),
@@ -89,9 +95,9 @@ function studentCard(ghcard){
         cardInfo.classList.add('card-info');
         nameCard.classList.add('name');
         userName.classList.add('username');
-        const i=index;
-        newImage.src = imgUrl;
-        newCard.append(newImage);
+       
+        
+        newCard.append(newImg);
         newCard.append(cardInfo);
         cardInfo.append(nameCard);
         cardInfo.append(userName);
@@ -102,17 +108,18 @@ function studentCard(ghcard){
         cardInfo.append(following);
         cardInfo.append(bio);
 
-        img.src = followersArray[i].avatar.url;
-        h3.textContent = followersArray[i].name;
-        userName.textContent = followersArray[i].login;
-        location.textContent = followersArray[i].location;
-        h3.textContent = followersArray[i].name;
-        profileUrl.src = followersArray[i].html_url;
-        profileUrl.textContent = followersArray[i].followers;
-        followers.textContent = followersArray[i].followers;
-        following.textContent = followersArray[i].following;
-        bio.textContent = followersArray[i].bio;
+        newImg.src = user.data.avatar_url;
+        nameCard.textContent = `Name: ${user.data.name}`;
+        userName.textContent = user.data.login;
+        location.textContent = `Location: ${user.data.location}`;
+        profile.textContent = `profile: `;
+        address.textContent = user.data.html_url;
+        address.href = user.data.html_url;
+        followers.textContent = `Followers: ${user.data.followers}`;
+        following.textContent = `Following: ${user.data.following}`;
+        bio.textContent = `Bio: ${user.data.bio}`;
 
+        profile.append(address)
         return newCard;
 }
 /* List of LS Instructors Github username's: 
