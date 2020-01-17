@@ -2,14 +2,36 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+const followersArray = [
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell',
+];
+
+const cards = document.querySelector('.cards')
+//my card
 axios.get('https://api.github.com/users/aliciapetgrave')
 .then(response => {
-  console.log(response)
-})
-.catch(error => {
-  console.log('There was an error!')
+cards.append(myCards(response.data))
 })
 
+.catch(error => {
+  console.log('this is an error', error)
+})
+
+//followers cards
+// followersArray.forEach(user => {
+//   axios.get("https://api.github.com/users/ " + user)
+//   .then(response => {
+//       cardDiv.append(myCards(response.data))
+//   })
+
+// .catch(error => {
+//   console.log(error)
+// })
+// })
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -31,7 +53,7 @@ axios.get('https://api.github.com/users/aliciapetgrave')
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -62,7 +84,7 @@ const followersArray = [];
 */
 
 //function/append/classes
-function myCards(users){
+function myCards(user){
   const cardDiv = document.createElement('div');
   const userImg = document.createElement('img');
   const cardInfo = document.createElement('div');
@@ -95,8 +117,19 @@ function myCards(users){
 
 
   //text content
-  
+  userImg.src = user.avatar_url;
+  name.textContent = user.name;
+  username.textContent = user.login;
+  location.textContent = user.location;
+  profile.textContent = 'Profile: ';
+  anchor.textContent = user.html_url;
+  followers.textContent = `Followers: ${user.followers}`;
+  following.textContent = `Following: ${user.following}`;
+  bio.textContent = `Bio: ${user.bio}`;
 
 
-  
+  return cardDiv;
 }
+
+ 
+

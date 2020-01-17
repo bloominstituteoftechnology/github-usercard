@@ -1,0 +1,24 @@
+axios.get('https://api.github.com/users/aliciapetgrave')
+.then(response => {
+  const user = response.data;
+  const newCard = myCards(user);
+  cards.appendChild(newCard);
+})
+.catch(error => {
+  console.log('There was an error!', error)
+})
+
+
+
+
+THIS WORKS - MY CARD
+axios.get('https://api.github.com/users/aliciapetgrave')
+.then(response => {
+cards.append(myCards(response.data))
+})
+
+.catch(error => {
+  console.log('this is an error', error)
+})
+
+FOLLOWERS CARD
