@@ -25,77 +25,90 @@
           user, and adding that card to the DOM.
 */
 
-axios.get("https://api.github.com/users/ZaStack/followers")
+// axios.get("https://api.github.com/users/ZaStack")
+//     .then(response => {
+//         // followersArray.push(response.data[0])
+//         // followersArray(response.data);
+//         // console.log("Response.then", response.data.followers);
+//     })
+//   .catch(error => {
+//     console.log("The data borked!!!", error);
+//   });
+
+const followersArray = [
+  "mrzacsmith",
+  "caw442000",
+  "amberlowe1001",
+  "haase1020",
+  "jvillalp"
+
+];
+
+followersArray.forEach(user => {
+  axios
+    .get('https://api.github.com/users/' + user)
     .then(response => {
-        followersArray.push(response.data);
-        console.log(response);
+      console.log("For Each response", response);
+      cardContainer.append(gitCard(response));
     })
-  .catch(error => {
-    console.log("The data borked!!!", error);
-  });
+    .catch(error => {
+      console.log("The user borked!!!", error);
+    });
+});
 
+// console.log("Constant array" ,followersArray)
+// console.log(response)
+const cardContainer = document.querySelector(".cards");
 
-const followersArray = [];
-console.log(followersArray)
-
-
-function gitCard(followersArray, index) {
+function gitCard(user) {
+  // console.log("Here", followersArray)
   const card = document.createElement("div"),
     img = document.createElement("img"),
     cardInfo = document.createElement("div"),
-    h3 = document.createElement("h3"),
+    displayName = document.createElement("h3"),
     userName = document.createElement("p"),
     location = document.createElement("p"),
     profile = document.createElement("p"),
-    profileUrl = document.createElement("a"),
     followers = document.createElement("p"),
     following = document.createElement("p"),
     bio = document.createElement("p");
-
+    profileUrl = document.createElement("a"), 
     card.classList.add("card");
     cardInfo.classList.add("card-info");
-    h3.classList.add("name");
+    displayName.classList.add("name");
     userName.classList.add("username");
 
-    const i = index;
-
+    profile.append(profileUrl);
     card.append(img);
     card.append(cardInfo);
-    cardInfo.append(h3);
+    cardInfo.append(displayName);
     cardInfo.append(userName);
     cardInfo.append(location);
     cardInfo.append(profile);
-    profile.append(profileUrl);
     cardInfo.append(followers);
     cardInfo.append(following);
     cardInfo.append(bio);
 
-    img.src = followersArray[i].avatar_url;
-    h3.textContent = followersArray[i].name;
-    userName.textContent = followersArray[i].login;
-    location.textContent = followersArray[i].location;
-    profileUrl.src = followersArray[i].html_url;
-    profileUrl.textContent = followersArray[i].html_url;
-    followers.textContent = followersArray[i].followers;
-    following.textContent = followersArray[i].following;
-    bio.textContent = followersArray[i].bio;
+    img.src = user.data.avatar_url;
+    displayName.textContent = user.data.name;
+    userName.textContent = user.data.login;
+    location.textContent = `Location: ${user.data.location}`;
+    profileUrl.textContent = `Profile URL: ${user.data.html_url}`;
+    profileUrl.href = user.data.html_url;
+    followers.textContent = `Followers: ${user.data.followers}`;
+    following.textContent = `Following: ${user.data.following}`;
+    bio.textContent = `Bio: ${user.data.bio}`;
 
-
-
+  
   return card;
-
 }
 
+// followersArray.forEach(data => {
+//   const newCard = gitCard(data);
+//   cardContainer.append(gitCard(data));
+//   console.log("Work!!!", newCard);
 
-const cardContainer = document.querySelector(".cards");
-
-followersArray.forEach(data => {
-  // const newCard = gitCard(data);
-  cardContainer.append(gitCard(data, index));
-  console.log(newCard);
-
-})
-
+// })
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
