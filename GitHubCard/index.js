@@ -107,24 +107,12 @@ return card
 
 const cards = document.querySelector('.cards');
 
-axios.get("https://api.github.com/users/ksemenza/followers")
-.then((res) => {
-  createCard(res);
-  console.log(res)
-
-
-  res.followers.data.forEach(element => {
-    const cardProfile = createCard(element)
-    cards.appendChild(cardProfile)
-  });
-
-})
 
 
 axios.get("https://api.github.com/users/ksemenza")
 .then((response) => {
   createCard(response);
-  console.log(response);
+  // console.log(response);
   
   const newCard = createCard(response);
   cards.append(newCard)
@@ -132,6 +120,22 @@ axios.get("https://api.github.com/users/ksemenza")
 .catch( error => {
   console.log("the data was not returned", error)
 })
+
+axios
+.get("https://api.github.com/users/ksemenza/followers")
+.then((res) => {
+  console.log('returned', res)
+
+  res.data.forEach(element => {
+
+    cards.appendChild(element)
+  });
+
+})
+.catch( error => {
+  console.log("the data was not returned", error)
+})
+
 
 
 
