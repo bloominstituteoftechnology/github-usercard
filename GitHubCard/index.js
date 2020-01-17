@@ -2,13 +2,11 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
-var object;
+
 
 axios.get("https://api.github.com/users/anthonyj713")
-  .then(res => {console.log(res),
-    object = res
-   })
-  .catch(error => console.log(error));
+.then(res =>console.log(res))
+.catch(error=> console.log(error));
 
   
 
@@ -22,9 +20,16 @@ axios.get("https://api.github.com/users/anthonyj713")
 /* Step 4: Pass the data received from Github into your function, 
            create a new component and add it to the DOM as a child of .cards
 */
+
+
 let cards = document.querySelector('.cards');
-console.log(object, "line 26");
-  cards.append(cardFunction(object));
+axios.get('https://api.github.com/users/anthonyj713')
+.then(res => { cards.append(cardFunction(res));
+})
+.catch( error => {
+  console.log("the data was not returned", error)
+});
+  
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
           , manually find some other users' github handles, or use the list found 
@@ -35,7 +40,23 @@ console.log(object, "line 26");
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'https://api.github.com/users/ksemenza',
+'https://api.github.com/users/Keyeric',
+'https://api.github.com/users/phinehas90',
+'https://api.github.com/users/AmMiRo',
+'https://api.github.com/users/alborja07'];
+
+  followersArray.forEach(card => {
+    axios.get(card)
+.then(res => { cards.append(cardFunction(res));
+})
+.catch( error => {
+  console.log("the data was not returned", error)
+});
+  })
+
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -89,28 +110,15 @@ function cardFunction(createCard){
   pic.src = createCard.data.avatar_url;
   personName.textContent = createCard.data.name;
   userName.textContent = createCard.data.login;
-  userLocation.textContent = createCard.data.location;
+  userLocation.textContent = `Location: ${createCard.data.location}`;
   userProfile.textContent = createCard.data.url;
   userPage.href = createCard.data.html_url;
   userPage.textContent = createCard.data.html_url;
-  userFollowers.textContent = createCard.data.followers;
-  userFollowing.textContent = createCard.data.following;
+  userFollowers.textContent = `Followers: ${createCard.data.followers}`;
+  userFollowing.textContent = `Following: ${createCard.data.following}`;
   userBio.textContent = createCard.data.bio;
 
   return container;
-
-  
-
-
-
-
-
-
-
-
-
-
-
 }
 /* List of LS Instructors Github username's: 
   tetondan
