@@ -2,6 +2,15 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+var object;
+
+axios.get("https://api.github.com/users/anthonyj713")
+  .then(res => {console.log(res),
+    object = res
+   })
+  .catch(error => console.log(error));
+
+  
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -13,7 +22,9 @@
 /* Step 4: Pass the data received from Github into your function, 
            create a new component and add it to the DOM as a child of .cards
 */
-
+let cards = document.querySelector('.cards');
+console.log(object, "line 26");
+  cards.append(cardFunction(object));
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
           , manually find some other users' github handles, or use the list found 
@@ -46,6 +57,61 @@ const followersArray = [];
 
 */
 
+function cardFunction(createCard){
+  let container = document.createElement('div');
+  let pic = document.createElement('img');
+  let info = document.createElement('div');
+  let personName = document.createElement('h3');
+  let userName = document.createElement('p');
+  let userLocation = document.createElement('p');
+  let userProfile = document.createElement('p');
+  let userPage = document.createElement('a');
+  let userFollowers = document.createElement('p');
+  let userFollowing = document.createElement('p');
+  let userBio = document.createElement('p');
+
+  container.append(pic);
+  container.append(info);
+  info.append(personName);
+  info.append(userName);
+  info.append(userLocation);
+  info.append(userProfile);
+  info.append(userFollowers);
+  info.append(userFollowing);
+  info.append(userBio);
+  userProfile.append(userPage);
+
+  container.classList.add('card');
+  info.classList.add('card-info');
+  personName.classList.add('name');
+  userName.classList.add('username');
+ 
+  pic.src = createCard.data.avatar_url;
+  personName.textContent = createCard.data.name;
+  userName.textContent = createCard.data.login;
+  userLocation.textContent = createCard.data.location;
+  userProfile.textContent = createCard.data.url;
+  userPage.href = createCard.data.html_url;
+  userPage.textContent = createCard.data.html_url;
+  userFollowers.textContent = createCard.data.followers;
+  userFollowing.textContent = createCard.data.following;
+  userBio.textContent = createCard.data.bio;
+
+  return container;
+
+  
+
+
+
+
+
+
+
+
+
+
+
+}
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
