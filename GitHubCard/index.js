@@ -2,24 +2,6 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
-const followersArray = [
-  'tetondan',
-  'dustinmyers',
-  'justsml',
-  'luishrd',
-  'bigknell',
-];
-
-const cards = document.querySelector('.cards')
-//my card
-axios.get('https://api.github.com/users/aliciapetgrave')
-.then(response => {
-cards.append(myCards(response.data))
-})
-
-.catch(error => {
-  console.log('this is an error', error)
-})
 
 //followers cards
 // followersArray.forEach(user => {
@@ -120,8 +102,8 @@ function myCards(user){
   userImg.src = user.avatar_url;
   name.textContent = user.name;
   username.textContent = user.login;
-  location.textContent = user.location;
-  profile.textContent = 'Profile: ';
+  location.textContent = `Location: ${user.location}`;
+  anchor.href = user.html_url;
   anchor.textContent = user.html_url;
   followers.textContent = `Followers: ${user.followers}`;
   following.textContent = `Following: ${user.following}`;
@@ -131,5 +113,33 @@ function myCards(user){
   return cardDiv;
 }
 
- 
 
+const followersArray = [
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell',
+];
+
+const cards = document.querySelector('.cards')
+//my card
+axios.get('https://api.github.com/users/aliciapetgrave')
+.then(response => {
+cards.append(myCards(response.data))
+})
+
+.catch(error => {
+  console.log('this is an error', error)
+})
+
+//followers cards
+followersArray.forEach(user => {
+axios.get('https://api.github.com/users/' + user)
+.then(response => {
+cards.append(myCards(response.data))
+})
+.catch(error => {
+  console.log('this is an error', error)
+})
+})
