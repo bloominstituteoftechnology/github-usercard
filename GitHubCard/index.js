@@ -15,7 +15,7 @@
 */
 
 /* Step 5: Now that you have your own card getting added to the DOM, either 
-          follow this link in your browser https://api.github.com/users/<Your github name>/followers 
+          follow this link in your browser https://api.github.com/users/<Your github name>/followers
           , manually find some other users' github handles, or use the list found 
           at the bottom of the page. Get at least 5 different Github usernames and add them as
           Individual strings to the friendsArray below.
@@ -24,7 +24,11 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['Raj Upadhyaya',
+                        'ArianaShackelford',
+                        'ethyl2',
+                        'TinySquid']
+                        
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -45,21 +49,6 @@ const followersArray = [];
 </div>
 
 */
-
-
-const entryPoint = document.querySelector('.cards');
-axios.get("https://api.github.com/users/ksemenza")
-.then((response) => {
-  createCard(response);
-  console.log(response);
-  
-  const newCard = createCard(response);
-  entryPoint.append(newCard)
-})
-.catch( error => {
-  console.log("the data was not returned", error)
-})
-
 
 
 function createCard(object) {
@@ -114,6 +103,38 @@ link.href = object.data.html_url
 return card
 
 }
+
+
+const cards = document.querySelector('.cards');
+
+
+axios.get("https://api.github.com/users/ksemenza")
+.then((response) => {
+  createCard(response);
+  console.log(response);
+  
+  const newCard = createCard(response);
+  cards.append(newCard)
+})
+.catch( error => {
+  console.log("the data was not returned", error)
+})
+
+
+axios.get("https://api.github.com/users/ksemenza/followers")
+.then((response) => {
+
+  console.log(response);
+  response.followers_url.forEach(file => {
+    const newCards = createCard(response);
+    cards.append(newCards)
+  })
+
+})
+.catch( error => {
+  console.log("follower", error)
+})
+
 
 
 
