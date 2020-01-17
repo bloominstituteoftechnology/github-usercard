@@ -53,7 +53,7 @@ const followersArray = ['Raj Upadhyaya',
 
 function createCard(object) {
 
-let card =document.createElement('div')
+let card = document.createElement('div')
 let img =  document.createElement('img')
 let cardInfo = document.createElement('div')
 let name = document.createElement('h3')
@@ -107,6 +107,19 @@ return card
 
 const cards = document.querySelector('.cards');
 
+axios.get("https://api.github.com/users/ksemenza/followers")
+.then((res) => {
+  createCard(res);
+  console.log(res)
+
+
+  res.followers.data.forEach(element => {
+    const cardProfile = createCard(element)
+    cards.appendChild(cardProfile)
+  });
+
+})
+
 
 axios.get("https://api.github.com/users/ksemenza")
 .then((response) => {
@@ -119,22 +132,6 @@ axios.get("https://api.github.com/users/ksemenza")
 .catch( error => {
   console.log("the data was not returned", error)
 })
-
-
-axios.get("https://api.github.com/users/ksemenza/followers")
-.then((response) => {
-
-  console.log(response);
-  response.followers_url.forEach(file => {
-    const newCards = createCard(response);
-    cards.append(newCards)
-  })
-
-})
-.catch( error => {
-  console.log("follower", error)
-})
-
 
 
 
