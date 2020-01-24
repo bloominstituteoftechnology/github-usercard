@@ -56,7 +56,7 @@ axios.get('https://api.github.com/users/pjose92').then(response => {
 */
 
 
-
+ 
 function userCard(object) {
   // creating the elements
   const newCard = document.createElement('div'),
