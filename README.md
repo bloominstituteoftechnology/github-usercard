@@ -32,7 +32,9 @@ In this project we are going to be accessing the GitHub API and building a socia
 * [ ] Your project manager will count the project as complete by merging the branch back into master.
 
 ### Preprocessor Setup
+    
 
+    
   * None. We have gone ahead and taken care of this step for you. Focus on the Javascript 😁.
 
 ### Part 1: Requesting Data from the GitHub API
