@@ -2,6 +2,14 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+axios
+    .get("https://api.github.com/users/amsheppard2016")
+    .then(response => {
+        console.log(response.data);
+    })
+    .catch(error => {
+        console.log("data not returned", error);
+    });
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -24,7 +32,13 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+    "HamidAzizy",
+    "SebastianGarces",
+    "shanreed",
+    "LoganMReber",
+    "dustinmyers"
+];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -45,7 +59,47 @@ const followersArray = [];
 </div>
 
 */
+function githubCard(data) {
+    const newImage = document.createElement("img"),
+        newCardInfo = document.createElement("div"),
+        newName = document.createElement("h3"),
+        newUsername = document.createElement("p"),
+        newLocation = document.createElement("p"),
+        newProfile = document.createElement("p"),
+        newAddress = document.createElement("a"),
+        newFollowers = document.createElement("p"),
+        newFollowing = document.createElement("p"),
+        newBio = document.createElement("p");
 
+    newCardInfo.classList.add("card-info");
+    newName.classList.add("name");
+    newUsername.classList.add("username");
+
+    newCardInfo.appendChild(newName);
+    newCardInfo.appendChild(newUsername);
+    newCardInfo.appendChild(newLocation);
+    newCardInfo.appendChild(newProfile);
+    newProfile.appendChild(newAddress);
+    newCardInfo.appendChild(newFollowers);
+    newCardInfo.appendChild(newFollowing);
+    newCardInfo.appendChild(newBio);
+
+    newImage.setAttribute("src", response.data.avatar_url);
+    newName.textContent = response.data.name;
+    newUsername.textContent = response.data.login;
+    newLocation.textContent = `Location: ${response.data.location}`;
+    newProfile.textContent = "Profile:";
+    //newAddress.textContent=`${response.data.html_url}`;
+    newAddress.setAttribute("href", `${response.data.html_url}`);
+    newFollowers.textContent = `Followers: ${response.data.followers}`;
+    newFollowing.textContent = `Following: ${response.data.following}`;
+    newBio.textContent = `Bio: ${response.data.bio}`;
+
+    return newImage;
+}
+
+const entryPoint = document.querySelector(".cards");
+console.log(entryPoint);
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
