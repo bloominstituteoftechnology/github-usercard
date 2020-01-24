@@ -31,7 +31,18 @@ axios.get('https://api.github.com/users/pjose92').then(response => {
           user, and adding that card to the DOM.
 */
 
-
+axios.get('https://api.github.com/users/pjose92/followers').then(response => {
+  console.log(response.data);
+  for (info of response.data) {
+    axios.get('https://api.github.com/users/' + info.login).then(response => {
+      const followerCard = userCard(response.data)
+      addCard.appendChild(followerCard)
+    })
+  }
+})
+.catch(err => {
+  console.log(err);
+})
 
 // const followersArray = []; 
 
@@ -56,7 +67,7 @@ axios.get('https://api.github.com/users/pjose92').then(response => {
 */
 
 
- 
+
 function userCard(object) {
   // creating the elements
   const newCard = document.createElement('div'),
