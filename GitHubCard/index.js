@@ -24,7 +24,91 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell"
+];
+
+function createGitHubCard(obj, i) {
+  let cardDiv = document.createElement("div");
+  cardDiv.className = "card";
+  let img = document.createElement("img");
+  img.setAttribute("src", obj.avatar_url);
+  const calendarDiv = document.createElement("div")
+  calendarDiv.className = `calendar-${i}`
+  calendarDiv.classList.add("calendar")
+  const { login, location, url, followers, following, bio } = obj;
+  let cardInfo = document.createElement("div");
+  cardInfo.className = "card-info";
+  let h3Name = document.createElement("h3");
+  h3Name.className = "name";
+  h3Name.textContent = login;
+  let pUsername = document.createElement("p");
+  pUsername.className = "username";
+  pUsername.textContent = login;
+  let pLocation = document.createElement("p")
+  pLocation.textContent = location;
+  let pProfile = document.createElement("p");
+  pProfile.textContent = "Profile: ";
+  let a = document.createElement("a");
+  a.setAttribute("href", url);
+  a.textContent = url;
+  pProfile.appendChild(a);
+  let pFollowers = document.createElement("p");
+  pFollowers.textContent = `Followers: ${followers}`;
+  let pFollowing = document.createElement("p");
+  pFollowing.textContent = `Following: ${following}`;
+  let pBio = document.createElement("p");
+  pBio.textContent = `Bio: ${bio}`;
+  let cardInfoChildren = [
+    h3Name,
+    pUsername,
+    pLocation,
+    pProfile,
+    pFollowers,
+    pFollowing,
+    pBio
+  ];
+  cardInfoChildren.forEach((info) => cardInfo.appendChild(info));
+  cardDiv.appendChild(img)
+  cardDiv.appendChild(cardInfo)
+  cardDiv.appendChild(calendarDiv)
+  return cardDiv;
+}
+
+// followersArray.forEach((follower) => {
+//   axios
+//   .get(`https://api.github.com/users/${follower}`)
+//   .then(function(res) {
+//     // console.log(res)
+//     document.querySelector(".cards").appendChild(createGitHubCard(res.data))
+//   })
+//   .catch(function(err) {
+//     console.log(err);
+//   });
+// })
+const me = "thomatoh";
+
+// new GitHubCalendar(".calendar", me)
+
+axios
+  .get(`https://api.github.com/users/${me}/followers`)
+  .then(function(res) {
+    res.data.forEach((follower, i)=> {
+      axios.get(`https://api.github.com/users/${follower.login}`).then((res) => {
+        document.querySelector(".cards").appendChild(createGitHubCard(res.data, i))
+        new GitHubCalendar(`.calendar-${i}`, follower.login)
+      }).catch((err) =>{
+        console.log(err)
+      })
+    });
+  })
+  .catch(function(err) {
+    console.log(err);
+  });
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
