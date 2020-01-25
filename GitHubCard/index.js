@@ -4,28 +4,10 @@
 */
 
 
+//const followersArray = ['Ewa Czech ', 'Mark Sayers ', 'Jose Perez Guerrero ', 'Jonathan Troop ', 'Aaron Matson ' ];
 
 
-const test = axios.get("https://api.github.com/users/Tereamarie")
-     console.log(test)
-    .then(response => {
-   console.log('.then fires when SUCCSESS happens')
-  console.log('res', response)
-    console.log('res.data.message', response.data.message)
-    
-    response.data.message.forEach(url => {
-      const newDevCard = devCard(url)
-      console.log(newDevCard)
-      
-      
-      cardsPointInHTML.appendChild(newDevCard)
-    })
-  })
-.catch(error => {
-    console.log('.catch fires when ERROR happens')
-    console.log('error!!!', error)
-})
-
+const cardsContainer = document.querySelector('.cards');
 function cardCreator(obj) {
  
   // Create Elements
@@ -52,6 +34,32 @@ function cardCreator(obj) {
    
   const bio = document.createElement('p');
  }
+
+// Create Class Name
+newCard.classList.add('card');
+cardInfo.classList.add('card-info');
+name.classList.add('name');
+userName.classList.add('username');
+
+
+
+
+
+// Create axios for followers
+
+axios.get("https://api.github.com/users/Tereamarie/following").then(response =>{
+ console.log("Github Followers: ", response.data)
+ response.data.forEach(elem =>{
+   followersArray.push(elem);
+   console.log("Followers Array: ", followersArray);
+ })
+})
+.catch(err => {
+  console.log("The data was not returned", err);
+})
+
+
+
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
