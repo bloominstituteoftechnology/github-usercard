@@ -32,6 +32,27 @@ const followersArray = [
   "bigknell"
 ];
 
+function toggleCalendar(calendarNo) {
+  const calendarDisplay =  document.querySelector(calendarNo).style.display 
+ 
+  if (calendarDisplay=== "block") {
+    gsap.to(calendarNo, {
+      duration: 1,
+      display: "none",
+      opacity: 0,
+      height: 0,
+    })
+  } else {
+    gsap.to(calendarNo, {
+      duration: 1,
+      display: "block",
+      opacity: 1,
+      height: 175
+    })
+  }
+
+}
+
 function createGitHubCard(obj, i) {
   let cardDiv = document.createElement("div");
   cardDiv.className = "card";
@@ -40,6 +61,10 @@ function createGitHubCard(obj, i) {
   const calendarDiv = document.createElement("div")
   calendarDiv.className = `calendar-${i}`
   calendarDiv.classList.add("calendar")
+  calendarDiv.style.display = "block"
+  cardDiv.addEventListener("click", () => {
+    toggleCalendar(`.calendar-${i}`)
+  })
   const { login, location, url, followers, following, bio } = obj;
   let cardInfo = document.createElement("div");
   cardInfo.className = "card-info";
@@ -100,7 +125,7 @@ axios
     res.data.forEach((follower, i)=> {
       axios.get(`https://api.github.com/users/${follower.login}`).then((res) => {
         document.querySelector(".cards").appendChild(createGitHubCard(res.data, i))
-        new GitHubCalendar(`.calendar-${i}`, follower.login)
+        new GitHubCalendar(`.calendar-${i}`, follower.login, { responsive: true})
       }).catch((err) =>{
         console.log(err)
       })
