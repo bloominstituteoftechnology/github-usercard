@@ -53,3 +53,59 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+function componentCreator(x){
+  let card = document.createElement('div');
+  let img = document.createElement('img');
+  let cardInfo = document.createElement('div');
+  let name = document.createElement('h3');
+  let username = document.createElement('p');
+  let location = document.createElement('p');
+  let profile = document.createElement('p');
+  let address = document.createElement('a');
+  let followers = document.createElement('p');
+  let following = document.createElement('p');
+  let bio = document.createElement('p');
+
+  card.classList.add('card');
+  card.classList.add('card-info');
+  name.classList.add('name');
+  username.classList.add('username');
+
+  card.appendChild(img);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(username);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  profile.appendChild(address);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+
+  img.src = x.data.avatar_url;
+  name.textContent = x.data.name;
+  username.textContent = x.data.login;
+  location.textContent = x.data.location;
+  address.href = x.data.html_url;
+  followers.textContent = x.data.followers;
+  following.textContent = x.data.following;
+  bio.textContent = x.data.bio;
+
+return card;
+
+}
+
+const cards = document.querySelector('.cards');
+
+
+const firstPromise = axios.get('https://api.github.com/users/stevenwaldron')
+  .then(result => {
+    let y = componentCreator(result.data);
+    cards.appendChild(y);
+  })
+  .catch(err => {
+    console.log(err);
+  })
+
+console.log(firstPromise);
