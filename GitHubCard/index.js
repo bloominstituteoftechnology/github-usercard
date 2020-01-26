@@ -73,7 +73,7 @@ function userCard(object) {
   const newCard = document.createElement('div'),
         newImage = document.createElement('img'),
         cardInfo = document.createElement('div'),
-        nameH3 = document.createElement('h3'),
+        theName = document.createElement('h3'),
         userName = document.createElement('p'),
         location = document.createElement('p'),
         profile = document.createElement('p'),
@@ -86,16 +86,18 @@ function userCard(object) {
 // add classes
   newCard.classList.add('card');
   cardInfo.classList.add('card-info');
-  nameH3.classList.add('name');
+  theName.classList.add('name');
   userName.classList.add('username');
 
 // this is the text content
   newImage.src = object.avatar_url;
-  nameH3.textContent = object.name;
+  theName.textContent = object.name;
   userName.textContent = object.login;
   location.textContent = `Location: ${object.location}`;
-  profile.textContent = `Profile: ${link}`;
   link.textContent = object.html_url;
+  profile.textContent = `Profile: ${link}`;
+
+  
   followers.textContent = `Followers: ${object.followers}`;
   following.textContent = `Following: ${object.following}`;
   bio.textContent = `Bio: ${object.bio}`;
@@ -104,7 +106,7 @@ function userCard(object) {
 
   newCard.appendChild(newImage);
   newCard.appendChild(cardInfo);
-  cardInfo.appendChild(nameH3);
+  cardInfo.appendChild(theName);
   cardInfo.appendChild(userName);
   cardInfo.appendChild(location);
   cardInfo.appendChild(profile);
