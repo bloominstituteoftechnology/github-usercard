@@ -123,5 +123,9 @@ body {
   margin: 3px 0 10px;
 }
 
-
+.expandButton{
+  align-self: flex-end;
+  width: 100%;
+  text-align: right;
+}
 

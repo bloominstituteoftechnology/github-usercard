@@ -4,13 +4,15 @@
 */
 let cardParent = document.querySelector('.cards')
 //MVP
-//const followersArray = ['SandersForPresident', 'techforwarren', 'tetondan', 'dustinmyers', 'justsml' ];
+
+const followersArray = ['SandersForPresident', 'techforwarren', 'tetondan', 'dustinmyers', 'justsml' ];
 
 
 // axios.get('https://api.github.com/users/reidysj')
 //   .then(response =>{
 //     let card = cardMaker(response.data);
 //     cardParent.prepend(card);
+//     console.log(response.data)
 //   })
 //   .catch( error => {
 //     console.log('Error: ', error);
@@ -27,23 +29,31 @@ let cardParent = document.querySelector('.cards')
 //     });
 //   })
 
-//Stretch
-axios.get('https://api.github.com/users/tetondan')
-  .then(response =>{
-    let card = cardMaker(response.data);
-    cardParent.prepend(card);
-    return axios.get(`${response.data.followers_url}`);
-  })
-  .then(getFollowers => {
-    getFollowers.data.forEach(follower => {
-      let followerCard = cardMaker(follower);
-      cardParent.append(followerCard);
-    })
-  })
-  .catch(error => {
-    console.log('Error code: ', error);
-  })
 
+  
+axios.get('https://api.github.com/users/tetondan')
+.then(response => {
+  let card = cardMaker(response.data);
+  cardParent.prepend(card);
+  return response.data.followers_url;
+})
+.then(response =>{
+  axios.get(response)
+  .then(response => {
+    response.data.forEach(result => {
+      axios.get(result.url)
+      .then(response =>{
+        let card = cardMaker(response.data);
+        cardParent.append(card);
+      })
+    })
+    .catch(error => console.log('Error retrieving url ', error))
+  })
+  .catch(error => console.log('Error retrieving followers_url ', error))
+})
+.catch(error => {
+  console.log('Error: ', error)
+})
   function cardMaker(obj){
     let cardDiv = document.createElement('div');
     cardDiv.classList.add('card');
@@ -71,10 +81,20 @@ axios.get('https://api.github.com/users/tetondan')
     following.textContent = `Following: ${obj.following}`;
     let bio = document.createElement('p');
     bio.textContent = obj.bio;
+    let expandButton = document.createElement('p');
+    expandButton.classList.add('expandButton');
+    expandButton.textContent = 'READ MORE';
+    expandButton.addEventListener('click', () => cardDiv.classList.toggle('card-open'))
     infoDiv.append(name, userName, location, profile, followers, following, bio);
-    cardDiv.append(userPic, infoDiv);
+    cardDiv.append(userPic, infoDiv,expandButton);
+
     return cardDiv
   }
+
+  // function followerCardMaker(obj){
+    
+
+  // }
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
