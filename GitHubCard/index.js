@@ -3,9 +3,10 @@
            https://api.github.com/users/<your name>
 */
 let cardParent = document.querySelector('.cards')
+
 //MVP
 
-const followersArray = ['SandersForPresident', 'techforwarren', 'tetondan', 'dustinmyers', 'justsml' ];
+// const followersArray = ['SandersForPresident', 'techforwarren', 'tetondan', 'dustinmyers', 'justsml' ];
 
 
 // axios.get('https://api.github.com/users/reidysj')
@@ -29,7 +30,6 @@ const followersArray = ['SandersForPresident', 'techforwarren', 'tetondan', 'dus
 //     });
 //   })
 
-
   
 axios.get('https://api.github.com/users/tetondan')
 .then(response => {
@@ -47,54 +47,58 @@ axios.get('https://api.github.com/users/tetondan')
         cardParent.append(card);
       })
     })
-    .catch(error => console.log('Error retrieving url ', error))
   })
-  .catch(error => console.log('Error retrieving followers_url ', error))
 })
 .catch(error => {
   console.log('Error: ', error)
 })
-  function cardMaker(obj){
-    let cardDiv = document.createElement('div');
-    cardDiv.classList.add('card');
-    let userPic = document.createElement('img');
-    userPic.src = obj.avatar_url;
-    let infoDiv = document.createElement('div');
-    infoDiv.classList.add('card-info');
-    let name = document.createElement('h3');
-    name.classList.add('name');
-    name.textContent = obj.name;
-    let userName = document.createElement('p');
-    userName.classList.add('username');
-    userName.textContent = obj.login;
-    let location = document.createElement('p');
-    location.textContent = `Location: ${obj.location}`;
-    let profile = document.createElement('p');
-    profile.textContent = `Profile: `;
-    let linkToProfile = document.createElement('a');
-    linkToProfile.href = obj.html_url;
-    linkToProfile.textContent = obj.html_url;
-    profile.append(linkToProfile);
-    let followers = document.createElement('p');
-    followers.textContent = `Followers: ${obj.followers}`;
-    let following = document.createElement('p');
-    following.textContent = `Following: ${obj.following}`;
-    let bio = document.createElement('p');
-    bio.textContent = obj.bio;
-    let expandButton = document.createElement('p');
-    expandButton.classList.add('expandButton');
-    expandButton.textContent = 'READ MORE';
-    expandButton.addEventListener('click', () => cardDiv.classList.toggle('card-open'))
-    infoDiv.append(name, userName, location, profile, followers, following, bio);
-    cardDiv.append(userPic, infoDiv,expandButton);
 
-    return cardDiv
-  }
 
-  // function followerCardMaker(obj){
-    
+function cardMaker(obj){
+  let cardDiv = document.createElement('div');
+  cardDiv.classList.add('card');
+  let userPic = document.createElement('img');
+  userPic.src = obj.avatar_url;
+  let infoDiv = document.createElement('div');
+  infoDiv.classList.add('card-info');
+  let name = document.createElement('h3');
+  name.classList.add('name');
+  name.textContent = obj.name;
+  let userName = document.createElement('p');
+  userName.classList.add('username');
+  userName.textContent = obj.login;
+  let location = document.createElement('p');
+  location.textContent = `Location: ${obj.location}`;
+  let profile = document.createElement('p');
+  profile.textContent = `Profile: `;
+  let linkToProfile = document.createElement('a');
+  linkToProfile.href = obj.html_url;
+  linkToProfile.textContent = obj.html_url;
+  profile.append(linkToProfile);
+  let followers = document.createElement('p');
+  followers.textContent = `Followers: ${obj.followers}`;
+  let following = document.createElement('p');
+  following.textContent = `Following: ${obj.following}`;
+  let bio = document.createElement('p');
+  bio.textContent = obj.bio;
+  let calendar = document.createElement('img');
+  calendar.src = `http://ghchart.rshah.org/${obj.login}`;
+  calendar.alt = 'YO';
+  calendar.classList.add('calendar');
+  calendar.style.width = '110%';
+  calendar.style.display = 'none';
+  let expandButton = document.createElement('p');
+  expandButton.classList.add('expandButton');
+  expandButton.textContent = 'READ MORE';
+  expandButton.addEventListener('click', () => calendar.style.display == 'none' ? calendar.style.display = 'block' : calendar.style.display = 'none');
+  infoDiv.append(name, userName, location, profile, followers, following, bio, calendar) ;
+  cardDiv.append(userPic, infoDiv,expandButton);
 
-  // }
+  return cardDiv
+}
+
+
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
