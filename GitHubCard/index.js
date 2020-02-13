@@ -5,7 +5,8 @@
 axios.get('https://api.github.com/users/ReBarrington')
   .then(function (response) {
     // handle success
-    console.log(response);
+
+    document.querySelector('.cards').appendChild((createCard(response.data)))
   })
   .catch(function (error) {
     // handle error
@@ -24,6 +25,7 @@ axios.get('https://api.github.com/users/ReBarrington')
            create a new component and add it to the DOM as a child of .cards
 */
 
+
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
           , manually find some other users' github handles, or use the list found 
@@ -34,7 +36,18 @@ axios.get('https://api.github.com/users/ReBarrington')
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['Pergamene', 'fbzr', 'Michael-B1764', 'angela-laien', 'adriannasaruk', 'afialydia'];
+
+followersArray.forEach(username => {
+  let followersLinks = 'https://api.github.com/users/' + username;
+  axios.get(followersLinks)
+  .then(function (response) {
+    document.querySelector('.cards').appendChild(createCard(response.data))
+  })
+  .catch(function (error) {
+    console.log(error);
+  })
+})
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -75,6 +88,15 @@ function createCard(data) {
   name.classList.add('name');
   username.classList.add('username');
   link.setAttribute('href', data.html_url)
+  // text content
+  name.textContent = data.name;
+  username.textContent = data.login;
+  location.textContent = `Location: ${data.location}`;
+  profile.textContent = `Profile: `;
+  followers.textContent = `Followers: ${data.followers}`;
+  following.textContent = `Following: ${data.following}`;
+  bio.textContent = `Bio: ${data.bio}`;
+  link.textContent =  data.html_url;
   // set up structure
   card.appendChild(profilePic);
   card.appendChild(cardInfo);
@@ -82,18 +104,13 @@ function createCard(data) {
   cardInfo.appendChild(username);
   cardInfo.appendChild(location);
   cardInfo.appendChild(profile);
+  profile.appendChild(link);
   cardInfo.appendChild(followers);
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
-  // text content
-  name.textContent = data.name;
-  username.textContent = data.login;
-  location.textContent = `Location: ${data.location}`;
-  followers.textContent = `Followers: ${data.followers}`;
-  following.textContent = `Following: ${data.following}`;
-  bio.textContent = `Bio: ${data.bio}`;
 
-}
+  return card;
+};
 
 /* List of LS Instructors Github username's: 
   tetondan
