@@ -3,6 +3,26 @@
            https://api.github.com/users/<your name>
 */
 
+
+
+let cards = document.querySelector(".cards");
+
+axios.get('https://api.github.com/users/fjhansen')
+.then( response => {
+    console.log(response.data);
+    console.log(response);
+
+    let newCard = gitCreator(response.data);
+
+    cards.appendChild(newCard);
+
+    
+
+    })
+.catch( error => {
+  console.log(error)
+})
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -45,6 +65,65 @@ const followersArray = [];
 </div>
 
 */
+
+function gitCreator(obj) {
+  
+  let card = document.querySelector('.card');
+  let div1 = document.createElement('div');
+  let img = document.createElement('img');
+  let div2 = document.createElement('div');
+  let h3 = document.createElement('h3');
+  let p1 = document.createElement('p');
+  let p2 = document.createElement('p');
+  let p3 = document.createElement('p');
+  let a = document.createElement('a');
+  let p4 = document.createElement('p');
+  let p5 = document.createElement('p');
+  let p6 = document.createElement('p');
+
+
+  // Classes
+
+  div1.classList.add('card');
+  div2.classList.add('card-info');
+  h3.classList.add('name');
+  p1.classList.add('username');
+  
+  // Text
+
+  img.src = obj.avatar_url;
+  h3.textContent = obj.name; 
+  p1.textContent = obj.login;
+  p2.textContent = obj.location;
+  p3.textContent = obj.html_url;
+  p4.textContent = obj.followers;
+  p5.textContent = obj.following;
+  p6.textContent = obj.bio;
+  a.textContent = obj.html_url;
+
+
+  // Append
+
+ 
+  div1.appendChild(div2);
+  div1.prepend(img);
+  div2.appendChild(h3);
+  div2.appendChild(p1);
+  div2.appendChild(p2);
+  div2.appendChild(p3);
+  p3.appendChild(a);
+  div2.appendChild(p4);
+  div2.appendChild(p5);
+  div2.appendChild(p6);
+
+ 
+
+
+  
+  return div1
+
+}
+
 
 /* List of LS Instructors Github username's: 
   tetondan
