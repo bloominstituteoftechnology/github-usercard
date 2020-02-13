@@ -3,17 +3,14 @@
            https://api.github.com/users/<your name>
 */
 
-// API GET REQUEST //
+// // API GET REQUEST //
 
-/* 
-~~~~~~~~ Commented out so I don't get limited ~~~~~~~~
+const cards = document.querySelector('.cards');
 
-axios.get("https://api.github.com/users/sonicemma").then(response => {
-  console.log(response.data);
-});
-
-~~~~~~~~ COMMENT OUT ENDS HERE ~~~~~~~~ 
-*/
+// axios.get("https://api.github.com/users/sonicemma").then(response => {
+//   const newGitCard = gitCard(response.data)
+//   cards.appendChild(newGitCard);
+// });
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -37,6 +34,42 @@ axios.get("https://api.github.com/users/sonicemma").then(response => {
 */
 
 const followersArray = [];
+
+const gitCard = (obj) => {
+  const gitCard = document.createElement('div'),
+        img = document.createElement('img'),
+        info = document.createElement('div'),
+        name = document.createElement('h3'),
+        username = document.createElement('p'),
+        location = document.createElement('p'),
+        profile = document.createElement('p'),
+        anchor = document.createElement('a'),
+        followers = document.createElement('p'),
+        following = document.createElement('p'),
+        bio = document.createElement('p');
+
+  gitCard.classList.add('card');
+  info.classList.add('card-info');
+  name.classList.add('h3');
+  username.classList.add('username');
+
+  img.src = obj.avatar_url;
+  name.textContent = obj.name;
+  username.textContent = obj.login;
+  location.textContent = `Location: ${obj.location}`;
+  profile.textContent = "Profile: ";
+  anchor.textContent = obj.html_url;
+  anchor.href = obj.html_url;
+  followers.textContent = `Followers: ${obj.followers}`;
+  following.textContent = `Following: ${obj.following}`;
+  bio.textContent = `Bio: ${obj.bio}`;
+
+  profile.append(anchor);
+  info.append(name, username, location, profile, followers, following, bio);
+  gitCard.append(img, info);
+  return gitCard;
+};
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
