@@ -33,7 +33,14 @@ const cards = document.querySelector('.cards');
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['fjhansen','jeengland','TiffanyCrosby','reidysj','eddiemadrigal'];
+
+followersArray.forEach((follower) => {
+  axios.get(`https://api.github.com/users/${follower}`).then(response => {
+    const newGitCard = gitCard(response.data);
+    cards.appendChild(newGitCard);
+  });
+})
 
 const gitCard = (obj) => {
   const gitCard = document.createElement('div'),
