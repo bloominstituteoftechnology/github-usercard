@@ -53,8 +53,22 @@ function createCard(user) {
     name.classList.add('name');
     userName.classList.add('username');
 
-    //Addign Context
-    
+    //Appending
+    card.append(image, cardInfo);
+    cardInfo.append(name, userName, location, profile, followers, following, bio);
+    profile.append(profileLink);
+
+    //Content
+    image.src = user.avatar_url;
+    name.textContent = user.name;
+    userName.textContent = user.login;
+    location.textContent = user.location;
+    profileLink.textContent = user.html_url;
+    followers.textContent = user.followers;
+    following.textContent = user.following;
+    bio.textContent = user.bio;
+
+    return card;
 }
 
 /* Step 3: Create a function that accepts a single object as its only argument,
