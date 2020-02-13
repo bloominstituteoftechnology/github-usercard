@@ -3,19 +3,19 @@
            https://api.github.com/users/<your name>
 */
 
-axios.get("https://api.github.com/users/rofstudios")
-.then(response => {
-  console.log(response)
-  console.log(response.data)
+// axios.get("https://api.github.com/users/rofstudios")
+// .then(response => {
+//   console.log(response)
+//   console.log(response.data)
 
-  // let cards = document.querySelector('.cards');
-  let newCard = createCard(response.data);
-  cards.append(newCard);
-})
-.catch( error => {
-  // console.log('data was not returned')
-  console.log(error);
-});
+//   // let cards = document.querySelector('.cards');
+//   let newCard = createCard(response.data);
+//   cards.append(newCard);
+// })
+// .catch( error => {
+//   // console.log('data was not returned')
+//   console.log(error);
+// });
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -57,20 +57,40 @@ axios.get("https://api.github.com/users/rofstudios")
 // })
 
 
-
-axios
-  .get('https://api.github.com/users/rofstudios/followers')
-  .then(response => {
-    response.data.forEach(object => {
-      axios
-        .get(`https://api.github.com/users/${object}`)
-        .then(response => {
-          cards.append(response.data)
-        })
-    })
-
+let followersArray = ['rofstudios',];
+axios.get('https://api.github.com/users/rofstudios/followers')
+.then(response =>{  
+  response.data.forEach(item =>{
+    // console.log(item);
+    followersArray.push(item.login)
+    // console.log(followersArray);
   })
-    .catch(err => err)
+})
+setTimeout(function (){
+  followersArray.forEach(user =>{
+    axios.get(`https://api.github.com/users/${user}`)
+    .then(res =>{
+      const entryPoint = document.querySelector('.cards')
+      const newFollower = createCard(res.data);
+      entryPoint.append(newFollower);
+    })
+  })
+},500)
+
+
+// axios
+//   .get('https://api.github.com/users/rofstudios/followers')
+//   .then(response => {
+//     response.data.forEach(object => {
+//       axios
+//         .get(`https://api.github.com/users/${object}`)
+//         .then(response => {
+//           cards.append(response.data)
+//         })
+//     })
+
+//   })
+//     .catch(err => err)
 
 // followersArray.forEach(follower => {
 //   axios.get(`https://api.github.com/users/${follower}`)
