@@ -3,13 +3,42 @@
            https://api.github.com/users/<your name>
 */
 
-// axios.get('https://api.github.com/users/rofstudios')
-// .then(res => {
-//   console.log(res)
-// })
+axios.get('https://api.github.com/users/rofstudios')
+.then(res => {
+  // console.log(res)
+  let userData = res.data;
+  
+  cards.append(createCard(userData))
+  return axios.get('https://api.github.com/users/rofstudios/followers')
+})
+.then(res => {
+  res.data.forEach(follower => {
+    cards.append(createCard(follower))
+  })
+})
+.catch(err => {
+  console.log('no data returned',err)
+})
+
+//another way to do this is ==============================================
+
+// axios.all([
+//   axios.get('https://api.github.com/users/rofstudios'),
+//   axios.get('https://api.github.com/users/rofstudios/followers')
+// ])
+// .then(axios.spread((userRes, followersRes) => {
+//   cards.append(createCard(userRes.data));
+//   followersRes.data.forEach(element => {
+//     cards.append(createCard(element))
+//   });
+// }))
 // .catch(err => {
-//   console.log('no data returned',err)
+//   console.log('err found', err);
 // })
+
+//=======================================================================
+
+
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -70,6 +99,7 @@ function createCard(user) {
 
     return card;
 }
+let cards = document.querySelector('.cards')
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
