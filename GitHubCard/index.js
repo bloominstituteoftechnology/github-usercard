@@ -53,3 +53,59 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+function gitFriends(info) {
+  const newCard = document.createElement('div'),
+        proImage = document.createElement('img'),
+        proInfo = document.createElement('div'),
+        proName = document.createElement('h3'),
+        proUsername = document.createElement('p'),
+        proLocation = document.createElement('p'),
+        profile = document.createElement('p'),
+        proAnchor = document.createElement('a'),
+        proFollowers = document.createElement('p'),
+        proFollowing= document.createElement('p'),
+        proBio= document.createElement('p');
+   
+  proImage.src = info.avatar_url;
+  proName.textContent = info.name;
+  proUsername.textContent = info.username;
+  proLocation.textContent = 'Location: ' + info.location;
+  profile.textContent =  'Profile: ';
+  proAnchor.textContent = info.url;
+  proFollowers.textContent = 'Followers: ' + info.followers;
+  proFollowing.textContent = 'Following: ' + info.following;
+  proBio.textContent = 'Bio: ' + info.bio;
+  
+  newCard.classList.add('card');
+  proInfo.classList.add('card-info');
+  proName.classList.add('name');
+  proUsername.classList.add('username');
+  
+  newCard.append(proImage);
+  newCard.append(proInfo);
+  proInfo.append(proName);
+  proInfo.append(proUsername);
+  proInfo.append(proLocation);
+  proInfo.append(profile);
+  profile.append(proAnchor);
+  proInfo.append(proFollowers);
+  proInfo.append(proFollowing);
+  proInfo.append(proBio);
+  
+  return newCard;
+}
+ 
+const entryPoint = document.querySelector('.cards');
+
+
+axios.get("https://api.github.com/users/Istott")
+  .then(response => {
+  console.log(response.data)
+  entryPoint.append(gitFriends(response.data));
+})
+  .catch(error => {
+  console.log("the data was not returned", error)
+});
+
+
