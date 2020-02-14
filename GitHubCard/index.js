@@ -2,20 +2,17 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>*/
 
-  const  enrty = document.querySelector(".cards");
-  const getPromise = axios.get("https://api.github.com/users/ballewaer");
+           const entryPointInHTML = document.querySelector(".cards");
+           const getPromise = axios.get("https://api.github.com/users/ballewaer");
 
   getPromise
   .then(response => {
-      console.log(response.data);
-      const myData = createCard(response.data);
-      enrty.appendChild(myData);
-
+    console.log(response.data);
+    const myData = createCard(response.data);
+    entryPointInHTML.appendChild(myData);
   })
-  
   .catch(error => {
-    console.log("SORRY NOTHING TO SEE HERE!", error);
-
+    console.log("SORRY! Nothing to see here!", error);
   });
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
@@ -41,30 +38,31 @@
 
 
           //CREATING ELEMENTS HERE\\
-          function createCard(data) {
+          function createCard(info) {
             const card = document.createElement("div");
-            const userImage  = document.createElement("img");
-            const cardInfo  = document.createElement("div");
+            const userImage = document.createElement("img");
+            const cardInfo = document.createElement("div");
             const name = document.createElement("h3");
             const userName = document.createElement("p");
             const location = document.createElement("p");
-            const Profile = document.createElement("p");
+            const profile = document.createElement("p");
             const link = document.createElement("a");
             const followers = document.createElement("p");
             const following = document.createElement("p");
             const bio = document.createElement("p");
 
           //CREATING STRUCTURE HERE\\
-            card.appendChild(userImage);
-            card.appendChild(cardInfo);
-            cardInfo.appendChild(name);
-            cardInfo.appendChild(userName);
-            cardInfo.appendChild(location);
-            cardInfo.appendChild(Profile);
-            cardInfo.appendChild(link);
-            cardInfo.appendChild(followers);
-            cardInfo.appendChild(following);
-            cardInfo.appendChild(bio);
+          card.appendChild(userImage);
+          card.appendChild(cardInfo);
+          cardInfo.appendChild(name);
+          cardInfo.appendChild(userName);
+          cardInfo.appendChild(location);
+          cardInfo.appendChild(profile);
+          cardInfo.appendChild(link);
+          cardInfo.appendChild(followers);
+          cardInfo.appendChild(following);
+          cardInfo.appendChild(bio);
+
 
           //CREATING CLASS NAMES\\
           card.classList.add("card");
@@ -72,36 +70,38 @@
           name.classList.add("name");
           userName.classList.add("user-name");
 
+          //CREATING CONTENT\\
+          userImage.src = info.avatar_url;
+          name.textContent = `Name: ${info.name}`;
+          userName.textContent = `Username: ${info.login}`;
+          location.textContent = `Location: ${info.location}`;
+          profile.textContent = `Profile: `;
+          link.textContent = `Visit my GitHub: `;
+          link.setAttribute("href", info.html_url);
+          followers.textContent = `Followers: ${info.followers}`;
+          following.textConent = `Following: ${info.following}`;
+          bio.textContent = `About Me: ${info.bio}`;
+        
+          console.log(card);
+        
+          return card;
+   }
+
+   const followersArray = [
+    "https://api.github.com/users/DonnaBallew",
+    "https://api.github.com/users/desicurry"
+];
 
 
-          }
-
-const followersArray = [];
-
-/* Step 3: Create a function that accepts a single object as its only argument,
-          Using DOM methods and properties, create a component that will return the following DOM element:
-
-<div class="card">
-  <img src={image url of user} />
-  <div class="card-info">
-    <h3 class="name">{users name}</h3>
-    <p class="username">{users user name}</p>
-    <p>Location: {users location}</p>
-    <p>Profile:  
-      <a href={address to users github page}>{address to users github page}</a>
-    </p>
-    <p>Followers: {users followers count}</p>
-    <p>Following: {users following count}</p>
-    <p>Bio: {users bio}</p>
-  </div>
-</div>
- 
-*/
-
-/* List of LS Instructors Github username's: 
-  tetondan
-  dustinmyers
-  justsml
-  luishrd
-  bigknell
-*/
+followersArray.map(element => {
+  axios
+    .get(element)
+    .then(response => {
+      // console.log(response.data);
+      const followersData = createCard;
+      entryPointInHTML.appendChild(followersData(response.data));
+    })
+    .catch(error => {
+      console.log("SORRY! Nothing to see here!", error);
+    });
+});
