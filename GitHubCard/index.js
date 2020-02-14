@@ -3,6 +3,10 @@
            https://api.github.com/users/<your name>
 */
 
+
+ 
+  
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -45,6 +49,60 @@ const followersArray = [];
 </div>
 
 */
+
+function githubCards(obj) {
+
+  const newCard = document.createElement('div');
+  const newImg = document.createElement('img');
+  const info = document.createElement('div');
+  const name = document.createElement('h3');
+  const user = document.createElement('p');
+  const loc = document.createElement('p');
+  const profile = document.createElement('p');
+  const page = document.createElement('a');
+  const followers1 = document.createElement('p');
+  const following2  = document.createElement('p');
+  const bio = document.createElement('p');
+
+  newCard.appendChild(newImg);
+  newCard.appendChild(info);
+  info.appendChild(name);
+  info.appendChild(user);
+  info.appendChild(loc);
+  info.appendChild(profile);
+  info.appendChild(page);
+  info.appendChild(followers1);
+  info.appendChild(following2);
+  info.appendChild(bio);
+
+  newCard.classList.add('card');
+  info.classList.add('card-info');
+  name.classList.add('name');
+  user.classList.add('username');
+
+  newImg.src =  obj.avatar_url;
+  name.textContent = obj.name;
+  user.textContent = obj.login;
+  loc.textContent = `Location: ${obj.location}`;
+  profile.textContent = `Profile: ${obj.name}`;
+  page.textContent = `Link: ${obj.html_url}`;
+  followers1.textContent = `Followers: ${obj.followers}`;
+  following2.textContent = `Following: ${obj.following}`;
+  bio.textContent = `Bio: ${obj.bio}`;
+
+  return newCard
+}
+
+const entryPoint = document.querySelector('.cards');
+
+axios.get('https://api.github.com/users/padgettriver')
+.then(response => {
+  entryPoint.append(githubCards(response.data))
+  })
+  .catch(error => {
+    console.log('Nope', error)
+  })
+
 
 /* List of LS Instructors Github username's: 
   tetondan
