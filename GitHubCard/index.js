@@ -2,16 +2,34 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
-axios.get('https://api.github.com/users/ReBarrington')
-  .then(function (response) {
-    // handle success
 
-    document.querySelector('.cards').appendChild((createCard(response.data)))
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-  });
+getUserData('ReBarrington', true)
+
+function getUserData (username, getFollowers) { 
+  axios.get(`https://api.github.com/users/${username}`)
+    .then(function (response) {
+      console.log(response);
+      document.querySelector('.cards').appendChild((createCard(response.data)))
+
+      if (getFollowers) {
+        axios.get(response.data.followers_url)
+        .then(function (response) {
+          console.log(response)
+          response.data.forEach(user => {
+            getUserData(user.login, false);
+          })
+        })
+        .catch(function (error) {
+          // handle error
+          console.log('The data was not returned', error);
+        })
+      }
+    })
+    .catch(function (error) {
+      // handle error
+      console.log('The data was not returned', error);
+    });
+}
 
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
@@ -36,18 +54,20 @@ axios.get('https://api.github.com/users/ReBarrington')
           user, and adding that card to the DOM.
 */
 
-const followersArray = ['Pergamene', 'fbzr', 'Michael-B1764', 'angela-laien', 'adriannasaruk', 'afialydia'];
+// const followersArray = ['Pergamene', 'fbzr', 'Michael-B1764', 'angela-laien', 'adriannasaruk', 'afialydia'];
 
-followersArray.forEach(username => {
-  let followersLinks = 'https://api.github.com/users/' + username;
-  axios.get(followersLinks)
-  .then(function (response) {
-    document.querySelector('.cards').appendChild(createCard(response.data))
-  })
-  .catch(function (error) {
-    console.log(error);
-  })
-})
+// followersArray.forEach(username => {
+//   let followersLinks = 'https://api.github.com/users/' + username;
+//   axios.get(followersLinks)
+//   .then(function (response) {
+//     document.querySelector('.cards').appendChild(createCard(response.data))
+//   })
+//   .catch(function (error) {
+//     console.log(error);
+//   })
+// })
+
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
