@@ -1,42 +1,15 @@
-/* Step 1: using axios, send a GET request to the following URL 
-           (replacing the palceholder with your Github name):
-           https://api.github.com/users/<your name>
-*/
-let cardParent = document.querySelector('.cards')
+const cardParent = document.querySelector('.cards')
 
-//MVP
-
-// const followersArray = ['SandersForPresident', 'techforwarren', 'tetondan', 'dustinmyers', 'justsml' ];
-
-
-// axios.get('https://api.github.com/users/reidysj')
-//   .then(response =>{
-//     let card = cardMaker(response.data);
-//     cardParent.prepend(card);
-//     console.log(response.data)
-//   })
-//   .catch( error => {
-//     console.log('Error: ', error);
-//   });
-
-//   followersArray.forEach(follower => {
-//     axios.get(`https://api.github.com/users/${follower}`)
-//     .then(response =>{
-//       let card = cardMaker(response.data);
-//       cardParent.append(card);
-//     })
-//     .catch(error => {
-//       console.log('Error: ', error);
-//     });
-//   })
-
-  
-axios.get('https://api.github.com/users/tetondan')
+//Get information from the API using axios  
+axios.get('https://api.github.com/users/reidysj')
+//Fill the first card with the initial response
 .then(response => {
   let card = cardMaker(response.data);
   cardParent.prepend(card);
   return response.data.followers_url;
 })
+//Get the url from the initial object to pass values into axios again for
+//More details on each follower
 .then(response =>{
   axios.get(response)
   .then(response => {
@@ -49,107 +22,64 @@ axios.get('https://api.github.com/users/tetondan')
     })
   })
 })
+//Log any errors
 .catch(error => {
   console.log('Error: ', error)
 })
 
 
 function cardMaker(obj){
+  //Create all required elements
   let cardDiv = document.createElement('div');
-  cardDiv.classList.add('card');
   let userPic = document.createElement('img');
-  userPic.src = obj.avatar_url;
   let infoDiv = document.createElement('div');
-  infoDiv.classList.add('card-info');
   let name = document.createElement('h3');
-  name.classList.add('name');
-  name.textContent = obj.name;
   let userName = document.createElement('p');
-  userName.classList.add('username');
-  userName.textContent = obj.login;
   let location = document.createElement('p');
-  location.textContent = `Location: ${obj.location}`;
   let profile = document.createElement('p');
-  profile.textContent = `Profile: `;
   let linkToProfile = document.createElement('a');
+  let followers = document.createElement('p');
+  let following = document.createElement('p');
+  let bio = document.createElement('p');
+  let calendar = document.createElement('img');
+  let expandButton = document.createElement('p');
+  
+  //Add classes to certain elements
+  cardDiv.classList.add('card');
+  infoDiv.classList.add('card-info');
+  name.classList.add('name');
+  userName.classList.add('username');
+  expandButton.classList.add('expandButton');
+  calendar.classList.add('calendar');
+
+  //Set content in each card based on relevant values in object passed in
+  userPic.src = obj.avatar_url;
+  name.textContent = obj.name;
+  userName.textContent = obj.login;
+  location.textContent = `Location: ${obj.location}`;
+  profile.textContent = `Profile: `;
   linkToProfile.href = obj.html_url;
   linkToProfile.textContent = obj.html_url;
-  profile.append(linkToProfile);
-  let followers = document.createElement('p');
   followers.textContent = `Followers: ${obj.followers}`;
-  let following = document.createElement('p');
   following.textContent = `Following: ${obj.following}`;
-  let bio = document.createElement('p');
   bio.textContent = obj.bio;
-  let calendar = document.createElement('img');
   calendar.src = `http://ghchart.rshah.org/${obj.login}`;
   calendar.alt = 'YO';
-  calendar.classList.add('calendar');
+  expandButton.textContent = 'See Contribution Calendar';
+  
+  //Some styles for the calendar
   calendar.style.width = '110%';
   calendar.style.display = 'none';
-  let expandButton = document.createElement('p');
-  expandButton.classList.add('expandButton');
-  expandButton.textContent = 'READ MORE';
+  
+  //Event listener to expand the card
   expandButton.addEventListener('click', () => calendar.style.display == 'none' ? calendar.style.display = 'block' : calendar.style.display = 'none');
+
+  //Append everything to parent div
+  profile.append(linkToProfile);
   infoDiv.append(name, userName, location, profile, followers, following, bio, calendar) ;
   cardDiv.append(userPic, infoDiv,expandButton);
 
   return cardDiv
 }
-
-
-
-/* Step 2: Inspect and study the data coming back, this is YOUR 
-   github info! You will need to understand the structure of this 
-   data in order to use it to build your component function 
-
-   Skip to Step 3.
-*/
-
-/* Step 4: Pass the data received from Github into your function, 
-           create a new component and add it to the DOM as a child of .cards
-*/
-
-/* Step 5: Now that you have your own card getting added to the DOM, either 
-          follow this link in your browser https://api.github.com/users/<Your github name>/followers 
-          , manually find some other users' github handles, or use the list found 
-          at the bottom of the page. Get at least 5 different Github usernames and add them as
-          Individual strings to the friendsArray below.
-          
-          Using that array, iterate over it, requesting data for each user, creating a new card for each
-          user, and adding that card to the DOM.
-*/
-
-
-
-
-/* Step 3: Create a function that accepts a single object as its only argument,
-          Using DOM methods and properties, create a component that will return the following DOM element:
-
-<div class="card">
-  <img src={image url of user} />
-  <div class="card-info">
-    <h3 class="name">{users name}</h3>
-    <p class="username">{users user name}</p>
-    <p>Location: {users location}</p>
-    <p>Profile:  
-      <a href={address to users github page}>{address to users github page}</a>
-    </p>
-    <p>Followers: {users followers count}</p>
-    <p>Following: {users following count}</p>
-    <p>Bio: {users bio}</p>
-  </div>
-</div>
-
-*/
-
-
-/* List of LS Instructors Github username's: 
-  tetondan
-  dustinmyers
-  justsml
-  luishrd
-  bigknell
-*/
 
 

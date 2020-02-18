@@ -124,6 +124,11 @@ body {
 }
 
 .expandButton{
-  margin: 0 auto;
+  width: 100%;
+  text-align: right;
+  height: 5vh;
+}
 
+img.calendar{
+  width: 100%;
 }
