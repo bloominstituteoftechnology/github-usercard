@@ -4,6 +4,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./index.css">
+    <link
+   rel="stylesheet"
+   href="https://unpkg.com/github-calendar@latest/dist/github-calendar-responsive.css"
+/>
   </head>
   <body>
     <div class="container">
@@ -12,10 +16,23 @@
         <p>❤️'s</p>
         <img src="./assets/githublogo.png" alt="GitHub Logo" />
       </div>
+      <div class="calendar">
+        <!-- Loading stuff -->
+        Loading the data just for you.
+    </div>
       <div class="cards"></div>
     </div>
     <!-- TODO: add CDN library here -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./GitHubCard/index.js"></script>
+    <script
+  src="https://unpkg.com/github-calendar@latest/dist/github-calendar.min.js"
+></script>
+<script>
+  GitHubCalendar(".calendar", "Ryan-Erickson");
+  // or enable responsive functionality
+  GitHubCalendar(".calendar", "Ryan-Erickson", { responsive: true });
+</script>
   </body>
 </html>
 <!-- Do NOT change anything here except TODO line -->
