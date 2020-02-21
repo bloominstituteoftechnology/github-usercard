@@ -46,6 +46,7 @@
 </div>
 
 */
+// const followersArray = [];
 
 /* List of LS Instructors Github username's: 
   tetondan
@@ -119,3 +120,25 @@ axios.get("https://api.github.com/users/MosharrafMusa")
 .catch(error => {
   console.log('this is an error', error);
 });
+
+ //creating followers card
+
+axios.get("https://api.github.com/users/MosharrafMusa/followers")
+ .then(response => {
+    // console.log(response);
+    response.data.forEach(follower => {
+      axios.get(follower.url)
+        .then(followerResponse => {
+          // console.log(followerResponse);
+          cards.append(cardCreator(followerResponse.data));
+        })
+        .catch(followerError => {
+          console.log(followerError);
+        });
+    });
+  })
+  .catch(error => {
+    console.log(error);
+  });
+
+
