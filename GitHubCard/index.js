@@ -103,8 +103,19 @@ function cardCreator(obj) {
   // return DOM element
 
   return card;
+  }
+ // select .card element
 
-}
+  const cards = document.querySelector(".cards");
 
 
+ // create new card with my data
 
+axios.get("https://api.github.com/users/MosharrafMusa")
+ .then(response => {
+  cards.append(cardCreator(response.data));
+})
+
+.catch(error => {
+  console.log('this is an error', error);
+});
