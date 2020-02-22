@@ -3,6 +3,12 @@
            https://api.github.com/users/<your name>
 */
 
+
+
+
+
+
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -53,3 +59,74 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+
+function myGitHub(item){
+
+
+const myCard = document.createElement('div');
+const image = document.createElement('img');
+const cardInfo = document.createElement('div');
+const titleName = document.createElement('h3');
+const userName =document.createElement('p');
+const userLocation = document.createElement('p');
+const profile = document.createElement('p');
+const userAddress = document.createElement('a');
+const followers = document.createElement('p');
+const following = document.createElement('p');
+const bio = document.createElement('p');
+
+
+// classes 
+
+myCard.classList.add('card');
+cardInfo.classList.add('card-info');
+titleName.classList.add('name');
+userName.classList.add('username')
+
+myCard.appendChild(image);
+myCard.appendChild(cardInfo);
+cardInfo.appendChild(titleName);
+cardInfo.appendChild(userName);
+cardInfo.appendChild(userLocation);
+cardInfo.appendChild(profile);
+cardInfo.appendChild(userAddress);
+cardInfo.appendChild(followers);
+cardInfo.appendChild(following );
+cardInfo.appendChild(bio );
+profile.appendChild(userAddress );
+
+// text content 
+
+image.src = item.avatar_url;
+
+titleName.textContent = item.name;
+userName.textContent = item.login;
+userLocation.textContent =item.location;
+followers.textContent = `Followers: ${item.followers}`;
+following .textContent = `Following: ${item.following}`;
+bio.textContent = `Bio: ${item.bio}`;
+userAddress.textContent = `Address: ${item.html_url}`;
+
+userAddress.href = item.html_url;
+
+return myCard
+
+}
+
+
+
+const entry = document.querySelector('.cards');
+
+axios
+  .get('https://api.github.com/users/SayadiFWD/followers')
+  .then((res)=>{
+    console.log(res)
+    res.data.forEach((item)=>{
+    const newMyGitHub = myGitHub(item)
+    entry.appendChild(newMyGitHub);
+
+  })
+})
+
+.catch((err)=>{console.log(err)})
