@@ -89,7 +89,6 @@ function myCard(data) {
   const followers = document.createElement('p')
   const bio = document.createElement('p')
   const profileCard = document.createElement('p')
-  // const profilePage = document.createElement('p')
 
 
 
@@ -104,30 +103,24 @@ function myCard(data) {
 
   // set the text content
   img.src = data.avatar_url;
-  // gitHubUrl.href = data.url;
-  // title.textContent = paintedlbird7
   card.textContent = data.card;
   name.textContent = data.name;
   login.textContent = data.login;
   username.textContent = data.login;
   location.textContent = data.location;
-  // profilePage.textContent = `Profile: `;
   profileLink.textContent = data.html_url;
   bio.textContent = data.bio;
   
   // put together
   // creating the HTML structure
-  // card.appendChild(card);
   card.appendChild(img);
   card.appendChild(cardInfo);
 
   cardInfo.appendChild(location);
-  // cardInfo.appendChild(profilePage);
   cardInfo.appendChild(profileCard);
   profileCard.appendChild(profileLink);
 
   cardInfo.appendChild(followers);
-  // card.appendChild(following);
   cardInfo.appendChild(bio);
   cardInfo.appendChild(name);
   cardInfo.appendChild(login);
