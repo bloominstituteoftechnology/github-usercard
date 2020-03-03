@@ -5,42 +5,104 @@
            https://api.github.com/users/<your name>
 */
 
-const followersArray = [
-  "tetondan",
-  "dustinmyers",
-  "justsml",
-  "luishrd",
-  "bigknell"];
-followersArray.forEach(user =>{
+  axios
+  .get('https://api.github.com/users/mimilambda')
+  .then(response => {
+    console.log(response);
+    cardPoint.append(userCard(response.data));
+  })
+  .catch(error => {
+    console.log("the data was not returned", error);
+  });
 
-
-axios.get(`https://api.github.com/users/${user}`)
-.then(data => {
-  var info = data.data
-  var cards = document.querySelector(".cards")
-  var cardsInfo = cardCreator(info)
-  cards.appendChild(cardsInfo)
-  console.log(`response`, data);
-})
-.catch(function (error) {
-  // handle error
-  console.log(error);
-})
-})
-
-function cardCreator(info){
-  const cards = document.createElement('div');
-  let img = document.createElement('img');
-  const cardsInfo = document.createElement('div');
-  const name = document.createElement('p');
-  const username = document.createElement('p');
-  const location = document.createElement('p');
-  const profile = document.createElement('p');
-  const followers = document.createElement('p');
-  const following = document.createElement('p');
-  const bio = document.createElement('p');
-}
-
+  function gitCards(data) {
+    function checkIfNull(str) {
+      if (str) return str;
+      return '';
+    }
+    const newCard = document.createElement('div'),
+      newImg = document.createElement('img'),
+      newCardInfo = document.createElement('div'),
+      name = document.createElement('h3'),
+      username = document.createElement('p'),
+      location = document.createElement('p'),
+      profile = document.createElement('p'),
+      profileUrl = document.createElement('a'),
+      followers = document.createElement('p'),
+      following = document.createElement('p'),
+      bio = document.createElement('p');
+  
+    //setting content
+    newImg.src = data.avatar_url;
+    name.textContent = data.name;
+    username.textContent = data.login;
+    location.textContent = `Location: ${checkIfNull(data.location)}`;
+    profile.textContent = `Profile: ${checkIfNull(data.name)}`;
+    profileUrl.textContent = `Link: ${data.html_url}`;
+    followers.textContent = `Followers: ${checkIfNull(data.followers)}`;
+    following.textContent = `Following: ${checkIfNull(data.following)}`;
+    bio.textContent = `Bio: ${checkIfNull(data.bio)}`;
+  
+    //Create Structure and append to the DOM
+  
+    newCard.appendChild(newImg);
+    newCard.appendChild(newCardInfo);
+    newCardInfo.appendChild(name);
+    newCardInfo.appendChild(username);
+    newCardInfo.appendChild(location);
+    newCardInfo.appendChild(profile);
+    newCardInfo.appendChild(followers);
+    newCardInfo.appendChild(following);
+    newCardInfo.appendChild(bio);
+    newCardInfo.appendChild(profileUrl);
+  
+    //applying styles and classes
+  
+    newCard.classList.add('card');
+    newCardInfo.classList.add('card-info');
+    name.classList.add('name');
+    username.classList.add('username');
+  
+    // event handlers
+  
+    return newCard;
+  }
+  // setup the Array
+  
+  const entryPoint = document.querySelector('.cards');
+  
+  // this is my gitCard
+  
+  const cards = document.querySelector('.cards');
+  
+  axios.get('https://api.github.com/users/mimilambda').then(response => {
+    console.log(response.data);
+    cards.appendChild(gitCards(response.data));
+  });
+  
+  // this is follower git Card they gave us changed with my own followers
+  
+  const followersArray = [
+    'easyas123l1',
+    'lflores0214',
+    'AnniqueN',
+    'Chrismis79',
+    'JeanFraga'
+  ];
+  
+  followersArray.forEach(follower => {
+    axios.get(`https://api.github.com/users/${follower}`)
+      .then(response => {
+        console.log(response);
+        cards.append(gitCards(response.data));
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  });
+  
+  
+  
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
