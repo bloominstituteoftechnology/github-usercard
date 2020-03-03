@@ -1,5 +1,3 @@
-
-
 /* Step 1: using axios, send a GET request to the following URL 
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
@@ -83,11 +81,11 @@
   // this is follower git Card they gave us changed with my own followers
   
   const followersArray = [
-    'easyas123l1',
-    'lflores0214',
-    'AnniqueN',
-    'Chrismis79',
-    'JeanFraga'
+    "tetondan",
+    "dustinmyers",
+    "justsml",
+    "luishrd",
+    "bigknell",
   ];
   
   followersArray.forEach(follower => {
