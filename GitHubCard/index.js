@@ -3,7 +3,7 @@
            https://api.github.com/users/<your name>
 */
 
-axios.get("https://api.github.com/users/vtopham")
+axios.get("https://api.github.com/users/dustinmyers")
   .then(response => {
     console.log(response);
   });
@@ -55,20 +55,41 @@ function createCard(inputObj) {
           let name = document.createElement("h3");
           name.classList.add("name");
           name.textContent = inputObj.name;
+          cardInfo.appendChild(name)
           //create p
           let username = document.createElement("p");
-          
+          username.classList.add("username");
+          username.textContent = inputObj.login;
+          cardInfo.appendChild(userName);
           //create p
+          let location = document.createElement("p");
+          location.textContent = `Location: ${inputObj.location}`;
+          cardInfo.appendChild(location);
 
           //create a
+          let githubAddress = document.createElement("a");
+          githubAddress.href = inputObj.url;
+          githubAddress.textContent = inputObj.url;
+          //create p
+          let profile = document.createElement("p");
+          profile.textContent = `Profile: ${githubAddress}`;
+          cardInfo.appendChild(profile);
 
           //create p
+          let followers = document.createElement("p");
+          followers.textContent = `Followers: ${inputObj.followers}`;
+          cardInfo.appendChild(followers);
+          //create p
+          let following = document.createElement("p");
+          following.textContent = `Following: ${inputObj.following}`;
+          cardInfo.appendChild(following);
+          //create p
+          let bio = document.createElement("p");
+          bio.textContent = `Following: ${inputObj.bio}`;
+          cardInfo.appendChild(fbio);
 
-              
 
-          
-
-
+          return card;
 }
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
