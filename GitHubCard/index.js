@@ -5,7 +5,7 @@
 
 axios.get("https://api.github.com/users/dustinmyers")
   .then(response => {
-    console.log(response);
+    // console.log(response);
   });
 
 
@@ -38,17 +38,18 @@ axios.get("https://api.github.com/users/dustinmyers")
 
 //get the names i want to display
 const namesArray = ["tetondan", "dustinmyers", "justsml", "luishrd", "bigknell"]
-
 //create an array of their data objects
-const followersArray = [];
+
 
 namesArray.forEach((item) => {
   axios.get("https://api.github.com/users/" + item)
   .then(response => {
-    followersArray.push(response.data);
+    let cards = document.querySelector(".cards"); 
+    let thisData = response.data; //grab the data
+    let newCard = createCard(thisData); //create a card with it
+    cards.appendChild(newCard); //append the card
   });
 });
-
 
 //this function creates and returns a card for the object passed
 function createCard(inputObj) {
@@ -73,7 +74,7 @@ function createCard(inputObj) {
           let username = document.createElement("p");
           username.classList.add("username");
           username.textContent = inputObj.login;
-          cardInfo.appendChild(userName);
+          cardInfo.appendChild(username);
           //create p
           let location = document.createElement("p");
           location.textContent = `Location: ${inputObj.location}`;
@@ -99,11 +100,17 @@ function createCard(inputObj) {
           //create p
           let bio = document.createElement("p");
           bio.textContent = `Following: ${inputObj.bio}`;
-          cardInfo.appendChild(fbio);
+          cardInfo.appendChild(bio);
 
-
+  // console.log("hello");
   return card;
 }
+
+//run the function for followersArray and append to the DOM
+
+
+
+
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
 
