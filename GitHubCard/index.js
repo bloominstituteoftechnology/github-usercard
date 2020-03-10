@@ -36,8 +36,21 @@ axios.get("https://api.github.com/users/dustinmyers")
           user, and adding that card to the DOM.
 */
 
+//get the names i want to display
+const namesArray = ["tetondan", "dustinmyers", "justsml", "luishrd", "bigknell"]
+
+//create an array of their data objects
 const followersArray = [];
 
+namesArray.forEach((item) => {
+  axios.get("https://api.github.com/users/" + item)
+  .then(response => {
+    followersArray.push(response.data);
+  });
+});
+
+
+//this function creates and returns a card for the object passed
 function createCard(inputObj) {
 
   //create div
@@ -89,7 +102,7 @@ function createCard(inputObj) {
           cardInfo.appendChild(fbio);
 
 
-          return card;
+  return card;
 }
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
