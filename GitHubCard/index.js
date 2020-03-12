@@ -3,6 +3,14 @@
            https://api.github.com/users/<your name>
 */
 
+axios .get('https://api.github.com/users/jme-sull').then(response => {
+  //console.log(response);
+  const entries = Object.entries(response.data);
+  console.log(entries);
+  document.querySelector('.cards').append(createCard(entries)); 
+});
+
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -46,6 +54,61 @@ const followersArray = [];
 
 */
 
+function createCard(object){
+
+  //set variables
+
+  const card = document.createElement('div').
+        userImage = document.createElement('img'),
+        cardInfo = document.createElement('div'),
+        userNameHeader = document.createElement('h3'),
+        userNameP = document.createElement('p'),
+        userLocation = document.createElement('p'),
+        userProfile = document.createElement('p'),
+        userGitHubLink = document.createElement('a'),
+        userFollowers = document.createElement('p'),
+        userFollowing = document.createElement('p'),
+        userBio = document.createElement('p');
+
+//create structure 
+
+    card.appendChild(userImage);
+    card.appendChild(cardInfo);
+    cardInfo.appendChild(userNameHeader);
+    cardInfo.appendChild(userNameP);
+    cardInfo.appendChild(userLocation);
+    cardInfo.appendChild(userProfile);
+    userProfile.appendChild(userGitHubLink);
+    cardInfo.appendChild(userFollowers);
+    cardInfo.appendChild(userFollowing);
+    cardInfo.appendChild(userBio);
+
+//add classes 
+
+    card.classList.add('card');
+    cardInfo.classList.add('card-info');
+    userNameHeader.classList.add('name');
+    userNameP.classList.add('username');
+
+//add data 
+
+    userImage.setAttribute('src', `${object.data.avatar_url}`);
+    userNameHeader.textContent = `${object.data.name}`; 
+    userNameP.textContent = `${object.data.login}`;
+    userLocation.textContent = `${object.data.location}`;
+    userGitHubLink.setAttribute('href', `${object.data.html_url}`);
+    userFollowers.textContent = `${object.data.followers}`;
+    userFollowing.textContent = `${object.data.following}`; 
+    userBio.textContent = `${object.data.bio}`;
+
+
+return card;
+        
+}
+
+
+
+
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
@@ -55,6 +118,4 @@ const followersArray = [];
 */
 
 
-some stuff 
-
-other stuff 
+ document.querySelector('.cards').append(createCard(response));
