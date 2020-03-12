@@ -29,7 +29,13 @@ const followersArray = [
   "dustinmyers",
   "justsml",
   "luishrd",
-  "bigknell"
+  "bigknell",
+  "TheTechSurgeon",
+  "dortega5185",
+  "ScottH72",
+  "redpage001",
+  "Diddleslip",
+  "ArtmanG"
 ];
 
 
