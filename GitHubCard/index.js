@@ -40,11 +40,8 @@ const followersArray = [
 
 
 followersArray.forEach(element => {
-  console.log(element)
   axios.get(`https://api.github.com/users/${element}`)
     .then( response => {
-      // console.log(response);
-      //   return response;
       createCard(response.data);
     })
     .catch( err => {
