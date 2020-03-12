@@ -3,6 +3,11 @@
            https://api.github.com/users/<your name>
 */
 
+
+
+
+
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -24,7 +29,76 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+ followersArray = [];
+
+axios
+    .get('https://api.github.com/users/jcdaly97')
+
+    .then( response1 => {
+        console.log(response1);
+        document.querySelector('.cards').append(cardCreator(response1.data));
+
+        axios
+        .get(response1.data.followers_url)
+        .then(response2=> {
+          console.log(response2);
+          response2.data.forEach(follower => {
+          document.querySelector('.cards').append(cardCreator(follower));
+          });
+        })
+        .catch(err2 => {
+          console.log('the follower data was not returned' + err2);
+        })
+
+    })
+
+    .catch( err1 => {
+        console.log('the data was not returned' + err1);
+    })
+
+function cardCreator(user){
+  //create objects
+  const 
+  card = document.createElement('div'),
+  userImg = document.createElement('img'),
+  cardInfo = document.createElement('div'),
+  name = document.createElement('h3'),
+  userName = document.createElement('p'),
+  location = document.createElement('p'),
+  profile = document.createElement('p'),
+  profileLink = document.createElement('a',)
+  followers = document.createElement('p'),
+  following = document.createElement('p'),
+  bio = document.createElement('p');
+  //fill objects with content
+  userImg.src = user.avatar_url;
+  name.textContent = user.name;
+  userName.textContent = user.login;
+  location.textContent = `Location: ${user.location}`;
+  profile.textContent = 'Profile: ';
+  profileLink.textContent = user.url;
+  followers.textContent = `Followers: ${user.followers}`;
+  following.textContent = `Following: ${user.following}`;
+  bio.textContent = `Bio: ${user.bio}`;
+  //give elements their classes
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  userName.classList.add('username');
+  //setup the structure
+  card.append(userImg);
+  card.append(cardInfo);
+  cardInfo.append(name);
+  cardInfo.append(userName);
+  cardInfo.append(location);
+  cardInfo.append(profile);
+  profile.append(profileLink);
+  cardInfo.append(followers);
+  cardInfo.append(following);
+  cardInfo.append(bio);
+  //return card
+  return card;
+}
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
