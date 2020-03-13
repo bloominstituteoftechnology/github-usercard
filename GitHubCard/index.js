@@ -57,7 +57,12 @@ function gitHubCard(obj){
   followerInfo.textContent = `Follower: ${obj.data.followers}`;
   followingInfo.textContent = `Following: ${obj.data.following}`;
   bioInfo.textContent = `Bio: ${obj.data.bio}`;
-  
+  if (bioInfo == "Bio: null"){
+    bioInfo = "Bio: this user doesn't have bio information"
+  }
+    
+    
+        
   cardHolder.append(img, cardInfo);
   cardInfo.append(nameInfo, userName, locationInfo, profileInfo, followerInfo, followingInfo, bioInfo);
   profileInfo.append(linkTag);
