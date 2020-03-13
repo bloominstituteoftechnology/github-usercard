@@ -28,108 +28,7 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [
-  {
-    "login": "nataliastewart",
-    "id": 60708462,
-    "node_id": "MDQ6VXNlcjYwNzA4NDYy",
-    "avatar_url": "https://avatars2.githubusercontent.com/u/60708462?v=4",
-    "gravatar_id": "",
-    "url": "https://api.github.com/users/nataliastewart",
-    "html_url": "https://github.com/nataliastewart",
-    "followers_url": "https://api.github.com/users/nataliastewart/followers",
-    "following_url": "https://api.github.com/users/nataliastewart/following{/other_user}",
-    "gists_url": "https://api.github.com/users/nataliastewart/gists{/gist_id}",
-    "starred_url": "https://api.github.com/users/nataliastewart/starred{/owner}{/repo}",
-    "subscriptions_url": "https://api.github.com/users/nataliastewart/subscriptions",
-    "organizations_url": "https://api.github.com/users/nataliastewart/orgs",
-    "repos_url": "https://api.github.com/users/nataliastewart/repos",
-    "events_url": "https://api.github.com/users/nataliastewart/events{/privacy}",
-    "received_events_url": "https://api.github.com/users/nataliastewart/received_events",
-    "type": "User",
-    "site_admin": false
-  },
-  {
-    "login": "gabeaster",
-    "id": 59710235,
-    "node_id": "MDQ6VXNlcjU5NzEwMjM1",
-    "avatar_url": "https://avatars0.githubusercontent.com/u/59710235?v=4",
-    "gravatar_id": "",
-    "url": "https://api.github.com/users/gabeaster",
-    "html_url": "https://github.com/gabeaster",
-    "followers_url": "https://api.github.com/users/gabeaster/followers",
-    "following_url": "https://api.github.com/users/gabeaster/following{/other_user}",
-    "gists_url": "https://api.github.com/users/gabeaster/gists{/gist_id}",
-    "starred_url": "https://api.github.com/users/gabeaster/starred{/owner}{/repo}",
-    "subscriptions_url": "https://api.github.com/users/gabeaster/subscriptions",
-    "organizations_url": "https://api.github.com/users/gabeaster/orgs",
-    "repos_url": "https://api.github.com/users/gabeaster/repos",
-    "events_url": "https://api.github.com/users/gabeaster/events{/privacy}",
-    "received_events_url": "https://api.github.com/users/gabeaster/received_events",
-    "type": "User",
-    "site_admin": false
-  },
-  {
-    "login": "janecyyu",
-    "id": 42662833,
-    "node_id": "MDQ6VXNlcjQyNjYyODMz",
-    "avatar_url": "https://avatars3.githubusercontent.com/u/42662833?v=4",
-    "gravatar_id": "",
-    "url": "https://api.github.com/users/janecyyu",
-    "html_url": "https://github.com/janecyyu",
-    "followers_url": "https://api.github.com/users/janecyyu/followers",
-    "following_url": "https://api.github.com/users/janecyyu/following{/other_user}",
-    "gists_url": "https://api.github.com/users/janecyyu/gists{/gist_id}",
-    "starred_url": "https://api.github.com/users/janecyyu/starred{/owner}{/repo}",
-    "subscriptions_url": "https://api.github.com/users/janecyyu/subscriptions",
-    "organizations_url": "https://api.github.com/users/janecyyu/orgs",
-    "repos_url": "https://api.github.com/users/janecyyu/repos",
-    "events_url": "https://api.github.com/users/janecyyu/events{/privacy}",
-    "received_events_url": "https://api.github.com/users/janecyyu/received_events",
-    "type": "User",
-    "site_admin": false
-  },
-  {
-    "login": "devjaymoe",
-    "id": 60631192,
-    "node_id": "MDQ6VXNlcjYwNjMxMTky",
-    "avatar_url": "https://avatars0.githubusercontent.com/u/60631192?v=4",
-    "gravatar_id": "",
-    "url": "https://api.github.com/users/devjaymoe",
-    "html_url": "https://github.com/devjaymoe",
-    "followers_url": "https://api.github.com/users/devjaymoe/followers",
-    "following_url": "https://api.github.com/users/devjaymoe/following{/other_user}",
-    "gists_url": "https://api.github.com/users/devjaymoe/gists{/gist_id}",
-    "starred_url": "https://api.github.com/users/devjaymoe/starred{/owner}{/repo}",
-    "subscriptions_url": "https://api.github.com/users/devjaymoe/subscriptions",
-    "organizations_url": "https://api.github.com/users/devjaymoe/orgs",
-    "repos_url": "https://api.github.com/users/devjaymoe/repos",
-    "events_url": "https://api.github.com/users/devjaymoe/events{/privacy}",
-    "received_events_url": "https://api.github.com/users/devjaymoe/received_events",
-    "type": "User",
-    "site_admin": false
-  },
-  {
-    "login": "Diddleslip",
-    "id": 52723004,
-    "node_id": "MDQ6VXNlcjUyNzIzMDA0",
-    "avatar_url": "https://avatars1.githubusercontent.com/u/52723004?v=4",
-    "gravatar_id": "",
-    "url": "https://api.github.com/users/Diddleslip",
-    "html_url": "https://github.com/Diddleslip",
-    "followers_url": "https://api.github.com/users/Diddleslip/followers",
-    "following_url": "https://api.github.com/users/Diddleslip/following{/other_user}",
-    "gists_url": "https://api.github.com/users/Diddleslip/gists{/gist_id}",
-    "starred_url": "https://api.github.com/users/Diddleslip/starred{/owner}{/repo}",
-    "subscriptions_url": "https://api.github.com/users/Diddleslip/subscriptions",
-    "organizations_url": "https://api.github.com/users/Diddleslip/orgs",
-    "repos_url": "https://api.github.com/users/Diddleslip/repos",
-    "events_url": "https://api.github.com/users/Diddleslip/events{/privacy}",
-    "received_events_url": "https://api.github.com/users/Diddleslip/received_events",
-    "type": "User",
-    "site_admin": false
-  },
-];
+let followersArray = ["freedomwriter", "nataliastewart", "devjaymoe","Diddleslip","Riley-Robinson"];
 
 function gitHubCard(obj){
   const cardHolder = document.createElement("div"),
@@ -149,7 +48,7 @@ function gitHubCard(obj){
   nameInfo.classList.add("name");
   userName.classList.add("username");
 
-  img.src = {obj.data.avatar_url};
+  img.src = obj.data.avatar_url;
   nameInfo.textContent = obj.data.name;
   userName.textContent = obj.data.login;
   locationInfo.textContent = `Location: ${obj.data.location}`;
@@ -174,13 +73,23 @@ axios.get('https://api.github.com/users/joowoonk')
     parentTag.append(gitHubCard(response));
     console.log(response)
   })
+  .then(()=> {
+    followersArray.forEach(person => 
+  axios.get(`https://api.github.com/users/${person}`)
+  .then(response=> 
+    parentTag.append(gitHubCard(response)))
+    )    
+  })
   .catch(error => {
     console.log("the data was not returned", error);
   })
 
-  followersArray.forEach(x=>
-    parentTag.append(gitHubCard(x)))
-//
+
+// //
+
+
+  // console.log(followersAr
+
 
 /* List of LS Instructors Github username's: 
   tetondan
