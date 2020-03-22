@@ -1,15 +1,22 @@
+// import Axios from "axios";
+
 /* Step 1: using axios, send a GET request to the following URL 
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
 
+// const github = axios.get('https://api.github.com/users/ChitownCoder/followers');
+// console.log(github);
+
+
 axios.get('https://api.github.com/users/ChitownCoder')
-.then(response => console.log(response))
-.catch(error => console.log(error))
+  .then(response => console.log(response))
+  .catch(error => console.log(error))
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
+
 
    Skip to Step 3.
 */
@@ -28,16 +35,6 @@ axios.get('https://api.github.com/users/ChitownCoder')
           user, and adding that card to the DOM.
 */
 
-const followersArray = [
-  'MAllen07',
-  'JavaChipMom',
-  'mikeLovelace',
-  'karapeoples',
-  'marksayers46',
-  'codeMeNasha',
-  'kmilliner888',
-  'JasonCruz'
-];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -66,10 +63,46 @@ const followersArray = [
   luishrd
   bigknell
 */
-//* MY CODES STARTS HERE *//
+
+const followersArray = [
+  `MAllen07`,
+  `JavachipMom`,
+  `mikelovelace`,
+  `karapeoples`,
+  `marksayers46`,
+  `CodeMeNasha`,
+  `kmilliner888`,
+  `JasonCruz-Dev`];
+
+/* Step 3: Create a function that accepts a single object as its only argument,
+          Using DOM methods and properties, create a component that will return the following DOM element:
+<div class="card">
+  <img src={image url of user} />
+  <div class="card-info">
+    <h3 class="name">{users name}</h3>
+    <p class="username">{users user name}</p>
+    <p>Location: {users location}</p>
+    <p>Profile:  
+      <a href={address to users github page}>{address to users github page}</a>
+    </p>
+    <p>Followers: {users followers count}</p>
+    <p>Following: {users following count}</p>
+    <p>Bio: {users bio}</p>
+  </div>
+</div>
+*/
+
+/* List of LS Instructors Github username's: 
+  tetondan
+  dustinmyers
+  justsml
+  luishrd
+  bigknell
+*/
 
 
-const ghCard = (ghInfo) => {
+
+const ghCard = (ghInfo) =>{
   const ghUser = document.createElement("div");
   const ghImg = document.createElement("img");
   const cardInfo = document.createElement("div");
@@ -82,27 +115,57 @@ const ghCard = (ghInfo) => {
   const following = document.createElement("p");
   const bio = document.createElement("p");
 
+	ghImg.src = ghInfo.avatar_url;
+  cardTitle.textContent = `Name: ${ghInfo.name}`;
+  username.textContent = `Username: ${ghInfo.login}`;
+  location.textContent = `Location: ${ghInfo.location}`;
+  link.href = ghInfo.html_url
+  link.textContent =`${ghInfo.html_url}`;
+  profile.textContent = `Profile: ` ;
+  followers.textContent = `Followers: ${ghInfo.followers}`;
+  following.textContent =  `Following: ${ghInfo.following}`;
+  bio.textContent = `About: ${ghInfo.bio}`;
+  
+  
+	ghUser.append(ghImg, cardInfo);
+	cardInfo.append(cardTitle,username,location,profile,followers,following,bio,);
+  profile.append(link);
+  
+  ghUser.classList.add('card');
+  cardInfo.classList.add('card-info');
+  cardTitle.classList.add('name')
+  username.classList.add('username');
 
 
-ghImg.src = ghInfo.avatar_url;
-cardTitle.textContent = `Name: ${ghInfo.name}`;
-username.textContent = `Username: $[ghInfo.login]`;
-location.textContent = `Location: ${ghInfo.location}`;
-link.href = ghInfo.html_url
-link.textContent = `Profile: ` ;
-followers.textContent = `Followers: ${ghInfo.followers}`;
-following.textContent =  `Following: ${ghInfo.following}`;
-bio.textContent = `About: ${ghInfo.bio}`;
+	return ghUser
+};
 
-ghUser.append(ghImg, cardInfo);
-cardInfo.append(cardTitle,username. location, profile. followers, following, bio);
-profile.append(link)
 
-ghUser.classList.add('card');
-cardInfo.classList.add('card-info');
-cardTitle.classList.add('name');
-username.classList.add('username');
 
-return ghUser;
+const entry = document.querySelector('.cards');
+axios
+  .get('https://api.github.com/users/ChitownCoder')
+  .then(response => {
+    /* console.log(response.data); */
+    const newCard = ghCard(response.data);
+    entry.append(newCard);
+  })
+  .catch(err => {
+    console.log('I am Broken now!', err)
+  });
 
-}
+
+  
+  followersArray.forEach(event => {
+    axios.get(`https://api.github.com/users/${event}`)
+    .then(response => {
+      /* console.log(response.data); */
+      const cardResponse = ghCard(response.data);
+  
+      const allCard = document.querySelector('.cards');
+      allCard.append(cardResponse);
+    })
+    .catch(err => {
+      console.log('Followers? What is that?', err)
+  })
+});
