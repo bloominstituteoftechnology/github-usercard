@@ -82,5 +82,27 @@ const ghCard = (ghInfo) => {
   const following = document.createElement("p");
   const bio = document.createElement("p");
 
-  
+
+
+ghImg.src = ghInfo.avatar_url;
+cardTitle.textContent = `Name: ${ghInfo.name}`;
+username.textContent = `Username: $[ghInfo.login]`;
+location.textContent = `Location: ${ghInfo.location}`;
+link.href = ghInfo.html_url
+link.textContent = `Profile: ` ;
+followers.textContent = `Followers: ${ghInfo.followers}`;
+following.textContent =  `Following: ${ghInfo.following}`;
+bio.textContent = `About: ${ghInfo.bio}`;
+
+ghUser.append(ghImg, cardInfo);
+cardInfo.append(cardTitle,username. location, profile. followers, following, bio);
+profile.append(link)
+
+ghUser.classList.add('card');
+cardInfo.classList.add('card-info');
+cardTitle.classList.add('name');
+username.classList.add('username');
+
+return ghUser;
+
 }
