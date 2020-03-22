@@ -69,3 +69,18 @@ const followersArray = [
 //* MY CODES STARTS HERE *//
 
 
+const ghCard = (ghInfo) => {
+  const ghUser = document.createElement("div");
+  const ghImg = document.createElement("img");
+  const cardInfo = document.createElement("div");
+  const cardTitle = document.createElement("h3");
+  const username = document.createElement("p");
+  const location = document.createElement("p");
+  const profile = document.createElement("p");
+  const link = document.createElement("a");
+  const followers = document.createElement("p");
+  const following = document.createElement("p");
+  const bio = document.createElement("p");
+
+  
+}
