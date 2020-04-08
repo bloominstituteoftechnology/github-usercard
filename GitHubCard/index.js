@@ -36,6 +36,7 @@ const parentDiv = document.querySelector('.cards');
 
 const followersArray = ['javish88', 'MarFan', 'RonnieDipple', 'ShandaWoods', 'itshui3'];
 
+
 followersArray.forEach(function (element) {
   axios.get(`https://api.github.com/users/${element}`)
     .then(response => {
