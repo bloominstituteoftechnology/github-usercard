@@ -1,3 +1,68 @@
+
+axios.get('https://api.github.com/users/avpimblesr')
+.then(res => {
+  getUser(res.data);
+  
+})
+.catch((err) => {
+  console.log(err)
+  // or console.error(err)
+})
+
+const makeUserCard = (user) => {
+  // Create elements
+  const userCard = document.createElement('div')
+  const avatar = document.createElement('img')
+  const cardInfo = document.createElement('div')
+  const name = document.createElement('h3')
+  const userName = document.createElement('p')
+  const location = document.createElement('p')
+  const profile = document.createElement('p')
+  const profileLink = document.createElement('a')
+  const followers = document.createElement('p')
+  const following = document.createElement('p')
+  const bio = document.createElement('p')
+
+  // Assign properties to the elements
+  userCard.classList.add('card')
+  avatar.setAttribute('src', user.avatar_url)
+  cardInfo.classList.add('card-info')
+  name.classList.add('name')
+  name.textContent = user.name
+  userName.classList.add('username')
+  location.textContent = user.location
+  userName.textContent = user.login
+  profile.textContent = 'Profile: '
+  profileLink.setAttribute('href', user.html_url)
+  console.log('Profile link:', profileLink)
+  followers.textContent = `Followers: ${user.followers}`
+  following.textContent = `Following: ${user.following}`
+  bio.textContent = user.bio
+
+  // Build the card
+  userCard.appendChild(avatar)
+  userCard.appendChild(cardInfo)
+  cardInfo.appendChild(name)
+  cardInfo.appendChild(userName)
+  cardInfo.appendChild(location)
+  cardInfo.appendChild(profile)
+  profile.appendChild(profileLink)
+  cardInfo.appendChild(followers)
+  cardInfo.appendChild(following)
+  cardInfo.appendChild(bio)
+
+  return userCard  
+}
+
+const cards = document.querySelector('.cards')
+
+const getUser = (user) => {
+  console.log(user)
+  let newCard = makeUserCard(user)
+  cards.appendChild(newCard)
+}
+
+
 /* Step 1: using axios, send a GET request to the following URL 
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
@@ -25,7 +90,6 @@
 */
 
 const followersArray = [];
-
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
 
@@ -53,3 +117,8 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+// Change the size and color of the heart
+const heart = document.querySelector('.header p')
+heart.style.color = '#faf'
+heart.style.fontSize = '150px'
