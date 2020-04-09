@@ -56,42 +56,42 @@ const followersArray = ['https://api.github.com/users/MMGroesbeck', 'https://api
 
 function gitFriends(info) {
   const newCard = document.createElement('div'),
-        profileImage = document.createElement('img'),
-        profileInfo = document.createElement('div'),
-        profileName = document.createElement('h3'),
-        profileUsername = document.createElement('p'),
-        profileLocation = document.createElement('p'),
+        proImage = document.createElement('img'),
+        proInfo = document.createElement('div'),
+        proName = document.createElement('h3'),
+        proUsername = document.createElement('p'),
+        proLocation = document.createElement('p'),
         profile = document.createElement('p'),
-        profileAnchor = document.createElement('a'),
-        profileFollowers = document.createElement('p'),
-        profileFollowing= document.createElement('p'),
-        profileBio= document.createElement('p');
+        proAnchor = document.createElement('a'),
+        proFollowers = document.createElement('p'),
+        proFollowing= document.createElement('p'),
+        proBio= document.createElement('p');
    
-  profileImage.src = info.avatar_url;
-  profileName.textContent = info.name;
-  profileUsername.textContent = info.username;
-  profileLocation.textContent = 'Location: ' + info.location;
+  proImage.src = info.avatar_url;
+  proName.textContent = info.name;
+  proUsername.textContent = info.username;
+  proLocation.textContent = 'Location: ' + info.location;
   profile.textContent =  'Profile: ';
-  profileAnchor.textContent = info.url;
-  profileFollowers.textContent = 'Followers: ' + info.followers;
-  profileFollowing.textContent = 'Following: ' + info.following;
-  profileBio.textContent = 'Bio: ' + info.bio;
+  proAnchor.textContent = info.url;
+  proFollowers.textContent = 'Followers: ' + info.followers;
+  proFollowing.textContent = 'Following: ' + info.following;
+  proBio.textContent = 'Bio: ' + info.bio;
   
   newCard.classList.add('card');
-  profileInfo.classList.add('card-info');
-  profileName.classList.add('name');
-  profileUsername.classList.add('username');
+  proInfo.classList.add('card-info');
+  proName.classList.add('name');
+  proUsername.classList.add('username');
   
-  newCard.append(profileImage);
-  newCard.append(profileInfo);
-  profileInfo.append(profileName);
-  profileInfo.append(profileUsername);
-  profileInfo.append(profileLocation);
-  profileInfo.append(profile);
-  profileInfo.append(profileAnchor);
-  profileInfo.append(profileFollowers);
-  profileInfo.append(profileFollowing);
-  profileInfo.append(profileBio);
+  newCard.append(proImage);
+  newCard.append(proInfo);
+  proInfo.append(proName);
+  proInfo.append(proUsername);
+  proInfo.append(proLocation);
+  proInfo.append(profile);
+  profile.append(proAnchor);
+  proInfo.append(proFollowers);
+  proInfo.append(proFollowing);
+  proInfo.append(proBio);
   
   return newCard;
 }
