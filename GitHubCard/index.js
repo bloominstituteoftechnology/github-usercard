@@ -3,6 +3,24 @@
            https://api.github.com/users/<your name>
 */
 
+// const axios = require('axios').default
+function gitCard(username){axios.get(`https://api.github.com/users/${username}` )
+    .then(data=>{
+      const userData = data.data
+      console.log(userData)
+      const newcard = createCard({
+        userImg:userData.avatar_url,
+        userName:userData.login,
+        usersUserName:userData.login,
+        userLocation:userData.location,
+        addToGit: userData.url,
+        followerCount:userData.followers,
+        followingCount:userData.following
+      })
+      const container = document.querySelector('.container')
+      container.appendChild(newcard)
+    })}
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -44,12 +62,79 @@ const followersArray = [];
   </div>
 </div>
 
+
+
 */
+function createElement(element,classlist){
+  const item  = document.createElement(element)
+  classlist.forEach((className) =>{
+    item.classList.add(className)
+
+  })
+  
+  return item
+}
+function createCard ({userImg,userName,usersUserName,userLocation,addToGit,followerCount,followingCount,userBio}){
+  const card = createElement('div',['name'])
+  const uImg = createElement('img',[])
+  const cardInfo = createElement('div',['card-info'])
+  const name = createElement('h3',['name'])
+  const uUName = createElement('p',['username'])
+  const location = createElement('p',[])
+  const profile = createElement('p',[])
+  const address = createElement('a',[])
+  const followers = createElement('p',[])
+  const following = createElement('p',[])
+  const bio = createElement('p',[])
+  
+
+
+  uImg.setAttribute('src',userImg)
+  name.textContent=userName
+  uUName.textContent = usersUserName
+  location.textContent =userLocation
+  profile.textContent='Profile: '
+  address.setAttribute('href', addToGit)
+  followers.textContent = followerCount
+  following.textContent = followingCount
+  bio.textContent = userBio
+
+
+  card.appendChild(uImg)
+  card.appendChild(cardInfo)
+
+ cardInfo.appendChild(name)
+ cardInfo.appendChild(uUName)
+ cardInfo.appendChild(location)
+ cardInfo.appendChild(profile)
+ profile.appendChild(address)
+ cardInfo.appendChild(followers)
+ cardInfo.appendChild(following)
+ cardInfo.appendChild(bio)
+
+
+
+
+ return card
+
+
+  
+
+
+  
+}
+
+
+let userslist =['hobsond','tetondan',
+'dustinmyers',
+'justsml',
+'luishrd',
+'bigknell']
+
+userslist.map(e=>{
+  gitCard(e)
+})
 
 /* List of LS Instructors Github username's: 
-  tetondan
-  dustinmyers
-  justsml
-  luishrd
-  bigknell
+ 
 */
