@@ -1,3 +1,4 @@
+console.log(axios);
 /* Step 1: using axios, send a GET request to the following URL 
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
@@ -23,8 +24,32 @@
           Using that array, iterate over it, requesting data for each user, creating a new card for each
           user, and adding that card to the DOM.
 */
+const userCards = document.querySelector('.cards');
 
-const followersArray = [];
+const followersArray = [
+  'jvaldezdipre',
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell',
+];
+
+const getUser = () => {
+  followersArray.forEach(item => {
+    axios
+      .get(`https://api.github.com/users/${item}`)
+      .then(res => {
+        console.log(res.data);
+        userCards.appendChild(createUserCard(res.data));
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  });
+};
+
+getUser();
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -53,3 +78,51 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+const createUserCard = object => {
+  //create each element
+  const userCard = document.createElement('div');
+  const userImage = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const userName = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const link = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  //Add class
+  userCard.classList.add('card');
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  userName.classList.add('username');
+
+  //Add the meanings
+  userImage.src = object.avatar_url;
+  name.textContent = object.name;
+  userName.textContent = object.login;
+  location.textContent = `Location: ${object.location}`;
+  profile.textContent = 'Profile:';
+  link.textContent = object.html_url;
+  link.href = object.html_url;
+  followers.textContent = `Followers: ${object.followers}`;
+  following.textContent = `Following: ${object.following}`;
+  bio.textContent = `Bio: ${object.bio}`;
+
+  //Add each child to its parent
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+  profile.appendChild(link);
+
+  userCard.appendChild(userImage);
+  userCard.appendChild(cardInfo);
+
+  return userCard;
+};
