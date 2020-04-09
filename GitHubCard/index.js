@@ -24,7 +24,7 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = ['https://api.github.com/users/MMGroesbeck', 'https://api.github.com/users/biskoi', 'https://api.github.com/users/cdifranco1', 'https://api.github.com/users/justinruss24', 'https://api.github.com/users/MelodyRackham'];
+const followersArray = ['https://api.github.com/users/MMGroesbeck', 'https://api.github.com/users/shayne-smith', 'https://api.github.com/users/toendthepeace', 'https://api.github.com/users/ScottSmith23', 'https://api.github.com/users/mmussel', 'https://api.github.com/users/frankie95667', 'https://api.github.com/users/sadamexx', 'https://api.github.com/users/biskoi', 'https://api.github.com/users/cdifranco1', 'https://api.github.com/users/justinruss24', 'https://api.github.com/users/MelodyRackham'];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -56,42 +56,42 @@ const followersArray = ['https://api.github.com/users/MMGroesbeck', 'https://api
 
 function gitFriends(info) {
   const newCard = document.createElement('div'),
-        proImage = document.createElement('img'),
-        proInfo = document.createElement('div'),
-        proName = document.createElement('h3'),
-        proUsername = document.createElement('p'),
-        proLocation = document.createElement('p'),
+        profileImage = document.createElement('img'),
+        profileInfo = document.createElement('div'),
+        profileName = document.createElement('h3'),
+        profileUsername = document.createElement('p'),
+        profileLocation = document.createElement('p'),
         profile = document.createElement('p'),
-        proAnchor = document.createElement('a'),
-        proFollowers = document.createElement('p'),
-        proFollowing= document.createElement('p'),
-        proBio= document.createElement('p');
+        profileAnchor = document.createElement('a'),
+        profileFollowers = document.createElement('p'),
+        profileFollowing= document.createElement('p'),
+        profileBio= document.createElement('p');
    
-  proImage.src = info.avatar_url;
-  proName.textContent = info.name;
-  proUsername.textContent = info.username;
-  proLocation.textContent = 'Location: ' + info.location;
+  profileImage.src = info.avatar_url;
+  profileName.textContent = info.name;
+  profileUsername.textContent = info.username;
+  profileLocation.textContent = 'Location: ' + info.location;
   profile.textContent =  'Profile: ';
-  proAnchor.textContent = info.url;
-  proFollowers.textContent = 'Followers: ' + info.followers;
-  proFollowing.textContent = 'Following: ' + info.following;
-  proBio.textContent = 'Bio: ' + info.bio;
+  profileAnchor.textContent = info.url;
+  profileFollowers.textContent = 'Followers: ' + info.followers;
+  profileFollowing.textContent = 'Following: ' + info.following;
+  profileBio.textContent = 'Bio: ' + info.bio;
   
   newCard.classList.add('card');
-  proInfo.classList.add('card-info');
-  proName.classList.add('name');
-  proUsername.classList.add('username');
+  profileInfo.classList.add('card-info');
+  profileName.classList.add('name');
+  profileUsername.classList.add('username');
   
-  newCard.append(proImage);
-  newCard.append(proInfo);
-  proInfo.append(proName);
-  proInfo.append(proUsername);
-  proInfo.append(proLocation);
-  proInfo.append(profile);
-  profile.append(proAnchor);
-  proInfo.append(proFollowers);
-  proInfo.append(proFollowing);
-  proInfo.append(proBio);
+  newCard.append(profileImage);
+  newCard.append(profileInfo);
+  profileInfo.append(profileName);
+  profileInfo.append(profileUsername);
+  profileInfo.append(profileLocation);
+  profileInfo.append(profile);
+  profileInfo.append(profileAnchor);
+  profileInfo.append(profileFollowers);
+  profileInfo.append(profileFollowing);
+  profileInfo.append(profileBio);
   
   return newCard;
 }
@@ -103,7 +103,7 @@ axios.get("https://api.github.com/users/Istott")
   .then(response => {
   console.log(response.data)
   entryPoint.append(gitFriends(response.data));
-})
+  })
   .catch(error => {
   console.log("the data was not returned", error)
 });
