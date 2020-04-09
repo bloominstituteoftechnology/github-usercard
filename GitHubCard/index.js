@@ -16,7 +16,6 @@ axios.get('https://api.github.com/users/avpimblesr/followers')
     getFollowers(response.data);
   })
   .catch((err) => {
-    // console.log(err)
     console.error(err)
   })
 
@@ -65,8 +64,6 @@ const makeUserCard = (user) => {
   return userCard
 }
 
-postUserCard('https://api.github.com/users/avpimblesr')
-
 // Place the card on the DOM //
 const cards = document.querySelector('.cards')
 
@@ -76,21 +73,26 @@ const getUser = (user) => {
   cards.appendChild(newCard)
 }
 
-// Make cards for the followers
+// Post my card to the DOM
+postUserCard('https://api.github.com/users/avpimblesr')
+
+// Make cards for the followers and post them to the DOM
 const getFollowers = (followers) => {
   followers.map(follower => {
     postUserCard(`https://api.github.com/users/${follower.login}`)
   })
 }
 
-// const followersArray = [];
-// followersArray.push(follower.login)
-
 // Change the size and color of the heart
 const heart = document.querySelector('.header p')
 heart.style.color = '#faf'
 heart.style.fontSize = '150px'
 
+/************************************************************************************/
+/************************************************************************************/
+
+// I used the response data directly instead of copying it to the FollowersArray
+// const followersArray = [];
 
 /* Step 1: using axios, send a GET request to the following URL
            (replacing the palceholder with your Github name):
