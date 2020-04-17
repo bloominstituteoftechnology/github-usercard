@@ -48,7 +48,7 @@ function userGrabber(username){
     })
 };
 
-
+// userGrabber('ofrepose')
 
 const followersArray = ['ofrepose','tetondan',
   'dustinmyers',
@@ -56,7 +56,7 @@ const followersArray = ['ofrepose','tetondan',
   'luishrd',
   'bigknell'];
 
-  followersArray.forEach( (element) => {
+followersArray.forEach( (element) => {
   userGrabber(element);
 })
 
