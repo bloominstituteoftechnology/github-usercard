@@ -6,11 +6,6 @@
 
 
 
-  axios.get('https://api.github.com/users/jcharp')
-    .then(function (response) {
-      console.log(response);
-    })
-    
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -54,7 +49,7 @@ const followersArray = [];
 
 */
 
-function people(){
+function people(users){
   const card = document.createElement('div');
   const image =document.createElement('img');
   const cardInfo = document.createElement('div');
@@ -72,6 +67,13 @@ function people(){
   name.classList.add('name');
   userName.classList.add('username');
 
+  image.src = avatar_url;
+  cardInfo.name = login;
+  cardInfo.userName = name;
+  cardInfo.locaction = location;
+  cardInfo.anchor = url;
+  cardInfo.followers = followers;
+  cardInfo.following = following;
 
   card.appendChild(image);
   card.appendChild('cardInfo');
@@ -86,10 +88,25 @@ function people(){
 
 
 
-//return people();
-
+return people();
 
 }
+
+const entryPoint = document.querySelector('.entry');
+
+axios.get('https://api.github.com/users/jcharp')
+.then( (response) => {
+  response.data.forEach( (item) => {
+    const newPeople = people(users);
+
+    card.appendChild(entryPoint);
+  })
+})
+.catch((err) => {
+  console.log("there was an error made")
+});
+
+
 
 console.log(people);
 
