@@ -3,6 +3,8 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
+
 axios
   .get('https://api.github.com/users/arn-foto')
   .then(function (response) {
@@ -40,9 +42,32 @@ axios
     Using that array, iterate over it, requesting data for each user, creating a new card for each
     user, and adding that card to the DOM.
 */
+const userCards = document.querySelector('.cards');
 
-const followersArray = [];
+const followersArray = [
+  'jvaldezdipre',
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell',
+];
 
+const getUser = () => {
+  followersArray.forEach(item => {
+    axios
+      .get(`https://api.github.com/users/${item}`)
+      .then(res => {
+        console.log(res.data);
+        userCards.appendChild(createUserCard(res.data));
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  });
+};
+
+getUser();
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
