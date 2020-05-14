@@ -3,7 +3,14 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-axios.get('https://api.github.com/users/JenVest2020');
+axios.get('https://api.github.com/users/JenVest2020')
+  .then(response => {
+    cardMaker(response);
+    console.log(response);
+  })
+  .catch(err => {
+    console.log('Error', err);
+  });
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -49,7 +56,51 @@ const followersArray = [];
       </div>
     </div>
 */
+function cardMaker(object) {
+  let container = document.createElement('div');
+  container.classList.add('card');
+  let image = document.createElement('img');
+  let info = document.createElement('div');
+  info.classList.add('card-info');
+  let h3 = document.createElement('h3');
+  h3.classList.add('name');
+  let pUsername = document.createElement('p');
+  pUsername.classList.add('username');
+  let pLocation = document.createElement('p');
+  let pProfile = document.createElement('p');
+  let aAddress = document.createElement('a');
+  let pFollowers = document.createElement('p');
+  let pFollowing = document.createElement('p');
+  let pBio = document.createElement('p');
 
+  // appending to the DOM
+  let parent = document.querySelector('.cards');
+  parent.appendChild(container);
+  container.appendChild(image);
+  container.appendChild(info);
+  info.appendChild(h3);
+  info.appendChild(pUsername);
+  info.appendChild(pLocation);
+  info.appendChild(pProfile);
+  pProfile.appendChild(aAddress);
+  info.appendChild(pFollowers);
+  info.appendChild(pFollowing);
+  info.appendChild(pBio);
+
+  image.src = object.data.avatar_url;
+  h3.textContent = `${object.data.name}`;
+  pUsername.textContent = object.data.login;
+  pLocation.textContent = `Location : ${object.data.location}`;
+  aAddress.textContent = 'Profile : ${object.data.html_url}';
+  aAddress.setAttribute('href', object.data.html_url);
+  pFollowers.textContent = `Followers : ${object.data.followers}`;
+  pFollowing.textContent = `Following : ${object.data.following}`;
+  pBio.textContent = `Bio: ${object.data.bio}`;
+
+
+
+  return container;
+};
 /*
   List of LS Instructors Github username's:
     tetondan
