@@ -35,7 +35,8 @@ axios.get('https://api.github.com/users/JenVest2020')
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -82,7 +83,6 @@ function cardMaker(object) {
   info.appendChild(pUsername);
   info.appendChild(pLocation);
   info.appendChild(pProfile);
-  pProfile.appendChild(aAddress);
   info.appendChild(pFollowers);
   info.appendChild(pFollowing);
   info.appendChild(pBio);
@@ -91,14 +91,15 @@ function cardMaker(object) {
   h3.textContent = `${object.data.name}`;
   pUsername.textContent = object.data.login;
   pLocation.textContent = `Location : ${object.data.location}`;
-  aAddress.textContent = 'Profile : ${object.data.html_url}';
+  pProfile.textContent = 'Profile :';
   aAddress.setAttribute('href', object.data.html_url);
+  aAddress.textContent = '' + object.data.html_url;
   pFollowers.textContent = `Followers : ${object.data.followers}`;
   pFollowing.textContent = `Following : ${object.data.following}`;
   pBio.textContent = `Bio: ${object.data.bio}`;
 
 
-
+  pProfile.appendChild(aAddress);
   return container;
 };
 /*
