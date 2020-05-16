@@ -49,6 +49,7 @@ function cardMaster (param){
   const followers = document.createElement('p')
   const following = document.createElement('p')
   const bio = document.createElement('p')
+  const aTag = document.createElement('a')
 
   cardInfo.classList.add('card-info')
   card.classList.add('card')
@@ -60,18 +61,23 @@ function cardMaster (param){
   username.textContent = `Username: ${param.login}`
   location.textContent = `Location: ${param.location}`
   image.src = param.avatar_url
+  profile.textContent = `Profile:`
+  aTag.href = param.html_url
+  aTag.textContent = ` ${aTag}`
   followers.textContent = `Followers: ${param.followers}`
   following.textContent = `Following: ${param.following}`
   bio.textContent = `Bio: ${param.bio}`
 
   card.append(image, cardInfo)
   cardInfo.append(name,username,location,profile,followers,following,bio)
+  profile.append(aTag)
 
   return card
 }
-axios.get('https://api.github.com/users/dustnclay')
+axios.get('https://cors-anywhere.herokuapp.com/https://api.github.com/users/dustnclay')
 .then(data => {
 let newData = data.data
+console.log(newData)
 entry.prepend(cardMaster(newData))
 })
 .catch(err => console.log('error in retrieving', err))
@@ -84,31 +90,31 @@ entry.prepend(cardMaster(newData))
           Using that array, iterate over it, requesting data for each user, creating a new card for each
           user, and adding that card to the DOM.
 */
-axios.get('https://api.github.com/users/tetondan')
+axios.get('https://cors-anywhere.herokuapp.com/https://api.github.com/users/tetondan')
 .then(data =>{
 let teet = data.data
 entry.append(cardMaster(teet))
 })
 
-axios.get('https://api.github.com/users/dustinmyers')
+axios.get('https://cors-anywhere.herokuapp.com/https://api.github.com/users/dustinmyers')
 .then(data => {
 let otherDustin = data.data
 entry.append(cardMaster(otherDustin))
 })
 
-axios.get('https://api.github.com/users/justsml')
+axios.get('https://cors-anywhere.herokuapp.com/https://api.github.com/users/justsml')
 .then(data => {
 let just = data.data
 entry.append(cardMaster(just))
 })
 
-axios.get('https://api.github.com/users/luishrd')
+axios.get('https://cors-anywhere.herokuapp.com/https://api.github.com/users/luishrd')
 .then(data =>{
  let luis = data.data
  entry.append(cardMaster(luis))
 })
 
-axios.get('https://api.github.com/users/bigknell')
+axios.get('https://cors-anywhere.herokuapp.com/https://api.github.com/users/bigknell')
 .then(data => {
 let knell = data.data
 entry.append(cardMaster(knell))
