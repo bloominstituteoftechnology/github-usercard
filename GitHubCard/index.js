@@ -3,43 +3,48 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-// const data = axios.get('https://api.github.com/users/BlueEagle')
-// console.log(data)
+const cards = document.querySelector('.cards')
+axios.get('https://api.github.com/users/BlueEagle')
+  .then(response => {
+    console.log(response.data)
+    const component = createComponent(response.data)
+    cards.appendChild(component)
+  })
 
-const data = {
-  "login": "BlueEagle",
-  "id": 6562992,
-  "node_id": "MDQ6VXNlcjY1NjI5OTI=",
-  "avatar_url": "https://avatars0.githubusercontent.com/u/6562992?v=4",
-  "gravatar_id": "",
-  "url": "https://api.github.com/users/BlueEagle",
-  "html_url": "https://github.com/BlueEagle",
-  "followers_url": "https://api.github.com/users/BlueEagle/followers",
-  "following_url": "https://api.github.com/users/BlueEagle/following{/other_user}",
-  "gists_url": "https://api.github.com/users/BlueEagle/gists{/gist_id}",
-  "starred_url": "https://api.github.com/users/BlueEagle/starred{/owner}{/repo}",
-  "subscriptions_url": "https://api.github.com/users/BlueEagle/subscriptions",
-  "organizations_url": "https://api.github.com/users/BlueEagle/orgs",
-  "repos_url": "https://api.github.com/users/BlueEagle/repos",
-  "events_url": "https://api.github.com/users/BlueEagle/events{/privacy}",
-  "received_events_url": "https://api.github.com/users/BlueEagle/received_events",
-  "type": "User",
-  "site_admin": false,
-  "name": "Collin Ballou",
-  "company": null,
-  "blog": "Balloucollin.dev",
-  "location": "Utah",
-  "email": null,
-  "hireable": true,
-  "bio": "Writing many things.\r\n\r\nStudent at Lambda School.\r\n\r\nPython is my side hustle.",
-  "twitter_username": null,
-  "public_repos": 37,
-  "public_gists": 2,
-  "followers": 2,
-  "following": 15,
-  "created_at": "2014-02-01T18:28:57Z",
-  "updated_at": "2020-06-04T19:04:19Z"
-}
+// const data = {
+//   "login": "BlueEagle",
+//   "id": 6562992,
+//   "node_id": "MDQ6VXNlcjY1NjI5OTI=",
+//   "avatar_url": "https://avatars0.githubusercontent.com/u/6562992?v=4",
+//   "gravatar_id": "",
+//   "url": "https://api.github.com/users/BlueEagle",
+//   "html_url": "https://github.com/BlueEagle",
+//   "followers_url": "https://api.github.com/users/BlueEagle/followers",
+//   "following_url": "https://api.github.com/users/BlueEagle/following{/other_user}",
+//   "gists_url": "https://api.github.com/users/BlueEagle/gists{/gist_id}",
+//   "starred_url": "https://api.github.com/users/BlueEagle/starred{/owner}{/repo}",
+//   "subscriptions_url": "https://api.github.com/users/BlueEagle/subscriptions",
+//   "organizations_url": "https://api.github.com/users/BlueEagle/orgs",
+//   "repos_url": "https://api.github.com/users/BlueEagle/repos",
+//   "events_url": "https://api.github.com/users/BlueEagle/events{/privacy}",
+//   "received_events_url": "https://api.github.com/users/BlueEagle/received_events",
+//   "type": "User",
+//   "site_admin": false,
+//   "name": "Collin Ballou",
+//   "company": null,
+//   "blog": "Balloucollin.dev",
+//   "location": "Utah",
+//   "email": null,
+//   "hireable": true,
+//   "bio": "Writing many things.\r\n\r\nStudent at Lambda School.\r\n\r\nPython is my side hustle.",
+//   "twitter_username": null,
+//   "public_repos": 37,
+//   "public_gists": 2,
+//   "followers": 2,
+//   "following": 15,
+//   "created_at": "2014-02-01T18:28:57Z",
+//   "updated_at": "2020-06-04T19:04:19Z"
+// }
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -54,6 +59,7 @@ const data = {
     and append the returned markup to the DOM as a child of .cards
 */
 
+
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
@@ -65,7 +71,18 @@ const data = {
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['davericher', '	z7r1k3', 'LukeSmithxyz', 'torvalds', 'BjarneStroustrup'];
+
+followersArray.forEach(follower => {
+  axios.get(`https://api.github.com/users/${follower}`)
+    .then(fResponse => {
+      const fComponent = createComponent(fResponse.data)
+      cards.appendChild(fComponent)
+    })
+    .catch(error => {
+      console.error('There was an error!',error);
+    })
+})
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -130,7 +147,6 @@ function createComponent(componentData) {
 
   return card
 }
-// const component = createComponent(data)
 
 /*
   List of LS Instructors Github username's:
