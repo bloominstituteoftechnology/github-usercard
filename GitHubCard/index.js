@@ -8,6 +8,9 @@ axios
   .get("https://api.github.com/users/slightflow")
   .then((response) => {
     console.log(response);
+    const githubData = response.data; //this requests only the data so we can push it to html
+    const card = createGitHubCard(githubData);
+    cardsContainer.appendChild(card);
   })
   .catch((error) => {
     console.log;
@@ -58,6 +61,59 @@ const followersArray = [];
       </div>
     </div>
 */
+
+const cardsContainer = document.querySelector(".cards");
+
+function createGitHubCard(attrs) {
+  const card = document.createElement("div");
+  const image = document.createElement("img");
+  const cardInfo = document.createElement("div");
+  const name = document.createElement("h3");
+  const userName = document.createElement("p");
+  const location = document.createElement("p");
+  const profile = document.createElement("p");
+  const userUrl = document.createElement("a");
+  const followers = document.createElement("p");
+  const following = document.createElement("p");
+  const bio = document.createElement("p");
+
+  card.classList.add("card");
+  cardInfo.classList.add("card-info");
+  name.classList.add("name");
+  userName.classList.add("username");
+
+  card.appendChild(image);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  profile.appendChild(userUrl);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+
+  const avatarURL = attrs.avatar_url;
+  const attrsName = attrs.name;
+  const attrsUserName = attrs.login;
+  const attrsLocation = `Location: ${attrs.location}`;
+  const attrsURL = attrs.html_url;
+  const attrsFollowers = `Followers: ${attrs.followers}`;
+  const attrsFollowing = `Following: ${attrs.followers}`;
+  const attrsBio = `Bio: ${attrs.bio}`;
+
+  image.src = avatarURL;
+  name.textContent = attrsName;
+  userName.textContent = attrsUserName;
+  location.textContent = attrsLocation;
+  userUrl.textContent = attrsURL;
+  userUrl.href = attrsURL;
+  followers.textContent = attrsFollowers;
+  following.textContent = attrsFollowing;
+  bio.textContent = attrsBio;
+
+  return card;
+}
 
 /*
   List of LS Instructors Github username's:
