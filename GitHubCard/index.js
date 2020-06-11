@@ -49,6 +49,52 @@ const followersArray = [];
       </div>
     </div>
 */
+function github_card(obj){
+
+  //creating 
+  const card=document.createElement('div');
+  const user_img_url=document.createElement('img');
+  const card_info=document.createElement('div');
+  const name=document.createElement('h3');
+  const user_name=document.createElement('p');
+  const location=document.createElement('p');
+  const profile=document.createElement('p');
+  const github_address=document.createElement('a');
+  const followers=document.createElement('p');
+  const following=document.createElement('p');
+  const bio=document.createElement('p');
+  
+
+  //append
+  card.appendChild(user_img_url);
+  card.appendChild(card_info);
+  card_info.appendChild(name);
+  card_info.appendChild(user_name);
+  card_info.appendChild(location);
+  card_info.appendChild(profile);
+  profile.appendChild(github_address);
+  card_info.appendChild(followers);
+  card_info.appendChild(following);
+  card_info.appendChild(bio);
+  
+
+//classlist
+card.classList.add('card');
+card_info.classList.add('card-info');
+
+//content update
+user_img_url.src=obj.avatar_url;
+name.textContent=obj.name;
+user_name.textContent=obj.login;
+location.textContent=obj.location;
+github_address.href=obj.html_url;
+
+
+
+
+  return card ;
+
+}
 
 /*
   List of LS Instructors Github username's:
@@ -58,6 +104,7 @@ const followersArray = [];
     luishrd
     bigknell
 */
+const cards=document.querySelector('.cards');
 
 let name = "Nandhini-Madan";
 
@@ -65,7 +112,7 @@ axios
   .get(`https://api.github.com/users/${name}`)
   .then((res) => {
     console.log("Here is the res: ", res);
-   
+    cards.append(github_card(res.data));
   })
   .catch((err) => {
     console.log("There was an error: ", err);
