@@ -58,3 +58,15 @@ const followersArray = [];
     luishrd
     bigknell
 */
+
+let name = "Nandhini-Madan";
+
+axios
+  .get(`https://api.github.com/users/${name}`)
+  .then((res) => {
+    console.log("Here is the res: ", res);
+   
+  })
+  .catch((err) => {
+    console.log("There was an error: ", err);
+  });
