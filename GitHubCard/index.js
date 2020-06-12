@@ -3,6 +3,18 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+//GET REQUEST//
+axios.get('https://api.github.com/users/dgarcialambda')
+.then(function(response) {
+  console.log(response);
+})
+.catch(function(error) {
+  console.log(error);
+})
+.then(function() {
+
+});
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -49,6 +61,51 @@ const followersArray = [];
       </div>
     </div>
 */
+//COMPONENT//
+function mycard(obj) {
+
+  //CREATING COMPONENT//
+  const didiCard = document.createElement('div');
+  const didiImg = document.createElement('img');
+  const didiTitle = document.createElement('h3');
+  const didiUserName = document.createElement('p')
+  const didiLocation = document.createElement('p');
+  const didiProfile = document.createElement('p');
+  const didiFollowers = document.createElement('p');
+  const followingDidi = document.createElement('p')
+  const didiBio = document.createElement('p');
+
+  //APPENDING//
+  didiCard.appendChild(didiImg);
+  didiCard.appendChild(didiTitle);
+  didiCard.appendChild(didiUserName)
+  didiCard.appendChild(didiLocation);
+  didiCard.appendChild(didiProfile);
+  didiCard.appendChild(didiFollowers);
+  didiCard.appendChild(followingDidi);
+  didiCard.appendChild(didiBio);
+  
+  //STYLING//
+  didiImg.src = avatar_url;
+
+  //PROGRAMMATICALLY UPDATE CONTENT
+  didiTitle.textContent = obj.name;
+  didiUserName.textContent = obj.login;
+  didiLocation.textContent = obj.location;
+  didiFollowers.textContent = obj.followers;
+  followingDidi.textContent = obj.following;
+  didiBio.textContent = obj.bio;
+
+  //EVENTS//
+  didiCard.addEventListener('click', () => {
+  didiCard.classList.toggle('selected');
+  });
+  return didiCard;
+}
+const card = document.querySelector('.card');
+data.forEach((obj) => {
+  card.appendChild(mycard(obj));
+});
 
 /*
   List of LS Instructors Github username's:
