@@ -68,7 +68,19 @@ followersArray.forEach(e => {
       </div>
     </div>
 */
-
+function github(obj){
+  const cardDiv = document.createElement('div')
+  const imgEl = document.createElement('img')
+  const cardInfo = document.createElement('div')
+  const userName = document.createElement('h3')
+  const username = document.createElement('p')
+  const location = document.createElement('p')
+  const Profile = document.createElement('p')
+  const url = document.createElement('a')
+  const followers = document.createElement('p')
+  const following = document.createElement('p')
+  const bio = document.createElement('p')
+}
 /*
   List of LS Instructors Github username's:
     tetondan
