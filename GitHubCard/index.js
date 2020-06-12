@@ -3,6 +3,7 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+const newCard = document.querySelector('.cards');
 
 axios.get('https://api.github.com/users/aperez9423')
   .then((res) => {
@@ -41,7 +42,7 @@ const followersArray = [
   'https://api.github.com/users/dterran2',
   'https://api.github.com/users/melanie-mendoza',
   'https://api.github.com/users/chqiu6',
-  'https://api-github.com/users/Stratified'
+  'https://api.github.com/users/Stratified'
 ];
 
 followersArray.forEach(followerCard => {
@@ -72,55 +73,54 @@ followersArray.forEach(followerCard => {
     </div>
 */
 
-  function cardCreator (user) {
+  function cardCreator ({data}) {
     //creating
     const card = document.createElement('div');
     const image = document.createElement('img');
-    const cardInfo = document.createElement('div');
+    const info = document.createElement('div');
     const name = document.createElement('h3');
     const username = document.createElement('p');
     const location = document.createElement('p');
     const profile = document.createElement('p');
-    const address = document.createElement('a');
-    const followersCount = document.createElement('p');
-    const followingCount = document.createElement('p');
-    const userBio = document.createElement('p');
+    const link = document.createElement('a');
+    const followers = document.createElement('p');
+    const following = document.createElement('p');
+    const bio = document.createElement('p');
   
     //styling
     card.classList.add('card');
-    cardInfo.classList.add('card-info');
+    info.classList.add('card-info');
     name.classList.add('name');
     username.classList.add('username');
 
     //appending
     card.appendChild(image);
-    card.appendChild(cardInfo);
+    card.appendChild(info);
 
-    cardInfo.appendChild(name);
-    cardInfo.appendChild(username);
-    cardInfo.appendChild(location);
-    cardInfo.appendChild(profile);
-    cardInfo.appendChild(followersCount);
-    cardInfo.appendChild(followingCount);
-    cardInfo.appendChild(userBio);
-
-    profile.appendChild(address);
+    info.appendChild(name);
+    info.appendChild(username);
+    info.appendChild(location);
+    info.appendChild(profile);
+    profile.appendChild(link);
+    info.appendChild(followers);
+    info.appendChild(following);
+    info.appendChild(bio);
   
     //update content
-    address.href = user.data.html_url;
-    profile.textContent =`Profile:  ${address}`;
-    image.src = user.data.avatar_url;
-    name.textContent = user.data.name;
-    username.textContent = `${user.data.login}`;
-    location.textContent = `Location:  ${user.data.location}`;
-    followersCount.textcontent = `Followers:  ${user.data.followers}`;
-    followingCount.textcontent = `Following:  ${user.data.following}`;
-    userBio.textcontent = `Bio:  ${user.data.bio}`;
+    link.href = data.html_url;
+    link.textContent = data.html_url;
+
+    name.textContent = data.name;
+    username.textContent = data.login;
+    location.textContent = "Location: " + data.location;
+    profile.textContent = "Profile: " + link;
+    followers.textContent = "Followers: " + data.followers;
+    following.textContent = "Following: " + data.following;
+    bio.textContent = "Bio: " + data.bio;
+    image.src = data.avatar_url;
 
     return card;
   };
-
-  const newCard = document.querySelector('.cards');
   
 /*
   List of LS Instructors Github username's:
