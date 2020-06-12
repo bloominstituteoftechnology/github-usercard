@@ -75,11 +75,23 @@ function github(obj){
   const userName = document.createElement('h3')
   const username = document.createElement('p')
   const location = document.createElement('p')
-  const Profile = document.createElement('p')
+  const profile = document.createElement('p')
   const url = document.createElement('a')
   const followers = document.createElement('p')
   const following = document.createElement('p')
   const bio = document.createElement('p')
+
+  profile.appendChild(url)
+  cardInfo.appendChild(userName)
+    cardInfo.appendChild(username)
+    cardInfo.appendChild(location)
+    cardInfo.appendChild(profile)
+    cardInfo.appendChild(followers)
+    cardInfo.appendChild(following)
+    cardInfo.appendChild(bio)
+    cardInfo.appendChild(imgEl) 
+    cardInfo.appendChild(cardInfo)
+
 }
 /*
   List of LS Instructors Github username's:
