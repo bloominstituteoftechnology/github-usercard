@@ -4,6 +4,11 @@
     https://api.github.com/users/<your name>
 */
 
+axios
+  .get(`https://api.github.com/users/dterran2`)
+  .then()
+  .catch()
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -49,6 +54,40 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function cardFunc(obj) {
+
+  const divCard = document.createElement('div');
+  const userImg = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const personName = document.createElement('h3');
+  const userName = document.createElement('p');
+  const personLocation = document.createElement('p');
+  const personProfile = document.createElement('p');
+  const gitHubaddress = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const usersBio = document.createElement('p');
+
+  divCard.appendChild(userImg);
+  divCard.appendChild(cardInfo);
+  cardInfo.appendChild(personName);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(personLocation);
+  cardInfo.appendChild(personProfile);
+  personProfile.appendChild(gitHubaddress);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(usersBio);
+
+  divCard.classList.add('card');
+  cardInfo.classList.add('card-info');
+  personName.classList.add('name');
+  userName.classList.add('username');
+
+
+};
+
 
 /*
   List of LS Instructors Github username's:
