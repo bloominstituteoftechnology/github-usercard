@@ -36,7 +36,7 @@ let followersArray = [  'adrichardson112',
                         'bigknell',
                         'wSedlacek'];
 
-// Step 1+2: Get a single user's data and display the card component
+
 function displayCard (username) {
   axios.get(`https://api.github.com/users/${username}`)
         .then(function (response) {
@@ -45,19 +45,18 @@ function displayCard (username) {
               const card = makeCard(response.data);
 
               if (username === primeUser) {
-                // primeUser card should always appear at the top
+
                 cardContainer.insertBefore(card, cardContainer.childNodes[0]);
               } else {
                 cardContainer.appendChild(card);
               }
-        }) // end .then
+        }) 
         .catch(function (error) {
-          // handle error
+
           console.log(error);
         });
 }
 
-// Stretch: get a list of followers from the api and display cards for them
 function displayFollowersCards (username) {
   axios.get(`https://api.github.com/users/${username}/followers`)
         .then(function (response) {
@@ -71,7 +70,6 @@ function displayFollowersCards (username) {
         });
 }
 
-// Step 3: build the card component for a single user
 function makeCard (user) {
   const card = document.createElement('div');
   card.classList.add('card');
@@ -118,7 +116,6 @@ function makeCard (user) {
 
   // v Stretch v
 
-  // GitHub statistics calendar
   const calendar = document.createElement('div');
   calendar.classList.add('calendar');
   calendar.textContent = `Loading the data just for you & ${user.login}`;
@@ -126,7 +123,6 @@ function makeCard (user) {
   GitHubCalendar(calendar, user.login, { responsive: true });
   calendar.style.display = `none`;
 
-  // Open/Close button
   let closed = true;
   const openButton = document.createElement('i');
   openButton.style.position = `relative`;
@@ -153,7 +149,7 @@ function makeCard (user) {
     });
 
   return card;
-} // end makeCard()
+}
 
 displayCard(primeUser);
 displayFollowersCards(primeUser);
