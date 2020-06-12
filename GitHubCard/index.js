@@ -58,12 +58,13 @@ function github_card(obj){
   const name=document.createElement('h3');
   const user_name=document.createElement('p');
   const location=document.createElement('p');
-  const profile=document.createElement('p');
+
+  const p1=document.createElement('p');
   const github_address=document.createElement('a');
   const followers=document.createElement('p');
   const following=document.createElement('p');
   const bio=document.createElement('p');
-  
+ 
 
   //append
   card.appendChild(user_img_url);
@@ -71,41 +72,40 @@ function github_card(obj){
   card_info.appendChild(name);
   card_info.appendChild(user_name);
   card_info.appendChild(location);
-  card_info.appendChild(profile);
-  profile.appendChild(github_address);
+  p1.appendChild(github_address); 
+  card_info.appendChild(p1);
   card_info.appendChild(followers);
   card_info.appendChild(following);
   card_info.appendChild(bio);
   
 
 //classlist
+
 card.classList.add('card');
 card_info.classList.add('card-info');
+p1.classList.add('profile');
 
 //content update
 user_img_url.src=obj.avatar_url;
-name.textContent=obj.name;
-user_name.textContent=obj.login;
+name.textContent="name: "+obj.name;
+name.style.fontSize="3.3rem";
+user_name.textContent="Username: "+obj.login;
 location.textContent="location:"+obj.location;
-profile.textContent="Profile:"+obj.html_url;
+p1.textContent="Profile:";
 
 //github_address.setAttribute('href',obj.html_url);
 //github_address.setAttribute('textContent', "hi");
-github_address.href=obj.html_url;
-console.log(github_address.href);
-github_address.textContent="github link";
-console.log(github_address);
+
+//console.log(github_address);
 //github_address.href=obj.html_url;
 //github_address.textContent=obj.html_url;
+github_address.href=obj.html_url;
+github_address.innerHTML="github link";
 followers.textContent="followers:"+obj.followers;
 following.textContent="following:"+obj.following;
 bio.textContent="bio:"+obj.bio;
 
-
-
-
-  return card ;
-
+  return card;
 }
 
 /*
