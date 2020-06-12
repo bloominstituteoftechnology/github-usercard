@@ -28,7 +28,26 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['JR08151',
+  'KirstenS13',
+  '2Cold2Code',
+  'ron-huges',
+  'MTaylor-tech'];
+
+const cards = document.querySelector('.cards');
+followersArray.forEach(e => {
+  const promise = axios.get(`https://api.github.com/users/${e}`)
+  promise.then(data => {
+    console.log('response:', data)
+  })
+  promise.then(data => {
+    cards.appendChild(github(data.data))
+  })
+})
+// promise.then(data=>{
+//   cards.appendChild(github(data.data))
+// })
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
