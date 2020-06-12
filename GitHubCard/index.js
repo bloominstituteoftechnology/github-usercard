@@ -28,7 +28,7 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+//const followersArray = [];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -86,8 +86,20 @@ card_info.classList.add('card-info');
 user_img_url.src=obj.avatar_url;
 name.textContent=obj.name;
 user_name.textContent=obj.login;
-location.textContent=obj.location;
+location.textContent="location:"+obj.location;
+profile.textContent="Profile:"+obj.html_url;
+
+//github_address.setAttribute('href',obj.html_url);
+//github_address.setAttribute('textContent', "hi");
 github_address.href=obj.html_url;
+console.log(github_address.href);
+github_address.textContent="github link";
+console.log(github_address);
+//github_address.href=obj.html_url;
+//github_address.textContent=obj.html_url;
+followers.textContent="followers:"+obj.followers;
+following.textContent="following:"+obj.following;
+bio.textContent="bio:"+obj.bio;
 
 
 
@@ -104,16 +116,27 @@ github_address.href=obj.html_url;
     luishrd
     bigknell
 */
+const followersArray=[ 
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell"];
+  
 const cards=document.querySelector('.cards');
 
 let name = "Nandhini-Madan";
+followersArray.forEach(element=>{
+  console.log(element);
 
-axios
-  .get(`https://api.github.com/users/${name}`)
+  axios
+  .get(`https://api.github.com/users/${element}`)
   .then((res) => {
-    console.log("Here is the res: ", res);
+   // console.log("Here is the res: ", res);
     cards.append(github_card(res.data));
   })
   .catch((err) => {
     console.log("There was an error: ", err);
   });
+
+});
