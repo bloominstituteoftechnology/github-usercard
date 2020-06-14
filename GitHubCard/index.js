@@ -51,12 +51,68 @@ const followersArray = [];
       </div>
     </div>
 */
+const Card = (object) => {
+        const card = document.createElement('div'),
+            img = document.createElement('img'),
+            info = document.createElement('div'),
+            name = document.createElement('h3'),
+            username = document.createElement('p'),
+            location = document.createElement('p'),
+            profile = document.createElement('p'),
+            profileUrl = document.createElement('a'),
+            followers = document.createElement('p'),
+            following = document.createElement('p'),
+            bio = document.createElement('p')
 
-/*
-  List of LS Instructors Github username's:
-    tetondan
-    dustinmyers
-    justsml
-    luishrd
-    bigknell
-*/
+        card.className = 'card'
+        img.src = object.avatar_url
+        info.className = 'card-info'
+        name.className = 'name'
+        username.className = 'username'
+        profileUrl.href = object.url
+
+        name.textContent = object.name
+        username.textContent = object.login
+        location.textContent = `Location: ${object.location}`
+        profile.textContent = 'Profile: '
+        profileUrl.textContent = object.url
+        followers.textContent = `Followers: ${object.followers}`
+        following.textContent = `Following: ${object.following}`
+        bio.textContent = `Bio: ${object.bio}`
+
+        card.appendChild(img)
+        card.appendChild(info)
+        info.appendChild(name)
+        info.appendChild(username)
+        info.appendChild(location)
+        info.appendChild(profile)
+        profile.appendChild(profileUrl)
+        info.appendChild(followers)
+        info.appendChild(following)
+        info.appendChild(bio)
+
+        const cards = document.querySelector('.cards')
+        cards.appendChild(card)
+
+        return card
+    }
+    /*
+      List of LS Instructors Github username's:
+        tetondan
+        dustinmyers
+        justsml
+        luishrd
+        bigknell
+    */
+
+
+
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd',
+    'bigknell'
+];
+
+followersArray.forEach(follower => {
+    axios.get(`https://api.github.com/users/${follower}`)
+        .then(response => Card(response.data))
+        .catch(err => console.log(err.message))
+})
