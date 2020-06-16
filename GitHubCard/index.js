@@ -4,10 +4,6 @@
     https://api.github.com/users/<your name>
 */
 
-axios
-  .get(`https://api.github.com/users/dterran2`)
-  .then()
-  .catch()
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -33,7 +29,7 @@ axios
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -85,10 +81,51 @@ function cardFunc(obj) {
   personName.classList.add('name');
   userName.classList.add('username');
 
+  userImg.src = obj.data.avatar_url;
+  personName.textContent = obj.data.name;
+  userName.textContent = obj.data.login;
+  personLocation.textContent = obj.data.location;
+  gitHubaddress.src = obj.data.html_url;
+  followers.textContent = `Followers: ${obj.data.followers}`;
+  following.textContent = `Following: ${obj.data.following}`;
+  usersBio.textContent = obj.data.bio;
 
+  divCard.addEventListener('click', () => {
+    divCard.classList.toggle('menu--open');
+  });
+
+
+  return divCard;
 };
 
 
+
+axios
+  .get(`https://api.github.com/users/dterran2`)
+  .then((res) => {
+    console.log('Here is the res: ', res);
+    
+      const cards = document.querySelector('.cards');
+      const card = cardFunc(res);
+      cards.appendChild(card)
+    })
+      
+  .catch((err) => {
+    console.log('There was an error: ', err);
+  });
+
+followersArray.forEach((item) => {
+  axios
+.get(`https://api.github.com/users/${item}`)
+.then((res) => {
+        const cards = document.querySelector('.cards');
+        cards.appendChild(cardFunc(res))
+      })
+  
+  .catch((err) => {
+    console.log('There was an error: ', err);
+  });
+});
 /*
   List of LS Instructors Github username's:
     tetondan
