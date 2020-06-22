@@ -4,8 +4,9 @@ In this project we are going to be accessing the GitHub API and building a socia
 
 ## Need to know
 
-* NPM:
-  * Downloading project dependencies using npm
+* Adding dependencies to a project:
+  * Via script element
+  * Using npm
 * JavaScript:
   * Creating DOM components with Javascript Functions
   * Utilizing 3rd party libraries (Axios)
