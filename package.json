@@ -1,0 +1,23 @@
+{
+  "name": "github-usercard",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "parcel index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LambdaSchool/github-usercard.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LambdaSchool/github-usercard/issues"
+  },
+  "homepage": "https://github.com/LambdaSchool/github-usercard#readme",
+  "devDependencies": {
+    "eslint": "^7.3.0",
+    "parcel-bundler": "^1.12.4"
+  },
+  "dependencies": {}
+}
