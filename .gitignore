@@ -200,3 +200,6 @@ scratch
 
 # Indium configuration
 .indium.json
+
+# seems related to Lambda School 'npm start'
+nil/
