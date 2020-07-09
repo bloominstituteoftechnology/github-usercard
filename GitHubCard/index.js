@@ -13,12 +13,16 @@ import axios from 'axios';
     https://api.github.com/users/<your name>
 */
 
-axios.get('https://api.github.com/users/HarryHenryGebel')
-  .then(function (response) {
-    const card = makeCard(response.data);
-    const cards = document.querySelector('.cards');
-    cards.appendChild(card);
-  });
+async function fillContent(userName) {
+  let cardData;
+  await axios.get('https://api.github.com/users/${userName}')
+      .then(function (response) {
+        cardData = response.data;
+        const card = makeCard(cardData);
+        const cards = document.querySelector('.cards');
+        cards.appendChild(card);
+      });
+}
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -154,4 +158,4 @@ function makeCard(cardData) {
     bigknell
 */
 
-//  LocalWords:  axios profileLink
+//  LocalWords:  axios profileLink userName
