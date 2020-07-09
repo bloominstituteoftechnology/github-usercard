@@ -14,7 +14,11 @@ import axios from 'axios';
 */
 
 axios.get('https://api.github.com/users/HarryHenryGebel')
-  .then(response => makeCard(response.data));
+  .then(function (response) {
+    const card = makeCard(response.data);
+    const cards = document.querySelector('.cards');
+    cards.appendChild(card);
+  });
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
