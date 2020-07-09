@@ -64,9 +64,10 @@ const followersArray = [];
 
 /**
  * Create a paragraph
- * @param {string} text - Text for the paragraph
+ * @param {string} text - Text for the paragraph. No textContent is
+ * created if undefined is passed in.
  * @param {string} [paragraphClass=undefined] - The class of the
- *   paragraph. If not provided, paragraph is not assigned a class.
+ * paragraph. If not provided, paragraph is not assigned a class.
  * @return {Element} The p element created
  */
 function makeParagraph(text, paragraphClass = undefined) {
@@ -76,7 +77,9 @@ function makeParagraph(text, paragraphClass = undefined) {
   if (paragraphClass)
     p.classList.add(paragraphClass);
 
-  p.textContent = text;
+  // don't add textContent if text is undefined
+  if (text != undefined)
+    p.textContent = text;
 
   return p;
 }
