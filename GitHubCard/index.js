@@ -49,6 +49,8 @@ async function fillContent(userName) {
       const data = response.data;
       followers = data.map(follower => follower.login);
     });
+
+  followers.forEach(follower => fillCard(follower));
 }
 fillContent('HarryHenryGebel');
 
