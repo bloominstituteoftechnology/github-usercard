@@ -3,6 +3,20 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+import axios from 'axios'
+
+const cards = document.querySelector('.cards')
+
+const userAPI = 'https://api.github.com/users/KevinLam2980'
+axios.get(userAPI)
+.then(function(res){
+// console.log(res)
+cards.appendChild(cardCreator(res))
+})
+.catch(function(err){
+  console.log(err)
+})
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -50,6 +64,54 @@ const followersArray = [];
     </div>
 */
 
+function cardCreator(obj){
+  const card = document.createElement('div')
+  const img = document.createElement('img')
+  const cardInfo = document.createElement("div")
+  const h3 = document.createElement('h3')
+  const username = document.createElement('p')
+  const location = document.createElement('p')
+  const profile = document.createElement('p')
+  const gitURL = document.createElement('a')
+  const followers = document.createElement('p')
+  const following = document.createElement('p')
+  const bio = document.createElement('p')
+  
+  img.src = obj.data.avatar_url
+  h3.textContent = obj.data.name
+  username.textContent = obj.data.login
+  location.textContent = obj.data.location
+  profile.textContent = `Profile:`
+  gitURL.href =  obj.data.html_url
+  gitURL.textContent = gitURL.href
+  followers.textContent = obj.data.followers_url
+  following.textContent = obj.data.following_url
+  bio.textContent = obj.data.bio
+  
+  card.appendChild(img)
+  card.appendChild(cardInfo)
+  cardInfo.appendChild(h3)
+  cardInfo.appendChild(username)
+  cardInfo.appendChild(location)
+  cardInfo.appendChild(profile)
+  profile.appendChild(gitURL)
+  cardInfo.appendChild(followers)
+  cardInfo.appendChild(following)
+  cardInfo.appendChild(bio)
+  
+  card.className = 'card'
+  cardInfo.className = 'card-info'
+  h3.className = 'name'
+  username.className ='username'
+  
+  console.log(gitURL)
+  // console.log(card)
+  
+  return card
+}
+
+
+// cardCreator()
 /*
   List of LS Instructors Github username's:
     tetondan
