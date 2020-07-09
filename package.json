@@ -4,6 +4,9 @@
   "scripts": {
     "start": "parcel index.html"
   },
+  "browserslist": [
+    "last 1 Chrome version"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/LambdaSchool/github-usercard.git"
