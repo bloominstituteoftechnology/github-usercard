@@ -3,7 +3,18 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+const cards = document.querySelector(".cards");
 
+axios.get("https://api.github.com/users/svoncannon")
+.then(response => {
+  // response.data.forEach((object) => {
+    const newUserCard = cardCreator(response.data)
+    cards.appendChild(newUserCard)
+  // })
+})
+.catch( error => {
+  console.log(error);
+})
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
