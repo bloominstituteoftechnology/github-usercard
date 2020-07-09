@@ -63,7 +63,7 @@ const followersArray = [];
 */
 
 /*
-  List of LS Instructors Github username's:
+  LIST of LS Instructors Github username's:
     tetondan
     dustinmyers
     justsml
