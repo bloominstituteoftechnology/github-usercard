@@ -91,8 +91,6 @@ function makeParagraph(text, paragraphClass = undefined) {
  * @return {div} - The card that was created
  */
 function makeCard(cardData) {
-  console.log(cardData);
-
   // Create card
   const card = document.createElement('div');
   card.classList.add('card');
@@ -131,16 +129,15 @@ function makeCard(cardData) {
   profile.appendChild(profileLink);
 
   // followers and following
-  const followers = makeParagraph(cardData.followers);
+  const followers = makeParagraph(`Followers: ${cardData.followers}`);
   cardInfo.appendChild(followers);
-  const following = makeParagraph(cardData.following);
+  const following = makeParagraph(`Following: ${cardData.following}`);
   cardInfo.appendChild(following);
 
   // bio
   const bio = makeParagraph(`Bio: ${cardData.bio}`);
   cardInfo.appendChild(bio);
 
-  console.log(card);
   return card;
 }
 
