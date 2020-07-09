@@ -22,12 +22,21 @@ import axios from 'axios';
 async function fillContent(userName) {
   let cardData;
 
+  // get cardData and fill out first card
   await axios.get(`https://api.github.com/users/${userName}`)
     .then(function (response) {
       cardData = response.data;
       const card = makeCard(cardData);
       const cards = document.querySelector('.cards');
       cards.appendChild(card);
+    });
+
+  // get list of followers
+  let followers;
+  await axios.get(cardData.followers_url)
+    .then(function (response) {
+      const data = response.data;
+      followers = data.map(follower => follower.login);
     });
 }
 fillContent('HarryHenryGebel');
@@ -166,4 +175,4 @@ function makeCard(cardData) {
     bigknell
 */
 
-//  LocalWords:  axios profileLink userName
+//  LocalWords:  axios profileLink userName cardData
