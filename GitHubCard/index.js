@@ -62,6 +62,25 @@ const followersArray = [];
     </div>
 */
 
+/**
+ * Create a paragraph
+ * @param {string} text - Text for the paragraph
+ * @param {string} [paragraphClass=undefined] - The class of the
+ *   paragraph. If not provided, paragraph is not assigned a class.
+ * @return {Element} The p element created
+ */
+function makeParagraph(text, paragraphClass = undefined) {
+  const p = document.createElement('p');
+
+  // optionally add class to paragraph
+  if (paragraphClass)
+    p.classList.add(paragraphClass);
+
+  p.textContent = text;
+
+  return p;
+}
+
 /*
   LIST of LS Instructors Github username's:
     tetondan
