@@ -14,22 +14,33 @@ import axios from 'axios';
 */
 
 /**
+ * Fill out a user card, optionally returning card data by reference
+ * @param {string} userName - GitHub username of the user
+ * @param {Object[]} data = [] - Single item array that is filled with
+ * the data used to construct the card
+ * @return {Promise} Promise associated with function
+ */
+async function fillCard(userName, data = []) {
+  await axios.get(`https://api.github.com/users/${userName}`)
+    .then(function (response) {
+      data.push(response.data); // save response data
+      const card = makeCard(response.data);
+      const cards = document.querySelector('.cards');
+      cards.appendChild(card);
+    });
+}
+
+/**
  * fill document with a GitHub user's card and the cards of the user's
  * followers
  * @param {string} userName - GitHub username of the user
  * @return {Promise} Promise associated with function
  */
 async function fillContent(userName) {
-  let cardData;
-
   // get cardData and fill out first card
-  await axios.get(`https://api.github.com/users/${userName}`)
-    .then(function (response) {
-      cardData = response.data;
-      const card = makeCard(cardData);
-      const cards = document.querySelector('.cards');
-      cards.appendChild(card);
-    });
+  const cardDataArray = []; // temporarily hold data in an array
+  await fillCard(userName, cardDataArray);
+  const cardData = cardDataArray[0];
 
   // get list of followers
   let followers;
