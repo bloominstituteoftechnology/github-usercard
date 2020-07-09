@@ -13,16 +13,24 @@ import axios from 'axios';
     https://api.github.com/users/<your name>
 */
 
+/**
+ * fill document with a GitHub user's card and the cards of the user's
+ * followers
+ * @param {string} userName - GitHub username of the user
+ * @return {Promise} Promise associated with function
+ */
 async function fillContent(userName) {
   let cardData;
-  await axios.get('https://api.github.com/users/${userName}')
-      .then(function (response) {
-        cardData = response.data;
-        const card = makeCard(cardData);
-        const cards = document.querySelector('.cards');
-        cards.appendChild(card);
-      });
+
+  await axios.get(`https://api.github.com/users/${userName}`)
+    .then(function (response) {
+      cardData = response.data;
+      const card = makeCard(cardData);
+      const cards = document.querySelector('.cards');
+      cards.appendChild(card);
+    });
 }
+fillContent('HarryHenryGebel');
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
