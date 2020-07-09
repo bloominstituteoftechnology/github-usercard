@@ -84,6 +84,66 @@ function makeParagraph(text, paragraphClass = undefined) {
   return p;
 }
 
+/**
+ * Create a card element
+ * @param {Object} cardData - The GitHub record being used as the
+ * source of the card
+ * @return {div} - The card that was created
+ */
+function makeCard(cardData) {
+  console.log(cardData);
+
+  // Create card
+  const card = document.createElement('div');
+  card.classList.add('card');
+
+  // Avatar
+  const avatar = document.createElement('img');
+  avatar.setAttribute('src', cardData.avatar_url);
+  card.appendChild(avatar);
+
+  // card-info
+  const cardInfo = document.createElement('div');
+  cardInfo.classList.add('card-info');
+  card.appendChild(cardInfo);
+
+  // name
+  const name = document.createElement('h3');
+  name.classList.add('name');
+  name.textContent = cardData.name;
+  cardInfo.appendChild(name);
+
+  // user name
+  const userName = makeParagraph(cardData.login, "username");
+  cardInfo.appendChild(userName);
+
+  // location
+  const location = makeParagraph(`Location: ${cardData.location}`);
+  cardInfo.appendChild(location);
+
+  // profile
+  const profile = makeParagraph('Profile: ');
+  cardInfo.appendChild(profile);
+  // profileLink is inside profile
+  const profileLink = document.createElement('a');
+  profileLink.setAttribute('href', cardData.html_url);
+  profileLink.textContent = cardData.html_url;
+  profile.appendChild(profileLink);
+
+  // followers and following
+  const followers = makeParagraph(cardData.followers);
+  cardInfo.appendChild(followers);
+  const following = makeParagraph(cardData.following);
+  cardInfo.appendChild(following);
+
+  // bio
+  const bio = makeParagraph(`Bio: ${cardData.bio}`);
+  cardInfo.appendChild(bio);
+
+  console.log(card);
+  return card;
+}
+
 /*
   LIST of LS Instructors Github username's:
     tetondan
@@ -93,4 +153,4 @@ function makeParagraph(text, paragraphClass = undefined) {
     bigknell
 */
 
-//  LocalWords:  axios
+//  LocalWords:  axios profileLink
