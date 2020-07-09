@@ -9,9 +9,17 @@ const cards = document.querySelector('.cards')
 
 const userAPI = 'https://api.github.com/users/KevinLam2980'
 axios.get(userAPI)
-.then(function(res){
+.then((res) => {
 // console.log(res)
-cards.appendChild(cardCreator(res))
+cards.appendChild(cardCreator(res.data))
+console.log(res.data.followers_url)
+axios.get(res.data.followers_url)
+.then((res) => {
+  console.log(res.data)
+  res.data.forEach(follower => {
+    cards.appendChild(cardCreator(follower))
+  })
+})
 })
 .catch(function(err){
   console.log(err)
@@ -42,7 +50,23 @@ cards.appendChild(cardCreator(res))
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'];
+
+followersArray.forEach(profile => {
+  axios.get(`https://api.github.com/users/${profile}`)
+  .then(function(res){
+    cards.appendChild(cardCreator(res.data))
+  })
+  .catch(function(err){
+    console.log(err)
+  })
+})
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -77,16 +101,16 @@ function cardCreator(obj){
   const following = document.createElement('p')
   const bio = document.createElement('p')
   
-  img.src = obj.data.avatar_url
-  h3.textContent = obj.data.name
-  username.textContent = obj.data.login
-  location.textContent = obj.data.location
+  img.src = obj.avatar_url
+  h3.textContent = obj.name
+  username.textContent = obj.login
+  location.textContent = obj.location
   profile.textContent = `Profile:`
-  gitURL.href =  obj.data.html_url
+  gitURL.href =  obj.html_url
   gitURL.textContent = gitURL.href
-  followers.textContent = obj.data.followers_url
-  following.textContent = obj.data.following_url
-  bio.textContent = obj.data.bio
+  followers.textContent = obj.followers_url
+  following.textContent = obj.following_url
+  bio.textContent = obj.bio
   
   card.appendChild(img)
   card.appendChild(cardInfo)
@@ -104,7 +128,7 @@ function cardCreator(obj){
   h3.className = 'name'
   username.className ='username'
   
-  console.log(gitURL)
+  // console.log(gitURL)
   // console.log(card)
   
   return card
