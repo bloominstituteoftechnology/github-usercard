@@ -8,17 +8,23 @@ import axios from 'axios'
 const cards = document.querySelector('.cards')
 
 const userAPI = 'https://api.github.com/users/KevinLam2980'
+
 axios.get(userAPI)
 .then((res) => {
-// console.log(res)
 cards.appendChild(cardCreator(res.data))
-console.log(res.data.followers_url)
-axios.get(res.data.followers_url)
+
+const followers = res.data.followers_url
+axios.get(followers)
 .then((res) => {
-  console.log(res.data)
+  // console.log(res)
   res.data.forEach(follower => {
-    cards.appendChild(cardCreator(follower))
-  })
+    axios.get(`https://api.github.com/users/${follower.login}`)
+    .then((res) => {
+        cards.appendChild(cardCreator(res.data))
+    })
+})
+// console.log(followers)
+// console.log(res.data)
 })
 })
 .catch(function(err){
