@@ -9,10 +9,14 @@ import axios from 'axios';
 axios
   .get('https://api.github.com/users/Ryguy244')
   .then(response => {
-    console.log(response)
-    return response;
+    const attache = document.querySelector('.cards')
+    const tab = cardMaker(response.data);
+    attache.appendChild(tab);
+    console.log('SUCCESS')
+    return tab;
   })
   .catch(error => {
+    console.log('FAIL')
     return error;
   })
 
@@ -28,7 +32,20 @@ axios
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
-
+// axios
+//   .get('https://api.github.com/users/Ryguy244')
+//   .then(response => {
+//     const tab = cardMaker(response.data);
+//     const attache = document.querySelector('cards')
+//     attache.appendChild(tab);
+//     console.log(tab);
+//     console.log('SUCCESS');
+//     return attache;
+//   })
+//   .catch(error => {
+//     console.log('ERROR')
+//     return error;
+//   })
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
@@ -64,6 +81,7 @@ axios
 const cardMaker = (obj) => {
   const cardDiv = document.createElement('div');
   cardDiv.classList.add('card');
+  // ['.cards'].append(cardDiv);
 
   const avatarUrl = document.createElement('img');
   avatarUrl.src = obj['avatar_url'];
@@ -110,8 +128,7 @@ const cardMaker = (obj) => {
   console.log(cardDiv);
   return cardDiv;
 }
-console.log(axios)
-cardMaker(axios);
+
 
 /*
   List of LS Instructors Github username's:
