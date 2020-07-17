@@ -6,19 +6,19 @@ import axios from 'axios';
     https://api.github.com/users/<your name>
 */
 
-axios
-  .get('https://api.github.com/users/Ryguy244')
-  .then(response => {
-    const attache = document.querySelector('.cards')
-    const tab = cardMaker(response.data);
-    attache.appendChild(tab);
-    console.log('SUCCESS')
-    return tab;
-  })
-  .catch(error => {
-    console.log('FAIL')
-    return error;
-  })
+// axios
+//   .get('https://api.github.com/users/Ryguy244')
+//   .then(response => {
+//     const attache = document.querySelector('.cards')
+//     const tab = cardMaker(response.data);
+//     attache.appendChild(tab);
+//     console.log('SUCCESS')
+//     return tab;
+//   })
+//   .catch(error => {
+//     console.log('FAIL')
+//     return error;
+//   })
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -57,7 +57,33 @@ axios
     user, and adding that card to the DOM.
 */
 
-// const followersArray = [];
+const followersArray = [
+  'Ryguy244',
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'
+];
+
+const infiniteTabs = (array) => {
+  array.forEach(element => {
+    axios
+  .get(`https://api.github.com/users/${element}`)
+  .then(response => {
+    const attache = document.querySelector('.cards')
+    const tab = cardMaker(response.data);
+    attache.appendChild(tab);
+    console.log('SUCCESS')
+    return tab;
+  })
+  .catch(error => {
+    console.log('FAIL')
+    return error;
+  })
+  });
+}
+infiniteTabs(followersArray);
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
