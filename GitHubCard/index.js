@@ -1,8 +1,13 @@
+import axios from 'axios'
+
+let gitHub = axios.get('https://api.github.com/users/zezima-sudo')
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -11,7 +16,23 @@
 
     Skip to STEP 3.
 */
+.then( => {
+  function constructor(obj) {
+    let div = document.createElement('div')
+    div.classList.add('card')
+    let img = document.createElement('img')
+    img.src = 'https://avatars2.githubusercontent.com/u/64822997?v=4'
+    let div2 = document.createElement('div')
+    div2.classList.add('card-info')
+    let h3 = document.createElement('h3')
+    h3.classList.add('name')
+    h3.textContent = ''
+    
+  }
+})
 
+
+constructor()
 /*
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
