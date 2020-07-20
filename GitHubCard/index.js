@@ -1,10 +1,5 @@
 import axios from 'axios';
 
-/*
-  STEP 1: using axios, send a GET request to the following URL
-    (replacing the placeholder with your Github name):
-    https://api.github.com/users/<your name>
-*/
 
   const card = document.querySelector('.cards');
 
@@ -14,8 +9,10 @@ import axios from 'axios';
     card.append(gitCard(res));
     })
     .catch(err => {
-      console.log(`The error is: ${err} `);
+      console.log(`The error is: ${err}`);
     });
+
+    const followersArray = ["Wais-A","bayronpuac","chelsabeth","seanaleid","adkhiker","umekow","aaamg","mary-clayton"];
     
     // axios.get('https://api.github.com/users/vanessadixonp/followers')
     // .then(response=> {
@@ -34,8 +31,6 @@ import axios from 'axios';
     //     console.log(`The error is: ${err} `);
     //   });
 
-  
-const followersArray = ["Wais-A","bayronpuac","chelsabeth","seanaleid","adkhiker","umekow","aaamg","mary-clayton"];
 
 
 function gitCard(obj) {
@@ -49,7 +44,8 @@ function gitCard(obj) {
           aTag = document.createElement('a'),
           followers = document.createElement('p'),
           following = document.createElement('p'),
-          bio = document.createElement('p');
+          bio = document.createElement('p'),
+          img2 = document.createElement('img');
 
           div.classList.add('card');
           img.src = obj.avatar_url;
@@ -64,6 +60,9 @@ function gitCard(obj) {
           innerDiv.appendChild(userName);
           location.innerText = `Location: ${obj.location}`;
           innerDiv.appendChild(location);
+          img2.classList.add('img2');
+          img2.src = "https://grass-graph.moshimo.works/images/vanessadixonp.png";
+        
         
           profile.innerText = `Profile: `;
           aTag.href = obj.html_url;
@@ -76,6 +75,7 @@ function gitCard(obj) {
           innerDiv.appendChild(following);
           bio.innerText = `Bio: ${obj.bio}`;
           innerDiv.appendChild(bio);
+          innerDiv.append(img2);
         return div;
 }
 
@@ -104,6 +104,7 @@ function followerCard(obj) {
 
   return div;
 }
+
 
 
 //stretch goal 1
