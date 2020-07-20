@@ -17,26 +17,24 @@ import axios from 'axios';
       console.log(`The error is: ${err} `);
     });
     
-    axios.get('https://api.github.com/users/vanessadixonp/followers')
-    .then(response=> {
-      const res = response.data;
+    // axios.get('https://api.github.com/users/vanessadixonp/followers')
+    // .then(response=> {
+    //   const res = response.data;
 
-      res.forEach(users => {
-        followersArray.forEach(follower => {
-          if(users.login === follower) {
-              card.append(followerCard(users));
-          }
-        })
-      });
+    //   res.forEach(users => {
+    //     followersArray.forEach(follower => {
+    //       if(users.login === follower) {
+    //           card.append(followerCard(users));
+    //       }
+    //     })
+    //   });
 
-      })
-      .catch(err=> {
-        console.log(`The error is: ${err} `);
-      });
+    //   })
+    //   .catch(err=> {
+    //     console.log(`The error is: ${err} `);
+    //   });
 
-
-
-
+  
 const followersArray = ["Wais-A","bayronpuac","chelsabeth","seanaleid","adkhiker","umekow","aaamg","mary-clayton"];
 
 
@@ -106,6 +104,20 @@ function followerCard(obj) {
 
   return div;
 }
+
+
+//stretch goal 1
+function showCard(url) {
+  let followers = []; 
+  axios.get(url)
+  .then(users => {
+      followers = [...users.data];
+        followers.forEach(user => {
+          card.append(followerCard(user));
+        })
+  })
+}
+showCard(`https://api.github.com/users/vanessadixonp/followers`);
 
 
 
