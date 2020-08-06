@@ -67,7 +67,7 @@ In this project we are going to be accessing the GitHub API and building a socia
 
 * After you have successfully added your own card to the DOM, we will get a list of your followers and programmatically add cards for them as well. Follow the instructions in GitHubCard/index.js.
 
-### Part 4: Exit Ticket 
+### Part 4: Exit Ticket
 
 Once you begin, you will have 15 minutes to answer the questions [here](https://app.codesignal.com/public-test/J2kBzdr6YLLjXzP8N/7JLwsLBKeWdAFp).
 
@@ -77,7 +77,7 @@ The completion of these questions is mandatory for MVP. However, passing the qui
 
 * Instead of manually creating a list of followers, do it programmatically. Create a function that requests the followers data from the API after it has received your data and create a card for each of your followers. Hint: you can chain promises.
 
-* Look into adding more info as an expanding card. You will need to create some new CSS and a button that expands and contracts the card. 
+* Look into adding more info as an expanding card. You will need to create some new CSS and a button that expands and contracts the card.
 
 * Look into adding your GitHub contribution graph. There are a number of different ways of doing this, [this Stack Overflow discussion](https://stackoverflow.com/questions/34516592/embed-github-contributions-graph-in-website) will get you started.
 

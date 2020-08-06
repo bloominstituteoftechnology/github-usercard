@@ -46,6 +46,8 @@ const followersArray = [
   "maycie-morris",
   "ren-curry"
   ];
+  //to keep myself first in the list, I'd put the following code block on a .then up above. No, that would make these load even slower.
+  //I would change them to .append to my card???
 followersArray.forEach((follower) => {
   let followerURL = "https://api.github.com/users/" + follower;
   console.log(followerURL);
