@@ -105,10 +105,13 @@ function createCard(userDataObj){
   return expandDiv; // returns card component
 }
 
+// adds open close functionality to button
 function expandCard (button){
   button.addEventListener('click', (event) => {
     let parNode = button.parentNode;
     let statsContainer = button.previousElementSibling;
+    button.textContent === '+' ? button.textContent = '-' : button.textContent = '+';
+    
     parNode.classList.toggle('toggle-open');
     statsContainer.classList.toggle('toggle-on');
     console.log("expandCard ->", event);
