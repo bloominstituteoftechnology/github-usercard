@@ -7,8 +7,10 @@ import axios from 'axios';
 */
 axios.get("https://api.github.com/users/jahteo")
   .then((response) => {
-    console.log(response)
-    debugger
+    console.log(response);
+    const userCard = cardMaker(response);
+    cards.appendChild(userCard)
+    // return userCard
   })
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -22,6 +24,7 @@ axios.get("https://api.github.com/users/jahteo")
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
+let cards = document.querySelector(".cards")
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -55,6 +58,43 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function cardMaker(userObj) {
+  const cardDiv = document.createElement("div");
+  const img = document.createElement("img");
+  const cardInfoDiv = document.createElement("div");
+  const nameH3 = document.createElement("h3");
+  const usernameP = document.createElement("p");
+  const locationP = document.createElement("p");
+  const profileP = document.createElement("p");
+  const addressA = document.createElement("a");
+  const followersP = document.createElement("p");
+  const followingP = document.createElement("p");
+  const bioP = document.createElement("p");
+  cardDiv.classList.add("card");
+  cardInfoDiv.classList.add("card-info");
+  nameH3.classList.add("name");
+  cardDiv.appendChild(img)
+  cardDiv.appendChild(cardInfoDiv)
+  cardInfoDiv.appendChild(nameH3)
+  cardInfoDiv.appendChild(usernameP)
+  cardInfoDiv.appendChild(locationP)
+  cardInfoDiv.appendChild(profileP)
+  profileP.appendChild(addressA)
+  cardInfoDiv.appendChild(followersP)
+  cardInfoDiv.appendChild(followingP)
+  cardInfoDiv.appendChild(bioP)
+  img.src = userObj.data.avatar_url;
+  nameH3.textContent = userObj.data.name;
+  usernameP.textContent = userObj.data.login;
+  locationP.textContent - userObj.data.location;
+  addressA.href = userObj.data.html_url;
+  addressA.textContent = userObj.data.html_url;
+  followersP.textContent = userObj.data.followers;
+  followingP.textContent = userObj.data.following;
+  bioP.textContent = userObj.data.bio;
+  return cardDiv
+}
 
 /*
   List of LS Instructors Github username's:
