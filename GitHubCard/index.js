@@ -7,10 +7,9 @@ import axios from 'axios';
 */
 axios.get("https://api.github.com/users/jahteo")
   .then((response) => {
-    console.log(response);
     const userCard = cardMaker(response);
     cards.appendChild(userCard)
-    // return userCard
+    debugger
   })
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
