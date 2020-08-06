@@ -9,7 +9,7 @@ axios.get("https://api.github.com/users/jahteo")
   .then((response) => {
     const userCard = cardMaker(response);
     cards.appendChild(userCard)
-    debugger
+    // debugger
   })
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -36,8 +36,25 @@ let cards = document.querySelector(".cards")
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
-
+const followersArray = [
+  "tajahouse",
+  "christopherjbaker",
+  "davidgoldcode",
+  "HenryRDavis",
+  "devbeau",
+  "TBau23",
+  "maycie-morris",
+  "ren-curry"
+  ];
+followersArray.forEach((follower) => {
+  let followerURL = "https://api.github.com/users/" + follower;
+  console.log(followerURL);
+  axios.get(followerURL)
+  .then((response) => {
+    const userCard = cardMaker(response);
+    cards.appendChild(userCard)
+  })
+})
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
