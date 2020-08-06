@@ -61,6 +61,7 @@ function appendToPage(card){
 function createCard(userDataObj){
 
   //instantiate the elements:
+  let expandDiv = createElement('div', 'expand-div');
   let cardDiv = createElement('div','card');
   let cardImg = createImg(userDataObj.avatar_url);
   let cardInfo = createElement('div','card-info');
@@ -72,11 +73,14 @@ function createCard(userDataObj){
   let cardFollowers = createElement('p', 0, `Followers: ${userDataObj.followers}`);
   let cardFollowing = createElement('p', 0, `Following: ${userDataObj.following}`);
   let cardBio = createElement('p', 0, userDataObj.bio);
+  let expandButton = createElement('div','expand-button', '+');
   let statsDiv = createElement('div', 'stats-div');
 
   //appending the structure:
   cardProfile.appendChild(profileAnchor);
   console.log("cardProfile", cardProfile)
+  
+
   for (let el of  [cardHeader, cardUsername, cardLocation,
                   cardProfile, cardFollowers, cardFollowing, cardBio]){
         console.log("appending loop", el);
@@ -84,14 +88,31 @@ function createCard(userDataObj){
       }
   cardDiv.appendChild(cardImg);
   cardDiv.appendChild(cardInfo);
-  cardDiv.appendChild(statsDiv);
+  expandDiv.appendChild(cardDiv);
+  expandDiv.appendChild(statsDiv);
+  
+
   // add the github calendar to the page
   GitHubCalendar(statsDiv, userDataObj.login, {responsive: true,
                  global_stats: false,
                 summary_text: `Contributions made by @${userDataObj.login}`});
 
   console.log("card right before return", cardDiv);
-  return cardDiv; // returns card component
+
+  expandCard(expandButton);
+
+  expandDiv.appendChild(expandButton);
+  return expandDiv; // returns card component
+}
+
+function expandCard (button){
+  button.addEventListener('click', (event) => {
+    let parNode = button.parentNode;
+    let statsContainer = button.previousElementSibling;
+    parNode.classList.toggle('toggle-open');
+    statsContainer.classList.toggle('toggle-on');
+    console.log("expandCard ->", event);
+  })
 }
 
 getCard(myProfile);                    //execute

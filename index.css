@@ -88,6 +88,7 @@ body {
 }
 
 .cards {
+  margin-top: 20px;
   width: 100%;
 }
 
@@ -95,10 +96,11 @@ body {
   width: 100%;
   padding: 20px;
   display: flex;
+  justify-content: flex-start;
   border-radius: 5px;
-  box-shadow: 0 1px 6px -2px #000;
+  /* box-shadow: 0 1px 6px -2px #000; */
   background-color: #FFF;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 .card img {
@@ -124,8 +126,10 @@ body {
 }
 
 .stats-div{
-  height: 100px;
-  width:50%;
+  display: none;
+  /* visibility: hidden; */
+  height: auto;
+  width:100%;
 }
 .position-relative, .border {
   height: 100%;
@@ -138,4 +142,31 @@ body {
 .js-calendar-graph-svg {
    height: 100px;
    width: 100%; 
+}
+.expand-div{
+  width: 100%;
+  height: 250px;
+  /* padding: 20px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  box-shadow: 0 1px 6px -2px #000;
+  background-color: #FFF;
+  margin-bottom: 30px;
+}
+.expand-button {
+  font-size: 2rem;
+  border:1px lightblue solid;
+}
+
+.toggle-open{
+  /* transition: 250ms; */
+  height: 450px;
+}
+.toggle-on{
+  transition: 250ms;
+  display: block;
+  padding: 0 5%;
 }
