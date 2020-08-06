@@ -20,6 +20,7 @@
     "parcel-bundler": "^1.12.4"
   },
   "dependencies": {
-    "axios": "^0.19.2"
+    "axios": "^0.19.2",
+    "github-calendar": "^2.2.1"
   }
 }

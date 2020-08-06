@@ -1,4 +1,5 @@
 import axios from 'axios';
+import GitHubCalendar from 'github-calendar';
 
 const myProfile = 'https://api.github.com/users/devbeau'; 
 function getCard(profile){ // function gets a card based on api url
@@ -71,6 +72,7 @@ function createCard(userDataObj){
   let cardFollowers = createElement('p', 0, `Followers: ${userDataObj.followers}`);
   let cardFollowing = createElement('p', 0, `Following: ${userDataObj.following}`);
   let cardBio = createElement('p', 0, userDataObj.bio);
+  let statsDiv = createElement('div', 'stats-div');
 
   //appending the structure:
   cardProfile.appendChild(profileAnchor);
@@ -82,12 +84,18 @@ function createCard(userDataObj){
       }
   cardDiv.appendChild(cardImg);
   cardDiv.appendChild(cardInfo);
+  cardDiv.appendChild(statsDiv);
+  // add the github calendar to the page
+  GitHubCalendar(statsDiv, userDataObj.login, {responsive: true,
+                 global_stats: false,
+                summary_text: `Contributions made by @${userDataObj.login}`});
 
   console.log("card right before return", cardDiv);
   return cardDiv; // returns card component
 }
 
 getCard(myProfile);                    //execute
+
 getFollowerCards(myProfile);           //execute
 
 /*

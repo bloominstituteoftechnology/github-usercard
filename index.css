@@ -123,5 +123,19 @@ body {
   margin: 3px 0 10px;
 }
 
-
-
+.stats-div{
+  height: 100px;
+  width:50%;
+}
+.position-relative, .border {
+  height: 100%;
+  width: 100%;
+}
+.js-calendar-graph{
+  height: 100px;
+  width: 100%;
+}
+.js-calendar-graph-svg {
+   height: 100px;
+   width: 100%; 
+}
