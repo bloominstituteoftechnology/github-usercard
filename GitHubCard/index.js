@@ -1,8 +1,21 @@
+import axios from 'axios'
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+const destination = document.querySelector('.cards')
+
+axios.get('https://api.github.com/users/nhwoo97')
+.then(response => {
+  const myGithub = githubProfile(response)
+  destination.appendChild(myGithub)
+})
+.catch(error => {
+  console.log(error)
+})
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -17,6 +30,8 @@
     and append the returned markup to the DOM as a child of .cards
 */
 
+
+
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
@@ -28,7 +43,18 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+
+followersArray.forEach(element => {
+    axios.get(`https://api.github.com/users/${element}`)
+    .then(response => {
+      const otherGithub = githubProfile(response)
+      destination.appendChild(otherGithub)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+});
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -58,3 +84,50 @@ const followersArray = [];
     luishrd
     bigknell
 */
+
+function githubProfile(arr){
+
+const all = document.createElement('div')
+const image = document.createElement('img')
+const cardInfo = document.createElement('div')
+const name = document.createElement('h3')
+const username = document.createElement('p')
+const location = document.createElement('p')
+const profilePage = document.createElement('p')
+const profilePageAddress = document.createElement('a')
+const followers = document.createElement('p')
+const following = document.createElement('p')
+const bio = document.createElement('p')
+const profileDiv = document.createElement('div')
+
+cardInfo.classList.add('card-info')
+name.classList.add('name')
+username.classList.add('username')
+all.classList.add('card')
+
+image.src = arr.data.avatar_url
+name.textContent = arr.data.name
+username.textContent = arr.data.login
+location.textContent = `Location : ${arr.data.location}`
+profilePage.textContent = `Profile: `
+profilePageAddress.setAttribute('href', arr.data.html_url) 
+profilePageAddress.textContent = arr.data.html_url
+followers.textContent = `Followers : ${arr.data.followers}`
+following.textContent = `Following : ${arr.data.following}`
+bio.textContent = `Bio ${arr.data.bio}`
+
+all.appendChild(image)
+all.appendChild(cardInfo)
+cardInfo.appendChild(name)
+cardInfo.appendChild(username)
+cardInfo.appendChild(location)
+cardInfo.appendChild(profilePage)
+profilePage.appendChild(profileDiv)
+profileDiv.appendChild(profilePageAddress)
+cardInfo.appendChild(followers)
+cardInfo.appendChild(following)
+cardInfo.appendChild(bio)
+
+return all
+}
+
