@@ -28,28 +28,132 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const primeUser = 'Jr08151';
+const cardContainer = document.querySelector('.cards');
+let followersArray = [  'adrichardson112',
+                        'justsml',
+                        'luishrd',
+                        'bigknell',
+                        'wSedlacek'];
 
-/*
-  STEP 3: Create a function that accepts a single object as its only argument.
-    Using DOM methods and properties, create and return the following markup:
 
-    <div class="card">
-      <img src={image url of user} />
-      <div class="card-info">
-        <h3 class="name">{users name}</h3>
-        <p class="username">{users user name}</p>
-        <p>Location: {users location}</p>
-        <p>Profile:
-          <a href={address to users github page}>{address to users github page}</a>
-        </p>
-        <p>Followers: {users followers count}</p>
-        <p>Following: {users following count}</p>
-        <p>Bio: {users bio}</p>
-      </div>
-    </div>
-*/
+function displayCard (username) {
+  axios.get(`https://api.github.com/users/${username}`)
+        .then(function (response) {
+              // handle success
+              console.log(response.data);
+              const card = makeCard(response.data);
 
+              if (username === primeUser) {
+
+                cardContainer.insertBefore(card, cardContainer.childNodes[0]);
+              } else {
+                cardContainer.appendChild(card);
+              }
+        }) 
+        .catch(function (error) {
+
+          console.log(error);
+        });
+}
+
+function displayFollowersCards (username) {
+  axios.get(`https://api.github.com/users/${username}/followers`)
+        .then(function (response) {
+          let followers = response.data.map(follower=>follower.login);
+          followers.forEach(follower=>displayCard(follower));
+          return followers;
+        })
+        .catch(function (error) {
+          console.log(error);
+          return null;
+        });
+}
+
+function makeCard (user) {
+  const card = document.createElement('div');
+  card.classList.add('card');
+
+  const img = document.createElement('img');
+  img.src = user.avatar_url;
+  card.appendChild(img);
+
+  const cardInfo = document.createElement('div');
+  cardInfo.classList.add('card-info');
+  card.appendChild(cardInfo);
+
+  const name = document.createElement('h3');
+  name.classList.add('name');
+  name.textContent = user.name;
+  cardInfo.appendChild(name);
+
+  const username = document.createElement('p');
+  username.classList.add('username');
+  username.textContent = user.login;
+  cardInfo.appendChild(username);
+
+  const profile = document.createElement('p');
+  profile.textContent = `Profile: `;
+  const profileLink = document.createElement('a');
+  profileLink.href = user.html_url;
+  profileLink.textContent = user.html_url;
+  profile.appendChild(profileLink);
+  cardInfo.appendChild(profile);
+
+  const followers = document.createElement('p');
+  followers.textContent = `Followers: ${user.followers}`;
+  cardInfo.appendChild(followers);
+
+  const following = document.createElement('p');
+  following.textContent = `Following: ${user.following}`;
+  cardInfo.appendChild(following);
+
+  if (user.bio != null) {
+    const bio = document.createElement('p');
+    bio.textContent = `Bio: ${user.bio}`;
+    cardInfo.appendChild(bio);
+  }
+
+  // v Stretch v
+
+  const calendar = document.createElement('div');
+  calendar.classList.add('calendar');
+  calendar.textContent = `Loading the data just for you & ${user.login}`;
+  cardInfo.appendChild(calendar);
+  GitHubCalendar(calendar, user.login, { responsive: true });
+  calendar.style.display = `none`;
+
+  let closed = true;
+  const openButton = document.createElement('i');
+  openButton.style.position = `relative`;
+  openButton.style.color = `darkturquoise`;
+  openButton.style.left = `1rem`;
+  openButton.style.margin = `5px`;
+  openButton.classList.add('fas');
+  openButton.classList.add('fa-2x');
+  openButton.classList.add('fa-plus-circle');
+  cardInfo.appendChild(openButton);
+
+  openButton.addEventListener('click',()=> {
+        if (closed) {
+          calendar.style.display = `inline-block`;
+          openButton.classList.remove('fa-plus-circle');
+          openButton.classList.add('fa-minus-circle');
+          closed = false;
+        } else {
+          calendar.style.display = `none`;
+          openButton.classList.remove('fa-minus-circle');
+          openButton.classList.add('fa-plus-circle');
+          closed = true;
+        }
+    });
+
+  return card;
+}
+
+displayCard(primeUser);
+displayFollowersCards(primeUser);
+followersArray.forEach(follower=>displayCard(follower));
 /*
   List of LS Instructors Github username's:
     tetondan
