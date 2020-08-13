@@ -1,3 +1,5 @@
+
+
 /* Step 1: using axios, send a GET request to the following URL 
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
@@ -24,7 +26,8 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['mohamed-essamaali','tetondan','dustinmyers','justsml', 'luishrd','bigknell'                
+      ];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -53,12 +56,63 @@ const followersArray = [];
   luishrd
   bigknell
 */
+const createUser = user=>{
 
-axios
-.get('https://api.github.com/users/Mohamed-Essamaali')
-.then(res=>{
-  console.log(res.data)
+  const card = document.createElement('div');
+  card.classList.add('card')
+  const userImg = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  cardInfo.classList.add('card-info');
+  const name = document.createElement('h3');
+  name.classList.add('name')
+  const username = document.createElement('p');
+  username.classList.add('username')
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const profileLink = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+  //add content
+  userImg.src=user.avatar_url
+  // name.textContent = user.login
+  username.textContent = user.login
+  location.textContent=`Location: ${user.location}`;
+  profileLink.href = user.url;
+  profile.textContent = `Profile: ${user.url}`
+  
+  followers.textContent =`Follwers:  ${user.followers}`;
+  following.textContent= `Following: ${user.following}`
+  bio.textContent = `Bio: ${user.bio}`
+
+
+//append into dom
+  card.appendChild(userImg);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(username)
+  cardInfo.appendChild(location)
+  cardInfo.appendChild(profile)
+  profile.appendChild(profileLink);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio)
+  console.log(card);
+
+return card
+
+}
+
+const cards = document.querySelector('.cards')
+followersArray.map(el=>{
+  axios
+  .get(`https://api.github.com/users/${el}`)
+  .then(res=>{
+    console.log(res.data)
+    cards.appendChild(createUser(res.data))
+  })
+  .catch(err=>{
+    console.log('errors', err)
+  })
 })
-.catch(err=>{
-  console.log('errors', err)
-})
+
