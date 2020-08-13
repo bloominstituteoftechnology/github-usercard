@@ -58,3 +58,12 @@ const followersArray = [];
     luishrd
     bigknell
 */
+
+axios
+.get('https://api.github.com/users/Mohamed-Essamaali')
+.then(res=>{
+  console.log(res.data)
+})
+.catch(err=>{
+  console.log('errors', err)
+})
