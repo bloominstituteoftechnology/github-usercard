@@ -51,19 +51,19 @@ axios
     Using that array, iterate over it, requesting data for each user, creating a new card for each
     user, and adding that card to the DOM.
 */
+const eachUser = [];
+const followersArray = ["https://api.github.com/users/adelazalewski","https://api.github.com/users/weinerjm14","https://api.github.com/users/imxande","https://api.github.com/users/markrogo","https://api.github.com/users/sathyaganesan"];
 
-const followersArray = [];
-
-axios
-  .get(`https://api.github.com/users/melaniechele/followers`)
+followersArray.forEach(url => {
+  axios
+  .get(url)
   .then((res) =>{
-    
     console.log('here is the res:', res);
-  
-    followersArray= res.data;
-    res.data.forEach(element => {
-      htmlCards.appendChild(gitMe(res.data));
-    });
+
+  eachUser.push(res.data);
+  let manipulated = eachUser.splice(0, 1)
+  htmlCards.appendChild(gitMe(manipulated));
+    
    
 
   })
@@ -71,6 +71,9 @@ axios
   .catch((err)=>{
     console.log('here is the err: ', err)
   })
+
+})
+
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
