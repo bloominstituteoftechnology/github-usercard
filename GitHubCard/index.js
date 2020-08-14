@@ -42,6 +42,7 @@ axios.get(url)
        
         image.src = data[0].avatar_url
         console.log(image)
+        console.log(data)
       
       }
 
