@@ -4,6 +4,54 @@
     https://api.github.com/users/<your name>
 */
 
+
+
+import axios from 'axios';
+let url = 'https://api.github.com/users/ngriffith29'
+let data = []
+
+axios.get(url)
+    .then( response => {
+        // Remember response is an object, response.data is an array.
+        data.push(response.data)
+     
+    })
+    .catch( error => {
+        console.log("Error:", err);
+    })
+    .then (response => {
+
+      let card = (data) => {
+        //element creation
+        let div = document.createElement('div')
+        let div1 = document.createElement('div')
+        let image = document.createElement('img')
+        let name = document.createElement('h3')
+        let username = document.createElement('p')
+        let location = document.createElement('p')
+        let profile = document.createElement('p')
+        let followers = document.createElement('p')
+        let following = document.createElement('p')
+        let bio = document.createElement('p')
+        //adding classes
+        div.classList.add('card')
+        div1.classList.add('card-info')
+        name.classList.add('name')
+        username.classList.add('username')
+        //attributes
+       
+        image.src = data[0].avatar_url
+        console.log(image)
+      
+      }
+
+
+
+      card(data)
+
+
+    })
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -49,6 +97,7 @@ const followersArray = [];
       </div>
     </div>
 */
+
 
 /*
   List of LS Instructors Github username's:
