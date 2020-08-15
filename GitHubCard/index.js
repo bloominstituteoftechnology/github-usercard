@@ -61,7 +61,7 @@ followersArray.forEach(url => {
     console.log('here is the res:', res);
 
   eachUser.push(res.data);
-  let manipulated = eachUser.splice(0, 1)
+  let manipulated = eachUser.splice(0, 1);
   htmlCards.appendChild(gitMe(manipulated));
     
    
