@@ -4,17 +4,7 @@
     https://api.github.com/users/<your name>
 */
 //GET REQUEST//
-axios.get('https://api.github.com/users/dgarcialambda')
-.then(function(response) {
-  console.log(response);
-})
-.catch(function(error) {
-  console.log(error);
-})
-.then(function() {
-
-});
-
+//returns a promise/ a promise may or may not be successful can return an error/ 
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -40,7 +30,6 @@ axios.get('https://api.github.com/users/dgarcialambda')
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -62,50 +51,121 @@ const followersArray = [];
     </div>
 */
 //COMPONENT//
-function mycard(obj) {
+function githubCard(obj) {
 
-  //CREATING COMPONENT//
-  const didiCard = document.createElement('div');
+  const card = document.createElement('div');
   const didiImg = document.createElement('img');
-  const didiTitle = document.createElement('h3');
+  const cardInfo = document.createElement('div');
+  const didiName = document.createElement('h3');
   const didiUserName = document.createElement('p')
   const didiLocation = document.createElement('p');
   const didiProfile = document.createElement('p');
+  const githubLink = document.createElement('a');
   const didiFollowers = document.createElement('p');
-  const followingDidi = document.createElement('p')
+  const followingDidi = document.createElement('p');
   const didiBio = document.createElement('p');
 
-  //APPENDING//
-  didiCard.appendChild(didiImg);
-  didiCard.appendChild(didiTitle);
-  didiCard.appendChild(didiUserName)
-  didiCard.appendChild(didiLocation);
-  didiCard.appendChild(didiProfile);
-  didiCard.appendChild(didiFollowers);
-  didiCard.appendChild(followingDidi);
-  didiCard.appendChild(didiBio);
-  
-  //STYLING//
-  didiImg.src = avatar_url;
 
-  //PROGRAMMATICALLY UPDATE CONTENT
-  didiTitle.textContent = obj.name;
-  didiUserName.textContent = obj.login;
-  didiLocation.textContent = obj.location;
-  didiFollowers.textContent = obj.followers;
-  followingDidi.textContent = obj.following;
-  didiBio.textContent = obj.bio;
+  didiName.textContent = 'Name:' + obj.name;
+  didiProfile.textContent = 'Profile:';
+  didiUserName.textContent = 'Username:' + obj.login;
+  didiLocation.textContent = 'Location:' + obj.location;
+  didiFollowers.textContent = 'Followers:' + obj.followers;
+  followingDidi.textContent = 'Following:' + obj.following;
+  didiBio.textContent = 'Bio:' + obj.bio;
+  didiImg.src = obj.avatar_url;
+  githubLink.textContent = obj.html_url;
+  githubLink.href = obj.html_url;
 
-  //EVENTS//
-  didiCard.addEventListener('click', () => {
-  didiCard.classList.toggle('selected');
-  });
-  return didiCard;
+//APPENDING//
+card.appendChild(didiImg);
+card.appendChild(cardInfo);
+cardInfo.appendChild(didiName);
+cardInfo.appendChild(didiUserName)
+cardInfo.appendChild(didiLocation);
+cardInfo.appendChild(didiProfile);
+
+didiProfile.appendChild(githubLink);
+cardInfo.appendChild(didiFollowers);
+cardInfo.appendChild(followingDidi);
+cardInfo.appendChild(didiBio);
+
+//STYLING//
+
+card.classList.add('card');
+cardInfo.classList.add('card-info');
+didiProfile.classList.add('profile')
+didiName.style.fontSize = "1.5rem"
+
+return card;
 }
-const card = document.querySelector('.card');
-data.forEach((obj) => {
-  card.appendChild(mycard(obj));
+
+const followersArray=[ 
+  "tetondan",
+
+  "dustinmyers",
+
+  "justsml",
+
+  "luishrd",
+
+  "bigknell",
+
+  "markrogo",
+
+  "kwmorlock",
+
+  "ruthmatieu",
+
+  "ReginaAgunod",
+
+  "juliusheese",
+
+  "erinpicazo",
+
+  "MasonCodeSlaps",
+
+  "Mirwes",
+
+  "dgarcialambda",];
+
+  
+
+const cards=document.querySelector('.cards');
+
+
+
+let name = "Damaris-Garcia";
+
+followersArray.forEach(element => {
+
+  console.log(element);
+
+
+
+  axios
+
+  .get(`https://api.github.com/users/${element}`)
+
+  .then((res) => {
+
+   // console.log(res.data);
+
+    cards.append(githubCard(res.data));
+
+  })
+
+  .catch((err) => {
+
+    console.log(err);
+
+  });
+
+
+
 });
+
+
 
 /*
   List of LS Instructors Github username's:
