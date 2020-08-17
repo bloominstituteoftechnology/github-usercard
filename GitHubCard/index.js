@@ -75,16 +75,16 @@ function GithubCard(imgUrl, name, userName, location, followers, following, bio,
   const cardProfileA = document.createElement('a');
 
   // Now I'm appending all the elements to the DOM
-  userImg.appendChild(newCard);
-  cardInfo.appendChild(newCard);
-  cardName.appendChild(cardInfo);
-  cardUserName.appendChild(cardInfo);
-  cardLocation.appendChild(cardInfo);
-  cardProfileP.appendChild(cardInfo);
-  cardFollowers.appendChild(cardInfo);
-  cardFollowing.appendChild(cardInfo);
-  cardBio.appendChild(cardInfo);
-  cardProfileA.appendChild(cardProfileP);
+  newCard.appendChild(userImg);
+  newCard.appendChild(cardInfo);
+  cardInfo.appendChild(cardName);
+  cardInfo.appendChild(cardUserName);
+  cardInfo.appendChild(cardLocation);
+  cardInfo.appendChild(cardProfileP);
+  cardInfo.appendChild(cardFollowers);
+  cardInfo.appendChild(cardFollowing);
+  cardInfo.appendChild(cardBio);
+  cardProfileP.appendChild(cardProfileA);
 
   // adding styling (the classes)
   newCard.classList.add('card');
@@ -100,11 +100,12 @@ function GithubCard(imgUrl, name, userName, location, followers, following, bio,
   cardFollowers.textContent = followers;
   cardFollowing.textContent = following;
   cardBio.textContent = bio;
-  cardprofileA = nameUrl;
+  cardprofileA = profileLink;
 
   return newCard;
 }
 
+// creating a variable and making it's value you the div container I want to append my component to.
 const entryPoint = document.querySelector('.cards');
 // imgUrl, name, userName, location, followers, following, bio, profileLink
 let dataArray = [];
@@ -113,7 +114,7 @@ Axios
   .then((res) => {
     console.log('Here is the response', res);
 
-    dataArray = res.data;
+    dataArray.push(res.data);
 
     console.log('the array', dataArray);
 
