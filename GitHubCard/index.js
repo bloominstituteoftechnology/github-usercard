@@ -43,17 +43,21 @@ getPromise
 
 
 
-// const followersArray =
-// axios.get('https://api.github.com/users/Sheikh-A/followers')
-//   .then(res => {
-//     console.log(res);
-//     res.data.forEach( (info) => {
-//       mainCard.appendChild(createCard(info));
-//     });
-//   })
-//   .catch(error => {
-//     console.log("Follower Error", error)
-//   });
+const testArray =
+axios.get('https://api.github.com/users/Sheikh-A/followers')
+  .then(res => {
+    console.log("TEST ARRAY", res);
+    res.data.forEach( (info) => {
+      console.log("REsDATA", res.data.name);
+      if(res.data.name === null) {
+        res.data.name = res.data.login
+      }
+      mainCard.appendChild(followersCard(info));
+    });
+  })
+  .catch(error => {
+    console.log("Follower Error", error)
+  });
 
   const followersArray = [
     "https://api.github.com/users/tetondan",
@@ -61,7 +65,6 @@ getPromise
     "https://api.github.com/users/luishrd",
     "https://api.github.com/users/bigknell",
     "https://api.github.com/users/marksayers46",
-    "https://api.github.com/users/kmilliner888",
     "https://api.github.com/users/rbabaci1",
     "https://api.github.com/users/schoell411",
   ];
@@ -99,7 +102,6 @@ getPromise
 */
 
 function createCard(info) {
-
   //CREATE ELEMENTS
   const card = document.createElement('div'),
         userImg = document.createElement('img'),
@@ -147,6 +149,55 @@ function createCard(info) {
 
   return card;
 
+}
+
+function followersCard(info) {
+  //CREATE ELEMENTS
+  const card = document.createElement('div'),
+        userImg = document.createElement('img'),
+        cardInfo = document.createElement('div'),
+        name = document.createElement('h3'),
+        username = document.createElement('p'),
+        location = document.createElement('p'),
+        profile = document.createElement('p'),
+        link = document.createElement('a'),
+        followers = document.createElement('p'),
+        following = document.createElement('p'),
+        bio = document.createElement('p')
+
+  //CREATE STRUCTURE
+  card.appendChild(userImg);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(username);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  cardInfo.appendChild(link);
+  cardInfo.appendChild(followers);
+  card.appendChild(following);
+  card.appendChild(bio);
+
+  //set class NAMES
+  card.classList.add("card");
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  username.classList.add('username');
+
+  //add CONTENT
+  userImg.src = info.avatar_url;
+  name.textContent = `Name: ${info.login}`;
+  username.textContent = `Username: ${info.login}`;
+  location.textContent = `Location: ${info.location}`;
+  profile.textConent = `Profile: ${info.company}`;
+  link.textContent = `Visit my page:`;
+  link.setAttribute("href", info.html_url);
+  followers.textConent = `Followers: ${info.followers}`;
+  following.textConent = `Following: ${info.followers}`;
+  bio.textConent = `Following: ${info.bio}`;
+
+  console.log("card", card);
+
+  return card;
 
 }
 
