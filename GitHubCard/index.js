@@ -46,9 +46,9 @@ const followersArray = [
   "bigknell",
 ];
 
-followersArray.forEach(() => {
+followersArray.forEach((item) => {
   axios
-    .get(`https://api.github.com/users/${followersArray[]}`)
+    .get(`https://api.github.com/users/${item}`)
     .then((stuff) => {
       let newUserCard = cardMaker(stuff.data);
 
