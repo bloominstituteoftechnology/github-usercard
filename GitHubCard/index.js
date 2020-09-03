@@ -4,6 +4,19 @@
     https://api.github.com/users/<your name>
 */
 
+const mainCard = document.querySelector(".cards");
+const getPromise = axios.get("https://api.github.com/users/justinemanueljones");
+
+getPromise
+  .then((response) => {
+    console.log(response.data);
+    const myData = createCard(response.data);
+    mainCard.appendChild(myData)
+  })
+  .catch(error => {
+    console.log("Error", error)
+  });
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -28,7 +41,45 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
+
+// const testArray =
+// axios.get('https://api.github.com/users/justinemanueljones/followers')
+//   .then(res => {
+//     console.log("TEST ARRAY", res);
+//     res.data.forEach( (info) => {
+//       console.log("REsDATA", res.data.name);
+//       if(res.data.name === null) {
+//         res.data.name = res.data.login
+//       }
+//       mainCard.appendChild(followersCard(info));
+//     });
+//   })
+//   .catch(error => {
+//     console.log("Follower Error", error)
+//   });
+
+  const followersArray = [
+    "https://api.github.com/users/tetondan",
+    "https://api.github.com/users/dustinmyers",
+    "https://api.github.com/users/luishrd",
+    "https://api.github.com/users/bigknell",
+    "https://api.github.com/users/marksayers46",
+    "https://api.github.com/users/rbabaci1",
+    "https://api.github.com/users/schoell411",
+  ];
+
+ followersArray.map((element) => {
+   axios
+     .get(element)
+     .then((res) => {
+       const followersData = createCard;
+       mainCard.appendChild(followersData(res.data));
+     })
+     .catch((error) => {
+       console.log("Error found followers", error)
+     });
+ });
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +100,107 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function createCard(info) {
+  //CREATE ELEMENTS
+  const card = document.createElement('div'),
+        userImg = document.createElement('img'),
+        cardInfo = document.createElement('div'),
+        name = document.createElement('h3'),
+        username = document.createElement('p'),
+        location = document.createElement('p'),
+        profile = document.createElement('p'),
+        link = document.createElement('a'),
+        followers = document.createElement('p'),
+        following = document.createElement('p'),
+        bio = document.createElement('p')
+
+  //CREATE STRUCTURE
+  card.appendChild(userImg);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(username);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  cardInfo.appendChild(link);
+  cardInfo.appendChild(followers);
+  card.appendChild(following);
+  card.appendChild(bio);
+
+  //set class NAMES
+  card.classList.add("card");
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  username.classList.add('username');
+
+  //add CONTENT
+  userImg.src = info.avatar_url;
+  name.textContent = `Name: ${info.name}`;
+  username.textContent = `Username: ${info.login}`;
+  location.textContent = `Location: ${info.location}`;
+  profile.textConent = `Profile: ${info.company}`;
+  link.textContent = `Visit my page:`;
+  link.setAttribute("href", info.html_url);
+  followers.textConent = `Followers: ${info.followers}`;
+  following.textConent = `Following: ${info.followers}`;
+  bio.textConent = `Following: ${info.bio}`;
+
+  console.log("card", card);
+
+  return card;
+
+}
+
+function followersCard(info) {
+  //CREATE ELEMENTS
+  const card = document.createElement('div'),
+        userImg = document.createElement('img'),
+        cardInfo = document.createElement('div'),
+        name = document.createElement('h3'),
+        username = document.createElement('p'),
+        location = document.createElement('p'),
+        profile = document.createElement('p'),
+        link = document.createElement('a'),
+        followers = document.createElement('p'),
+        following = document.createElement('p'),
+        bio = document.createElement('p')
+
+  //CREATE STRUCTURE
+  card.appendChild(userImg);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(username);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  cardInfo.appendChild(link);
+  cardInfo.appendChild(followers);
+  card.appendChild(following);
+  card.appendChild(bio);
+
+  //set class NAMES
+  card.classList.add("card");
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  username.classList.add('username');
+
+  //add CONTENT
+  userImg.src = info.avatar_url;
+  name.textContent = `Name: ${info.login}`;
+  username.textContent = `Username: ${info.login}`;
+  location.textContent = `Location: ${info.location}`;
+  profile.textConent = `Profile: ${info.company}`;
+  link.textContent = `Visit my page:`;
+  link.setAttribute("href", info.html_url);
+  followers.textConent = `Followers: ${info.followers}`;
+  following.textConent = `Following: ${info.followers}`;
+  bio.textConent = `Following: ${info.bio}`;
+
+  console.log("card", card);
+
+  return card;
+
+}
+
 
 /*
   List of LS Instructors Github username's:
