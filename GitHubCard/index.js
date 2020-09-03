@@ -4,13 +4,16 @@ import axios from "axios";
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-axios.get("https://api.github.com/users/tompsherman").then((stuff) => {
-  console.log("response body axios puts in data property", stuff.data);
-  console.log(
-    "response body axios puts in for avatar url",
-    stuff.data.avatar_url
-  );
-});
+axios
+  .get("https://api.github.com/users/tompsherman")
+  .then((stuff) => {
+    let userCard = cardMaker(stuff.data);
+
+    cards.appendChild(userCard);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -35,7 +38,26 @@ axios.get("https://api.github.com/users/tompsherman").then((stuff) => {
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell",
+];
+
+followersArray.forEach(() => {
+  axios
+    .get(`https://api.github.com/users/${followersArray[]}`)
+    .then((stuff) => {
+      let newUserCard = cardMaker(stuff.data);
+
+      cards.appendChild(newUserCard);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -56,16 +78,10 @@ const followersArray = [];
       </div>
     </div>
 */
-function cardMaker({
-  avatar_URL,
-  name,
-  login,
-  location,
-  html_url,
-  followers,
-  following,
-  bio,
-}) {
+
+const cards = document.querySelector(".cards");
+
+function cardMaker(obj) {
   const card = document.createElement("div");
   const image = document.createElement("img");
   const cardInfo = document.createElement("div");
@@ -91,19 +107,19 @@ function cardMaker({
 
   card.classList.add("card");
   cardInfo.classList.add("card-info");
-  name.classList.add("name");
+  realName.classList.add("name");
   userName.classList.add("username");
 
-  image.src = avatar_URL;
-  realName.textContent = name;
-  userName.textContent = login;
-  userLocation.textContent = location;
-  profile.textContent = "Profile:";
-  profileLink.href = html_url;
-  profileLink.textContent = html_url;
-  userFollowers.textContent = `Followers: ${followers}`;
-  userFollowing.textContent = `Following: ${following}`;
-  userBio.textContent = `Bio: ${bio}`;
+  image.src = obj.avatar_url;
+  realName.textContent = obj.name;
+  userName.textContent = obj.login;
+  userLocation.textContent = obj.location;
+  profile.innerHTML = `Profile: <a href = "${obj.html_url}">${obj.html_url}</a>`;
+  profileLink.href = obj.html_url;
+  profileLink.textContent = obj.html_url;
+  userFollowers.textContent = `Followers: ${obj.followers}`;
+  userFollowing.textContent = `Following: ${obj.following}`;
+  userBio.textContent = `Bio: ${obj.bio}`;
 
   return card;
 }
