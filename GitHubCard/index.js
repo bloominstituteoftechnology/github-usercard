@@ -7,11 +7,14 @@ import axios from 'axios'
 
 axios.get('https://api.github.com/users/gvicas17')
 .then(response =>{
-  console.log ('gabbys data here', response.data)
-})
-.catch(arr =>{
+  const responseData = response.data
+  profileMaker(responseData)
+}) 
+.catch(err =>{
   console.log(err)
 })
+
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -24,6 +27,8 @@ axios.get('https://api.github.com/users/gvicas17')
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
+
+
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -59,6 +64,8 @@ const followersArray = [];
 */
 
 function profileMaker (object){
+
+  // Creating Elements
   const profileCard = document.createElement('div')
   const profileImage = document.createElement('img')
   const profileInfo = document.createElement('div')
@@ -70,12 +77,26 @@ function profileMaker (object){
   const followers = document.createElement('p')
   const following = document.createElement('p')
   const bio = document.createElement('p')
+ 
+  //Element content
 
+  profileImage.src = object.avatar_url
+  name.textContent = object.name
+  username.textContent = object.login
+  location.textContent = `Location: ${object.location}`
+  profileLink.href = `GitHub Profile: ${object.avatar_url}`
+  followers.textContent = `Followers: ${object.followers}`
+  following.textContent = `Following: ${object.following}`
+  bio.textContent = `Bio: ${object.bio}`
+
+  // Adding Classes
   
   profileCard.classList.add('card')
   profileInfo.classList.add('card-info')
   name.classList.add('name')
   username.classList.add('username')
+
+  // Heirarchy
   
   profileCard.appendChild(profileImage)
   profileCard.appendChild(profileInfo)
@@ -88,11 +109,12 @@ function profileMaker (object){
   profileInfo.appendChild(bio)
   profile.appendChild(profileLink)
 
-  return profileCard
+ const entryPoint = document.querySelector('.cards')
+ entryPoint.appendChild(profileCard)
+  return entryPoint
 }
 
-const entryPoint = document.querySelector('.cards')
-console.log(entryPoint)
+
 
 /*
   List of LS Instructors Github username's:
