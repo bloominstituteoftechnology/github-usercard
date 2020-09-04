@@ -41,7 +41,18 @@ axios.get('https://api.github.com/users/gvicas17')
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['kristapants','mattcanavan', 'Christopher-Barrett', 'OreoCoDev', 'CStank89']
+
+followersArray.forEach (users => {
+axios.get(`https://api.github.com/users/${users}`)
+.then(response =>{
+  const responseData = response.data
+  profileMaker(responseData)
+})
+.catch(err =>{
+  console.log(err)
+})
+})
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -84,7 +95,9 @@ function profileMaker (object){
   name.textContent = object.name
   username.textContent = object.login
   location.textContent = `Location: ${object.location}`
-  profileLink.href = `GitHub Profile: ${object.avatar_url}`
+  profileLink.href = object.html_url
+  profileLink.textContent = object.html_url
+  profile.textContent = `Profile:`
   followers.textContent = `Followers: ${object.followers}`
   following.textContent = `Following: ${object.following}`
   bio.textContent = `Bio: ${object.bio}`
