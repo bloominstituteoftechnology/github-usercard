@@ -53,13 +53,15 @@ const followersArray = [];
       </div>
     </div>
 */
-const gitHubAccount = (obj) => {
+const gitHubAccount = (data) => {
   const divCard = document.createElement('div')
   divCard.classList.add("card");
   //created 1st div and class
 
   const imageTag = document.createElement('img')
+  imageTag.src = data.avatar_url;
   divCard.appendChild(imageTag)
+
   //create image tag
   const divInfo = document.createElement('div')
   divInfo.classList.add("card-info");
@@ -67,6 +69,8 @@ const gitHubAccount = (obj) => {
 
   const h3Tag = document.createElement('h3')
   h3Tag.classList.add("name");
+  h3Tag.textContent = data.login;
+  divInfo.appendChild(h3Tag)
   //created h3 tag and class
 
   const pUserName = document.createElement('p')
@@ -80,6 +84,10 @@ const gitHubAccount = (obj) => {
   const pFollowing = document.createElement('p')
   const pBio = document.createElement('p')
   
+
+
+
+  return divCard
 }
 
 
