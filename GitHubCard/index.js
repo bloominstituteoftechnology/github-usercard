@@ -53,6 +53,21 @@ const followersArray = [];
       </div>
     </div>
 */
+const gitHubAccount = (obj) => {
+  const divCard = document.createElement('div')
+  const imageTag = document.createElement('img')
+  const divInfo = document.createElement('div')
+  const h3Tag = document.createElement('h3')
+  const pUserName = document.createElement('p')
+  const plocation = document.createElement('p')
+  const pProfile = document.createElement('p')
+  const anchorAdress= document.createElement('a')
+  const pFollowers = document.createElement('p')
+  const pFollowing = document.createElement('p')
+  const pBio = document.createElement('p')
+  
+}
+
 
 /*
   List of LS Instructors Github username's:
