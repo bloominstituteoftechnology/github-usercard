@@ -9,6 +9,9 @@ axios.get("https://api.github.com/users/achaselittlefield")
   document.querySelector(".cards")
 .appendChild(gitHubAccount(resp.data))  
 })
+.catch((err) =>{
+  console.log('Error!', err)
+})
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
