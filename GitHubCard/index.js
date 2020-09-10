@@ -75,7 +75,7 @@ Step 5: Create Dog Card Component
 </div>
 
 */
-const dogCard = (imageURL) => {
+const gitCard = (imageURL) => {
   // imageUrl is data from the dog API. 
   
   // create elements (these are not in parent <-> child relationships)
@@ -138,6 +138,7 @@ axios.get(`https://api.github.com/users/${userName}`)
     console.log('success!', r.data)
     let avatar_img_url = r.data.avatar_url;
     let img = document.createElement('img');
+    img.classList.add('card');
     img.src = avatar_img_url;
     //array of urls is in "response.data.message". iterate over each url and create a dogcard with each url
     card.append(img);
