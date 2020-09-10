@@ -4,7 +4,7 @@
 */
 
  span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, blockquote, pre,
+  h3, h4, h5, h6, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em,  ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
@@ -88,14 +88,11 @@ body {
 }
 
 .cards {
-  height:auto;
   width: 100%;
 }
 
 .card {
-  border: 2px solid white;
-  width: 60%;
-  height:auto;
+  width: 100%;
   padding: 20px;
   display: flex;
   border-radius: 5px;
@@ -119,12 +116,20 @@ body {
   font-size: 1.4rem;
   margin-bottom: 3px;
 }
-
+/* 
 .card .username {
   font-size: 1.8rem;
   font-style: italic;
   margin: 3px 0 10px;
-}
+} */
 
+
+.username {
+  font-size: 1.8rem;
+  font-style: italic;
+  /* margin: 3px 0 10px; */
+  margin:1px;
+  /* border: 1px solid black; */
+}
 
 

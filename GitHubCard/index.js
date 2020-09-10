@@ -22,10 +22,14 @@ import axios from 'axios';
 */
 
 /*
-  STEP 5: Now that you have your own card getting added to the DOM, either
-    follow this link in your browser https://api.github.com/users/<Your github name>/followers,
-    manually find some other users' github handles, or use the list found at the
-    bottom of the page. Get at least 5 different Github usernames and add them as
+  STEP 5: Now that you have your own card getting added to the DOM,
+   either
+    follow this link in your browser https://api.github.com/users/
+    <Your github name>/followers,
+    manually find some other users' github handles, or use the 
+    list found at the
+    bottom of the page. Get at least 5 different Github usernames
+     and add them as
     Individual strings to the friendsArray below.
 
     Using that array, iterate over it, requesting data for each user, creating a new card for each
@@ -116,14 +120,15 @@ Step 4b - Add to chain here to see data returned from GETs
 Step 6 - Create an error in axios code & handle error with .catch 
 */
 
-// This returns JUST the Promise. Use promise chaining like below to handle success and error states.
+// This returns JUST the Promise. Use promise chaining like below 
+//to handle success and error states.
 // const axiosPromise = axios.get("https://dog.ceo/api/breed/mastiff/images/random/12")
 // console.log(axiosPromise)
 
 
 // this is our parent in the HTML. this is where all of our dogcards will live
 
-const card = document.querySelector('.cards');
+const cards = document.querySelector('.cards');
 const userName = 'extrude575757';
 
 // axios.get sends a GET HTTP request to the URL provided as a parameter. 
@@ -135,13 +140,38 @@ axios.get(`https://api.github.com/users/${userName}`)
   .then((r) => {
   // ALL APIs HAVE DIFFERENT FORMATS IN THEIR RESPONSE. Print out the response or look at documentation to see what the API returned
     // handle success here
-    console.log('success!', r.data)
+    console.log('success!', r.data);
+    let card = document.createElement('div');
+    let cardDiv = document.createElement('div');
+    let cardP = document.createElement('p');
+
+    // cardDiv.classList.add('card');
+    let name = document.createElement('h1');
+    let githubName = document.createElement('h2');
+    // githubName.classList.add('card');
+    cardP.classList.add('card');
+    cardP.innerHTML = 'Location: '+ r.data.location + ' <br> Profile: '+r.data.html_url
+    + '<br> Followers: '+r.data.followers+'<br>Following: '+r.data.following+ '<br>Bio: '+r.data.bio;
+
+    githubName.classList.add('username');
+    githubName.textContent = r.data.login;
+    name.classList.add('name');
+    name.classList.add('card');
+    name.textContent = r.data.name;
+    card.classList.add('card');
     let avatar_img_url = r.data.avatar_url;
     let img = document.createElement('img');
     img.classList.add('card');
     img.src = avatar_img_url;
+    card.appendChild(img);
+    cardDiv.appendChild(name);
+    cardDiv.appendChild(githubName);
+    cardDiv.appendChild(cardP);
+    card.appendChild(cardDiv);
+    
+    
     //array of urls is in "response.data.message". iterate over each url and create a dogcard with each url
-    card.append(img);
+    cards.appendChild(card);
     // r.data.message.forEach(url => {
     //   const newDog = dogCard(url)// create dog card component, and save to const "newDog"
     //   entryPoint.appendChild(newDog) // using the HTML parent element, attach newDogCard to the DOM
