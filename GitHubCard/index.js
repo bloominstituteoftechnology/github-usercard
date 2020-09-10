@@ -6,7 +6,8 @@
 
 axios.get("https://api.github.com/users/achaselittlefield")
 .then((resp) =>{
-console.log('success!', resp.data)  
+  document.querySelector(".cards")
+.appendChild(gitHubAccount(resp.data))  
 })
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -79,19 +80,37 @@ const gitHubAccount = (data) => {
   divInfo.appendChild(pUserName)
   //created p tag and class
 
-  const plocation = document.createElement('p')
+  const pLocation = document.createElement('p')
+  pLocation.textContent = `Location: ${data.location}`;
+  divInfo.appendChild(pLocation)
+  //added location
+
   const pProfile = document.createElement('p')
+  pProfile.textContent = `Profile: `;
+  divInfo.appendChild(pProfile)
+  //Profile with Anchor Tag
   const anchorAdress= document.createElement('a')
+  anchorAdress.textContent = data.html_url;
+  pProfile.appendChild(anchorAdress)
+// Url for Anchor Tag
   const pFollowers = document.createElement('p')
+  pFollowers.textContent = `Followers: ${data.followers}`
+  divInfo.appendChild(pFollowers)
+  //# of Followers 
   const pFollowing = document.createElement('p')
+  pFollowing.textContent = `Following: ${data.following}`
+  divInfo.appendChild(pFollowing)
+  // # of people I am following
   const pBio = document.createElement('p')
-  
-
-
-
+  pBio.textContent = `Bio: ${data.bio}`
+  divInfo.appendChild(pBio)
+  //Bio
+  divCard.appendChild(divInfo);
+  //Final append
   return divCard
-}
 
+}
+console.log('is this working?')
 
 /*
   List of LS Instructors Github username's:
