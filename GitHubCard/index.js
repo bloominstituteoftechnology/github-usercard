@@ -55,10 +55,24 @@ const followersArray = [];
 */
 const gitHubAccount = (obj) => {
   const divCard = document.createElement('div')
+  divCard.classList.add("card");
+  //created 1st div and class
+
   const imageTag = document.createElement('img')
+  divCard.appendChild(imageTag)
+  //create image tag
   const divInfo = document.createElement('div')
+  divInfo.classList.add("card-info");
+  //created 2nd div and class
+
   const h3Tag = document.createElement('h3')
+  h3Tag.classList.add("name");
+  //created h3 tag and class
+
   const pUserName = document.createElement('p')
+  pUserName.classList.add("username")
+  //created p tag and class
+
   const plocation = document.createElement('p')
   const pProfile = document.createElement('p')
   const anchorAdress= document.createElement('a')
