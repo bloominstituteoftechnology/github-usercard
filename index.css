@@ -94,6 +94,8 @@ body {
 }
 
 .cards {
+  padding:1px;
+  margin:1px;
   height:100%;
   width: 100%;
 }
@@ -103,7 +105,8 @@ body {
   width: 100%;
   padding: 20px;
   display: flex;
-  min-width:200px;
+  min-height:100%;
+  min-width:15rem;
   justify-content: center;
   border-radius: 5px;
   box-shadow: 0 1px 6px -2px #000;
@@ -166,40 +169,126 @@ body {
     Media Query width 500px
       cards with should stay fixed
 */
-@media(max-width:'550px'){
+@media screen and (max-width:550px){
   
-  body > .container > .cards{
-    height:100%;
-    width:100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  .card img {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-self: center;
-    align-self: space-evenly;
-  }
-  .card-info{
-    height:100%;
-    width:100%;
-    padding-left:12px;
-    box-shadow: 1px 1px black;
-    border:1px solid black;
-  }
-  div > .cards{
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-  }
-  div > .card{
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-  }
+  
+/* Reset above, our CSS below */
+
+html, body, * {
+  font-family: 'Roboto', sans-serif;
+  box-sizing: border-box;
+}
+a{
+
+  text-decoration: none;
+  color:blue;
+}
+html {
+  font-size: 62.5%;
+}
+body {
+  background: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+}
+.container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.header img {
+  width: 150px;
+  height: 150px;
+}
+
+.header p {
+  font-size: 48px;
+}
+
+.cards {
+  padding:1px;
+  margin:1px;
+  height:100%;
+  width: 100%;
+}
+
+.card {
+  height:100%;
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  min-height:100%;
+  min-width:15rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 5px;
+  box-shadow: 0 1px 6px -2px #000;
+  background-color: #FFF;
+  margin-bottom: 30px;
+}
+.card-info{
+  height:100%;
+  width:100%;
+  padding-left:12px;
+  box-shadow: 1px 1px black;
+  border:1px solid black;
+}
+
+.card img {
+  width: 30%;
+  height: 60%;
+  border-radius: 1rem;
+  margin-right: 10%;
+}
+
+.card .name {
+  font-size: 3.4rem;
+}
+
+.card p {
+  font-size: 1.4rem;
+  margin-bottom: 3px;
+}
+/* 
+.card .username {
+  font-size: 1.8rem;
+  font-style: italic;
+  margin: 3px 0 10px;
+} */
+
+
+.username {
+  font-size: 1.8rem;
+  font-style: italic;
+  /* margin: 3px 0 10px; */
+  margin:1px;
+  /* border: 1px solid black; */
+}
+
+
+/* Event
+    Listener
+        CLASS*/
+    .selected {
+      box-shadow: 2px 2px 10px 10px rgba(0, 0, 0, 0.1);	
+      transform: translatey(-2px) scale(1.1);
+      transition: all .2s ease-in;
+    }
+
+
+
 
 }

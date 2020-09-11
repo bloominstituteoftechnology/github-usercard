@@ -73,7 +73,7 @@ import axios from 'axios';
 
 const cards = document.querySelector('.cards');
 const userNames = ['extrude575757','bigknell','tetondan',
-'dustinmyers', 'justsml', 'luishrd', 'snowcoding'];
+'dustinmyers', 'justsml', 'luishrd', 'snowcoding','james-coulter'];
 /*
   Where the action is happening componet
    <div class="cards">
