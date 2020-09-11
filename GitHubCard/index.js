@@ -97,31 +97,26 @@ const userNames = ['extrude575757','bigknell','tetondan',
 const cardExecute = (r)=>{
     console.log('success!', r.data);
     let card = document.createElement('div');
-    let cardDiv = document.createElement('div');
-    let cardP = document.createElement('p');
+    let cardDiv = document.createElement('div'); 
 
     cardDiv.classList.add('card-info');
     let name = document.createElement('h3');
     let githubName = document.createElement('h2');
-    // githubName.classList.add('card');
-    cardP.classList.add('username');
-    cardP.innerHTML = '<p>Location: '+ r.data.location + ' </p><p>Profile: '+r.data.html_url
-    + '</p><p>Followers: '+r.data.followers+'</p><p>Following: '+r.data.following+ '</p><p>Bio: '+r.data.bio+'</p>';
+    // The paragaphs 
 
-
-    let pUname = document.createElement('p');
+    let pUnameActive = document.createElement('p');
     let pLocate = document.createElement('p');
     let pProfile = document.createElement('p');
     let pFollowing = document.createElement('p');
     let pFollowers = document.createElement('p');
     let pBio = document.createElement('p');
-
-    pUname.textContent = r.data.login;
-    pLocate.textContent = r.data.location;
-    pProfile.innerHTML = "<a href='"+r.data.html_url+"'>"+r.data.html_url+"</a>";
-    pFollowers.textContent = r.data.followers;
-    pFollowing.textContent = r.data.following;
-    pBio.textContent = r.data.bio;
+    // And their literal values
+    pUnameActive.innerHTML ="<b>Last Active: </b> " + r.data.updated_at + " <b>Created: </b>"+r.data.created_at;
+    pLocate.innerHTML = "<b>Location: </b> " + r.data.location;
+    pProfile.innerHTML = "<b>URL: </b> <a href='"+r.data.html_url+"'>"+r.data.html_url+"</a>";
+    pFollowers.innerHTML = "<b>Followers: </b> " + r.data.followers;
+    pFollowing.innerHTML = "<b>Following: </b>"+r.data.following;
+    pBio.innerHTML = "<b>Bio: </b>"+r.data.bio;
 
 
     
@@ -138,7 +133,7 @@ const cardExecute = (r)=>{
     card.appendChild(img);
     cardDiv.appendChild(name);
     cardDiv.appendChild(githubName);
-    cardDiv.appendChild(pUname);
+    cardDiv.appendChild(pUnameActive);
     cardDiv.appendChild(pLocate);
     cardDiv.appendChild(pProfile);
     cardDiv.appendChild(pFollowers);
