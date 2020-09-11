@@ -76,8 +76,9 @@ const userNames = ['extrude575757','bigknell','tetondan',
 'dustinmyers', 'justsml', 'luishrd', 'snowcoding'];
 /*
   Where the action is happening componet
-     <div class="card">
-      <img src={image url of user} />
+   <div class="cards">
+        <div class="card">
+        <img src={image url of user} />
       <div class="card-info">
         <h3 class="name">{users name}</h3>
         <p class="username">{users user name}</p>
@@ -90,6 +91,8 @@ const userNames = ['extrude575757','bigknell','tetondan',
         <p>Bio: {users bio}</p>
       </div>
     </div>
+
+   </div>
 */
 const cardExecute = (r)=>{
     console.log('success!', r.data);
@@ -102,9 +105,26 @@ const cardExecute = (r)=>{
     let githubName = document.createElement('h2');
     // githubName.classList.add('card');
     cardP.classList.add('username');
-    cardP.innerHTML = 'Location: '+ r.data.location + ' <br> Profile: '+r.data.html_url
-    + '<br> Followers: '+r.data.followers+'<br>Following: '+r.data.following+ '<br>Bio: '+r.data.bio;
+    cardP.innerHTML = '<p>Location: '+ r.data.location + ' </p><p>Profile: '+r.data.html_url
+    + '</p><p>Followers: '+r.data.followers+'</p><p>Following: '+r.data.following+ '</p><p>Bio: '+r.data.bio+'</p>';
 
+
+    let pUname = document.createElement('p');
+    let pLocate = document.createElement('p');
+    let pProfile = document.createElement('p');
+    let pFollowing = document.createElement('p');
+    let pFollowers = document.createElement('p');
+    let pBio = document.createElement('p');
+
+    pUname.textContent = r.data.login;
+    pLocate.textContent = r.data.location;
+    pProfile.innerHTML = "<a href='"+r.data.html_url+"'>"+r.data.html_url+"</a>";
+    pFollowers.textContent = r.data.followers;
+    pFollowing.textContent = r.data.following;
+    pBio.textContent = r.data.bio;
+
+
+    
     githubName.classList.add('username');
     githubName.textContent = r.data.login;
     name.classList.add('name');
@@ -118,7 +138,13 @@ const cardExecute = (r)=>{
     card.appendChild(img);
     cardDiv.appendChild(name);
     cardDiv.appendChild(githubName);
-    cardDiv.appendChild(cardP);
+    cardDiv.appendChild(pUname);
+    cardDiv.appendChild(pLocate);
+    cardDiv.appendChild(pProfile);
+    cardDiv.appendChild(pFollowers);
+    cardDiv.appendChild(pFollowing);
+    cardDiv.appendChild(pBio);
+
     card.appendChild(cardDiv);
     
     cards.appendChild(card);

@@ -5,7 +5,7 @@
 
  span, applet, object, iframe,
   h3, h4, h5, h6, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
+abbr, acronym, address, big, cite, code,
 del, dfn, em,  ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
 b, u, i, center,
@@ -54,7 +54,10 @@ html, body, * {
   font-family: 'Roboto', sans-serif;
   box-sizing: border-box;
 }
-
+a{
+  text-decoration: none;
+  color:blue;
+}
 html {
   font-size: 62.5%;
 }
@@ -100,6 +103,12 @@ body {
   background-color: #FFF;
   margin-bottom: 30px;
 }
+.card-info{
+  height:100%;
+  width:100%;
+  padding-left:12px;
+  border:1px solid black;
+}
 
 .card img {
   width: 150px;
@@ -142,3 +151,10 @@ body {
       transition: all .2s ease-in;
     }
 
+
+
+
+/*
+    Media Query width 500px
+      cards with should stay fixed
+*/
