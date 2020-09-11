@@ -9,6 +9,7 @@ axios.get("https://api.github.com/users/achaselittlefield")
   document.querySelector(".cards")
 .appendChild(gitHubAccount(resp.data))  
 })
+
 .catch((err) =>{
   console.log('Error!', err)
 })
@@ -36,11 +37,33 @@ axios.get("https://api.github.com/users/achaselittlefield")
     user, and adding that card to the DOM.
 */
 
-const followersArray = ['https://api.github.com/cameronyoung94/',
-                        'https://api.github.com/sarahrosecooper/',
-                        'https://api.github.com/ChadDiaz/',
-                        'https://api.github.com/LTims080913/',
-                        'https://api.github.com/tippitytapp/'];
+const followersArray = [];
+
+axios.get("https://api.github.com/users/achaselittlefield")
+.then(() =>{
+  return followersArray.concat(
+  ["cameronyoung94",
+  "sarahrosecooper",
+  "ChadDiaz",
+  "LTims080913",
+  "tippitytapp"])
+})
+.then((followers) =>{
+  followers.map((followers) =>{
+    axios.get(`https://api.github.com/users/${followers}`)
+    .then((resp2) =>{
+      document.querySelector(".cards")
+      .appendChild(gitHubAccount(resp2.data)); 
+    })
+    .catch((err) =>{
+      console.log('Error!', err)
+    })
+  })
+})
+
+
+         
+                 
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
