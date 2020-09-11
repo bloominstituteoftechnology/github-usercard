@@ -32,7 +32,8 @@ import axios from 'axios';
      and add them as
     Individual strings to the friendsArray below.
 
-    Using that array, iterate over it, requesting data for each user, creating a new card for each
+    Using that array, iterate over it, requesting data for each user,
+     creating a new card for each
     user, and adding that card to the DOM.
 */
 
@@ -68,17 +69,7 @@ const followersArray = [];
 */
 
 
-/*
-Step 5: Create Dog Card Component
-*/
 
-/*
-<div>
-  <img />
-  <h3 />
-</div>
-
-*/
 const gitCard = (imageURL) => {
   // imageUrl is data from the dog API. 
   
@@ -129,13 +120,14 @@ Step 6 - Create an error in axios code & handle error with .catch
 // this is our parent in the HTML. this is where all of our dogcards will live
 
 const cards = document.querySelector('.cards');
-const userName = 'extrude575757';
+const userNames = ['extrude575757','bigknell'];
 
 // axios.get sends a GET HTTP request to the URL provided as a parameter. 
 // it creates a Promise internally that manages the state of the request - pending, fulfilled, rejected
 // to create a chain, DO NOT END YOUR .get, .then, or .catch with a ;
 // comments do not break a chain, as shown below.
-axios.get(`https://api.github.com/users/${userName}`)
+userNames.forEach((userName)=>{
+  axios.get(`https://api.github.com/users/${userName}`)
 //  when a GET request is fulfilled, a .then on the promise chain allows us to access the data returned from the API
   .then((r) => {
   // ALL APIs HAVE DIFFERENT FORMATS IN THEIR RESPONSE. Print out the response or look at documentation to see what the API returned
@@ -169,13 +161,8 @@ axios.get(`https://api.github.com/users/${userName}`)
     cardDiv.appendChild(cardP);
     card.appendChild(cardDiv);
     
-    
-    //array of urls is in "response.data.message". iterate over each url and create a dogcard with each url
     cards.appendChild(card);
-    // r.data.message.forEach(url => {
-    //   const newDog = dogCard(url)// create dog card component, and save to const "newDog"
-    //   entryPoint.appendChild(newDog) // using the HTML parent element, attach newDogCard to the DOM
-    // })
+  
   })
 
 // when a GET request is rejected, a .catch on the chain allows us to capture errors returned from the API
@@ -190,3 +177,4 @@ axios.get(`https://api.github.com/users/${userName}`)
 .then(() => {
   console.log('yahoo!')
 })
+});
