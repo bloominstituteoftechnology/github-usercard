@@ -94,10 +94,12 @@ body {
 }
 
 .cards {
+  height:100%;
   width: 100%;
 }
 
 .card {
+  height:100%;
   width: 100%;
   padding: 20px;
   display: flex;
@@ -117,10 +119,10 @@ body {
 }
 
 .card img {
-  width: 150px;
-  height: 150px;
-  border-radius: 3px;
-  margin-right: 20px;
+  width: 30%;
+  height: 60%;
+  border-radius: 1rem;
+  margin-right: 10%;
 }
 
 .card .name {
@@ -165,7 +167,39 @@ body {
       cards with should stay fixed
 */
 @media(max-width:'550px'){
-  .cards{
-    width: 50%;
-  } 
+  
+  body > .container > .cards{
+    height:100%;
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .card img {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-self: center;
+    align-self: space-evenly;
+  }
+  .card-info{
+    height:100%;
+    width:100%;
+    padding-left:12px;
+    box-shadow: 1px 1px black;
+    border:1px solid black;
+  }
+  div > .cards{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+  div > .card{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+
 }
