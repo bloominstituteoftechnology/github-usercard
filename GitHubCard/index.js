@@ -36,7 +36,11 @@ axios.get("https://api.github.com/users/achaselittlefield")
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['https://api.github.com/cameronyoung94/',
+                        'https://api.github.com/sarahrosecooper/',
+                        'https://api.github.com/ChadDiaz/',
+                        'https://api.github.com/LTims080913/',
+                        'https://api.github.com/tippitytapp/'];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
