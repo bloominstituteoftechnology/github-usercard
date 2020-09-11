@@ -71,6 +71,8 @@ body {
   padding: 30px;
   display: flex;
   flex-direction: column;
+
+  justify-content: space-evenly;
   align-items: center;
 }
 
@@ -99,6 +101,8 @@ body {
   width: 100%;
   padding: 20px;
   display: flex;
+  min-width:200px;
+  justify-content: center;
   border-radius: 5px;
   box-shadow: 0 1px 6px -2px #000;
   background-color: #FFF;
@@ -160,3 +164,8 @@ body {
     Media Query width 500px
       cards with should stay fixed
 */
+@media(max-width:'550px'){
+  .cards{
+    width: 50%;
+  } 
+}
