@@ -48,9 +48,9 @@ axios.get("https://api.github.com/users/achaselittlefield")
   "LTims080913",
   "tippitytapp"])
 })
-.then((followers) =>{
-  followers.map((followers) =>{
-    axios.get(`https://api.github.com/users/${followers}`)
+.then((accounts) =>{
+  accounts.map((accounts) =>{
+    axios.get(`https://api.github.com/users/${accounts}`)
     .then((resp2) =>{
       document.querySelector(".cards")
       .appendChild(gitHubAccount(resp2.data)); 
@@ -59,7 +59,7 @@ axios.get("https://api.github.com/users/achaselittlefield")
       console.log('Error!', err)
     })
   })
-})
+})  
 
 
          
