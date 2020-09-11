@@ -69,60 +69,46 @@ import axios from 'axios';
 
 
 
-const gitCard = (imageURL) => {
-  // imageUrl is data from the dog API. 
-  
-  // create elements (these are not in parent <-> child relationships)
-  const dogCard = document.createElement('div')
-  const dogImg = document.createElement('img')
-  const dogTitle = document.createElement('h3')
-  
-    // make "dogCard" the parent of dogImg & dogTitle elements
-
-  dogCard.appendChild(dogImg);
-  dogCard.appendChild(dogTitle);
-  
-    // add content to elements
-
-  dogTitle.textContent = "Breed: Mastiff"
-  dogImg.src = imageURL // url string like "google.com"
-  
-    // add classes
-  dogImg.classList.add('dog-image')
-  dogCard.classList.add('dog-card')
-  
-  // add event listener for 'selected' effect. on first click, card will scale to be larger. on second click, card returns to normal size.
-  dogCard.addEventListener('click', () => {
-    dogCard.classList.toggle('selected') // class="a b c d" --> classList = ['a', 'b', 'c', 'd']
-  })
-  
-    // return parent component that contains all of the dog card
-  return dogCard;
-}
 
 
 const cards = document.querySelector('.cards');
 const userNames = ['extrude575757','bigknell','tetondan',
-'dustinmyers', 'justsml', 'luishrd'];
-
+'dustinmyers', 'justsml', 'luishrd', 'snowcoding'];
+/*
+  Where the action is happening componet
+     <div class="card">
+      <img src={image url of user} />
+      <div class="card-info">
+        <h3 class="name">{users name}</h3>
+        <p class="username">{users user name}</p>
+        <p>Location: {users location}</p>
+        <p>Profile:
+          <a href={address to users github page}>{address to users github page}</a>
+        </p>
+        <p>Followers: {users followers count}</p>
+        <p>Following: {users following count}</p>
+        <p>Bio: {users bio}</p>
+      </div>
+    </div>
+*/
 const cardExecute = (r)=>{
     console.log('success!', r.data);
     let card = document.createElement('div');
     let cardDiv = document.createElement('div');
     let cardP = document.createElement('p');
 
-    // cardDiv.classList.add('card');
-    let name = document.createElement('h1');
+    cardDiv.classList.add('card-info');
+    let name = document.createElement('h3');
     let githubName = document.createElement('h2');
     // githubName.classList.add('card');
-    cardP.classList.add('card');
+    cardP.classList.add('username');
     cardP.innerHTML = 'Location: '+ r.data.location + ' <br> Profile: '+r.data.html_url
     + '<br> Followers: '+r.data.followers+'<br>Following: '+r.data.following+ '<br>Bio: '+r.data.bio;
 
     githubName.classList.add('username');
     githubName.textContent = r.data.login;
     name.classList.add('name');
-    name.classList.add('card');
+    // name.classList.add('card');
     name.textContent = r.data.name;
     card.classList.add('card');
     let avatar_img_url = r.data.avatar_url;
