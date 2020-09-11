@@ -68,7 +68,25 @@ import axios from 'axios';
 */
 
 
+const test4nullAnswer = (response,type)=>{
+  let returned = '';
 
+  if(response == null && type === 'following' || response == null && type === 'followers'){
+    returned = 'none';
+  }else
+  if(response == null && type === 'bio'){
+    returned = 'No Response Given';
+  }else if(response == null && type === 'location'){
+    returned = 'No Location Given';
+  }else if(response == null && type === 'active' || response == null && type === 'created'){
+    returned = 'Not Known'
+  }
+    else{
+    returned = response;
+  }
+
+  return returned;
+}
 
 
 const cards = document.querySelector('.cards');
@@ -111,12 +129,12 @@ const cardExecute = (r)=>{
     let pFollowers = document.createElement('p');
     let pBio = document.createElement('p');
     // And their literal values
-    pUnameActive.innerHTML ="<b>Last Active: </b> " + r.data.updated_at + " <b>Created: </b>"+r.data.created_at;
-    pLocate.innerHTML = "<b>Location: </b> " + r.data.location;
+    pUnameActive.innerHTML ="<b>Last Active: </b> " +test4nullAnswer(r.data.updated_at,'active')+ " <b>Created: </b>"+test4nullAnswer(r.data.created_at,'created');;
+    pLocate.innerHTML = "<b>Location: </b> " +test4nullAnswer(r.data.location,'location');;
     pProfile.innerHTML = "<b>URL: </b> <a href='"+r.data.html_url+"'>"+r.data.html_url+"</a>";
-    pFollowers.innerHTML = "<b>Followers: </b> " + r.data.followers;
-    pFollowing.innerHTML = "<b>Following: </b>"+r.data.following;
-    pBio.innerHTML = "<b>Bio: </b>"+r.data.bio;
+    pFollowers.innerHTML = "<b>Followers: </b> " +test4nullAnswer(r.data.followers,'followers');
+    pFollowing.innerHTML = "<b>Following: </b>"+test4nullAnswer(r.data.following,'following');;
+    pBio.innerHTML = "<b>Bio: </b>"+test4nullAnswer(r.data.bio,'bio');
 
 
     
