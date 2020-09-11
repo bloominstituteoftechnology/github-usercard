@@ -37,6 +37,7 @@ import axios from 'axios';
     user, and adding that card to the DOM.
 */
 
+const followersArray = [];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -101,11 +102,37 @@ const gitCard = (imageURL) => {
 }
 
 
+/*
+Step 3: Get data from API with axios GET request to: "https://dog.ceo/api/breed/mastiff/images/random/12"
+
+Step 4a - Learn about promise chaining (no typing code)
+Step 4b - Add to chain here to see data returned from GETs
+
+Step 6 - Create an error in axios code & handle error with .catch 
+*/
+
+// This returns JUST the Promise. Use promise chaining like below 
+//to handle success and error states.
+// const axiosPromise = axios.get("https://dog.ceo/api/breed/mastiff/images/random/12")
+// console.log(axiosPromise)
+
+
+// this is our parent in the HTML. this is where all of our dogcards will live
+
 const cards = document.querySelector('.cards');
 const userNames = ['extrude575757','bigknell','tetondan',
 'dustinmyers', 'justsml', 'luishrd'];
 
-const cardExecute = (r)=>{
+// axios.get sends a GET HTTP request to the URL provided as a parameter. 
+// it creates a Promise internally that manages the state of the request - pending, fulfilled, rejected
+// to create a chain, DO NOT END YOUR .get, .then, or .catch with a ;
+// comments do not break a chain, as shown below.
+userNames.forEach((userName)=>{
+  axios.get(`https://api.github.com/users/${userName}`)
+//  when a GET request is fulfilled, a .then on the promise chain allows us to access the data returned from the API
+  .then((r) => {
+  // ALL APIs HAVE DIFFERENT FORMATS IN THEIR RESPONSE. Print out the response or look at documentation to see what the API returned
+    // handle success here
     console.log('success!', r.data);
     let card = document.createElement('div');
     let cardDiv = document.createElement('div');
@@ -136,37 +163,19 @@ const cardExecute = (r)=>{
     card.appendChild(cardDiv);
     
     cards.appendChild(card);
-}
-
-
-const cardCreator = (userName) =>{
-  axios.get(`https://api.github.com/users/${userName}`)
-  //  when a GET request is fulfilled, a .then on the promise chain allows us to access the data returned from the API
-    .then((r) => {
-    // ALL APIs HAVE DIFFERENT FORMATS IN THEIR RESPONSE. Print out the response or look at documentation to see what the API returned
-      // handle success here
-      cardExecute(r);
-    
-    })
   
-  // when a GET request is rejected, a .catch on the chain allows us to capture errors returned from the API
-  
-    .catch((err) => {
-      // handle error
-      console.log('error!', err)
-    })
-  
-  // a final .then (per axios docs) will be called regardless of state (fulfilled or rejected). it will be called after either the .then or the .catch.
-  // you can use it to continue on with other tasks that must happen regardless of Promise state
-  .then(() => {
-    console.log('yahoo!')
   })
-};
 
+// when a GET request is rejected, a .catch on the chain allows us to capture errors returned from the API
 
+  .catch((err) => {
+    // handle error
+    console.log('error!', err)
+  })
 
-
-// The card Creator wraping through the array of github names
-userNames.forEach((userName)=>{
-    cardCreator(userName);
+// a final .then (per axios docs) will be called regardless of state (fulfilled or rejected). it will be called after either the .then or the .catch.
+// you can use it to continue on with other tasks that must happen regardless of Promise state
+.then(() => {
+  console.log('yahoo!')
+})
 });
