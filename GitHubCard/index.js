@@ -4,6 +4,18 @@
     https://api.github.com/users/<your name>
 */
 
+axios.get('https://api.github.com/users/kai-blt')
+  .then(response => {
+    let cards = document.querySelector('.cards')
+    cards.appendChild(parseGitHub(response)); 
+    console.log(response);
+  })
+  .catch(reject => {
+    console.log(reject);
+  });
+
+
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -11,6 +23,48 @@
 
     Skip to STEP 3.
 */
+
+function parseGitHub(object) {
+  let card = document.createElement('div');
+  let img = document.createElement('img');
+  let cardInfo = document.createElement('div');
+  let name = document.createElement('h3');
+  let userName = document.createElement('p');
+  let location = document.createElement('p');
+  let profile = document.createElement('p');
+  let profileLink = document.createElement('a');
+  let followers = document.createElement('p');
+  let following = document.createElement('p');
+  let bio = document.createElement('p');
+
+
+  img.src = object.data.avatar_url;
+  cardInfo = document.createElement('div');
+  name.textContent = object.data.name;
+  userName.textContent = object.data.login;
+  location.textContent = object.data.location;
+  profile.textContent = 'Profile:\n';
+  profileLink.href = object.data.html_url;
+  profileLink.textContent = object.data.html_url;
+  followers.textContent = `Followers: ${object.data.followers}`;
+  following.textContent = `Following: ${object.data.following}`;
+  bio.textContent = `Bio: ${object.data.bio}`;
+  
+  card.appendChild(img);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  profile.appendChild(profileLink);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+
+  return card;
+}
+
+
 
 /*
   STEP 4: Pass the data received from Github into your function,
