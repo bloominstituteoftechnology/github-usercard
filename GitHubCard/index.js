@@ -25,6 +25,7 @@ axios.get('https://api.github.com/users/kai-blt')
 */
 
 function parseGitHub(object) {
+  //Creat the HTML elements
   let card = document.createElement('div');
   let img = document.createElement('img');
   let cardInfo = document.createElement('div');
@@ -37,7 +38,7 @@ function parseGitHub(object) {
   let following = document.createElement('p');
   let bio = document.createElement('p');
 
-
+  //Fill information into the card
   img.src = object.data.avatar_url;
   cardInfo = document.createElement('div');
   name.textContent = object.data.name;
@@ -50,6 +51,7 @@ function parseGitHub(object) {
   following.textContent = `Following: ${object.data.following}`;
   bio.textContent = `Bio: ${object.data.bio}`;
   
+  //Add elements together to make a card
   card.appendChild(img);
   card.appendChild(cardInfo);
   cardInfo.appendChild(name);
