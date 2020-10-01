@@ -4,6 +4,21 @@
     https://api.github.com/users/<your name>
 */
 
+import axios from 'axios';
+
+let res = axios.get(`https://api.github.com/users/duointherain`);
+
+// axios
+//   .get('https://api.github.com/users/duointherain')
+//   .then(res => {
+//     (response here)
+//   })
+//   .catch(err => console.log(err))
+
+
+console.log(res)
+
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
