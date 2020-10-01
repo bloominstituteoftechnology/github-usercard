@@ -1,8 +1,12 @@
+import axios from 'axios'
+
+// console.log(axios)
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+axios.get('https://api.github.com/users/rnasir826')
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -17,6 +21,7 @@
     and append the returned markup to the DOM as a child of .cards
 */
 
+
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
@@ -29,6 +34,16 @@
 */
 
 const followersArray = [];
+axios.get('https://api.github.com/users/rnasir826')
+    .then(res => {
+        const image = res.data
+        image.forEach(image => {
+            const userCard = userCardMaker({ imageURL: image, userInfo: 'Ramsha' })
+        })
+    })
+    .catch(err => {
+
+    })
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +64,61 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function userCardMaker(imageURL, userInfo) {
+    const userCard = document.createElement('div')
+    userCard.classList.add('card')
+
+    const image = document.createElement('img')
+    image.src = imageURL
+
+    userCard.appendChild(image)
+
+    const cardInfo = document.createElement('div')
+    cardInfo.classList.add('card-info')
+
+    const heading = document.createElement('h3')
+    heading.classList.add('name')
+    heading.textContent = userInfo
+    cardInfo.appendChild(heading)
+
+    const userNameP = document.createElement('p')
+    userNameP.classList.add('username')
+    userNameP.textContent = userInfo
+    cardInfo.appendChild(userNameP)
+
+    const locationP = document.createElement('p')
+    locationP.textContent = userInfo
+    cardInfo.appendChild(locationP)
+
+    const profile = document.createElement('p')
+    cardInfo.appendChild(profile)
+
+    const aTag = document.createElement('a')
+    aTag.textContent = userInfo
+    cardInfo.appendChild(aTag)
+
+    const followersP = document.createElement('p')
+    followersP.textContent = userInfo
+    cardInfo.appendChild(followersP)
+
+    const followingP = document.createElement('p')
+    followingP.textContent = userInfo
+    cardInfo.appendChild(followingP)
+
+    const bioP = document.createElement('p')
+    bioP.textContent = userInfo
+    cardInfo.appendChild(bioP)
+
+    //interactivity
+    userCard.addEventListener('click', () => {
+            userCard.classList.toggle('selected')
+        })
+        // return userCard
+    console.log(userCard)
+
+}
+
 
 /*
   List of LS Instructors Github username's:
