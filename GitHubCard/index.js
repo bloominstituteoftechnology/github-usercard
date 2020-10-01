@@ -16,7 +16,6 @@ axios.get('https://api.github.com/users/kai-blt')
   });
 
 
-
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -38,6 +37,7 @@ function parseGitHub(object) {
   let followers = document.createElement('p');
   let following = document.createElement('p');
   let bio = document.createElement('p');
+  let chart = document.createElement('img');
 
   //Fill information into the card
   card.classList.add('card');
@@ -52,6 +52,9 @@ function parseGitHub(object) {
   followers.textContent = `Followers: ${object.data.followers}`;
   following.textContent = `Following: ${object.data.following}`;
   bio.textContent = `Bio: ${object.data.bio}`;
+  chart.classList.add('chart');
+  chart.src = `https://ghchart.rshah.org/${userName.textContent}`;
+  chart.alt = `alt="${userName.textContent}'s Github chart`;
   
   //Add elements together to make a card
   card.appendChild(img);
@@ -64,7 +67,7 @@ function parseGitHub(object) {
   cardInfo.appendChild(followers);
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
-
+  cardInfo.appendChild(chart);
   return card;
 }
 
