@@ -19,6 +19,39 @@ import axios from 'axios'
     and append the returned markup to the DOM as a child of .cards
 */
 
+const fullOfCards = document.querySelector('.cards')
+
+function cardMaker(data){
+  const cardBox = document.createElement('div')
+  const avatar = document.createElement('img')
+  const myName = document.createElement('h2')
+  const aboutMe = document.createElement('p')
+
+  avatar.classList.add('me-img')
+  cardBox.classList.add('card')
+
+  avatar.src = data.avatar_url
+
+  cardBox.appendChild(avatar)
+  cardBox.appendChild(myName)
+  cardBox.appendChild(aboutMe)
+
+  myName.textContent = data.name;
+  aboutMe.textContent = data.bio;
+
+  return fullOfCards.appendChild(cardBox)
+
+}
+
+axios.get('https://api.github.com/users/jenkrame21')
+  .then(res => {
+    const data = res.data;
+    cardMaker(data)
+  })
+  .catch(drama => {
+    console.log(drama)
+  })
+
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
