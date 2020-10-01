@@ -1,3 +1,4 @@
+import axios from "axios";
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -28,8 +29,25 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+ const followersArray = [
+   "tetondan",
+   "dustinmyers",
+   "justsml",
+   "luishrd",
+   "bigknell",
+ ];
 
+ followersArray.forEach((person) => {
+   axios
+     .get(`https://api.github.com/users/${person}`)
+     .then((res) => {
+       const info = res.data;
+       return gitHubCard(info);
+     })
+     .catch((err) => {
+       console.log(err);
+     });
+ });
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -49,7 +67,59 @@ const followersArray = [];
       </div>
     </div>
 */
+axios
+  .get("https://api.github.com/users/TheGitHubFiles")
+  .then((res) => {
+    const info = res.data;
+    return gitHubCard(info);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
+function gitHubCard(object) {
+  const gitCard = document.createElement("div");
+  const gitImage = document.createElement("img");
+  const gitCardInfo = document.createElement("div");
+  const gitName = document.createElement("h3");
+  const gitUserName = document.createElement("p");
+  const gitLocation = document.createElement("p");
+  const gitProfile = document.createElement("p");
+  const gitAddress = document.createElement("a");
+  const gitFollowers = document.createElement("p");
+  const gitFollowing = document.createElement("p");
+  const gitBio = document.createElement("p");
+
+  gitCard.classList.add("card");
+  gitCardInfo.classList.add("card-info");
+  gitName.classList.add("name");
+  gitUserName.classList.add("username");
+
+  gitImage.src = object.avatar_url;
+  gitAddress.href = object.html_url;
+  gitAddress.textContent = "here is my html";
+  gitName.textContent = `Name: ${object.name}`;
+  gitUserName.textContent = object.login;
+  gitLocation.textContent = `Location: ${object.location}`;
+  gitFollowers.textContent = `Followers: ${object.followers}`;
+  gitFollowing.textContent = `Following: ${object.following}`;
+  gitBio.textContent = `Bio: ${object.bio}`;
+  gitProfile.textContent = "Profile:";
+
+  gitCard.appendChild(gitImage);
+  gitCard.appendChild(gitCardInfo);
+  gitCardInfo.appendChild(gitName);
+  gitCardInfo.appendChild(gitUserName);
+  gitCardInfo.appendChild(gitLocation);
+  gitCardInfo.appendChild(gitProfile);
+  gitProfile.appendChild(gitAddress);
+  gitCardInfo.appendChild(gitFollowers);
+  gitCardInfo.appendChild(gitFollowing);
+  gitCardInfo.appendChild(gitBio);
+
+  const cardPlace = document.querySelector(".cards");
+  return cardPlace.appendChild(gitCard);
+}
 /*
   List of LS Instructors Github username's:
     tetondan
