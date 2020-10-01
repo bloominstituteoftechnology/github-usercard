@@ -6,7 +6,7 @@ import axios from 'axios'
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-// axios.get('https://api.github.com/users/rnasir826')
+axios.get('https://api.github.com/users/rnasir826')
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -15,15 +15,12 @@ import axios from 'axios'
 
     Skip to STEP 3.
 */
-const entryPoint = document.querySelector('.cards')
-    /*
-      STEP 4: Pass the data received from Github into your function,
-        and append the returned markup to the DOM as a child of .cards
-    */
-axios.get('https://api.github.com/users/rnasir826')
-    .then(res => {
-        const image = res.data.
-    })
+
+/*
+  STEP 4: Pass the data received from Github into your function,
+    and append the returned markup to the DOM as a child of .cards
+*/
+
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -37,6 +34,16 @@ axios.get('https://api.github.com/users/rnasir826')
 */
 
 const followersArray = [];
+axios.get('https://api.github.com/users/rnasir826')
+    .then(res => {
+        const image = res.data
+        image.forEach(image => {
+            const userCard = userCardMaker({ imageURL: image, userInfo: 'Ramsha' })
+        })
+    })
+    .catch(err => {
+
+    })
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -105,10 +112,13 @@ function userCardMaker(imageURL, userInfo) {
 
     //interactivity
     userCard.addEventListener('click', () => {
-        userCard.classList.toggle('selected')
-    })
-    return userCard
+            userCard.classList.toggle('selected')
+        })
+        // return userCard
+    console.log(userCard)
+
 }
+
 
 /*
   List of LS Instructors Github username's:
