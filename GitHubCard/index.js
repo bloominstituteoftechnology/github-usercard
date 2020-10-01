@@ -4,6 +4,11 @@
     https://api.github.com/users/<your name>
 */
 
+import axios from 'axios';
+const res = axios.get(`https://api.github.com/users/<max maxwell>`);
+console.log(res)
+
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
