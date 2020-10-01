@@ -99,6 +99,7 @@ function gitHubCard(object) {
   gitAddress.href = object.html_url;
   gitAddress.textContent = "here is my html";
   gitName.textContent = `Name: ${object.name}`;
+  gitUserName.textContent = object.login;
   gitLocation.textContent = `Location: ${object.location}`;
   gitFollowers.textContent = `Followers: ${object.followers}`;
   gitFollowing.textContent = `Following: ${object.following}`;
@@ -117,7 +118,7 @@ function gitHubCard(object) {
   gitCardInfo.appendChild(gitBio);
 
   const cardPlace = document.querySelector(".cards");
-  cardPlace.appendChild(gitCard);
+  return cardPlace.appendChild(gitCard);
 }
 /*
   List of LS Instructors Github username's:
