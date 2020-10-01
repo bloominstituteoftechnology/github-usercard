@@ -40,6 +40,7 @@ function parseGitHub(object) {
   let bio = document.createElement('p');
 
   //Fill information into the card
+  card.classList.add('card');
   img.src = object.data.avatar_url;
   cardInfo = document.createElement('div');
   name.textContent = object.data.name;
