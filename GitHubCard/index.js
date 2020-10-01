@@ -5,7 +5,17 @@
 */
 
 import axios from 'axios';
-const res = axios.get(`https://api.github.com/users/<max maxwell>`);
+
+let res = axios.get(`https://api.github.com/users/duointherain`);
+
+// axios
+//   .get('https://api.github.com/users/duointherain')
+//   .then(res => {
+//     (response here)
+//   })
+//   .catch(err => console.log(err))
+
+
 console.log(res)
 
 
