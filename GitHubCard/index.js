@@ -1,8 +1,28 @@
+import axios from 'axios'
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+const cards = document.querySelector('.cards');
+
+axios.get('https://api.github.com/users/BWSIEVERT')
+.then(res => {
+  //do something here
+  followersArray.forEach(user => {
+    axios.get(`https://api.github.com/users/${user}`)
+    .then(follower => {
+      cards.appendChild(cardCreator(follower.data))
+    })
+  })
+  cards.appendChild(cardCreator(res.data));
+  console.log(res)
+})
+.catch(err => {
+  //catch error here
+  console.log(err)
+})
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -28,7 +48,16 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'thecodediver',
+  'CPower1248',
+  'juancaruizc',
+  'eg180',
+  'Criscosmoes'
+];
+
+
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,7 +78,55 @@ const followersArray = [];
       </div>
     </div>
 */
+function cardCreator(info) {
+  const card = document.createElement('div') // Container Element - takes image - takes card info
+  card.classList.add('card')
 
+  const img = document.createElement('img')
+  img.src = info.avatar_url
+  card.appendChild(img)
+
+  const cardInfo = document.createElement('div') // Info container - takes name - takes location, profile, followers, following, bio
+  cardInfo.classList.add('card-info')
+
+
+
+  const name = document.createElement('h3')
+  name.classList.add('name')
+  name.textContent = info.name
+
+  const userName = document.createElement('p')
+  userName.classList.add('username')
+  userName.textContent = info.login
+
+  const location = document.createElement('p')
+  location.textContent = info.location
+
+  const profile = document.createElement('p')
+  profile.href = info.html_url
+  profile.textContent = info.html_url
+
+  const followers = document.createElement('p')
+  followers.textContent = `${info.followers}`
+
+  const following = document.createElement('p')
+  following.textContent = `${info.following}`
+
+  const bio = document.createElement('p')
+  bio.textContent = `${info.bio}`
+
+  cardInfo.appendChild(name)
+  cardInfo.appendChild(userName)
+  cardInfo.appendChild(location)
+  cardInfo.appendChild(profile)
+  cardInfo.appendChild(followers)
+  cardInfo.appendChild(following)
+  cardInfo.appendChild(bio)
+  card.appendChild(cardInfo)
+
+  return card
+
+}
 /*
   List of LS Instructors Github username's:
     tetondan
