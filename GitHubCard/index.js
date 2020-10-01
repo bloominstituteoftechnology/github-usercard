@@ -43,22 +43,23 @@ function gitHubFriends({ avatar_url, name, login, location, html_url, followers,
   const title = document.createElement('h3')
   const user = document.createElement('p')
   const local = document.createElement('p')
-  const  profile = document.createElement('p')
+  const profile = document.createElement('p')
   const link = document.createElement('a')
-  const linkText = document.createTextNode(html_url)
   const follow = document.createElement('p')
   const crowd = document.createElement('p')
   const userBio = document.createElement('p')
+  const linkText = document.createTextNode(html_url)
 
   image.src = avatar_url
-  title.textContent = login
-  user.textContent = name
-  local.textContent = location
-  profile.textContent = link
-  link.innerHTML = html_url
-  follow. textContent = followers
-  crowd.textContent = following
-  userBio.textContent = bio
+  title.textContent = name
+  user.textContent = login
+  local.textContent = `Location: ${location}`
+  profile.textContent = `Profile: ${link}`
+  link.textContent = html_url
+  follow. textContent = `Followers: ${followers}`
+  crowd.textContent = `Following: ${following}`
+  userBio.textContent = `Bio: ${bio}`
+link.href = html_url
 
 gitHubCards.classList.add('card')
 container.classList.add('card-info')
@@ -66,9 +67,10 @@ title.classList.add('name')
 user.classList.add('username')
 
 gitHubCards.append(image, container)
-container.append(title, user, location, profile, followers, following, bio)
+container.append(title, user, local, profile, follow, crowd, userBio)
 profile.appendChild(link)
-link.appendChild(linkText)
+
+
 
 return gitHubCards
 }
@@ -76,19 +78,16 @@ return gitHubCards
 const compCards = document.querySelector('.cards')
 
 axios.get('https://api.github.com/users/Sonyei')
-.then(res => {
-  const data = res.data
-  const dataArray = Object.entries(data)
-  console.log(dataArray)
-  dataArray.map(item => {
-  const cards = gitHubFriends({avatar_url: dataArray[3][1], name: dataArray[18][1], login: dataArray[0][1], location: dataArray[21][1], html_url: dataArray[6][1], followers: [7][1], following: dataArray[8][1], bio: [24][1]})
-  compCards.appendChild(cards)
-  return cards
+  .then(res => {
+    console.log(res.data)
+    const cards = gitHubFriends({ avatar_url: res.data.avatar_url, name: res.data.name, login:res.data.login, location:res.data.location, html_url:res.data.html_url, followers:res.data.followers, following:res.data.following, bio:res.data.bio})
+    compCards.appendChild(cards)
+    return cards
+    })
+  .catch(err => {
+    console.log('Thre was an error of -->', err)
   })
-})
-.catch(err => {
-  console.log('Thre was an error of -->', err)
-})
+  axios.get('')
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
