@@ -6,7 +6,7 @@ import axios from 'axios'
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-axios.get('https://api.github.com/users/rnasir826')
+// axios.get('https://api.github.com/users/rnasir826')
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -15,11 +15,15 @@ axios.get('https://api.github.com/users/rnasir826')
 
     Skip to STEP 3.
 */
-
-/*
-  STEP 4: Pass the data received from Github into your function,
-    and append the returned markup to the DOM as a child of .cards
-*/
+const entryPoint = document.querySelector('.cards')
+    /*
+      STEP 4: Pass the data received from Github into your function,
+        and append the returned markup to the DOM as a child of .cards
+    */
+axios.get('https://api.github.com/users/rnasir826')
+    .then(res => {
+        const image = res.data.
+    })
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
