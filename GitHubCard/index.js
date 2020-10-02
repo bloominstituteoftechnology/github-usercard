@@ -1,9 +1,11 @@
+import axios from 'axios';
+console.log('hello');
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+const URL = 'https://api.github.com/users/mbenson3434'
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -17,6 +19,24 @@
     and append the returned markup to the DOM as a child of .cards
 */
 
+const followersArray = [
+  'bigknell',
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd'
+];
+ console.log(followersArray);
+
+ followersArray.forEach(item => { 
+  axios.get(`https://api.github.com/users/${item}`)
+    .then( res => {
+      cardsParent.append(cardMaker(res.data))
+    })
+    .catch(err => {
+      console.log('No data found')
+    })
+})
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
@@ -28,7 +48,58 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
+
+
+
+//entry point/parent element where the cards will go
+const cardsParent = document.querySelector('.cards')
+
+function cardMaker(object) {
+  //instantiate elements
+  const card = document.createElement('div')
+  const image = document.createElement('img')
+  const cardInfo = document.createElement('div')
+  const nameH3 = document.createElement('h3')
+  const username = document.createElement('p')
+  const location = document.createElement('p')
+  const profile = document.createElement('p')
+  const anchor = document.createElement('a')
+  const followers = document.createElement('p')
+  const following = document.createElement('p')
+  const bio = document.createElement('p')
+  //set class names, attributes, text
+  card.classList.add('card')
+  image.setAttribute('src', object.avatar_url)
+  cardInfo.classList.add('card-info')
+  nameH3.classList.add('name')
+  nameH3.textContent = object.name
+  username.classList.add('username')
+  username.textContent = object.login
+  location.textContent = `Location: ${object.location}`
+  profile.textContent = 'Profile: '
+  anchor.setAttribute('href', object.html_url)
+  anchor.textContent = object.html_url
+  followers.textContent = `Followers: ${object.followers}`
+  following.textContent = `Following: ${object.following}`
+  bio.text = `Bio: ${object.bio}`
+  //create hierarchy
+  card.appendChild(image)
+  card.appendChild(cardInfo)
+  cardInfo.appendChild(nameH3)
+  cardInfo.appendChild(username)
+  cardInfo.appendChild(location)
+  cardInfo.appendChild(profile)
+  cardInfo.appendChild(followers)
+  cardInfo.appendChild(following)
+  cardInfo.appendChild(bio)
+  profile.appendChild(anchor)
+  //add interactivity with event listeners STRETCH
+  //return the card
+  return card
+}
+
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
