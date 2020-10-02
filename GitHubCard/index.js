@@ -7,13 +7,6 @@ console.log('1 About to fetch data with axios')
 */
 axios.get('https://api.github.com/users/babeytapratt')
       .then(result => {
-      console.log('2 here is the future data', result)
-      console.log('here is the response body', result.data)
-  })  .catch(error => {
-      console.log(error)
-  })
-
-  console.log('3 We requesteddata with axios')
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -29,19 +22,19 @@ axios.get('https://api.github.com/users/babeytapratt')
 */
 const entryPoint = document.querySelector('.cards')
 
-function githubCardsMaker({ imageURL, name, login }) {
+function githubCardsMaker(object) {
 
-  const githubCard = document.querySelector.createElement('div')
-  const image = document.querySelector.createElement('img')
-  const userName = document.querySelector.createElement('h2')
-  const cardInfo = document.querySelector.createElement('div')
-  const userLogin = document.querySelector.createElement('p')
-  const userLocation = document.querySelector.createElement('p')
-  const userProfile = document.querySelector.createElement('p')
-  const userHtml_url = document.querySelector.createElement('a')
-  const userFollowers = document.querySelector.createElement('p')
-  const userFollowing = document.querySelector.createElement('p')
-  const userBio = document.querySelector.createElement('p')
+  const githubCard = document.createElement('div')
+  const image = document.createElement('img')
+  const userName = document.createElement('h2')
+  const cardInfo = document.createElement('div')
+  const userLogin = document.createElement('p')
+  const userLocation = document.createElement('p')
+  const userProfile = document.createElement('p')
+  const userHtml_url = document.createElement('a')
+  const userFollowers = document.createElement('p')
+  const userFollowing = document.createElement('p')
+  const userBio = document.createElement('p')
 
   githubCard.appendChild(image)
   githubCard.appendChild(cardInfo)
@@ -66,25 +59,33 @@ function githubCardsMaker({ imageURL, name, login }) {
   userFollowing.classList.add('following')
   userBio.classList.add('bio')
 
-  image.src = imageURL
-  userName.textContent = `${name}`
-  userLogin.textContent = `${login}`
-  userLocation.textContent = `Location: ${location}`
-  userProfile.textContent = `Profile: ${html_url}`
-  userFollowers.textContent = `Followers: ${followers}`
-  userFollowing.textContent = `Following: ${following}`
-  userBio.textContent = `Bio: ${bio}`
+  image.src = object.avatar_url
+  userName.textContent = object.name
+  userLogin.textContent = object.login
+  userLocation.textContent = `Location: ${object.location}`
+  userProfile.textContent = `Profile: ${object.url}`
+  userFollowers.textContent = `Followers: ${object.followers}`
+  userFollowing.textContent = `Following: ${object.following}`
+  userBio.textContent = `Bio: ${object.bio}`
 
   return githubCard
 }
 
 axios.get('https://api.github.com/users/babeytapratt')
   .then(res =>  {
-    const images = res.data.avatar_url
-    images.forEach(image => {
-      const githubCard = githubCardsMaker( {imageURL: image, login: 'babeytapratt'})
-      console.log(githubCard)
-      entryPoint.append(githubCard)
+    const card = githubCardsMaker(res.data)
+
+      console.log(card)
+      entryPoint.append(card)
+
+      const followersArray = ['luishrd', 'bigknell', 'tetondan', 'dustinmyers', 'justsml' ];
+
+      followersArray.forEach((follower) => {
+        axios.get(`https://api.github.com/users/${follower}`)
+        .then(follower => {
+        entryPoint.appendChild(githubCardsMaker(follower.data))
+        });
+      })
 
     });
 
@@ -92,6 +93,8 @@ axios.get('https://api.github.com/users/babeytapratt')
   .catch(error => {
 
   })
+
+
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -104,7 +107,6 @@ axios.get('https://api.github.com/users/babeytapratt')
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
