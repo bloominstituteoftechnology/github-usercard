@@ -1,8 +1,12 @@
+import axios from 'axios';
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
+// axios.get(https://api.github.com/users/Sonyei)
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -28,7 +32,74 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
+function gitHubFriends({ avatar_url, name, login, location, html_url, followers, following, bio}) {
+
+  const gitHubCards = document.createElement('div')
+  const image = document.createElement('img')
+  const container = document.createElement('div')
+  const title = document.createElement('h3')
+  const user = document.createElement('p')
+  const local = document.createElement('p')
+  const profile = document.createElement('p')
+  const link = document.createElement('a')
+  const follow = document.createElement('p')
+  const crowd = document.createElement('p')
+  const userBio = document.createElement('p')
+
+  image.src = avatar_url
+  title.textContent = name
+  user.textContent = login
+  local.textContent = `Location: ${location}`
+  profile.textContent = `Profile: ${link}`
+  link.textContent = html_url
+  follow. textContent = `Followers: ${followers}`
+  crowd.textContent = `Following: ${following}`
+  userBio.textContent = `Bio: ${bio}`
+  link.href = html_url
+
+gitHubCards.classList.add('card')
+container.classList.add('card-info')
+title.classList.add('name')
+user.classList.add('username')
+
+gitHubCards.append(image, container)
+container.append(title, user, local, profile, follow, crowd, userBio)
+profile.appendChild(link)
+
+return gitHubCards
+}
+
+
+const compCards = document.querySelector('.cards')
+const followersArray = ["yirano", "Matte-matt", "adamrappaport"]
+
+
+axios.get('https://api.github.com/users/Sonyei')
+  .then(res => {
+    console.log(res.data)
+    const cards = gitHubFriends(res.data)
+    compCards.appendChild(cards)
+    // return cards
+    })
+  .catch(err => {
+    console.log('There was an error of -->', err)
+  })
+followersArray.forEach(friend => {
+axios.get(`https://api.github.com/users/${friend}`)
+  .then(res => {
+    console.log(res)
+    compCards.appendChild(gitHubFriends(res.data))
+  })
+.catch((err => {
+  console.log('There was an error of -->', err)
+}))
+})
+
+
+// for each person in the Array, access their personal Github URL and pull their data. Then run the gitHubFriends function with their data; append a completed card to the DOM for each person in the Array.
+
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -52,9 +123,5 @@ const followersArray = [];
 
 /*
   List of LS Instructors Github username's:
-    tetondan
-    dustinmyers
-    justsml
-    luishrd
-    bigknell
+
 */
