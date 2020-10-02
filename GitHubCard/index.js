@@ -24,7 +24,7 @@ followersArray.forEach(item =>
     {
       gitAppend.appendChild(gitHubMaker(res.data))
     })
-    .catch(drama => console.log(`wrongo: ${drama}`))
+    .catch(Error => console.log(`: ${Error}`))
 })
 
 
@@ -39,7 +39,7 @@ axios.get('https://api.github.com/users/carolinefallonlucas')
     return gitHubMaker(res.data)
 
   })
-  .catch(drama => console.log(drama))
+  .catch(Error => console.log(Error))
 
 
 
@@ -52,16 +52,16 @@ function gitHubMaker(object)
   const gitCardInfo = document.createElement('div')
   const gitName = document.createElement('h3')
   const gitUserName = document.createElement('p')
-  const gitLocation = document.createElement('p')
+  const userLocation = document.createElement('p')
   const gitProfile = document.createElement('p')
   const gitProfileA = document.createElement('a')
   const gitFollowers = document.createElement('p')
   const gitFollowing = document.createElement('p')
-  const gitBio = document.createElement('p')
-
-  //setting class names and attributes
+  const userBio = document.createElement('p')
 
 
+
+  /* class names + attributes */
 
   gitCard.classList.add('card')
   gitCardInfo.classList.add('card-info')
@@ -73,28 +73,29 @@ function gitHubMaker(object)
 
 
   // gitImg.src = objectURL
-
-
-
   // gitImg.src = avatar_url
+
+
   gitProfileA.href = object.html_url
-  gitLocation.textContent = object.location
+  userLocation.textContent = object.location
   gitFollowers.textContent = object.followers
   gitFollowing.textContent = object.following
-  gitBio.textContent = object.login
+  userBio.textContent = object.login
   gitProfile.textContent = `Profile: ${gitProfileA}`
-  //setting hierarchy
+
+
+
   gitAppend.append(gitCard)
   gitCard.appendChild(gitImg)
   gitCard.appendChild(gitCardInfo)
   gitCardInfo.appendChild(gitName)
   gitCardInfo.appendChild(gitUserName)
-  gitCardInfo.appendChild(gitLocation)
+  gitCardInfo.appendChild(userLocation)
   gitCardInfo.appendChild(gitProfile)
   gitProfile.appendChild(gitProfileA)
   gitCardInfo.appendChild(gitFollowers)
   gitCardInfo.appendChild(gitFollowing)
-  gitCardInfo.appendChild(gitBio)
+  gitCardInfo.appendChild(userBio)
 
   return gitCard
 
