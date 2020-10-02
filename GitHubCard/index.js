@@ -18,7 +18,17 @@ const URL = 'https://api.github.com/users/mbenson3434'
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
-followersArray.forEach(item => {
+
+const followersArray = [
+  'bigknell',
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd'
+];
+ console.log(followersArray);
+
+ followersArray.forEach(item => { 
   axios.get(`https://api.github.com/users/${item}`)
     .then( res => {
       cardsParent.append(cardMaker(res.data))
@@ -26,7 +36,7 @@ followersArray.forEach(item => {
     .catch(err => {
       console.log('No data found')
     })
-});
+})
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
@@ -37,14 +47,7 @@ followersArray.forEach(item => {
     Using that array, iterate over it, requesting data for each user, creating a new card for each
     user, and adding that card to the DOM.
 */
-const followersArray = [
-  'tetondan',
-  'dustinmyers',
-  'justsml',
-  'luishrd',
-  'bigknell'
-];
- console.log(followersArray);
+
 
 
 
