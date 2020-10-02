@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-console.log(axios)
-
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -34,9 +32,9 @@ console.log(axios)
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
 
 function gitHubFriends({ avatar_url, name, login, location, html_url, followers, following, bio}) {
+
   const gitHubCards = document.createElement('div')
   const image = document.createElement('img')
   const container = document.createElement('div')
@@ -48,7 +46,6 @@ function gitHubFriends({ avatar_url, name, login, location, html_url, followers,
   const follow = document.createElement('p')
   const crowd = document.createElement('p')
   const userBio = document.createElement('p')
-  const linkText = document.createTextNode(html_url)
 
   image.src = avatar_url
   title.textContent = name
@@ -59,7 +56,7 @@ function gitHubFriends({ avatar_url, name, login, location, html_url, followers,
   follow. textContent = `Followers: ${followers}`
   crowd.textContent = `Following: ${following}`
   userBio.textContent = `Bio: ${bio}`
-link.href = html_url
+  link.href = html_url
 
 gitHubCards.classList.add('card')
 container.classList.add('card-info')
@@ -70,24 +67,39 @@ gitHubCards.append(image, container)
 container.append(title, user, local, profile, follow, crowd, userBio)
 profile.appendChild(link)
 
-
-
 return gitHubCards
 }
 
+
 const compCards = document.querySelector('.cards')
+const followersArray = ["yirano", "Matte-matt", "adamrappaport"]
+
 
 axios.get('https://api.github.com/users/Sonyei')
   .then(res => {
     console.log(res.data)
-    const cards = gitHubFriends({ avatar_url: res.data.avatar_url, name: res.data.name, login:res.data.login, location:res.data.location, html_url:res.data.html_url, followers:res.data.followers, following:res.data.following, bio:res.data.bio})
+    const cards = gitHubFriends(res.data)
     compCards.appendChild(cards)
-    return cards
+    // return cards
     })
   .catch(err => {
-    console.log('Thre was an error of -->', err)
+    console.log('There was an error of -->', err)
   })
-  axios.get('')
+followersArray.forEach(friend => {
+axios.get(`https://api.github.com/users/${friend}`)
+  .then(res => {
+    console.log(res)
+    compCards.appendChild(gitHubFriends(res.data))
+  })
+.catch((err => {
+  console.log('There was an error of -->', err)
+}))
+})
+
+
+// for each person in the Array, access their personal Github URL and pull their data. Then run the gitHubFriends function with their data; append a completed card to the DOM for each person in the Array.
+
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -111,9 +123,5 @@ axios.get('https://api.github.com/users/Sonyei')
 
 /*
   List of LS Instructors Github username's:
-    tetondan
-    dustinmyers
-    justsml
-    luishrd
-    bigknell
+
 */
