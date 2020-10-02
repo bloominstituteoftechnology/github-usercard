@@ -18,6 +18,11 @@ const URL = 'https://api.github.com/users/mbenson3434'
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
+axios.get('https://api.github.com/users/mbenson3434')
+  .then( res => {
+    cardsParent.append(cardMaker(res.data))
+  })
+  
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -31,6 +36,53 @@ const URL = 'https://api.github.com/users/mbenson3434'
 */
 
 const followersArray = [];
+//entry point/parent element where the cards will go
+const cardsParent = document.querySelector('.cards')
+
+function cardMaker(object) {
+  //instantiate elements
+  const card = document.createElement('div')
+  const image = document.createElement('img')
+  const cardInfo = document.createElement('div')
+  const nameH3 = document.createElement('h3')
+  const username = document.createElement('p')
+  const location = document.createElement('p')
+  const profile = document.createElement('p')
+  const anchor = document.createElement('a')
+  const followers = document.createElement('p')
+  const following = document.createElement('p')
+  const bio = document.createElement('p')
+  //set class names, attributes, text
+  card.classList.add('card')
+  image.setAttribute('src', object.avatar_url)
+  cardInfo.classList.add('card-info')
+  nameH3.classList.add('name')
+  nameH3.textContent = object.name
+  username.classList.add('username')
+  username.textContent = object.login
+  location.textContent = `Location: ${object.location}`
+  profile.textContent = 'Profile: '
+  anchor.setAttribute('href', object.html_url)
+  anchor.textContent = object.html_url
+  followers.textContent = `Followers: ${object.followers}`
+  following.textContent = `Following: ${object.following}`
+  bio.text = `Bio: ${object.bio}`
+  //create hierarchy
+  card.appendChild(image)
+  card.appendChild(cardInfo)
+  cardInfo.appendChild(nameH3)
+  cardInfo.appendChild(username)
+  cardInfo.appendChild(location)
+  cardInfo.appendChild(profile)
+  cardInfo.appendChild(followers)
+  cardInfo.appendChild(following)
+  cardInfo.appendChild(bio)
+  profile.appendChild(anchor)
+  //add interactivity with event listeners STRETCH
+  //return the card
+  return card
+}
+
 
 
 /*
