@@ -8,19 +8,27 @@ import axios from 'axios'
 
 const gitHubUser = document.querySelector('.entry')
 
-axios.get(' https://api.github.com/users/SJMucho')
-  .then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
+axios.get('https://api.github.com/users/SJMucho')
 
-    response.data.message.forEach(item => {
-      const newGitUser = gitCard(item);
-      gitHubUser.appendChild(newGitUser);
-    })
+  .then(response => {
+    response.data.message.forEach(url => {
+    const newGitUser = gitCard(url);
+    gitHubUser.appendChild(newGitUser)
+  })
+  .catch(error => {
+    console.log('data not returned', error);
+
+    // response.data.message.forEach(item => {
+    //   const newGitUser = gitCard(item);
+    //   gitHubUser.appendChild(newGitUser);
+    // })
   });
+
+
+
 /*
+// 
+
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
     data in order to use it to build your component function
@@ -44,7 +52,7 @@ axios.get(' https://api.github.com/users/SJMucho')
     user, and adding that card to the DOM.
 */
 
-// const followersArray = [tetondan, dustinmyers, justsml, luishrd, bigknell];
+// const followersArray = [SJMucho, tetondan, dustinmyers, justsml, luishrd, bigknell];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -79,7 +87,7 @@ const gitCard = (gitUser) => {
   const newCard = document.createElement('div');
   const img = document.createElement('img');
   const cardInfo = document.createElement('div');
-  const name = document.createElement('h3');
+  const names = document.createElement('h3');
   const userName = document.createElement('p');
   const location = document.createElement('p');
   const profile = document.createElement('p');
@@ -88,7 +96,7 @@ const gitCard = (gitUser) => {
   const bio = document.createElement('p');
 
   img.src = gitUser.data.avatar_url;
-  name.textContent = gitUser.data.name;
+  names.textContent = gitUser.data.name;
   userName.textContent = gitUser.data.login
   location.textContent = gitUser.data.location
   profile.textContent = gitUser.data.repos_url
@@ -100,7 +108,7 @@ const gitCard = (gitUser) => {
 
   newCard.classList.add(card);
   cardInfo.classList.add(card-info);
-  name.classList.add(name);
+  names.classList.add(name);
   userName.classList.add(username);
 
   newCard.append(img, cardInfo);
@@ -110,5 +118,4 @@ const gitCard = (gitUser) => {
     newCard.classList.toggle('selected');
   })
 
-  return newCard;
-};
+  return newCard
