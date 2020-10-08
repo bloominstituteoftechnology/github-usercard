@@ -15,6 +15,7 @@ axios.get('https://api.github.com/users/SJMucho')
     const newGitUser = gitCard(url);
     gitHubUser.appendChild(newGitUser)
   })
+})
   .catch(error => {
     console.log('data not returned', error);
 
@@ -23,6 +24,8 @@ axios.get('https://api.github.com/users/SJMucho')
     //   gitHubUser.appendChild(newGitUser);
     // })
   });
+
+// }
 
 
 
@@ -83,7 +86,9 @@ axios.get('https://api.github.com/users/SJMucho')
     bigknell
 */
 
+
 const gitCard = (gitUser) => {
+  
   const newCard = document.createElement('div');
   const img = document.createElement('img');
   const cardInfo = document.createElement('div');
@@ -118,4 +123,5 @@ const gitCard = (gitUser) => {
     newCard.classList.toggle('selected');
   })
 
-  return newCard
+  return newCard;
+}
