@@ -79,17 +79,29 @@ const gitCard = (gitUser) => {
   const newCard = document.createElement('div');
   const img = document.createElement('img');
   const cardInfo = document.createElement('div');
-  const userName = document.createElement('h3');
+  const name = document.createElement('h3');
+  const userName = document.createElement('p');
   const location = document.createElement('p');
   const profile = document.createElement('p');
   const followers = document.createElement('p');
   const following = document.createElement('p');
   const bio = document.createElement('p');
 
+  img.src = gitUser.data.avatar_url;
+  name.textContent = gitUser.data.name;
+  userName.textContent = gitUser.data.login
+  location.textContent = gitUser.data.location
+  profile.textContent = gitUser.data.repos_url
+  // gitUrl.src = gitUser.data.url
+  followers.textContent = gitUser.data.followers
+  following.textContent = gitUser.data.following
+  bio.textContent = gitUser.data.bio
+
+
   newCard.classList.add(card);
   cardInfo.classList.add(card-info);
-  userName.classList.add(name);
-  username.classList.add(username);
+  name.classList.add(name);
+  userName.classList.add(username);
 
   newCard.append(img, cardInfo);
   cardInfo.append(userName, location, profile, followers, following, bio);
