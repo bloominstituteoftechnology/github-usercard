@@ -6,29 +6,6 @@ import axios from 'axios'
     https://api.github.com/users/<your name>
 */
 
-const gitHubUser = document.querySelector('.entry')
-
-axios.get('https://api.github.com/users/SJMucho')
-
-  .then(response => {
-    response.data.message.forEach(url => {
-    const newGitUser = gitCard(url);
-    gitHubUser.appendChild(newGitUser)
-  })
-})
-  .catch(error => {
-    console.log('data not returned', error);
-
-    // response.data.message.forEach(item => {
-    //   const newGitUser = gitCard(item);
-    //   gitHubUser.appendChild(newGitUser);
-    // })
-  });
-
-// }
-
-
-
 /*
 // 
 
@@ -55,7 +32,7 @@ axios.get('https://api.github.com/users/SJMucho')
     user, and adding that card to the DOM.
 */
 
-// const followersArray = [SJMucho, tetondan, dustinmyers, justsml, luishrd, bigknell];
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -86,8 +63,9 @@ axios.get('https://api.github.com/users/SJMucho')
     bigknell
 */
 
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
-const gitCard = (gitUser) => {
+ const gitCard = (gitUser) => {
   
   const newCard = document.createElement('div');
   const img = document.createElement('img');
@@ -105,7 +83,7 @@ const gitCard = (gitUser) => {
   userName.textContent = gitUser.data.login
   location.textContent = gitUser.data.location
   profile.textContent = gitUser.data.repos_url
-  // gitUrl.src = gitUser.data.url
+  gitUrl.src = gitUser.data.url
   followers.textContent = gitUser.data.followers
   following.textContent = gitUser.data.following
   bio.textContent = gitUser.data.bio
@@ -125,3 +103,16 @@ const gitCard = (gitUser) => {
 
   return newCard;
 }
+
+followersArray.forEach(user => {
+  axios
+   .get(`https://api.github.com/users/${user}`)
+  .then(res => {
+    let newGitUser = document.querySelector('.cards')
+    newGitUser.appendChild(gitCard(res))
+  })
+
+  .catch(error => {
+    console.log(error);
+  });
+})
