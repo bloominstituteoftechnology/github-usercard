@@ -1,21 +1,17 @@
-/*
-  STEP 1: using axios, send a GET request to the following URL
-    (replacing the placeholder with your Github name):
-    https://api.github.com/users/<your name>
-*/
+import axios from 'axios';
 
-/*
-  STEP 2: Inspect and study the data coming back, this is YOUR
-    github info! You will need to understand the structure of this
-    data in order to use it to build your component function
+axios.get('https://api.github.com/users/jonahdhadlock')
+    .then(response => {
+        const data = response.data;
+        const cardDiv = document.querySelector('.cards');
+        const cardMulti = getRequest(data);
+        cardDiv.appendChild(cardMulti);
+        console.log(data)
+    })
+    .catch(error => {
+        console.log(error);
+    })
 
-    Skip to STEP 3.
-*/
-
-/*
-  STEP 4: Pass the data received from Github into your function,
-    and append the returned markup to the DOM as a child of .cards
-*/
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -49,6 +45,44 @@ const followersArray = [];
       </div>
     </div>
 */
+function getRequest(data) {
+    const div = document.createElement('div');
+    const div1 = document.createElement('div');
+    const h3 = document.createElement('h3');
+    const p = document.createElement('p');
+    const p1 = document.createElement('p');
+    const p2 = document.createElement('p');
+    const p3 = document.createElement('p');
+    const p4 = document.createElement('p');
+    const p5 = document.createElement('p');
+    const img = document.createElement('img');
+    div.appendChild(h3);
+    div.appendChild(img);
+    img.src = data.avatar_url;
+    div.appendChild(p);
+    div.appendChild(div1);
+    div1.appendChild(p1);
+    div1.appendChild(p2);
+    div1.appendChild(p3);
+    div1.appendChild(p4);
+    div1.appendChild(p5);
+    div.classList.add('card');
+    div1.classList.add('card-info');
+    p.classList.add('username');
+    p1.classList.add('location');
+    p2.classList.add('html_url');
+    p3.classList.add('followers');
+    p4.classList.add('following');
+    p5.classList.add('bio');
+    h3.textContent = `Name: ${data.name}`;
+    p.textContent = `Username: ${data.login}`;
+    p1.textContent = `Location: ${data.location}`;
+    p2.textContent = `URL: ${data.html_url}`;
+    p3.textContent = `Followers: ${data.followers}`;
+    p4.textContent = `Following: ${data.following}`;
+    p5.textContent = `Bio: ${data.bio}`;
+    return div;
+}
 
 /*
   List of LS Instructors Github username's:
