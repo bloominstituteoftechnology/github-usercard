@@ -63,7 +63,7 @@ import axios from 'axios'
     bigknell
 */
 
-const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+const followersArray = ['SJMucho', 'Dazmen', 'kwmorlock', 'rutrut6969', 'c00kamunga'];
 
  const gitCard = (gitUser) => {
   
@@ -74,6 +74,7 @@ const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigkne
   const userName = document.createElement('p');
   const location = document.createElement('p');
   const profile = document.createElement('p');
+  const gitUrl = document.createElement('a');
   const followers = document.createElement('p');
   const following = document.createElement('p');
   const bio = document.createElement('p');
