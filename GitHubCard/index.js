@@ -65,7 +65,7 @@ import axios from 'axios'
 
 const followersArray = ['SJMucho', 'Dazmen', 'kwmorlock', 'rutrut6969', 'c00kamunga'];
 
- const gitCard = (gitUser) => {
+ const gitCard = (user) => {
   
   const newCard = document.createElement('div');
   const img = document.createElement('img');
@@ -79,21 +79,21 @@ const followersArray = ['SJMucho', 'Dazmen', 'kwmorlock', 'rutrut6969', 'c00kamu
   const following = document.createElement('p');
   const bio = document.createElement('p');
 
-  img.src = gitUser.data.avatar_url;
-  names.textContent = gitUser.data.name;
-  userName.textContent = gitUser.data.login
-  location.textContent = gitUser.data.location
-  profile.textContent = gitUser.data.repos_url
-  gitUrl.src = gitUser.data.url
-  followers.textContent = gitUser.data.followers
-  following.textContent = gitUser.data.following
-  bio.textContent = gitUser.data.bio
+  img.src = user.data.avatar_url;
+  names.textContent = user.data.name;
+  userName.textContent = user.data.login
+  location.textContent = user.data.location
+  profile.textContent = user.data.repos_url
+  gitUrl.src = user.data.url
+  followers.textContent = user.data.followers
+  following.textContent = user.data.following
+  bio.textContent = user.data.bio
 
 
-  newCard.classList.add(card);
-  cardInfo.classList.add(card-info);
-  names.classList.add(name);
-  userName.classList.add(username);
+  newCard.classList.add('card');
+  cardInfo.classList.add('card-info');
+  names.classList.add('name');
+  userName.classList.add('username');
 
   newCard.append(img, cardInfo);
   cardInfo.append(userName, location, profile, followers, following, bio);
@@ -109,8 +109,8 @@ followersArray.forEach(user => {
   axios
    .get(`https://api.github.com/users/${user}`)
   .then(res => {
-    let newGitUser = document.querySelector('.cards')
-    newGitUser.appendChild(gitCard(res))
+    let newGitUser = document.querySelector('.cards');
+    newGitUser.appendChild(gitCard(res));
   })
 
   .catch(error => {
