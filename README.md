@@ -22,12 +22,12 @@ In this project we are going to be accessing the GitHub API and building a socia
 
 **Follow these steps to set up and work on your project:**
 
-* [ ] Create a forked copy of this project.
-* [ ] Add your team lead as collaborator on Github.
-* [ ] Clone your OWN version of the repository (Not Lambda's by mistake!).
-* [ ] Create a new branch: git checkout -b `<firstName-lastName>`.
-* [ ] Implement the project on your newly created `<firstName-lastName>` branch, committing changes regularly.
-* [ ] Push commits: git push origin `<firstName-lastName>`.
+* [x] Create a forked copy of this project.
+* [x] Add your team lead as collaborator on Github.
+* [x] Clone your OWN version of the repository (Not Lambda's by mistake!).
+* [x] Create a new branch: git checkout -b `<firstName-lastName>`.
+* [x] Implement the project on your newly created `<firstName-lastName>` branch, committing changes regularly.
+* [x] Push commits: git push origin `<firstName-lastName>`.
 
 **Follow these steps for completing your project.**
 
@@ -35,16 +35,16 @@ In this project we are going to be accessing the GitHub API and building a socia
 
 ### Project Setup
 
-* [ ] Navigate to the root of the project with your command line.
-* [ ] Run `npm install` to download any dependencies listed in the `package.json` file.
-* [ ] Run `npm start` to compile your project and launch a development server.
+* [x] Navigate to the root of the project with your command line.
+* [x] Run `npm install` to download any dependencies listed in the `package.json` file.
+* [x] Run `npm start` to compile your project and launch a development server.
 
 ### Axios Setup
 
 #### Option 1 (adding Axios via script element)
 
-* [ ] Include the script element linking the `axios` library in your HTML.
-* [ ] If you do not remember the code you can find it [here](https://github.com/axios/axios).
+* [x] Include the script element linking the `axios` library in your HTML.
+* [x] If you do not remember the code you can find it [here](https://github.com/axios/axios).
 
 #### Option 2 (installing Axios with npm)
 
@@ -54,7 +54,7 @@ In this project we are going to be accessing the GitHub API and building a socia
 
 ### Part 1: Requesting Data from the GitHub API
 
-* [ ] Follow the instructions found in the `GitHubCard/index.js` file to request data from the GitHub API.
+* [x] Follow the instructions found in the `GitHubCard/index.js` file to request data from the GitHub API.
 
 ### Part 2: Create the component function
 
