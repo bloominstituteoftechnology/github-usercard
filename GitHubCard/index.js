@@ -1,8 +1,16 @@
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
-    https://api.github.com/users/<your name>
+    https://api.github.com/users/amotor-AM
 */
+
+const url = "https://api.github.com/users/amotor-AM";
+
+// One thing we can do which nobody seems to remember is .then chaining. Using this method we render.catch obsolete as we instead add the fail condition inside the .then statement. We seperate the resolved and failed statements with a ,
+
+// axios.get(url).then(({ data }) => {
+//   createCard(data);
+// }), ((err) => console.log(err))
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -28,6 +36,35 @@
     user, and adding that card to the DOM.
 */
 
+/*
+  List of LS Instructors Github username's:
+    tetondan
+    dustinmyers
+    justsml
+    luishrd
+    bigknell
+*/
+
+function makeAPICall(name) {
+  const url = "https://api.github.com/users/";
+  name.forEach((person) => {
+    axios.get(url + person).then(({ data }) => {
+      createCard(data);
+    });
+  }),
+    (err) => console.log(err);
+}
+const names = [
+  "amotor-AM",
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell",
+];
+
+makeAPICall(names);
+
 const followersArray = [];
 
 /*
@@ -50,11 +87,54 @@ const followersArray = [];
     </div>
 */
 
-/*
-  List of LS Instructors Github username's:
-    tetondan
-    dustinmyers
-    justsml
-    luishrd
-    bigknell
-*/
+const cards = document.querySelector(".cards");
+
+function createCard(gitHubData) {
+  //Creating the elements for the cards
+  const card = document.createElement("div");
+  card.classList.add("card");
+  var img = document.createElement("img");
+  const info = document.createElement("div");
+  info.classList.add("card-info");
+  var name = document.createElement("h3");
+  name.classList.add("name");
+  var username = document.createElement("p");
+  username.classList.add("username");
+  var location = document.createElement("p");
+  var profile = document.createElement("p");
+  var followers = document.createElement("p");
+  var following = document.createElement("p");
+  var bio = document.createElement("p");
+
+  //Assigning the cards to info collected from axios
+  img.src = gitHubData.avatar_url;
+  console.log(img.src);
+  name.textContent = gitHubData.name;
+  console.log(name);
+  username.textContent = gitHubData.login;
+  console.log(username);
+  location.textContent = gitHubData.location;
+  console.log(location);
+  profile.textContent = `Profile: ${gitHubData.html_url}`;
+  console.log(profile);
+  followers.textContent = gitHubData.followers;
+  console.log(followers);
+  following.textContent = gitHubData.following;
+  console.log(following);
+  bio.textContent = gitHubData.bio;
+  console.log(bio);
+
+  //Creating the nested layout of our elements
+  cards.appendChild(card);
+  card.appendChild(img);
+  card.appendChild(info);
+  info.appendChild(name);
+  info.appendChild(username);
+  info.appendChild(location);
+  info.appendChild(profile);
+  info.appendChild(followers);
+  info.appendChild(following);
+  info.appendChild(bio);
+
+  return card;
+}
