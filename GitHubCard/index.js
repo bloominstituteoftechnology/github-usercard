@@ -1,13 +1,77 @@
 import axios from 'axios'
-console.log('1 About to fetch data with axios')
-/*
-  STEP 1: using axios, send a GET request to the following URL
-    (replacing the placeholder with your Github name):
-    https://api.github.com/users/<your name>
-*/
-axios.get('https://api.github.com/users/babeytapratt')
-      .then(result => {
+import React from 'react'
 
+class App extends React.Component {
+  constructor() {
+    super();
+      this.state = {
+        users: users
+    }
+  }
+
+    componentDidMount() {
+      this.fetchCards("babeytapratt");
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+      if (prevState.users !== this.state.users) {
+      if (this.state.users === 'luishrd') {
+            this.fetchCards('babeytapratt');
+          }
+      }
+    }
+
+
+  fetchCards = (users) => {
+    axios.get(`https://api.github.com/${users}`)
+        .then(res => {
+          this.setState({
+            users:res.data.message
+          });
+        })
+      .catch(err => console.log(err))
+  }
+
+  handleChange = (e) => {
+    this.setState({ users:e.target.value})
+  }
+
+  handleSearch = (e) => {
+    e.preventDefault();
+    this.fetchCards(this.state.users);
+    this.setState({users: ""})
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <h1>Search for Github Member's Profiles</h1>
+        <form onSubmit={this.handleSearch}>
+          <input value={this.state.users} onChange={this.handleChange} type="text" />
+          <button>Get Members</button>
+        </form>
+
+        <div className = "githubCard">
+          <div className = "imageContainer">
+            <img width="200" key={item} src = {item} alt={item} />
+            <h2>{this.state.userName}</h2>
+          </div>
+
+          <div className = "cardInfo">
+            <h3>{this.state.userLogin}</h3>
+            <h3>{this.state.userLocation}</h3>
+            <h3>{this.state.url}</h3>
+            <h3>{this.state.followers}</h3>
+            <h3>{this.state.following}</h3>
+          </div>
+
+        </div>
+      </div>
+    )
+  }
+
+}
+export default App
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -20,81 +84,81 @@ axios.get('https://api.github.com/users/babeytapratt')
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
-const entryPoint = document.querySelector('.cards')
+// const entryPoint = document.querySelector('.cards')
 
-function githubCardsMaker(object) {
+// function githubCardsMaker(object) {
 
-  const githubCard = document.createElement('div')
-  const image = document.createElement('img')
-  const userName = document.createElement('h2')
-  const cardInfo = document.createElement('div')
-  const userLogin = document.createElement('p')
-  const userLocation = document.createElement('p')
-  const userProfile = document.createElement('p')
-  const userHtml_url = document.createElement('a')
-  const userFollowers = document.createElement('p')
-  const userFollowing = document.createElement('p')
-  const userBio = document.createElement('p')
+//   const githubCard = document.createElement('div')
+//   const image = document.createElement('img')
+//   const userName = document.createElement('h2')
+//   const cardInfo = document.createElement('div')
+//   const userLogin = document.createElement('p')
+//   const userLocation = document.createElement('p')
+//   const userProfile = document.createElement('p')
+//   const userHtml_url = document.createElement('a')
+//   const userFollowers = document.createElement('p')
+//   const userFollowing = document.createElement('p')
+//   const userBio = document.createElement('p')
 
-  githubCard.appendChild(image)
-  githubCard.appendChild(cardInfo)
-  cardInfo.appendChild(userName)
-  cardInfo.appendChild(userLogin)
-  cardInfo.appendChild(userLocation)
-  cardInfo.appendChild(userProfile)
-  userProfile.appendChild(userHtml_url)
-  cardInfo.appendChild(userFollowing)
-  cardInfo.appendChild(userFollowers)
-  cardInfo.appendChild(userBio)
+//   githubCard.appendChild(image)
+//   githubCard.appendChild(cardInfo)
+//   cardInfo.appendChild(userName)
+//   cardInfo.appendChild(userLogin)
+//   cardInfo.appendChild(userLocation)
+//   cardInfo.appendChild(userProfile)
+//   userProfile.appendChild(userHtml_url)
+//   cardInfo.appendChild(userFollowing)
+//   cardInfo.appendChild(userFollowers)
+//   cardInfo.appendChild(userBio)
 
-  githubCard.classList.add('card')
-  image.classList.add('image')
-  cardInfo.classList.add('card-info')
-  userName.classList.add('name')
-  userLogin.classList.add('username')
-  userLocation.classList.add('location')
-  userProfile.classList.add('profile')
-  userHtml_url.classList.add('user-url')
-  userFollowers.classList.add('followers')
-  userFollowing.classList.add('following')
-  userBio.classList.add('bio')
+//   githubCard.classList.add('card')
+//   image.classList.add('image')
+//   cardInfo.classList.add('card-info')
+//   userName.classList.add('name')
+//   userLogin.classList.add('username')
+//   userLocation.classList.add('location')
+//   userProfile.classList.add('profile')
+//   userHtml_url.classList.add('user-url')
+//   userFollowers.classList.add('followers')
+//   userFollowing.classList.add('following')
+//   userBio.classList.add('bio')
 
-  image.src = object.avatar_url
-  userName.textContent = object.name
-  userLogin.textContent = object.login
-  userLocation.textContent = `Location: ${object.location}`
-  userProfile.textContent = `Profile: ${object.url}`
-  userFollowers.textContent = `Followers: ${object.followers}`
-  userFollowing.textContent = `Following: ${object.following}`
-  userBio.textContent = `Bio: ${object.bio}`
+//   image.src = object.avatar_url
+//   userName.textContent = object.name
+//   userLogin.textContent = object.login
+//   userLocation.textContent = `Location: ${object.location}`
+//   userProfile.textContent = `Profile: ${object.url}`
+//   userFollowers.textContent = `Followers: ${object.followers}`
+//   userFollowing.textContent = `Following: ${object.following}`
+//   userBio.textContent = `Bio: ${object.bio}`
 
-  return githubCard
-}
+//   return githubCard
+// }
 
-axios.get('https://api.github.com/users/babeytapratt')
-  .then(res =>  {
-    const card = githubCardsMaker(res.data)
+// axios.get('https://api.github.com/users/babeytapratt')
+//   .then(res =>  {
+//     const card = githubCardsMaker(res.data)
 
-      console.log(card)
-      entryPoint.append(card)
+//       console.log(card)
+//       entryPoint.append(card)
 
-      const followersArray = ['luishrd', 'bigknell', 'tetondan', 'dustinmyers', 'justsml' ];
+//       const followersArray = ['luishrd', 'bigknell', 'tetondan', 'dustinmyers', 'justsml' ];
 
-      followersArray.forEach((follower) => {
-        axios.get(`https://api.github.com/users/${follower}`)
-        .then(follower => {
-        entryPoint.appendChild(githubCardsMaker(follower.data))
-        });
-      })
+//       followersArray.forEach((follower) => {
+//         axios.get(`https://api.github.com/users/${follower}`)
+//         .then(follower => {
+//         entryPoint.appendChild(githubCardsMaker(follower.data))
+//         });
+//       })
 
-    });
+//     });
 
-  })
-  .catch(error => {
+//   })
+//   .catch(error => {
 
-  })
+//   })
 
-
+// }
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
