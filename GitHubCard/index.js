@@ -4,6 +4,16 @@
     https://api.github.com/users/<your name>
 */
 
+  import axios from 'axios';
+  axios
+  .get('https://api.github.com/users/bchoi562')
+  .then((futureData)=>{
+      const gitInfo = futureData.data;
+      cards.appendChild(cardMaker(gitInfo));
+  })
+  .catch((err)=>{
+    debugger;
+  })
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -28,7 +38,19 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell'];
+
+for (let i = 0; i < followersArray.length; i++) {
+  axios
+    .get('https://api.github.com/users/' + followersArray[i])
+    .then((futureData) => {
+      const gitInfo = futureData.data;
+      cards.appendChild(cardMaker(gitInfo));
+    })
+    .catch((err) => {
+      debugger;
+    })
+}
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +71,53 @@ const followersArray = [];
       </div>
     </div>
 */
+const cards = document.querySelector('.cards');
+
+function cardMaker(obj) {
+  const card = document.createElement('div');
+      card.classList.add('card');
+  const image = document.createElement('img');
+  const cardInfo = document.createElement('div');
+      cardInfo.classList.add('card-info');
+  const h3 = document.createElement('h3');
+      h3.classList.add('name');
+  const username = document.createElement('p');
+      username.classList.add('username');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const gitAddress = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  card.appendChild(image);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(h3);
+  cardInfo.appendChild(username);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+  profile.appendChild(gitAddress);
+
+  h3.textContent = `${obj.name}`;
+  image.src = `${obj.avatar_url}`;
+  username.textContent = `${obj.login}`;
+  location.textContent = `${obj.location}`;
+  gitAddress.href = `${obj.html_url}`;
+  followers.textContent = `${obj.followers}`;
+  following.textContent = `${obj.following}`;
+
+
+
+
+  return card;
+
+
+
+}
+console.log(cards);
 
 /*
   List of LS Instructors Github username's:
