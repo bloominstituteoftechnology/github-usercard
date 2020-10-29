@@ -53,6 +53,64 @@ const followersArray = [];
       </div>
     </div>
 */
+  const allCards = document.querySelector('.cards');
+
+  function cardMaker(userObj) {
+    const card = document.createElement('div');
+    card.classList.add('card');
+    card.appendChild(image);
+    card.appendChild(cardInfo);
+
+    const image = document.createElement('img');
+    image.src = userObj.avatar_url;
+
+    const cardInfo = document.createElement('div');
+    cardInfo.classList.add('card-info');
+    cardInfo.appendChild(name);
+    cardInfo.appendChild(userName);
+    cardInfo.appendChild(userLocale);
+    cardInfo.appendChild(profile);
+    cardInfo.appendChild(followers);
+    cardInfo.appendChild(following);
+    cardInfo.appendChild(bio);
+
+    const name = document.createElement('h3');
+    name.classList.add('name');
+    name.textContent = `${userObj.name}`;
+
+    const userName = document.createElement('p');
+    userName.classList.add('username');
+    userName.textContent = `${userObj.login}`;
+
+    const userLocale = document.createElement('p')
+    userLocale.textContent = `Location: ${userObj.location}`;
+
+    const profile = document.createElement('p');
+    profile.textContent = 'Profile:' ;
+    profile.appendChild(profileUrl);
+
+    const profileUrl = document.createElement('a');
+    profileUrl.href = userObj.html_url;
+    profileUrl.textContent = `${userObj.html_url}`;
+
+    const followers = document.createElement('p');
+    followers.textContent = `Followers: ${userObj.followers}`;
+
+    const following = document.createElement('p');
+    following.textContent = `Following: ${userObj.following}`;
+
+    const bio = document.createElement('p');
+    bio.textContent = `Bio: ${userObj.bio}`;
+
+
+
+    return card;
+  
+  }
+  
+  
+  
+
 
 /*
   List of LS Instructors Github username's:
