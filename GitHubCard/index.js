@@ -3,6 +3,18 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+import axios from 'axios'
+
+axios
+  .get('https:api.github.com/users/DavidHall-Code')
+  .then((res) => {
+    console.log(res.data)
+    const newCard = gitCard(res.data)
+    entryPoint.appendChild(newCard)
+  })
+  .catch((err) => {
+    console.log(err)
+  })
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
