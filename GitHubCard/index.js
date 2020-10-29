@@ -114,6 +114,11 @@ function cardMaker(object){
 
 }
 
+
+
+
+
+
 /*
   List of LS Instructors Github username's:
     tetondan
