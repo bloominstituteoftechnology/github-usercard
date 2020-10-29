@@ -10,17 +10,7 @@ import axios from 'axios';
     //     allCards.appendChild(gitCard);
     // });
 
-axios
-  .get('https://api.github.com/users/ruizaj13')
-  .then((response) => {
-    allCards.appendChild(cardMaker(response.data));
-  })
-  .catch((err) =>{
-    console.log('Whoops!', err);
-  })
-  .finally(()=>{
-    console.log('done');
-  })
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -72,14 +62,23 @@ const followersArray = [];
   function cardMaker(userObj) {
     
     const card = document.createElement('div');
+    const image = document.createElement('img');
+    const cardInfo = document.createElement('div');
+    const name = document.createElement('h3');
+    const userName = document.createElement('p');
+    const userLocale = document.createElement('p')
+    const profile = document.createElement('p');
+    const profileUrl = document.createElement('a');
+    const followers = document.createElement('p');
+    const following = document.createElement('p');
+    const bio = document.createElement('p');
+    
     card.classList.add('card');
     card.appendChild(image);
     card.appendChild(cardInfo);
 
-    const image = document.createElement('img');
     image.src = userObj.avatar_url;
 
-    const cardInfo = document.createElement('div');
     cardInfo.classList.add('card-info');
     cardInfo.appendChild(name);
     cardInfo.appendChild(userName);
@@ -89,32 +88,24 @@ const followersArray = [];
     cardInfo.appendChild(following);
     cardInfo.appendChild(bio);
 
-    const name = document.createElement('h3');
     name.classList.add('name');
     name.textContent = `${userObj.name}`;
 
-    const userName = document.createElement('p');
     userName.classList.add('username');
     userName.textContent = `${userObj.login}`;
 
-    const userLocale = document.createElement('p')
     userLocale.textContent = `Location: ${userObj.location}`;
 
-    const profile = document.createElement('p');
     profile.textContent = 'Profile:' ;
     profile.appendChild(profileUrl);
 
-    const profileUrl = document.createElement('a');
     profileUrl.href = userObj.html_url;
     profileUrl.textContent = `${userObj.html_url}`;
 
-    const followers = document.createElement('p');
     followers.textContent = `Followers: ${userObj.followers}`;
 
-    const following = document.createElement('p');
     following.textContent = `Following: ${userObj.following}`;
 
-    const bio = document.createElement('p');
     bio.textContent = `Bio: ${userObj.bio}`;
 
 
@@ -124,7 +115,23 @@ const followersArray = [];
   }
   
   
-  
+  axios
+  .get('https://api.github.com/users/ruizaj13')
+  .then((response) => {
+    const responseData = response.data
+
+    allCards.appendChild(cardMaker(response.data));
+
+  })
+  .catch((err) =>{
+    console.log('Whoops!', err);
+  })
+  .finally(()=>{
+    console.log('done');
+
+  })
+
+
 
 
 /*
