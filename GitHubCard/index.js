@@ -3,7 +3,20 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+import axios from 'axios'
 
+axios
+  .get('https:api.github.com/users/DavidHall-Code')
+  .then((res) => {
+    console.log(res.data)
+    const newCard = gitCard(res.data)
+    entryPoint.appendChild(newCard)
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+
+  const entryPoint = document.querySelector('.cards')
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -28,7 +41,27 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'mxcl',
+  'jonathanong',
+  'fabpot',
+  'samdark',
+  'andrew'
+];
+
+followersArray.forEach(i => {
+  const newLocal = 'https://api.github.com/users/'
+
+  axios
+    .get(newLocal + [i])
+    .then((res) => {
+      const newCard2 = gitCard(res.data)
+      entryPoint.appendChild(newCard2)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+})
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -58,3 +91,69 @@ const followersArray = [];
     luishrd
     bigknell
 */
+function gitCard(data){
+
+  //Define Element
+  //Card
+  const newCard = document.createElement('div');
+
+  //Image
+  const newImage = document.createElement('img');
+  //Card Info
+  const newInfo = document.createElement('div');
+  //Name {users name}
+  const newName = document.createElement('h3');
+  //UserName {users userName}
+  const newUserName = document.createElement('p');
+  //Location {users location}
+  const newLocation = document.createElement('p');
+  //Profile
+  const newProfile = document.createElement('p');
+  //Followers
+  const newFollowers = document.createElement('p');
+  //Following
+  const newFollowing = document.createElement('p');
+
+  //Bio {users bio}
+  const newBio = document.createElement('p');
+  const newA = document.createElement('a');
+
+  //Set Structure of Elements (appendChild)
+  newCard.appendChild(newImage);
+  newCard.appendChild(newInfo);
+  newInfo.appendChild(newName);
+  newInfo.appendChild(newUserName);
+  newInfo.appendChild(newLocation);
+
+  newInfo.appendChild(newProfile);
+  newProfile.textContent =  `Profile: ${data.html_url}`;
+  newProfile.appendChild(newA);
+
+  newInfo.appendChild(newFollowers);
+  newInfo.appendChild(newFollowing);
+  newInfo.appendChild(newBio);
+
+  //Set Class
+  //Card
+  newCard.classList.add('card');
+  //Card Info
+  newInfo.classList.add('card-info');
+  //Name
+  newName.classList.add('name');
+  //UserName
+  newUserName.classList.add('username');
+
+  //Set Content
+  newImage.setAttribute('src', data.avatar_url);
+  // newInfo.textContent =  ;
+  newName.textContent = `${data.name}`;
+  newUserName.textContent = data.login;
+  newLocation.textContent = data.location;
+  
+  newFollowers.textContent = `Followers: ${data.followers}`;
+  newFollowing.textContent = `Following: ${data.following}`;
+  newBio.textContent = `Bio: ${data.bio}`;
+
+  return newCard
+
+}
