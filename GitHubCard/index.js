@@ -37,9 +37,14 @@ axios.get('https://api.github.com/users/TreywRoberts')
     user, and adding that card to the DOM.
 */
 
-const followersArray = ['https://api.github.com/users/PedroVanT','https://api.github.com/users/matty-serwer','https://api.github.com/users/TGIFernando'];
-
-
+const followersArray = ['PedroVanT','matty-serwer','TGIFernando','dustinmyers','bigknell'];
+followersArray.forEach(name=>{
+axios.get(`https://api.github.com/users/${name}`)
+.then(res =>{
+  const profile = profileCardMaker(res.data)
+    entryPoint.append(profile)
+})
+})
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -95,7 +100,7 @@ function profileCardMaker(obj){
   profile.textContent = 'Profile: ';
   profileURL.href = obj.html_url
   profileURL.textContent=obj.html_url
-  follower.textContent = `Follower: ${obj.follower}`
+  follower.textContent = `Followers: ${obj.followers}`
   following.textContent = `Following: ${obj.following}`
   bio.textContent = `Bio: ${obj.bio}`
   
