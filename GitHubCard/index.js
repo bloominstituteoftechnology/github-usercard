@@ -4,9 +4,23 @@ import axios from 'axios';
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+// const cardData = response.data;
+    // cardData.forEach((item) => {
+    //     const gitCard = cardMaker(item);
+    //     allCards.appendChild(gitCard);
+    // });
 
 axios
   .get('https://api.github.com/users/ruizaj13')
+  .then((response) => {
+    allCards.appendChild(cardMaker(response.data));
+  })
+  .catch((err) =>{
+    console.log('Whoops!', err);
+  })
+  .finally(()=>{
+    console.log('done');
+  })
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -56,6 +70,7 @@ const followersArray = [];
   const allCards = document.querySelector('.cards');
 
   function cardMaker(userObj) {
+    
     const card = document.createElement('div');
     card.classList.add('card');
     card.appendChild(image);
