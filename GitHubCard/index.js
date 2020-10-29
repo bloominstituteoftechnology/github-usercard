@@ -105,12 +105,23 @@ function gitHubCard (data) {
   //build profile link
   const profileLink = document.createElement('a');
   profile.appendChild(profileLink);
-  profileLink.setAttribute('href', data.url)
+  profileLink.setAttribute('href', data.url);
   profileLink.textContent = data.url;
 
   //build follwers
-  const followers = document
+  const followers = document.createElement('p');
+  subDiv.appendChild(followers);
+  followers.textContent = `Followers: ${data.followers}`;
 
+  //build following
+  const following = document.createElement('p');
+  subDiv.appendChild(following);
+  following.textContent = `Following: ${data.following}`;
+
+  //build bio
+  const bio = document.createElement('p');
+  subDiv.appendChild(bio);
+  bio.textContent = `Bio: ${data.bio}`;
 
   return card;
 }
