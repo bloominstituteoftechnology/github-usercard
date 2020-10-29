@@ -3,7 +3,7 @@
 In this project we are going to be accessing the GitHub API and building a social card based on the data we get back. The goal is to create a component based on the data we get when we send a GET request to the GitHub API (requesting your own data at first). The CSS and the base HTML is already done for you, you simply need to create the component function and connect the pieces.
 
 ⚠️ **Warning: Rate Limits**
-A lot of code editors, including VSCode, will autosave by default. Every time your program autosaves (which could be every few seconds!), it makes a request to the API and brings you closer to your rate limit. You should **turn autosave off** for this project, and save your code only when you're ready to test it. The limit for this particular API is 5000 requests per hour, you can read more about it [here(https://developer.github.com/v3/rate_limit/).
+A lot of code editors, including VSCode, will autosave by default. Every time your program autosaves (which could be every few seconds!), it makes a request to the API and brings you closer to your rate limit. You should **turn autosave off** for this project, and save your code only when you're ready to test it. The limit for this particular API is 5000 requests per hour, you can read more about it [here](https://developer.github.com/v3/rate_limit/).
 
 ## Need to know
 
