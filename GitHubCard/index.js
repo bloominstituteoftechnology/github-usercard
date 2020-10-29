@@ -40,18 +40,32 @@
 
 const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell'];
 
-for (let i = 0; i < followersArray.length; i++) {
-  axios
-    .get('https://api.github.com/users/' + followersArray[i])
-    .then((futureData) => {
-      const gitInfo = futureData.data;
-      cards.appendChild(cardMaker(gitInfo));
-    })
-    .catch((err) => {
-      debugger;
-    })
-}
 
+//for loop
+// for (let i = 0; i < followersArray.length; i++) {
+//   axios
+//     .get('https://api.github.com/users/' + followersArray[i])
+//     .then((futureData) => {
+//       const gitInfo = futureData.data;
+//       cards.appendChild(cardMaker(gitInfo));
+//     })
+//     .catch((err) => {
+//       debugger;
+//     })
+// }
+
+//foreach loop
+followersArray.forEach((each)=>{
+  axios
+  .get('https://api.github.com/users/' + each)
+  .then((futureData)=>{
+    const gitInfo = futureData.data;
+    cards.appendChild(cardMaker(gitInfo));
+  })
+  .catch((err)=>{
+    debugger;
+  })
+})
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
