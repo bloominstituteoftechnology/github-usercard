@@ -12,7 +12,7 @@ axios
 .get('https://api.github.com/users/Diegormnv')
 .then(response =>{
   seperateCards.appendChild(setup(response.data));
-})
+});
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -39,8 +39,15 @@ axios
     Using that array, iterate over it, requesting data for each user, creating a new card for each
     user, and adding that card to the DOM.
 */
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd'];
 
-const followersArray = [];
+  followersArray.forEach((follower) =>{
+    axios
+    .get(`https://api.github.com/users/${follower}`)
+    .then((response) =>{
+      seperateCards.appendChild(setup(response.data));
+  });
+});
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -64,7 +71,7 @@ const followersArray = [];
 
 
 function setup(object){
-  
+
   //Created Elements
   const card = document.createElement('div');
   const image = document.createElement('img');
@@ -110,11 +117,12 @@ function setup(object){
   return card;
 }
 
-/*
-  List of LS Instructors Github username's:
-    tetondan
-    dustinmyers
-    justsml
-    luishrd
-    bigknell
-*/
+
+// /*
+//   List of LS Instructors Github username's:
+//     tetondan
+//     dustinmyers
+//     justsml
+//     luishrd
+//     bigknell
+// *
