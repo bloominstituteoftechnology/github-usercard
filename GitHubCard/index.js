@@ -1,8 +1,17 @@
+import axios from 'axios';
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
+axios
+ .get("https://api.github.com/users/xpeedy")
+ .then((data) => {
+   console.log(data)
+   cards.appendChild(cardMaker(data))
+ })
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -16,6 +25,8 @@
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
+
+
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -49,6 +60,56 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function cardMaker(obj){
+  const card = document.createElement("div")
+  card.classList.add("card")
+
+  let img = document.createElement("img")
+  img.src = obj.avatar_url;
+  card.appendChild(img)
+
+  let cardInfo = document.createElement("div")
+  cardInfo.classList.add("card-info")
+  card.appendChild(cardInfo)
+
+  let name = document.createElement("h3")
+  name.classList.add("name")
+  name.textContent = `name: ${obj.name}`;
+  cardInfo.appendChild(name)
+
+  let userName = document.createElement("p")
+  userName.classList.add("username")
+  userName.textContent = `username: ${obj.login}`;
+  cardInfo.appendChild(userName)
+
+  let location = document.createElement("p")
+  location.textContent = `location: ${obj.location}`;
+  cardInfo.appendChild(location)
+
+  let profile = document.createElement("p")
+  let link = document.createElement("a")
+  link.href = obj.html_url
+  profile.textContent = link;
+//<----idk if this will work--->
+  cardInfo.appendChild(profile)
+
+  let followers = document.createElement("p")
+  followers.textContent = `followers: ${obj.followers}`;
+  cardInfo.appendChild(followers)
+
+  let following = document.createElement("p")
+  following.textContent = `following: ${obj.following}`;
+  cardInfo.appendChild(following)
+
+  let bio = document.createElement("p")
+  bio.textContent = `bio: ${obj.bio}`;
+  cardInfo.appendChild(bio)
+
+  return card;
+}
+let cards = document.querySelector(".cards")
+let newCard = cardMaker(axios.data)
 
 /*
   List of LS Instructors Github username's:
