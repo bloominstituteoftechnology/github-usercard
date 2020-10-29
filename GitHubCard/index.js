@@ -118,10 +118,11 @@ function cardMaker(obj) {
   h3.textContent = `${obj.name}`;
   image.src = `${obj.avatar_url}`;
   username.textContent = `${obj.login}`;
-  location.textContent = `${obj.location}`;
+  location.textContent = `Location: ${obj.location}`;
   gitAddress.href = `${obj.html_url}`;
-  followers.textContent = `${obj.followers}`;
-  following.textContent = `${obj.following}`;
+  followers.textContent = `Followers: ${obj.followers}`;
+  following.textContent = `Following: ${obj.following}`;
+  bio.textContent = `Bio: ${obj.bio}`;
 
 
 
