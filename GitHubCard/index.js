@@ -39,7 +39,20 @@ const cards = document.querySelector('.cards');
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['KaiMicahMills','Stone98','joshwhitwell','bigknell','justsml'];
+
+// followersArray.forEach((item) => {
+//   axios
+//     .get(`https://api.github.com/users/${item}`)
+//     .then((res) =>{
+//       const result = gcardMaker(res.data)
+//       cards.appendChild(result);
+//       console.log(result)
+//     })
+//     .catch((fuzz) => {
+//       console.log('borked', fuzz)
+//     })
+//   })
 
 
 function gcardMaker({ avatar_url, name, login, location, html_url, bio }){
