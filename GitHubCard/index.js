@@ -1,5 +1,16 @@
 // const { default: Axios } = require("axios");
 import axios from "axios";
+
+axios
+  .get("https://api.github.com/users/antoine-bibb")
+  .then((res) => {
+    const user = res.data;
+    console.log(user);
+    cardMaker(user);
+  })
+  .catch((err) => {
+    console.log("uh-oh somethings wrong buddy", err);
+  });
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -30,7 +41,7 @@ import axios from "axios";
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [tetondan, dustinmyers, justsml, luishrd, bigknell];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -51,12 +62,13 @@ const followersArray = [];
       </div>
     </div>
 */
-const cards = document.querySelector(".cards");
+const entryPoint = document.querySelector(".cards");
+
 function cardMaker(user) {
   const card = document.createElement("div");
   const img = document.createElement("img");
   const cardInfo = document.createElement("div");
-  const names = document.createElement("h3");
+  const name = document.createElement("h3");
   const userName = document.createElement("p");
   const located = document.createElement("p");
   const profile = document.createElement("p");
@@ -66,7 +78,6 @@ function cardMaker(user) {
   const bio = document.createElement("p");
   //set classNames
   card.classList.add("card");
-
   cardInfo.classList.add("card-info");
   name.classList.add("name");
   userName.classList.add("username");
@@ -77,15 +88,14 @@ function cardMaker(user) {
   userName.textContent = `Username: ${user.username}`;
   location.textContent = `Location: ${user.location}`;
   profile.textContent = `Profile: ${user.URL}`;
-  followers.textContent = ` followers: ${user.followers}`;
-  following.textContent = ` following: ${user.following}`;
+  followers.textContent = `followers: ${user.followers}`;
+  following.textContent = `following: ${user.following}`;
   bio.textContent = `Bio: ${user.bio}`;
 
   //appendchildren
-  cards.appendChild(card);
   card.appendChild(img);
   card.appendChild(cardInfo);
-  cardInfo.appendChild(names);
+  cardInfo.appendChild(name);
   cardInfo.appendChild(userName);
   cardInfo.appendChild(located);
   cardInfo.appendChild(profile);
@@ -93,21 +103,12 @@ function cardMaker(user) {
   cardInfo.appendChild(followers);
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
-  cards.appendChild(card);
+  entryPoint.appendChild(card);
+
   //return something
   return card;
-
-  //
 }
 
-axios
-  .get("https://api.github.com/users/antoine-bibb")
-  .then((res) => {
-    cardMaker(res.data);
-  })
-  .catch((err) => {
-    console.log("uh-oh somethings wrong buddy", err);
-  });
 /*
   List of LS Instructors Github username's:
     tetondan
