@@ -18,7 +18,7 @@ import axios from 'axios';
     
     const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
-    followersArray.map(item => {
+    followersArray.forEach(item => {
       axios.get(`https://api.github.com/users/${item}`)
       .then(res => {
         const users = res.data;
