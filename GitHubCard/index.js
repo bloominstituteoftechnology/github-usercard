@@ -19,12 +19,13 @@ import axios from 'axios';
     const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
     followersArray.forEach(item => {
-      axios.get(`https://api.github.com/users/${item}`)
-      .then(res => {
-        const users = res.data;
-        allCards.appendChild(cardMaker(users));
-      }).catch (err => {
-        console.log(err);
+      axios
+      .get(`https://api.github.com/users/${item}`)
+      .then(response => {
+        allCards.appendChild(cardMaker(response.data));
+      })
+      .catch (err => {
+        console.log('Whoopsie!', err);
       })
     
     })
