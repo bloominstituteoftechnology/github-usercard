@@ -1,9 +1,61 @@
+const { default: Axios } = require("axios");
+const body = document.querySelector('.container');
+const cardMaker = function(info) {
+  // installing elements
+  const card = document.createElement('div');
+  const cardInfo = document.createElement('div');
+  const img = document.createElement('img');
+  const name = document.createElement('h3');
+  const username = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+// setting classes and text and attributes
+card.classList.add('card');
+cardInfo.classList.add('card-info');
+name.classList.add('name');
+username.classList.add('username');
+
+
+name.textContent = `Name: ${info.data.name}`;
+img.src = info.data.avatar_url;
+username.textContent = `Username: ${info.data.login}`;
+location.textContent = `Location: ${info.data.location}`;
+profile.textContent = `GitHub: ${info.data.html_url}`;
+followers.textContent = `Followers: ${info.data.followers}`;
+following.textContent = `Following: ${info.data.following}`;
+
+// appending stuff
+card.appendChild(img);
+card.appendChild(cardInfo);
+cardInfo.appendChild(name);
+cardInfo.appendChild(username);
+cardInfo.appendChild(location);
+cardInfo.appendChild(profile);
+cardInfo.appendChild(followers);
+cardInfo.appendChild(following);
+body.appendChild(card);
+ return card;
+}
+
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+Axios
+.get('https://api.github.com/users/devon-brady')
+.then ((res) =>{
+  console.log(res);
+  const myInfo = res;
+  cardMaker(myInfo);
+  
+})
+.catch((err)=>{
+  console.log(err);
+})
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -12,10 +64,13 @@
     Skip to STEP 3.
 */
 
+
 /*
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
+
+
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -28,7 +83,20 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell'];
+
+followersArray.forEach(name => {
+  Axios
+.get(`https://api.github.com/users/${name}`)
+.then((res)=>{
+  console.log(res);
+  const myInfo = res;
+  cardMaker(myInfo);
+})
+.catch((err) => {
+  console.log(err);
+})
+})
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
