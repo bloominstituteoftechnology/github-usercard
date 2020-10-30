@@ -1,3 +1,5 @@
+// const { default: Axios } = require("axios");
+import axios from "axios";
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -49,7 +51,63 @@ const followersArray = [];
       </div>
     </div>
 */
+const cards = document.querySelector(".cards");
+function cardMaker(user) {
+  const card = document.createElement("div");
+  const img = document.createElement("img");
+  const cardInfo = document.createElement("div");
+  const names = document.createElement("h3");
+  const userName = document.createElement("p");
+  const located = document.createElement("p");
+  const profile = document.createElement("p");
+  const url = document.createElement("a");
+  const followers = document.createElement("p");
+  const following = document.createElement("p");
+  const bio = document.createElement("p");
+  //set classNames
+  card.classList.add("card");
 
+  cardInfo.classList.add("card-info");
+  name.classList.add("name");
+  userName.classList.add("username");
+
+  //add text
+  img.src = `${user.avatar_url}`;
+  cardInfo.textContent = `Name: ${user.name}`;
+  userName.textContent = `Username: ${user.username}`;
+  location.textContent = `Location: ${user.location}`;
+  profile.textContent = `Profile: ${user.URL}`;
+  followers.textContent = ` followers: ${user.followers}`;
+  following.textContent = ` following: ${user.following}`;
+  bio.textContent = `Bio: ${user.bio}`;
+
+  //appendchildren
+  cards.appendChild(card);
+  card.appendChild(img);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(names);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(located);
+  cardInfo.appendChild(profile);
+  profile.appendChild(url);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+  cards.appendChild(card);
+  //return something
+  return card;
+
+  //
+}
+
+axios
+  .get("https://api.github.com/users/antoine-bibb")
+  .then((res) => {
+    cardMaker(res.data);
+  })
+  .catch((err) => {
+    console.log("uh-oh somethings wrong buddy", err);
+  });
 /*
   List of LS Instructors Github username's:
     tetondan
