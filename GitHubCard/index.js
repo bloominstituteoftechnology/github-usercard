@@ -1,3 +1,4 @@
+import axios from 'axios';
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -49,6 +50,50 @@ const followersArray = [];
       </div>
     </div>
 */
+axios.get('https://api.github.com/users/Mitch98k')
+.then(res => {
+  console.log(res)
+  const Data = res.data
+})
+.catch(err => console.log(err))
+
+function GithubCard(Data){
+  const card = document.createElement('div');
+  const profilePic = document.createElement('img');
+  const info = document.createElement('div');
+  const name = document.createElement('h3');
+  const userName = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const profileUrl = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  card.classList.add('card');
+  info.classList.add('card-info');
+  name.classList.add('name');
+  userName.classList.add('username');
+
+  card.appendChild(profilePic);
+  card.appendChild(info);
+  info.appendChild(name);
+  info.appendChild(userName);
+  info.appendChild(location);
+  info.appendChild(profile);
+  profile.appendChild(profileUrl);
+  info.appendChild(followers);
+  info.appendChild(following);
+  info.appendChild(bio);
+
+  card.src = Data
+
+
+  return card;
+}
+
+const cards = document.querySelector('.cards');
+  cards.appendChild(GithubCard());
 
 /*
   List of LS Instructors Github username's:
