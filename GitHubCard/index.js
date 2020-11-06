@@ -1,3 +1,4 @@
+import axios from 'axios';
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -28,7 +29,7 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,7 +50,69 @@ const followersArray = [];
       </div>
     </div>
 */
+axios.get('https://api.github.com/users/Mitch98k')
+.then(res => {
+  console.log(res.data)
+  const Data = res.data
+  const user = GithubCard(Data);
+  const cards = document.querySelector('.cards');
+  cards.appendChild(user);
+})
+.catch(err => console.log(err))
 
+followersArray.forEach(e => {
+  axios.get(`https://api.github.com/users/${e}`)
+  .then(res => {
+    console.log(res.data)
+    const Data = res.data
+    const user = GithubCard(Data);
+    const cards = document.querySelector('.cards');
+    cards.appendChild(user);
+  })
+  .catch(err => console.log(err))
+});
+
+function GithubCard(Data){
+  const card = document.createElement('div');
+  const profilePic = document.createElement('img');
+  const info = document.createElement('div');
+  const name = document.createElement('h3');
+  const userName = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const profileUrl = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  card.classList.add('card');
+  info.classList.add('card-info');
+  name.classList.add('name');
+  userName.classList.add('username');
+
+  profilePic.src = Data.avatar_url
+  name.textContent = Data.name
+  userName.textContent = Data.login
+  location.textContent = `Location: ${Data.location}`
+  profile.textContent = 'Profile: '
+  profileUrl.textContent = Data.url
+  followers.textContent = `Followers: ${Data.followers}`
+  following.textContent = `Following ${Data.following}`
+  bio.textContent = `Bio: ${Data.bio}`
+
+  card.appendChild(profilePic);
+  card.appendChild(info);
+  info.appendChild(name);
+  info.appendChild(userName);
+  info.appendChild(location);
+  info.appendChild(profile);
+  profile.appendChild(profileUrl);
+  info.appendChild(followers);
+  info.appendChild(following);
+  info.appendChild(bio);
+
+  return card;
+}
 /*
   List of LS Instructors Github username's:
     tetondan
