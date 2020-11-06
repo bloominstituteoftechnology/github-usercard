@@ -1,8 +1,23 @@
+import axios from 'axios';
+
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+function gitHubName(username) {
+    axios.get('https://api.github.com/users/' + username)
+        .then(response => {
+            console.log(response);
+            console.log(response.data);
+            const card = cardMaker(response.data);
+            document.querySelector('div.cards').appendChild(card);
+        }).catch(error => {
+            console.log(error.response);
+        });
+}
+gitHubName('bipin-shrestha');
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -27,8 +42,20 @@
     Using that array, iterate over it, requesting data for each user, creating a new card for each
     user, and adding that card to the DOM.
 */
+/*
+  List of LS Instructors Github username's:
+    tetondan
+    dustinmyers
+    justsml
+    luishrd
+    bigknell
+*/
 
-const followersArray = [];
+const followersArray = ["tetondan", "dustinmyers", "justsml", "luishrd", "bigknell"];
+followersArray.forEach(follower => {
+    gitHubName(follower);
+});
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,12 +76,41 @@ const followersArray = [];
       </div>
     </div>
 */
-
-/*
-  List of LS Instructors Github username's:
-    tetondan
-    dustinmyers
-    justsml
-    luishrd
-    bigknell
-*/
+function cardMaker(data) {
+    const newCard = document.createElement('div');
+    newCard.className = 'card';
+    const imageCard = document.createElement('img');
+    imageCard.src = data.avatar_url;
+    newCard.appendChild(imageCard);
+    const secondCard = document.createElement('div');
+    secondCard.className = 'card-info';
+    newCard.appendChild(secondCard);
+    const heading3 = document.createElement('h3');
+    heading3.className = 'name';
+    heading3.textContent = data.name;
+    secondCard.appendChild(heading3);
+    const paragraphOne = document.createElement('p');
+    paragraphOne.className = 'username';
+    paragraphOne.textContent = data.login;
+    secondCard.appendChild(paragraphOne);
+    const paragraphTwo = document.createElement('p');
+    paragraphTwo.textContent = "Locataion: " + data.location;
+    secondCard.appendChild(paragraphTwo);
+    const paragraphThree = document.createElement('p');
+    paragraphThree.textContent = 'Profile: ';
+    secondCard.appendChild(paragraphThree);
+    const profileAddress = document.createElement('a');
+    profileAddress.href = data.html_url;
+    profileAddress.textContent = data.html_url;
+    paragraphThree.appendChild(profileAddress);
+    const followersList = document.createElement('p');
+    followersList.textContent = 'Followers: ' + data.followers;
+    secondCard.appendChild(followersList);
+    const followingList = document.createElement('p');
+    followingList.textContent = "Following: " + data.following;
+    secondCard.appendChild(followingList);
+    const biograph = document.createElement('p');
+    biograph.textContent = 'Bio:' + data.bio;
+    secondCard.appendChild(biograph);
+    return newCard;
+}
