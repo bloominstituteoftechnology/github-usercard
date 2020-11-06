@@ -29,7 +29,7 @@ import axios from 'axios';
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -52,10 +52,25 @@ const followersArray = [];
 */
 axios.get('https://api.github.com/users/Mitch98k')
 .then(res => {
-  console.log(res)
+  console.log(res.data)
   const Data = res.data
+  const user = GithubCard(Data);
+  const cards = document.querySelector('.cards');
+  cards.appendChild(user);
 })
 .catch(err => console.log(err))
+
+followersArray.forEach(e => {
+  axios.get(`https://api.github.com/users/${e}`)
+  .then(res => {
+    console.log(res.data)
+    const Data = res.data
+    const user = GithubCard(Data);
+    const cards = document.querySelector('.cards');
+    cards.appendChild(user);
+  })
+  .catch(err => console.log(err))
+});
 
 function GithubCard(Data){
   const card = document.createElement('div');
@@ -75,6 +90,16 @@ function GithubCard(Data){
   name.classList.add('name');
   userName.classList.add('username');
 
+  profilePic.src = Data.avatar_url
+  name.textContent = Data.name
+  userName.textContent = Data.login
+  location.textContent = `Location: ${Data.location}`
+  profile.textContent = 'Profile: '
+  profileUrl.textContent = Data.url
+  followers.textContent = `Followers: ${Data.followers}`
+  following.textContent = `Following ${Data.following}`
+  bio.textContent = `Bio: ${Data.bio}`
+
   card.appendChild(profilePic);
   card.appendChild(info);
   info.appendChild(name);
@@ -86,15 +111,8 @@ function GithubCard(Data){
   info.appendChild(following);
   info.appendChild(bio);
 
-  card.src = Data
-
-
   return card;
 }
-
-const cards = document.querySelector('.cards');
-  cards.appendChild(GithubCard());
-
 /*
   List of LS Instructors Github username's:
     tetondan
