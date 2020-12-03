@@ -4,6 +4,21 @@
     https://api.github.com/users/<your name>
 */
 
+import axios from "axios"
+// console.log(axios)
+
+const USER_NAME = 'maurooren'
+
+axios
+  .get(`https://api.github.com/users/${USER_NAME}`)
+  .then((res) => {
+    console.log(cardMaker(res.data))
+    
+  })
+  .catch((err) => {
+    console.log('Nope!')
+  })
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -49,6 +64,62 @@ const followersArray = [];
       </div>
     </div>
 */
+
+const cardMaker = ( { avatar_url, name, login, location, url, followers, following, bio} ) => {
+
+  //Creating HTML tags
+  const card = document.createElement("div")
+  const cardImg = document.createElement("img")
+  const cardInfo = document.createElement("div")
+  const cardTitle = document.createElement("h3")
+  const cardUsername = document.createElement("p")
+  const cardLocation = document.createElement("p")
+  const cardProfile = document.createElement("p")
+  const cardProfileLink = document.createElement("a")
+  const cardFollowers = document.createElement("p")
+  const cardFollowing = document.createElement("p")
+  const cardBio = document.createElement("p")
+
+  //Setting CSS styles of the tags
+  card.classList.add("card")
+  cardInfo.classList.add("card-info")
+  cardTitle.classList.add("name")
+  cardUsername.classList.add("username")
+
+  //Appending tags
+  card.appendChild(cardImg)
+  card.appendChild(cardInfo)
+  cardInfo.appendChild(cardTitle)
+  cardInfo.appendChild(cardUsername)
+  cardInfo.appendChild(cardLocation)
+  cardInfo.appendChild(cardProfile)
+  cardProfile.appendChild(cardProfileLink)
+  cardInfo.appendChild(cardFollowers)
+  cardInfo.appendChild(cardFollowing)
+  cardInfo.appendChild(cardBio)
+
+  //Container
+  const cardsContainer = document.querySelector(".cards")
+
+  //Setting content
+  cardImg.src = avatar_url
+  cardTitle.textContent = name
+  cardUsername.textContent = login
+  cardLocation.textContent = `Location: ${location}`
+  cardProfileLink.href = url
+  cardProfileLink.textContent = `Profile: ${url}`
+  cardFollowers.textContent = `Followers: ${followers}`
+  cardFollowing.textContent = `Following: ${following}`
+  cardBio.textContent = `Bio: ${bio}`
+
+  //Placing card in DOM
+  cardsContainer.appendChild(card)
+
+  return card
+}
+
+
+
 
 /*
   List of LS Instructors Github username's:
