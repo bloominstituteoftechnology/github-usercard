@@ -1,9 +1,23 @@
+import axios from 'axios';
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
 
+//to link to add to html
+const profiles = document.querySelector('.cards');
+
+axios.get('https://api.github.com/users/Diegormnv')
+.then((res) =>{
+  console.log(res.data)
+  profiles.appendChild(userCard(res.data));
+
+})
+.catch((err) =>{
+  console.log(err, 'error')
+})
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -49,6 +63,52 @@ const followersArray = [];
       </div>
     </div>
 */
+function userCard(object){
+
+  //created elements
+  const card = document.createElement('div');
+  const photo = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const userName = document.createElement('span');
+  const location = document.createElement('p')
+  const profile = document.createElement('p')
+  const profileLink = document.createElement('a');
+  const followers = document.createElement('p')
+  const following = document.createElement('p')
+  const bio = document.createElement('p')
+
+  //created structure
+  card.appendChild(photo);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  profile.appendChild(profileLink);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+
+  //gave classnames
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  name.classList.add('name')
+  userName.classList.add('username')
+
+  //gave text info
+  photo.src = object.avatar_url;
+  name.textContent = object.name;
+  userName.textContent = object.login;
+  location.textContent = 'Location ' + object.location;
+  profile.textContent = 'Profile: ' + object.html_url;
+  profileLink.textContent = object.html_url;
+  followers.textContent = 'Followers: ' + object.followers;
+  following.textContent = 'Following: ' + object.following;
+  bio.textContent = 'Bio: ' + object.bio
+
+  return card;
+}
 
 /*
   List of LS Instructors Github username's:
