@@ -1,8 +1,21 @@
+import axios from 'axios'
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
+axios.get('https://api.github.com/users/rubesworld')
+  .then(res =>{
+    const gitCard = gitCardMaker(res)
+    document.querySelector('cards').appendChild(gitCard)
+  })
+  .catch(err =>{
+    console.log(err)
+  });
+
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -49,6 +62,50 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function gitCardMaker({obj}){
+  const card = document.querySelector('div');
+  const img = document.querySelector('img')
+  const cardInfo = document.querySelector('div')
+  const h3 = document.querySelector('h3')
+  const username = document.querySelector('p')
+  const location = document.querySelector('p')
+  const profile = document.querySelector('p')
+  const addy = document.querySelector('a')
+  const followers = document.querySelector('p')
+  const following = document.querySelector('p')
+  const bio = document.querySelector('p')
+
+  card.appendChild('img');
+  card.appendChild('cardInfo');
+  cardInfo.appendChild('h3')
+  cardInfo.appendChild('username')
+  cardInfo.appendChild('location')
+  cardInfo.appendChild('profile')
+  profile.appendChild('addy')
+  cardInfo.appendChild('followers')
+  cardInfo.appendChild('following')
+  cardInfo.appendChild('bio')
+
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  h3.classList.add('name');
+  username.classList.add('username');
+
+  img.src = obj.data["avatar_url"];
+  h3.textContent = obj.data['login'];
+  location.textContent = `Location: ${obj.data["location"]}`;
+  addy.href = obj.data['url'];
+  followers.textContent = `Followers: ${obj.data['followers']}`
+  following.textContent = `Following: ${obj.data['following']}`
+  bio.textContent = `Bio: ${obj.data['bio']}`
+
+  return card;
+  console.log(card)
+}
+
+
+
 
 /*
   List of LS Instructors Github username's:
