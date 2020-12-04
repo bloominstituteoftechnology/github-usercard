@@ -6,10 +6,12 @@ import axios from 'axios'
     https://api.github.com/users/<your name>
 */
 
+
+
 axios.get('https://api.github.com/users/rubesworld')
   .then(res =>{
     const gitCard = gitCardMaker(res)
-    document.querySelector('cards').appendChild(gitCard)
+    document.querySelector('.cards').appendChild(gitCard)
   })
   .catch(err =>{
     console.log(err)
@@ -63,7 +65,7 @@ const followersArray = [];
     </div>
 */
 
-function gitCardMaker({obj}){
+function gitCardMaker(obj){
   const card = document.querySelector('div');
   const img = document.querySelector('img')
   const cardInfo = document.querySelector('div')
@@ -76,16 +78,15 @@ function gitCardMaker({obj}){
   const following = document.querySelector('p')
   const bio = document.querySelector('p')
 
-  card.appendChild('img');
-  card.appendChild('cardInfo');
-  cardInfo.appendChild('h3')
-  cardInfo.appendChild('username')
-  cardInfo.appendChild('location')
-  cardInfo.appendChild('profile')
-  profile.appendChild('addy')
-  cardInfo.appendChild('followers')
-  cardInfo.appendChild('following')
-  cardInfo.appendChild('bio')
+  card.appendChild(img);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(h3)
+  cardInfo.appendChild(username)
+  cardInfo.appendChild(location)
+  cardInfo.appendChild(profile)
+  cardInfo.appendChild(followers)
+  cardInfo.appendChild(following)
+  cardInfo.appendChild(bio)
 
   card.classList.add('card');
   cardInfo.classList.add('card-info');
@@ -95,13 +96,14 @@ function gitCardMaker({obj}){
   img.src = obj.data["avatar_url"];
   h3.textContent = obj.data['login'];
   location.textContent = `Location: ${obj.data["location"]}`;
+  profile.textContent = 'Profile:'
   addy.href = obj.data['url'];
   followers.textContent = `Followers: ${obj.data['followers']}`
   following.textContent = `Following: ${obj.data['following']}`
   bio.textContent = `Bio: ${obj.data['bio']}`
 
-  return card;
   console.log(card)
+  return card;
 }
 
 
