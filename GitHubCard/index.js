@@ -27,16 +27,16 @@ div2.appendChild(para5)
 div2.appendChild(para6)
 
 
- heading.textContent =obj.name
+ heading.textContent = `Name :${obj.name}`
  image.src = obj.avatar_url
- parag.textContent = obj.login
+ parag.textContent = `UserName: ${obj.login}`
  para2.textContent= obj.location
  para3.textContent = "Profile"
  anchor.href = obj.html_url
  anchor.textContent = obj.html_url
- para4.textContent =  obj.followers
- para5.textContent =  obj.following
- para6.textContent =  obj.bio
+ para4.textContent =`Followers:  ${obj.followers}`
+ para5.textContent = `Following: '${obj.following}`
+ para6.textContent = `Bio: ${obj.bio}`
 
  
   div.classList.add('card')
