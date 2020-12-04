@@ -1,9 +1,8 @@
 import axios from "axios"
 
 function cardMaker (obj){
-  debugger
 const div = document.createElement("div")
-const img = document.createElement("img")
+const image = document.createElement("img")
 const div2 = document.createElement("div")
 const heading = document.createElement("h3")
 const parag = document.createElement("p")
@@ -17,8 +16,8 @@ const para6 = document.createElement("p")
 
 
 
-div.appendChild(img)
-img.appendChild(div2)
+div.appendChild(image)
+div.appendChild(div2)
 div2.appendChild(heading)
 div2.appendChild(parag)
 div2.appendChild(para2)
@@ -26,16 +25,21 @@ div2.appendChild(para3)
 div2.appendChild(para4)
 div2.appendChild(para5)
 div2.appendChild(para6)
- heading.textContent = obj.name
- img.src = obj.avatar
- para3.href= obj.url
- para2.textContent=obj.location
- para4.textContent =obj.followers
- para5.textContent = obj.following
- para6.textContent = obj.bio
 
- img.src = obj.avatar_url
 
+ heading.textContent =obj.name
+ image.src = obj.avatar_url
+ parag.textContent = obj.login
+ para2.textContent= obj.location
+ para3.textContent = "Profile"
+ anchor.href = obj.html_url
+ anchor.textContent = obj.html_url
+ para4.textContent =  obj.followers
+ para5.textContent =  obj.following
+ para6.textContent =  obj.bio
+
+ 
+  div.classList.add('card')
   div2.classList.add (".card-info")
   heading.classList.add(".name")
   parag.classList.add(".username")
@@ -69,11 +73,27 @@ axios
 });
 
 
+const followersArray = ['tetondan','dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
 
 
+followersArray.forEach(link => {
+axios
+.get('https://api.github.com/users/' + link)
+ .then(res =>{
+  const recieve = res.data
+  const newCards = cardMaker(recieve)
+ 
+  cards.appendChild(newCards)
+})
+  .catch((err) => {
+  
+    console.log(err);
+  });
+ 
 
 
+});
 
 
 
@@ -118,7 +138,7 @@ axios
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -127,7 +147,7 @@ const followersArray = [];
     <div class="card">
       <img src={image url of user} />
       <div class="card-info">
-        <h3 class="name">{users name}</h3>
+        <h3 class="name"></h3>
         <p class="username">{users user name}</p>
         <p>Location: {users location}</p>
         <p>Profile:
