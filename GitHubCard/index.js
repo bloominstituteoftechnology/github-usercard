@@ -1,8 +1,25 @@
+import axios from 'axios';
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
+// axios.get('https://api.github.com/users/andrewsohrabi')
+//   .then(res => {
+    
+//     console.log('2 here is the future data (response) organized by axios', res)
+//     console.log('here is the RESPONSE BODY', res.data) // used HTTPie to see payload labeled as data
+//     //throw new Error('OUCH')
+//   })
+//   .catch(err => {   //check for error
+//     console.log(err)// handle the drama
+//     //debugger
+//   })
+
+
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -28,7 +45,7 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell'];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +66,139 @@ const followersArray = [];
       </div>
     </div>
 */
+
+axios.get(`https://api.github.com/users/andrewsohrabi`)
+.then(res => {
+  const newCard = makeCard(res.data)
+  console.log(newCard);
+  cards.prepend(newCard) // add new cards here
+  })
+.catch((err)=>{
+  console.log("you have an error:")
+})
+const cards = document.querySelector(".cards"); // select the place where will insert the cards
+
+function makeCard (obj) {
+  const card = document.createElement("div");
+  const userImage = document.createElement("img");
+  const cardInfo = document.createElement("div");
+  const name = document.createElement("h3");
+  const username = document.createElement("p");
+  const location = document.createElement("p");
+
+  const profile = document.createElement("p");
+  const link = document.createElement("a");
+  const followers = document.createElement("p");
+  const following = document.createElement("p");
+  const bio = document.createElement("p");
+
+  console.log(link)
+
+  card.appendChild(userImage); 
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(username);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+  profile.appendChild(link);
+
+  card.classList.add("card");
+  cardInfo.classList.add("card-info"); 
+  name.classList.add("name");
+  username.classList.add("username");
+
+  userImage.src = obj.avatar_url;
+  name.textContent = obj.name;
+  username.textContent = obj.login;
+  location.textContent = `Location: ${obj.location}`;
+  profile.textContent = 'Profile:';
+  link.href = obj.html_url;
+  link.textContent = "GitHub";
+  followers.textContent = `Followers: ${obj.followers}`;
+  following.textContent = `Following: ${obj.following}`;
+  bio.textContent = `Bio: ${obj.bio}`;
+
+  return card; 
+  }
+
+
+followersArray.forEach(username => {
+  // append username to https://api.github.com/users/
+  // pass it into axios call
+})
+
+axios.get(`https://api.github.com/users/andrewsohrabi`)
+.then(res => {
+  const newCard = makeCard(res.data)
+  console.log(newCard);
+  cards.prepend(newCard) // add new cards here
+  })
+.catch((err)=>{
+  console.log("you have an error:")
+})
+
+
+// function githubMaker(data) {
+//   // instantiating the elements
+//   const divCard = document.createElement('div')
+//   const image = document.createElement('img')
+//   const divCardInfo = document.createElement('div');
+//   const h3Username = document.createElement('h3');
+//   const pUsername = document.createElement('p')
+//   const pLocation = document.createElement('p');
+//   const pProfile = document.createElement('p');
+//   const link = document.createElement('a');
+//   const pFollowers = document.createElement('p');
+//   const pFollowing = document.createElement('p');
+//   const pBio = document.createElement('p');
+
+
+//   // setting class names, attributes and text
+//   divCard.classList.add('card')
+//   image.src = data.avatar_url;
+//   divCardInfo.classList.add('card-info')
+//   h3Username.classList.add('name')
+//   pUsername.classList.add('username')
+  
+//   h3Username.textContent = data.name;
+//   pUsername.textContent = data.login;
+//   pLocation.textContent = data.location;
+//   link.href = data.url;
+//   pFollowers.textContent = data.followers;
+//   pFollowing.textContent = data.following;
+//   pBio.textContent = data.bio;
+
+
+//   // creating the hierarchy
+//   divCard.appendChild(image)
+//   divCard.appendChild(divCardInfo)
+//   divCardInfo.appendChild(h3Username)
+//   divCardInfo.appendChild(pUsername)
+//   divCardInfo.appendChild(pLocation)
+//   divCardInfo.appendChild(pProfile)
+//   pProfile.appendChild(link)
+//   divCardInfo.appendChild(pFollowers)
+//   divCardInfo.appendChild(pFollowing)
+//   divCardInfo.appendChild(pBio)
+//   // adding some interactivity?
+  
+//   return divCard;
+// }
+
+// axios.get('https://api.github.com/users/andrewsohrabi')
+//   .then(res => {
+//     let githubCard = githubMaker({res})
+//     console.log(githubCard);
+//       // append it to DOM
+//       entryPoint.append(githubCard);
+//     })
+//   .catch(err => {   
+//     debugger;
+//   })
+
 
 /*
   List of LS Instructors Github username's:
