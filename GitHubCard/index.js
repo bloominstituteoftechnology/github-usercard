@@ -1,8 +1,18 @@
+import axios from "axios";
+
 /*
   STEP 1: using axios, send a GET request to the following URL
-    (replacing the placeholder with your Github name):
-    https://api.github.com/users/<your name>
+    (replacing the placeholder with your Github name)
+    
 */
+
+const cardEntry = document.querySelector(".cards");
+
+axios.get("https://api.github.com/users/lindsay-deaton").then((res) => {
+  const newCard = gitHubComponent(res.data);
+  console.log(newCard);
+  cardEntry.appendChild(newCard);
+});
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -28,7 +38,21 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell",
+  "jglez",
+];
+
+followersArray.forEach((names) => {
+  axios.get("https://api.github.com/users/" + names).then((res) => {
+    const newCard = gitHubComponent(res.data);
+    cardEntry.appendChild(newCard);
+  });
+});
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -37,18 +61,63 @@ const followersArray = [];
     <div class="card">
       <img src={image url of user} />
       <div class="card-info">
-        <h3 class="name">{users name}</h3>
+        <h3 class="name">{users name}</h3>  
         <p class="username">{users user name}</p>
         <p>Location: {users location}</p>
         <p>Profile:
-          <a href={address to users github page}>{address to users github page}</a>
-        </p>
+          <a href={address to users github page}>{address to users github page}</a> </p>
         <p>Followers: {users followers count}</p>
         <p>Following: {users following count}</p>
         <p>Bio: {users bio}</p>
       </div>
     </div>
 */
+
+function gitHubComponent(obj) {
+  const cardDiv = document.createElement("div");
+  const newImg = document.createElement("img");
+  const cardInfo = document.createElement("div");
+  const newheadr3 = document.createElement("h3");
+  const gitHubURL = document.createElement("a");
+  const userName = document.createElement("p");
+  const location = document.createElement("p");
+  const profile = document.createElement("p");
+  const followers = document.createElement("p");
+  const following = document.createElement("p");
+  const bio = document.createElement("p");
+
+  cardDiv.classList.add("card");
+  cardInfo.classList.add("card-info");
+  newheadr3.classList.add("name");
+  userName.classList.add("username");
+
+  newImg.src = obj.avatar_url;
+  gitHubURL.href = obj.html_url;
+
+  newheadr3.textContent = obj.name;
+  userName.textContent = obj.login;
+  location.textContent = "Location: " + obj.location;
+  profile.textContent = "Profile: ";
+  followers.textContent = "Followers: " + obj.followers;
+  following.textContent = "Following: " + obj.following;
+  bio.textContent = "Bio: " + obj.bio;
+
+  cardDiv.appendChild(newImg);
+  cardDiv.appendChild(cardInfo);
+
+  cardInfo.appendChild(newheadr3);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+
+  profile.appendChild(gitHubURL);
+
+  return cardDiv;
+}
 
 /*
   List of LS Instructors Github username's:
