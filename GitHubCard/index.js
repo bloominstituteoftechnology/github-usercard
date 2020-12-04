@@ -45,7 +45,7 @@ import axios from 'axios';
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell'];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -71,12 +71,12 @@ axios.get(`https://api.github.com/users/andrewsohrabi`)
 .then(res => {
   const newCard = makeCard(res.data)
   console.log(newCard);
-  cards.prepend(newCard)
+  cards.prepend(newCard) // add new cards here
   })
 .catch((err)=>{
   console.log("you have an error:")
 })
-const cards = document.querySelector(".cards"); 
+const cards = document.querySelector(".cards"); // select the place where will insert the cards
 
 function makeCard (obj) {
   const card = document.createElement("div");
@@ -123,6 +123,23 @@ function makeCard (obj) {
 
   return card; 
   }
+
+
+followersArray.forEach(username => {
+  // append username to https://api.github.com/users/
+  // pass it into axios call
+})
+
+axios.get(`https://api.github.com/users/andrewsohrabi`)
+.then(res => {
+  const newCard = makeCard(res.data)
+  console.log(newCard);
+  cards.prepend(newCard) // add new cards here
+  })
+.catch((err)=>{
+  console.log("you have an error:")
+})
+
 
 // function githubMaker(data) {
 //   // instantiating the elements
