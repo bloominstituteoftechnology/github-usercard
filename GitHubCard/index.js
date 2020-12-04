@@ -9,15 +9,18 @@ import axios from "axios"
 
 const USER_NAME = 'maurooren'
 
-axios
-  .get(`https://api.github.com/users/${USER_NAME}`)
-  .then((res) => {
-    console.log(cardMaker(res.data))
-    
-  })
-  .catch((err) => {
-    console.log('Nope!')
-  })
+function createCard(gitAlias) {
+  axios
+    .get(`https://api.github.com/users/${gitAlias}`)
+    .then((res) => {
+      console.log(cardMaker(res.data))    
+    })
+    .catch((err) => {
+      console.log('Nope!')
+    })
+}
+
+createCard(USER_NAME)
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -43,7 +46,11 @@ axios
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['SantiagoZuluaga', 'platzi', 'tetondan', 'dustinmyers', 'justsml'];
+
+followersArray.forEach((item) => {
+  createCard(item)
+})
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
