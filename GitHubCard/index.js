@@ -1,3 +1,93 @@
+import axios from "axios"
+
+function cardMaker (obj){
+  debugger
+const div = document.createElement("div")
+const img = document.createElement("img")
+const div2 = document.createElement("div")
+const heading = document.createElement("h3")
+const parag = document.createElement("p")
+const para2 = document.createElement("p")
+const anchor = document.createElement("a")
+const para3 =document.createElement("p")
+const para4 = document.createElement("p")
+const para5 = document.createElement("p")
+const para6 = document.createElement("p")
+
+
+
+
+div.appendChild(img)
+img.appendChild(div2)
+div2.appendChild(heading)
+div2.appendChild(parag)
+div2.appendChild(para2)
+div2.appendChild(para3)
+div2.appendChild(para4)
+div2.appendChild(para5)
+div2.appendChild(para6)
+ heading.textContent = obj.name
+ img.src = obj.avatar
+ para3.href= obj.url
+ para2.textContent=obj.location
+ para4.textContent =obj.followers
+ para5.textContent = obj.following
+ para6.textContent = obj.bio
+
+ img.src = obj.avatar_url
+
+  div2.classList.add (".card-info")
+  heading.classList.add(".name")
+  parag.classList.add(".username")
+
+
+return div;
+
+
+
+
+
+
+
+
+}
+const cards = document.querySelector(".cards")
+
+axios
+.get('https://api.github.com/users/giorgio40')
+.then((res) => {
+  const received = res.data
+  const newCard = cardMaker(received);
+  
+  cards.appendChild(newCard)
+
+  // console.log(res.data)
+})
+.catch((err) => {
+  
+  console.log(err);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
