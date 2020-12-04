@@ -1,8 +1,13 @@
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+import axios from "axios";
+console.log(axios);
+const result = axios.get('https://api.github.com/users/TheCodeRanger');
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -36,7 +41,7 @@ const followersArray = [];
 
     <div class="card">
       <img src={image url of user} />
-      <div class="card-info">
+      <div class="card-info">*     
         <h3 class="name">{users name}</h3>
         <p class="username">{users user name}</p>
         <p>Location: {users location}</p>
