@@ -1,3 +1,113 @@
+import axios from "axios"
+
+function cardMaker (obj){
+const div = document.createElement("div")
+const image = document.createElement("img")
+const div2 = document.createElement("div")
+const heading = document.createElement("h3")
+const parag = document.createElement("p")
+const para2 = document.createElement("p")
+const anchor = document.createElement("a")
+const para3 =document.createElement("p")
+const para4 = document.createElement("p")
+const para5 = document.createElement("p")
+const para6 = document.createElement("p")
+
+
+
+
+div.appendChild(image)
+div.appendChild(div2)
+div2.appendChild(heading)
+div2.appendChild(parag)
+div2.appendChild(para2)
+div2.appendChild(para3)
+div2.appendChild(para4)
+div2.appendChild(para5)
+div2.appendChild(para6)
+
+
+ heading.textContent = `Name :${obj.name}`
+ image.src = obj.avatar_url
+ parag.textContent = `UserName: ${obj.login}`
+ para2.textContent= obj.location
+ para3.textContent = "Profile"
+ anchor.href = obj.html_url
+ anchor.textContent = obj.html_url
+ para4.textContent =`Followers:  ${obj.followers}`
+ para5.textContent = `Following: '${obj.following}`
+ para6.textContent = `Bio: ${obj.bio}`
+
+ 
+  div.classList.add('card')
+  div2.classList.add (".card-info")
+  heading.classList.add(".name")
+  parag.classList.add(".username")
+
+
+return div;
+
+
+
+
+
+
+
+
+}
+const cards = document.querySelector(".cards")
+
+axios
+.get('https://api.github.com/users/giorgio40')
+.then((res) => {
+  const received = res.data
+  const newCard = cardMaker(received);
+  
+  cards.appendChild(newCard)
+
+  // console.log(res.data)
+})
+.catch((err) => {
+  
+  console.log(err);
+});
+
+
+const followersArray = ['tetondan','dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+
+
+
+followersArray.forEach(link => {
+axios
+.get('https://api.github.com/users/' + link)
+ .then(res =>{
+  const recieve = res.data
+  const newCards = cardMaker(recieve)
+ 
+  cards.appendChild(newCards)
+})
+  .catch((err) => {
+  
+    console.log(err);
+  });
+ 
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -28,7 +138,7 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -37,7 +147,7 @@ const followersArray = [];
     <div class="card">
       <img src={image url of user} />
       <div class="card-info">
-        <h3 class="name">{users name}</h3>
+        <h3 class="name"></h3>
         <p class="username">{users user name}</p>
         <p>Location: {users location}</p>
         <p>Profile:
