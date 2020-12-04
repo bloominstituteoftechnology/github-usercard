@@ -6,17 +6,15 @@ import axios from 'axios'
     https://api.github.com/users/<your name>
 */
 
-axios
+axios //created axios call
   .get('https://api.github.com/users/rubesworld')
   .then(res =>{
     const gitCard = gitCardMaker(res)
-    document.querySelector('.cards').appendChild(gitCard)
+    document.querySelector('.cards').prepend(gitCard)
   })
   .catch(err =>{
     console.log(err)
   });
-
-
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -46,11 +44,14 @@ const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell']
 
 
 followersArray.forEach(item => {
-    axios.get('https://api.github.com/users/' + item)
+    axios.get(`https://api.github.com/users/${item}`)
       .then(res => {
         const gitCard = gitCardMaker(res)
         document.querySelector('.cards').appendChild(gitCard)
-      });
+      })
+      .catch(err =>{
+        console.log(err)
+      })
 });
 
 
@@ -82,7 +83,8 @@ function gitCardMaker(obj){
   const username = document.createElement('p')
   const location = document.createElement('p')
   const profile = document.createElement('p')
-  const addy = document.createElement('a')
+  const span = document.createElement('span');
+  const link = document.createElement('a')
   const followers = document.createElement('p')
   const following = document.createElement('p')
   const bio = document.createElement('p')
@@ -93,6 +95,8 @@ function gitCardMaker(obj){
   cardInfo.appendChild(username);
   cardInfo.appendChild(location);
   cardInfo.appendChild(profile);
+  profile.appendChild(span)
+  profile.appendChild(link);
   cardInfo.appendChild(followers);
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
@@ -105,8 +109,9 @@ function gitCardMaker(obj){
   img.src = obj.data["avatar_url"];
   h3.textContent = obj.data['login'];
   location.textContent = `Location: ${obj.data["location"]}`;
-  profile.textContent = 'Profile:'
-  addy.href = obj.data['url'];
+  span.textContent = 'Profile:'
+  link.href = obj.data['html_url'];
+  link.textContent = obj.data['html_url'];
   followers.textContent = `Followers: ${obj.data['followers']}`
   following.textContent = `Following: ${obj.data['following']}`
   bio.textContent = `Bio: ${obj.data['bio']}`

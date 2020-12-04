@@ -1,7 +1,6 @@
 {
   "name": "github-usercard",
   "version": "1.0.0",
-  "type": "module",
   "scripts": {
     "start": "parcel index.html"
   },
@@ -21,6 +20,7 @@
     "parcel-bundler": "^1.12.4"
   },
   "dependencies": {
-    "axios": "^0.21.0"
+    "axios": "^0.21.0",
+    "fkill": "^7.0.1"
   }
 }
