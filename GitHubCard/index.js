@@ -13,7 +13,7 @@ function createCard(gitAlias) {
   axios
     .get(`https://api.github.com/users/${gitAlias}`)
     .then((res) => {
-      console.log(cardMaker(res.data))    
+      console.log(cardMaker(res.data))
     })
     .catch((err) => {
       console.log('Nope!')
