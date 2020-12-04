@@ -1,3 +1,7 @@
+import axios from 'axios';
+console.log(axios)
+const result = axios.get("https://api.github.com/users/blackcatwizard")
+console.log(result)
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -49,7 +53,62 @@ const followersArray = [];
       </div>
     </div>
 */
+function cardMaker({
+  html_url,
+  name,
+  username,
+  location,
+  followers,
+  following,
+  bio,
+  image_url,
+})
 
+function gitHubComponent(obj){
+const gitDivOne = document.createElement('div')
+const gitImage = document.createElement('img')
+const gitDivTwo = document.createElement('div')
+const gitHead = document.createElement('h3')
+const gitPOne = document.createElement('p')
+const gitPTwo = document.createElement('p')
+const gitPThree = document.createElement('p')
+const gitAnchor = document.createElement('a')
+const gitPFour = document.createElement('p')
+const gitPFive = document.createElement('p')
+const gitPSix = document.createElement('p')
+
+gitDivOne.classList.add('card')
+gitDivTwo.classList.add('card-info')
+gitHead.classList.add('name')
+gitPOne.classList.add('username')
+
+gitImage.src = 'html_url'
+gitAnchor.src = 'url'
+
+gitHead.textContent = obj.name
+gitPOne.textContent = obj.title
+gitPTwo.textContent = "Location: " obj.location
+gitPThree.textContent = "Profile: " obj.html_url
+gitPFour.textContent = "Followers: " obj.followers
+gitPFive.textContent = "Following: " obj.following
+gitPSix.textContent = "Bio: " obj.bio
+
+gitDivOne.appendChild(.cards)
+gitImage.appendChild(gitDivOne)
+gitDivTwo.appendChild(gitDivOne)
+gitHead.appendChild(gitDivTwo)
+gitPOne.appendChild(gitDivTwo)
+gitPTwo.appendChild(gitDivTwo)
+gitAnchor.appendChild(gitPTwo)
+gitPThree.appendChild(gitDivTwo)
+gitPFour.appendChild(gitDivTwo)
+gitPFive.appendChild(gitDivTwo)
+gitPSix.appendChild(gitDivTwo)
+
+const gitCard = document.querySelector('.cards')
+gitCard.appendChild(.cards)
+return gitDivOne
+}
 /*
   List of LS Instructors Github username's:
     tetondan
@@ -58,3 +117,4 @@ const followersArray = [];
     luishrd
     bigknell
 */
+
