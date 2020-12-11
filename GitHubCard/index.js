@@ -48,7 +48,13 @@ console.log(err)
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  "portsigns",
+"theprajin",
+"sulemanmalik03",
+"ahmetabdi",
+"shayanzare",
+];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -78,3 +84,35 @@ const followersArray = [];
     luishrd
     bigknell
 */
+function domCreate (dom){
+const card = document.createElement("div")
+  card.classList.add(".card")
+
+    const pic = document.createElement('img')
+      pic.src = "https://api.github.com/users/miketillman95"
+
+        const header = document.createElement('h3')
+        header.classList.add('.name')
+        header.textContent = grabData.username
+
+          const content1 = document.createElement("p")
+          content1.classList.add('.username')
+          content1.textContent = 
+
+           const content2 = document.createElement("p")
+              content2.textContent.add(`Location: ${grabData.location}`)
+
+                const content3 = document.createElement("p")
+                  const anchor = document.createElement('a')
+                    content3.addel
+
+                      const content3 = document.createElement("p")
+                        content3.textContent.add()
+                  
+                            const content4 = document.createElement("p")
+                               content4.textContent.add() 
+
+                               const content4 = document.createElement("p")
+                               content4.textContent.add(`Bio: ${}`) 
+    }
+    }
