@@ -1,8 +1,16 @@
+const { default: Axios } = require("axios");
+
+
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
+Axios.get('https://api.github.com/users/da-vazquez')
+  
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -28,7 +36,14 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+  const followersArray = [
+    'tetondan',
+    'dustinmyers', 
+    'justsml', 
+    'luishrd', 
+    'bigknell'
+  
+  ];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +64,34 @@ const followersArray = [];
       </div>
     </div>
 */
+
+  function cardBuilder(obj) {
+    const cardContainer = document.createElement('div')
+    const image = document.createElement('img')
+    const cardInfo = document.createElement('div')
+    const userName = document.createElement('h3')
+    const screenName = document.createElement('p')
+    const userLocation = document.createElement('p')
+    const userProfile = document.createRange('p')
+    const userLink = document.createElement('a')
+    const userFollowers = document.createElement('p')
+    const userFollowing = document.createElement('p')
+    const userBio = document.createElement('p')
+
+
+    cardContainer.appendChild(image)
+    cardContainer.appendChild(cardinfo)
+    cardInfo.appendChild(userName)
+    cardInfo.appendChild(screenName)
+    cardInfo.appendChild(userLocation)
+    cardInfo.appendChild(userProfile)
+    cardinfo.appendChild(userFollowers)
+    cardinfo.appendChild(userFollowing)
+    cardinfo.appendChild(userBio)
+    userProfile.appendChild(userLink)
+
+
+    
 
 /*
   List of LS Instructors Github username's:
