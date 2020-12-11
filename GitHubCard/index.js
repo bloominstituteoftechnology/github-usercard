@@ -30,9 +30,14 @@ console.log('it works', mollyGitHub); //it works!
     user, and adding that card to the DOM.
 */
 
+
+
 const followersArray = [];
+
 function gitHubCardMaker (someObject){
-  const divMainCard = document.createElement('div'); 
+  //CREATE ELEMENTS
+  const divMainCard = document.createElement('div');
+  //instantiating  
   const imageElement = document.createElement('img');
   const divCardInfo = document.createElement('div');
   const usersNameElement = document.createElement('h3');
@@ -43,26 +48,41 @@ function gitHubCardMaker (someObject){
   const fifthParagraphElementFollowing = document.createElement('p');
   const sixthParagraphElementBio = document.createElement('p');
   const urlAddressElement = document.createElement('a');
-  
+ 
+  //CREATE CLASSES
+  firstParagraphElementUsersUserName.classList.add('username');
   divMainCard.classList.add('card');
-  imageElement.src = someObject.avatar_url;
   divCardInfo.classList.add('card-info');
   usersNameElement.classList.add('name');
-  firstParagraphElementUsersUserName.classList.add('username');
-  secondParagraphElementLocation.textContent = `Location: ${someObject.location}`;
+
+  //ADD CONTENT
+  imageElement.src = someObject.avatar_url;
+  usersNameElement.innerText = someObject.name;
+  firstParagraphElementUsersUserName.innerText = someObject.login;
+  secondParagraphElementLocation.innerText = `Location: ${someObject.location}`;
   thirdParagraphElementProfile.textContent = 'Profile: ';
-  urlAddressElement.src = someObject.html.url;
-  fourthParagraphElementFollowers.src = someObject.followers;
-  fifthParagraphElementFollowing.src = someObject.following;
-  sixthParagraphElementBio.src = `Bio: ${someObject.bio}`;
-
-
+  urlAddressElement.innerText = someObject.html.url;
+  fourthParagraphElementFollowers.innerText = someObject.followers;
+  fifthParagraphElementFollowing.innerText = someObject.following;
+  sixthParagraphElementBio.innerText = `Bio: ${someObject.bio}`;
   
+  //APPENDCHILD()
+  divMainCard.appendChild(imageElement);
+  divMainCard.appendChild(divCardInfo);
+  divCardInfo.appendChild(usersNameElement);
+  divCardInfo.appendChild(firstParagraphElementUsersUserName);
+  divCardInfo.appendChild(secondParagraphElementLocation);
+  divCardInfo.appendChild(thirdParagraphElementProfile);
+  thirdParagraphElementProfile.appendChild(urlAddressElement);
+  divCardInfo.appendChild(fourthParagraphElementFollowers);
+  divCardInfo.appendChild(fifthParagraphElementFollowing);
+  divCardInfo.appendChild(sixthParagraphElementBio);
 
-  
+
+  return divMainCard;
 }
 /*
-  STEP 3: Create a function that accepts a single object as its only argument.
+  [X]STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
 
    x <div class="card">
