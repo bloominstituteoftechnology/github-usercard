@@ -101,11 +101,13 @@ promise.then(({data: user}) => { // object destructuring   {objectProperty: assi
   console.log("User: ", user);
   
   let cardContainer =  document.querySelector('.cards');
-  cardContainer.appendChild(cardMaker(user));
+  cardContainer.appendChild(cardMaker(user)); // the append must go INSIDE the callback
   
 }).catch((user) => {
   console.log("Promise call unsuccessful.")
 });
+
+// if you put the append here it would not append anything because the .then callback is still working
 };
 
 /*
