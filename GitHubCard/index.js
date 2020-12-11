@@ -1,60 +1,93 @@
-/*
-  STEP 1: using axios, send a GET request to the following URL
-    (replacing the placeholder with your Github name):
-    https://api.github.com/users/<your name>
-*/
+log = console.log;
 
-/*
-  STEP 2: Inspect and study the data coming back, this is YOUR
-    github info! You will need to understand the structure of this
-    data in order to use it to build your component function
 
-    Skip to STEP 3.
-*/
 
-/*
-  STEP 4: Pass the data received from Github into your function,
-    and append the returned markup to the DOM as a child of .cards
-*/
 
-/*
-  STEP 5: Now that you have your own card getting added to the DOM, either
-    follow this link in your browser https://api.github.com/users/<Your github name>/followers,
-    manually find some other users' github handles, or use the list found at the
-    bottom of the page. Get at least 5 different Github usernames and add them as
-    Individual strings to the friendsArray below.
 
-    Using that array, iterate over it, requesting data for each user, creating a new card for each
-    user, and adding that card to the DOM.
-*/
+//create personal card
+const profileCards = document.querySelector('.cards');
 
-const followersArray = [];
+axios.get('https://api.github.com/users/Artofmayhem')
+.then((resolve) => 
+{
+  log(resolve.data)
+  profileCards.appendChild(cardList(resolve.data));
+})
+.catch((error) => 
+{
+  log("ERROR MESSAGE", error);
+});
 
-/*
-  STEP 3: Create a function that accepts a single object as its only argument.
-    Using DOM methods and properties, create and return the following markup:
 
-    <div class="card">
-      <img src={image url of user} />
-      <div class="card-info">
-        <h3 class="name">{users name}</h3>
-        <p class="username">{users user name}</p>
-        <p>Location: {users location}</p>
-        <p>Profile:
-          <a href={address to users github page}>{address to users github page}</a>
-        </p>
-        <p>Followers: {users followers count}</p>
-        <p>Following: {users following count}</p>
-        <p>Bio: {users bio}</p>
-      </div>
-    </div>
-*/
 
-/*
-  List of LS Instructors Github username's:
-    tetondan
-    dustinmyers
-    justsml
-    luishrd
-    bigknell
-*/
+
+//create blueprint
+function cardList(data){
+  
+  //element creation
+  const addCard = document.createElement('div');
+  const addPhoto = document.createElement('img');
+  const addInfo = document.createElement('div');
+  const addName = document.createElement('h3');
+  const addUserName = document.createElement('span');
+  const addLocation = document.createElement('p')
+  const addProfile = document.createElement('p')
+  const addProfileLink = document.createElement('a');
+  const addFollowers = document.createElement('p')
+  const addFollowing = document.createElement('p')
+  const addBio = document.createElement('p')
+  
+  //adding classes
+  addCard.classList.add('card');
+  addInfo.classList.add('card-info');
+  addName.classList.add('name')
+  addUserName.classList.add('username')
+
+  //adding info
+  addPhoto.src = data.avatar_url;
+  addName.textContent = data.name;
+  addUserName.textContent = data.login;
+  addLocation.textContent = 'Location ' + data.location;
+  addProfile.textContent = 'Profile: ' + data.html_url;
+  addProfileLink.textContent = data.html_url;
+  addFollowers.textContent = 'Followers: ' + data.followers;
+  addFollowing.textContent = 'Following: ' + data.following;
+  addBio.textContent = 'Bio: ' + data.bio
+
+
+  //page build
+  addCard.appendChild(addPhoto);
+  addCard.appendChild(addInfo);
+  addInfo.appendChild(addName);
+  addInfo.appendChild(addUserName);
+  addInfo.appendChild(addLocation);
+  addInfo.appendChild(addProfile);
+  addProfile.appendChild(addProfileLink);
+  addInfo.appendChild(addFollowers);
+  addInfo.appendChild(addFollowing);
+  addInfo.appendChild(addBio);
+  
+  return addCard;
+};
+
+
+
+//create array of users
+const userList = 
+[
+     "qirhi",
+     "toninorsk",
+     "logankilpatrick",
+     "jwasham",
+     "faahim",
+];
+
+
+//execute page
+userList.forEach((user) => {
+axios.get(`https://api.github.com/users/${user}`)
+  .then((resolve) =>
+  {
+    profileCards.appendChild(cardList(resolve.data));
+  });
+});
