@@ -8,8 +8,11 @@ const { default: Axios } = require("axios");
     https://api.github.com/users/<your name>
 */
 
-  //Axios.get('https://api.github.com/users/da-vazquez')
-  
+  Axios
+  .get('https://api.github.com/users/da-vazquez')
+  .then((prof) => {
+    console.log(prof)
+  })
 
 
 /*
@@ -25,20 +28,21 @@ const { default: Axios } = require("axios");
     and append the returned markup to the DOM as a child of .cards
 */
 
-  const gitCards = document.querySelector('.cards')
+const gitCards = document.querySelector('div.cards')
 
 
-  Axios
-    .get('https://api.github.com/users/da-vazquez')
-    .then((x => {
-      const person = x.data;
-      const personProfile = cardBuilder(person)
-      gitCards.appendChild(personProfile)
-    })
+Axios
+  .get('https://api.github.com/users/da-vazquez')
+  .then( (x) => {
+  
+  const person = x.data;
+  const personProfile = cardBuilder(person);
+  gitCards.appendChild(personProfile);
+})
 
-    .catch((fail) => {
-      console.log(fail)
-    }))
+.catch( (fail) => {
+  console.log('fail', fail)
+})
 
 
 
@@ -90,7 +94,7 @@ const { default: Axios } = require("axios");
     const userName = document.createElement('h3');
     const screenName = document.createElement('p');
     const userLocation = document.createElement('p');
-    const userProfile = document.createRange('p');
+    const userProfile = document.createElement('p');
     const userLink = document.createElement('a');
     const userFollowers = document.createElement('p');
     const userFollowing = document.createElement('p');
@@ -98,15 +102,16 @@ const { default: Axios } = require("axios");
 
     //append above elements 
     cardContainer.appendChild(image);
-    cardContainer.appendChild(cardinfo);
+    cardContainer.appendChild(cardInfo);
     cardInfo.appendChild(userName);
     cardInfo.appendChild(screenName);
     cardInfo.appendChild(userLocation);
     cardInfo.appendChild(userProfile);
+    userProfile.appendChild(userLink);
     cardInfo.appendChild(userFollowers);
     cardInfo.appendChild(userFollowing);
     cardInfo.appendChild(userBio);
-    userProfile.appendChild(userLink);
+    
 
     //add class names to elements
 
@@ -118,23 +123,28 @@ const { default: Axios } = require("axios");
     //add text/img content to elements
 
     userName.textContent = obj.name;//name
-    screenName.textContent = obj.username;//user name
+    screenName.textContent = `Username: ${obj.username}`;//user name
     userLink.href = obj.html_url; 
     userLocation.textContent = obj.location;
-    userFollowers.textContent = obj.followers;
-    userFollowing.textContent = obj.following;
+    userFollowers.textContent = `Followers: ${obj.followers}`;
+    userFollowing.textContent = `Following: ${obj.following}`;
     userBio.textContent = obj.bio;
     image.src = obj.avatar_url;
 
 
-    return cardBuilder;
+
+    
+
+
+
+    return cardContainer;
 
    
 
 
   }
 
-  console.log(cardBuilder)
+
 
 /*
   List of LS Instructors Github username's:
