@@ -8,7 +8,7 @@ const { default: Axios } = require("axios");
     https://api.github.com/users/<your name>
 */
 
-Axios.get('https://api.github.com/users/da-vazquez')
+  //Axios.get('https://api.github.com/users/da-vazquez')
   
 
 
@@ -24,6 +24,23 @@ Axios.get('https://api.github.com/users/da-vazquez')
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
+
+  const gitCards = document.querySelector('.cards')
+
+
+  Axios
+    .get('https://api.github.com/users/da-vazquez')
+    .then((x => {
+      const person = x.data;
+      const personProfile = cardBuilder(person)
+      gitCards.appendChild(personProfile)
+    })
+
+    .catch((fail) => {
+      console.log(fail)
+    }))
+
+
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -45,6 +62,7 @@ Axios.get('https://api.github.com/users/da-vazquez')
   
   ];
 
+  
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -85,9 +103,9 @@ Axios.get('https://api.github.com/users/da-vazquez')
     cardInfo.appendChild(screenName);
     cardInfo.appendChild(userLocation);
     cardInfo.appendChild(userProfile);
-    cardinfo.appendChild(userFollowers);
-    cardinfo.appendChild(userFollowing);
-    cardinfo.appendChild(userBio);
+    cardInfo.appendChild(userFollowers);
+    cardInfo.appendChild(userFollowing);
+    cardInfo.appendChild(userBio);
     userProfile.appendChild(userLink);
 
     //add class names to elements
