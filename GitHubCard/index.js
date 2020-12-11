@@ -13,7 +13,7 @@ let myPromise = axios.get('https://api.github.com/users/qirhi');
     data in order to use it to build your component function.  Skip to STEP 3.
 */
 
-console.log("Qirhi Promise: ", myPromise);
+// console.log("Qirhi Promise: ", myPromise);
 
 /*  COMPLETE
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -40,9 +40,10 @@ function cardMaker(object) {
   card.classList.add('card');
       // instantiate children of card div
       let userImg = document.createElement('img');
-      userImg.setAttribute('src', object.avatar_url);  // source value added here
+      // userImg.setAttribute('src', object.avatar_url);  // img source added here
+      userImg.src = object.avatar_url;
+      // console.log(userImg)
       card.appendChild(userImg);
-      console.log(userImg);
 
       let cardInfo = document.createElement('div');
       cardInfo.classList.add('card-info');
@@ -54,7 +55,7 @@ function cardMaker(object) {
           cardInfo.appendChild(name);
           let username = document.createElement('p');
           username.classList.add('username');
-          username.textContent = object.login // username value added here
+          username.src = object.login // username value added here
           cardInfo.appendChild(username);
           let location = document.createElement('p');
           location.textContent = `Location: ${object.location}` // location value added here
@@ -63,20 +64,21 @@ function cardMaker(object) {
           location.textContent = "Profile: ";
           cardInfo.appendChild(profile);
               // instantiate child of profile p
-              let link = document.createElement('p');
+              let link = document.createElement('a');
               link.setAttribute.href = object.html_url; // profile link added here
+              link.innerText = object.html_url; // profile link added here
               profile.appendChild(link);
           let followers = document.createElement('p');
-          followers.textContent = `Followers: ${object.follwers}` // followers value added here
+          followers.innerText = `Followers: ${object.followers}` // followers value added here
           cardInfo.appendChild(followers);
           let following = document.createElement('p');
-          following.textContent = `Following: ${object.follwering}` // following value added here
+          following.innerText = `Following: ${object.following}` // following value added here
           cardInfo.appendChild(following);
           let bio = document.createElement('p');
-          bio.textContent = `Bio: ${object.bio}` // bio value added here
+          bio.innerText = `Bio: ${object.bio}` // bio value added here
           cardInfo.appendChild(bio);
   return card;
-};
+};  // takes an object, creates html elements
 
 /*
   STEP 4: Pass the data received from Github into your function,
@@ -87,31 +89,28 @@ function getGitHubData(username) {
   let userPromise = axios.get(`https://api.github.com/users/${username}`);
   // console.log("User Promise: ", userPromise);
   return userPromise; 
-}; // returns the promise
+}; // takes a username string, returns the promise
 
 // console.log(getGitHubData("qirhi")); // Invoke the function, it works
 
-let promise = (getGitHubData("qirhi"));
+function gitHubCardMaker(username) {
+
+let promise = getGitHubData(username);
   
-promise.then((dataObject) => {
-  console.log("DataObject", dataObject);
+promise.then(({data: user}) => { // object destructuring   {objectProperty: assignedToVar}
+  console.log("User: ", user);
+  
+  let cardContainer =  document.querySelector('.cards');
+  cardContainer.appendChild(cardMaker(user));
+  
+}).catch((user) => {
+  console.log("Promise call unsuccessful.")
 });
-
-promise.catch()
-  
-  // {avatar_url name login location html_url followers following bio})
-
-  // .catch()
-
-  // const promise = createAudioFileAsync(audioSettings); 
-  // promise.then(successCallback, failureCallback);
-
-
-// }; 
+};
 
 /*
 function getDogs() {
-  /* axios example */
+  /* AXIOS EXAMPLE */
   // axios.get('https://lambda-times-api.herokuapp.com/breeds')
   // .then(({data: breeds}) => {
   //   breeds.forEach(breed => {
@@ -142,8 +141,13 @@ function getDogs() {
     user, and adding that card to the DOM.
 */
 
-const followersArray = ["artofmayham", "philmitchell", "jasonsarrio", "mollybee", "codysingletary92", "da-vasquez"];
+const followersArray = ["artofmayhem", "philmitchell", "jasonsarrio", "mollybee", "luishrd", "bigknell"];
 
+followersArray.forEach((username) => {
+
+  gitHubCardMaker(username);
+
+});
 
 /*  NOT NEEDED
   List of LS Instructors Github username's:
