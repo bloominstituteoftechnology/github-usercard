@@ -10,8 +10,8 @@ const { default: Axios } = require("axios");
 
   Axios
   .get('https://api.github.com/users/da-vazquez')
-  .then((prof) => {
-    console.log(prof)
+  .then((myData) => {
+    console.log(myData)
   })
 
 
@@ -28,6 +28,7 @@ const { default: Axios } = require("axios");
     and append the returned markup to the DOM as a child of .cards
 */
 
+//
 const gitCards = document.querySelector('div.cards')
 
 
@@ -41,7 +42,7 @@ Axios
 })
 
 .catch( (fail) => {
-  console.log('fail', fail)
+  console.log('Get failed', fail)
 })
 
 
@@ -57,6 +58,7 @@ Axios
     user, and adding that card to the DOM.
 */
 
+  //array of followers from bottom of page
   const followersArray = [
     'tetondan',
     'dustinmyers', 
@@ -65,6 +67,15 @@ Axios
     'bigknell'
   
   ];
+
+  //Used forEach to iterate over all followers, push their .data through cardBuilder function, and return info to DOM
+  followersArray.forEach((gitHandle) => {
+    Axios.get(`https://api.github.com/users/${gitHandle}`)
+    .then( (x) => {
+      gitCards.appendChild(cardBuilder(x.data))
+    })
+
+  })
 
   
 /*
@@ -123,7 +134,7 @@ Axios
     //add text/img content to elements
 
     userName.textContent = obj.name;//name
-    screenName.textContent = `Username: ${obj.username}`;//user name
+    screenName.textContent = obj.login;//user name
     userLink.href = obj.html_url; 
     userLocation.textContent = obj.location;
     userFollowers.textContent = `Followers: ${obj.followers}`;
@@ -135,7 +146,7 @@ Axios
 
     
 
-
+    //dont forget to return container 😮
 
     return cardContainer;
 
