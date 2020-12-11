@@ -66,32 +66,57 @@ Axios.get('https://api.github.com/users/da-vazquez')
 */
 
   function cardBuilder(obj) {
-    const cardContainer = document.createElement('div')
-    const image = document.createElement('img')
-    const cardInfo = document.createElement('div')
-    const userName = document.createElement('h3')
-    const screenName = document.createElement('p')
-    const userLocation = document.createElement('p')
-    const userProfile = document.createRange('p')
-    const userLink = document.createElement('a')
-    const userFollowers = document.createElement('p')
-    const userFollowing = document.createElement('p')
-    const userBio = document.createElement('p')
+    const cardContainer = document.createElement('div');
+    const image = document.createElement('img');
+    const cardInfo = document.createElement('div');
+    const userName = document.createElement('h3');
+    const screenName = document.createElement('p');
+    const userLocation = document.createElement('p');
+    const userProfile = document.createRange('p');
+    const userLink = document.createElement('a');
+    const userFollowers = document.createElement('p');
+    const userFollowing = document.createElement('p');
+    const userBio = document.createElement('p');
+
+    //append above elements 
+    cardContainer.appendChild(image);
+    cardContainer.appendChild(cardinfo);
+    cardInfo.appendChild(userName);
+    cardInfo.appendChild(screenName);
+    cardInfo.appendChild(userLocation);
+    cardInfo.appendChild(userProfile);
+    cardinfo.appendChild(userFollowers);
+    cardinfo.appendChild(userFollowing);
+    cardinfo.appendChild(userBio);
+    userProfile.appendChild(userLink);
+
+    //add class names to elements
+
+    cardContainer.classList.add('card')
+    cardInfo.classList.add('card-info')
+    userName.classList.add('name')
+    screenName.classList.add('username')
+
+    //add text/img content to elements
+
+    userName.textContent = obj.name;//name
+    screenName.textContent = obj.username;//user name
+    userLink.href = obj.html_url; 
+    userLocation.textContent = obj.location;
+    userFollowers.textContent = obj.followers;
+    userFollowing.textContent = obj.following;
+    userBio.textContent = obj.bio;
+    image.src = obj.avatar_url;
 
 
-    cardContainer.appendChild(image)
-    cardContainer.appendChild(cardinfo)
-    cardInfo.appendChild(userName)
-    cardInfo.appendChild(screenName)
-    cardInfo.appendChild(userLocation)
-    cardInfo.appendChild(userProfile)
-    cardinfo.appendChild(userFollowers)
-    cardinfo.appendChild(userFollowing)
-    cardinfo.appendChild(userBio)
-    userProfile.appendChild(userLink)
+    return cardBuilder;
+
+   
 
 
-    
+  }
+
+  console.log(cardBuilder)
 
 /*
   List of LS Instructors Github username's:
