@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>Hi</title>
+    </head>
+    <body>
+
+        <script>
+            const followersArray = [];
+
+            // DEFINE
+            function gitHubCardMaker (someObject){
+                const sixthParagraphElementBio = document.createElement('p');
+                sixthParagraphElementBio.innerText = `Bio: ${someObject.bio}`;
+
+                return sixthParagraphElementBio;
+            }
+
+            // CALL
+            const myCustomComponent = gitHubCardMaker({
+                bio: 'Software Developer with a background in humanitarian and environmental work. Currently a stay-at-home mother to three daughters and student @LambdaSchool.'
+            });
+
+            // APPEND
+            const body = document.querySelector('body');
+            body.appendChild(myCustomComponent);
+        </script>
+    </body>
+</html>
