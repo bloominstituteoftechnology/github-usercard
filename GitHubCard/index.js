@@ -4,14 +4,13 @@ import axios from 'axios';
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-const mollyGitHub = axios.get(`https://api.github.com/users/mollybee`);
-console.log('it works', mollyGitHub); //it works!
+ //it works!
 /*
   [x]STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
     data in order to use it to build your component function
 
-    Skip to STEP 3.
+   [x] Skip to STEP 3.
 */
 
 /*
@@ -30,11 +29,12 @@ console.log('it works', mollyGitHub); //it works!
     user, and adding that card to the DOM.
 */
 
+const followersArray = [{}];//not sure if i'm using this correctly
 
-
-const followersArray = [];
+const existingCardsDivInDom = document.querySelector('div.cards');// This is the container we're adding our created card to
 
 function gitHubCardMaker (someObject){
+  console.log('trying to make card w/ this info: ', someObject);
   //CREATE ELEMENTS
   const divMainCard = document.createElement('div');
   //instantiating  
@@ -61,7 +61,10 @@ function gitHubCardMaker (someObject){
   firstParagraphElementUsersUserName.innerText = someObject.login;
   secondParagraphElementLocation.innerText = `Location: ${someObject.location}`;
   thirdParagraphElementProfile.textContent = 'Profile: ';
-  urlAddressElement.innerText = someObject.html.url;
+  //
+
+  urlAddressElement.href = someObject['html_url'];
+  urlAddressElement.textContent = 'GitHubURL';
   fourthParagraphElementFollowers.innerText = someObject.followers;
   fifthParagraphElementFollowing.innerText = someObject.following;
   sixthParagraphElementBio.innerText = `Bio: ${someObject.bio}`;
@@ -81,6 +84,55 @@ function gitHubCardMaker (someObject){
 
   return divMainCard;
 }
+
+function getGitHubAccounts(cardMakerCallbackFn) {
+  const existingCardsDivInDom = document.querySelector('div.cards');
+
+  // First, we find molly's GitHub info
+  axios.get(`https://api.github.com/users/mollybee`)
+    .then((mollyGitHub) => { 
+      // Then, we create a card using her info
+      const mollyAccountInfo = mollyGitHub.data;
+      const card = cardMakerCallbackFn(mollyAccountInfo);
+      // And add it to the DOM
+      existingCardsDivInDom.appendChild(card);
+
+      // Next, we use the "followers_url" we found in her GitHub info
+      // to find out who all of her followers are.
+      axios.get(mollyAccountInfo.followers_url)
+        .then(mollyFollowers => {
+          // Now that we found all of molly's followers, we need to
+          // iterate over them, and get the data for each of them
+          const arrayOfMollyFollowers = mollyFollowers.data;
+          console.log('mollys followers: ', mollyFollowers);
+
+          // Iterate over each follower
+          arrayOfMollyFollowers.forEach(follower => {
+            const followerUsername = follower.login;
+
+            // Get their GitHub info
+            axios.get(`https://api.github.com/users/${followerUsername}`)
+              .then(followerGitHub => { 
+
+                // Then, we create a card using her info
+                const followerAccountInfo = followerGitHub.data;
+                const card = cardMakerCallbackFn(followerAccountInfo);
+                // And add it to the DOM
+                existingCardsDivInDom.appendChild(card);
+              });
+          });
+
+        });
+    });
+}
+
+getGitHubAccounts(gitHubCardMaker);
+
+// const mollyCard = gitHubCardMaker(followersArray); //Here I'm calling the function to make a card, passing in the followersarray which holds my info
+//And then I store that data in the mollyCard variable, so as to then add it to the DOM, see below.
+
+
+// existingCardsDivInDom.appendChild(mollyCard);
 /*
   [X]STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -109,3 +161,26 @@ function gitHubCardMaker (someObject){
     luishrd
     bigknell
 */
+
+const arrayOfGitHubUsernames = [
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell',
+]
+
+arrayOfGitHubUsernames.forEach(username => {
+  const existingCardsDivInDom = document.querySelector('div.cards');
+
+  // First, we find molly's GitHub info
+  axios.get(`https://api.github.com/users/${username}`)
+    .then((usersGitHubInfo) => { 
+
+      // Then, we create a card using her info
+      const userAccountInfo = usersGitHubInfo.data;
+      const card = gitHubCardMaker(userAccountInfo);
+      // And add it to the DOM
+      existingCardsDivInDom.appendChild(card);
+    });
+});
