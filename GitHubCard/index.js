@@ -1,8 +1,18 @@
+const { default: Axios } = require("axios");
+import axios from 'axios'
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+const cardsDiv = document.querySelector('div.cards')
+ axios.get('https://api.github.com/users/kilgharrahcalls')
+ .then(data => {
+   console.log(data.data)
+   cardsDiv.appendChild(build(data.data))
+ })
+ .catch(err => console.log('ERROR', err))
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -28,7 +38,7 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [ tetondan,dustinmyers,justsml,luishrd,bigknell];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +59,57 @@ const followersArray = [];
       </div>
     </div>
 */
+function build(object){
+const parentDiv = document.createElement('div')
+  const image = document.createElement('img')
+  const cardInfo = document.createElement('div')
+  const name = document.createElement('h3')
+  const user = document.createElement('p')
+  const userLocation = document.createElement('p')
+  const profile = document.createElement('p')
+  const linkToPage = document.createElement('a')
+  const followers = document.createElement('p')
+  const following = document.createElement('p')
+  const biography = document.createElement('p')
+
+  parentDiv.classList.add('card')
+  cardInfo.classList.add('card-info')
+  name.classList.add('name')
+  user.classList.add('username')
+
+  image.src = object.avatar_url
+  name.textContent = object.name
+  user.textContent = object.login
+  userLocation.textContent = "Location: "+object.userLocation
+  profile.textContent = "Profile:"
+  linkToPage.text = object.html_url
+  linkToPage.href = object.html_url
+  followers.textContent = "Followers: "+object.followers
+  following.textContent = "Following: "+object.following
+
+
+  parentDiv.appendChild(image)
+  parentDiv.appendChild(cardInfo)
+  cardInfo.appendChild(name)
+  cardInfo.appendChild(user)
+  cardInfo.appendChild(userLocation)
+  cardInfo.appendChild(profile)
+  profile.appendChild(linkToPage)
+  cardInfo.appendChild(followers)
+  cardInfo.appendChild(following)
+  cardInfo.appendChild(biography)
+
+  return parentDiv
+}
+followersArray.forEach(item => { const request = axios.get(`https://api.github.com/users/${item}`)
+.then(data => {
+  console.log(data.data)
+  cardDiv.appendChild(build(data.data))
+})
+.catch(err => console.log('ERROR', err))
+
+})
+
 
 /*
   List of LS Instructors Github username's:
