@@ -91,7 +91,22 @@ function cardCreator(obj) {
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
+  function myGithubData(userName) {
+    const myPromise = axios.get(`https://api.github.com/users/${userName}`);
+    return myPromise;
+  }
+  function githubCardCreator(userName){
+    const promiseMe = myGithubData(userName);
   
+    promiseMe.then(({data: userName}) => {
+      const container = document.querySelector('.cards');
+      container.appendChild(cardCreator(userName));
+    })
+    .catch((userName) => {
+      console.log("Sorry I broke your promise :( ")
+    })
+  
+  }
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -104,27 +119,11 @@ function cardCreator(obj) {
     user, and adding that card to the DOM.
 */
 
+const array = ["tetondan", "dustinmyers", "justsml", "luishrd", "bigknell"];
 
-
-/*
-  STEP 3: Create a function that accepts a single object as its only argument.
-    Using DOM methods and properties, create and return the following markup:
-
-    <div class="card">
-      <img src={image url of user} />
-      <div class="card-info">
-        <h3 class="name">{users name}</h3>
-        <p class="username">{users user name}</p>
-        <p>Location: {users location}</p>
-        <p>Profile:
-          <a href={address to users github page}>{address to users github page}</a>
-        </p>
-        <p>Followers: {users followers count}</p>
-        <p>Following: {users following count}</p>
-        <p>Bio: {users bio}</p>
-      </div>
-    </div>
-*/
+array.forEach((userName) => {
+  githubCardCreator(userName)
+})
 
 /*
   List of LS Instructors Github username's:
