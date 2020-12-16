@@ -1,21 +1,8 @@
 import axios from 'axios';
 
-/*
-  STEP 1: using axios, send a GET request to the following URL
-    (replacing the placeholder with your Github name):
-    https://api.github.com/users/<your name>
-*/
 axios.get('https://api.github.com/users/CleverOscar').then( response => 
   console.log(response)
-).catch(err => console.log(err))
-
-/*
-  STEP 2: Inspect and study the data coming back, this is YOUR
-    github info! You will need to understand the structure of this
-    data in order to use it to build your component function
-
-    Skip to STEP 3.
-*/
+  ).catch(err => console.log(err))
 
 /*
   STEP 4: Pass the data received from Github into your function,
@@ -57,43 +44,41 @@ const followersArray = [];
 
 const gitHubCards = document.querySelector('.cards');
 
-function githubCardCreator(/*object*/){
- 
+function githubCardCreator(object){
   // card div container
   let cardWrapper = document.createElement('div');
   cardWrapper.classList.add('card');
 
   // User Image
   let userImg = document.createElement('img');
-  userImg.src = 'url'
+  userImg.src = object.data["avatar_url"]
   
   // Card info
   let cardInfo = document.createElement('div');
   cardInfo.classList.add('card-info');
-
   let name = document.createElement('h3');
   name.classList.add('name');
-  name.textContent = 'Name';
+  name.textContent = object.data["name"];
 
   let userName = document.createElement('p');
   userName.classList.add('username');
-  userName.textContent = 'User Name'
+  userName.textContent = object.data["login"];
 
   let location = document.createElement('p');
-  location.textContent = 'Location: '
+  location.textContent = `Location: ${object.data["location"]}`
 
   let profile = document.createElement('p');
   profile.textContent = 'Profile: '
   let socialPage = document.createElement('a');
-
+  socialPage.setAttribute('href', object.data["twitter_username"]);
   profile.appendChild(socialPage);
 
   let followers = document.createElement('p');
-  followers.textContent = 'Followers: ';
+  followers.textContent = object.data["followers"]
   let following = document.createElement('p');
-  following.textContent = 'Following: ';
+  following.textContent = object.data["following"];
   let bio = document.createElement('p');
-  bio.textContent = 'Bio: '
+  bio.textContent = `Bio: ${object.data["bio"]}`
 
 
   cardInfo.appendChild(name);
@@ -107,12 +92,19 @@ function githubCardCreator(/*object*/){
 
   cardWrapper.appendChild(userImg);
   cardWrapper.appendChild(cardInfo);
-  console.log(cardWrapper);
+  // console.log(cardWrapper);
 
   return cardWrapper;
 }
 
-gitHubCards.appendChild(githubCardCreator());
+
+axios.get('https://api.github.com/users/CleverOscar').then(response => {
+  console.log(response.data)
+  let cards = githubCardCreator(response)
+  gitHubCards.append(cards);
+  
+}).catch(error => console.log('Error: ', error))
+
 
 /*
   List of LS Instructors Github username's:
