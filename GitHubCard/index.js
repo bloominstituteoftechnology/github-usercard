@@ -55,6 +55,8 @@ const followersArray = [];
     </div>
 */
 
+const gitHubCards = document.querySelector('.cards');
+
 function githubCardCreator(/*object*/){
  
   // card div container
@@ -69,26 +71,33 @@ function githubCardCreator(/*object*/){
   let cardInfo = document.createElement('div');
   cardInfo.classList.add('card-info');
 
-  let userName = document.createElement('h3');
-  userName.classList.add('name');
+  let name = document.createElement('h3');
+  name.classList.add('name');
+  name.textContent = 'Name';
 
-  let name = document.createElement('p');
-  name.classList.add('username');
+  let userName = document.createElement('p');
+  userName.classList.add('username');
+  userName.textContent = 'User Name'
 
   let location = document.createElement('p');
+  location.textContent = 'Location: '
 
   let profile = document.createElement('p');
+  profile.textContent = 'Profile: '
   let socialPage = document.createElement('a');
 
   profile.appendChild(socialPage);
 
   let followers = document.createElement('p');
+  followers.textContent = 'Followers: ';
   let following = document.createElement('p');
+  following.textContent = 'Following: ';
   let bio = document.createElement('p');
+  bio.textContent = 'Bio: '
 
 
-  cardInfo.appendChild(userName);
   cardInfo.appendChild(name);
+  cardInfo.appendChild(userName);
   cardInfo.appendChild(location);
   cardInfo.appendChild(profile);
   cardInfo.appendChild(followers);
@@ -99,9 +108,11 @@ function githubCardCreator(/*object*/){
   cardWrapper.appendChild(userImg);
   cardWrapper.appendChild(cardInfo);
   console.log(cardWrapper);
+
+  return cardWrapper;
 }
 
-githubCardCreator()
+gitHubCards.appendChild(githubCardCreator());
 
 /*
   List of LS Instructors Github username's:
