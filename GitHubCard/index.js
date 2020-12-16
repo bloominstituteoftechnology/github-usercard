@@ -8,6 +8,7 @@ import axios from 'axios';
 axios.get('https://api.github.com/users/CleverOscar').then( response => 
   console.log(response)
 ).catch(err => console.log(err))
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -45,7 +46,7 @@ const followersArray = [];
         <p class="username">{users user name}</p>
         <p>Location: {users location}</p>
         <p>Profile:
-          <a href={address to users github page}>{address to users github page}</a>
+          <a href={address to users github page}</a>
         </p>
         <p>Followers: {users followers count}</p>
         <p>Following: {users following count}</p>
@@ -53,6 +54,54 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function githubCardCreator(/*object*/){
+ 
+  // card div container
+  let cardWrapper = document.createElement('div');
+  cardWrapper.classList.add('card');
+
+  // User Image
+  let userImg = document.createElement('img');
+  userImg.src = 'url'
+  
+  // Card info
+  let cardInfo = document.createElement('div');
+  cardInfo.classList.add('card-info');
+
+  let userName = document.createElement('h3');
+  userName.classList.add('name');
+
+  let name = document.createElement('p');
+  name.classList.add('username');
+
+  let location = document.createElement('p');
+
+  let profile = document.createElement('p');
+  let socialPage = document.createElement('a');
+
+  profile.appendChild(socialPage);
+
+  let followers = document.createElement('p');
+  let following = document.createElement('p');
+  let bio = document.createElement('p');
+
+
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+
+
+  cardWrapper.appendChild(userImg);
+  cardWrapper.appendChild(cardInfo);
+  console.log(cardWrapper);
+}
+
+githubCardCreator()
 
 /*
   List of LS Instructors Github username's:

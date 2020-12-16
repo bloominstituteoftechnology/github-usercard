@@ -54,7 +54,7 @@ In this project we are going to be accessing the GitHub API and building a socia
 
 ### Part 1: Requesting Data from the GitHub API
 
-* [ ] Follow the instructions found in the `GitHubCard/index.js` file to request data from the GitHub API.
+* [x] Follow the instructions found in the `GitHubCard/index.js` file to request data from the GitHub API.
 
 ### Part 2: Create the component function
 
