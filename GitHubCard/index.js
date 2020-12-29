@@ -3,6 +3,16 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+const cardDiv = document.querySelector('div.cards');
+const card = axios.get(' https://api.github.com/users/vanessadixon1')
+.then(res => {
+  console.log(res.data)
+  const response = res.data;
+  cardDiv.append(githubCard(response))
+})
+.catch(e => {
+  console.log(`error is:`, e)
+})
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -30,6 +40,48 @@
 
 const followersArray = [];
 
+function githubCard(obj) {
+  const div = document.createElement('div');
+  div.classList.add('card');
+
+  const img = document.createElement('img');
+  img.src= obj.avatar_url;
+
+  const div2 = document.createElement('div');
+  div2.classList.add('card-info');
+
+  const h3 = document.createElement('h3');
+  h3.classList.add('hame');
+
+  const p1 = document.createElement('p');
+  p1.classList.add('username');
+
+  const p2 = document.createElement('p');
+  p2.textContent = `Location: ${obj.location}`;
+
+  const p3 = document.createElement('p');
+  p3.textContent = `Profile: `
+  const a = document.createElement('a');
+  a.href=obj.html_url;
+  a.textContent = obj.html_url;
+  p3.append(a);
+
+  const p4 = document.createElement('p');
+  p4.textContent = `Followers: ${obj.followers}`;
+
+  const p5 = document.createElement('p');
+  p5.textContent = `Following: ${obj.following}`;
+
+  const p6 = document.createElement('p');
+  p6.textContent = `Bio: ${obj.bio}`;
+
+  div.append(img,div2);
+  div2.append(h3,p1,p2,p3,p4,p5,p6);
+
+  return div;
+}
+
+githubCard(card);
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
