@@ -1,8 +1,25 @@
+import axios from 'axios';
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
+const grabGitName = (event) => {
+  console.log('about to fetch data!')
+  axios.get('https://api.github.com/users/wzd200')
+    .then(result => {
+      console.log(result.data)
+    })
+    .catch(error => {
+      console.log('oops, something went wrong')
+    })
+}
+
+
+const header = document.querySelector('.header')
+header.addEventListener('click', grabGitName)
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -49,6 +66,16 @@ const followersArray = [];
       </div>
     </div>
 */
+function gitCards(gitData) {
+  const cardDiv = document.createElement('div')
+  cardDiv.classList.add('card')
+
+  const cardImg = document.createElement('img')
+  cardImg.src.add('gitData.avatar_url')
+
+  const cardH3 = document.createElement('h3')
+  cardH3.classList.add = 
+}
 
 /*
   List of LS Instructors Github username's:
