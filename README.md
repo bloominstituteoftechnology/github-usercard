@@ -32,8 +32,6 @@ In this project we are going to be accessing the GitHub API and building a socia
 **Follow these steps for completing your project.**
 
 * [ ] Submit a Pull-Request to merge `<firstName-lastName>` Branch into `main` (student's  Repo). **Please don't merge your own pull request**
-* [ ] Add your team lead as a reviewer on the pull-request.
-* [ ] Your team lead will count the project as complete by merging the branch back into `main` branch.
 
 ### Project Setup
 
