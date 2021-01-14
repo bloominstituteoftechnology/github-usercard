@@ -123,5 +123,11 @@ body {
   margin: 3px 0 10px;
 }
 
-
+.card a {
+  text-decoration: none;
+  color: black;
+  font-size: 1.4rem;
+  margin-bottom: 3px;
+  display: inline-block;
+}
 
