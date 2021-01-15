@@ -1,8 +1,11 @@
 /* initial edit
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
-    https://api.github.com/users/<your name> 
+    https://api.github.com/users/leon-nasswetter 
 */
+import axios from "axios";
+
+// const myInfo = axios.get("https://api.github.com/users/leon-nasswetter")
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -28,7 +31,7 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ["leon-nasswetter", "tetondan", "dustinmyers", "justsml", "luishrd", "bigknell"];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +52,64 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function cardMaker(object){
+  const card = document.createElement("div");
+  const imgURL = document.createElement("img");
+  const cardInfo = document.createElement("div");
+  const userName = document.createElement("h3");
+  const userUserName = document.createElement("p");
+  const location = document.createElement("p");
+  const profile = document.createElement("p");
+  const userLink = document.createElement("a");
+  const followers = document.createElement("p");
+  const following = document.createElement("p");
+  const bio = document.createElement("p");
+
+  card.appendChild(imgURL);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(userUserName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  profile.appendChild(userLink);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+
+  card.classList.add("card");
+  cardInfo.classList.add("card-info");
+  userName.classList.add("name");
+  userUserName.classList.add("username");
+
+  imgURL.src = object.avatar_url;
+  userName.textContent = object.name;
+  userUserName.textContent = object.login;
+  location.textContent = object.location;
+  followers.textContent = object.followers;
+  following.textContent = object.following;
+
+  return card;
+}
+
+const followerName = followersArray.forEach(name => {
+  return name
+})
+console.log(followerName)
+// followerName.forEach(person => {})
+
+axios.get(`https://api.github.com/users/leon-nasswetter`)
+    .then(data => {
+      const cardLocation = document.querySelector(".cards");
+      const newCard = cardMaker(data.data);
+      cardLocation.appendChild(newCard);
+
+    })
+    .catch(error => {
+      console.log("error", error);
+      debugger;
+    })
+
 
 /*
   List of LS Instructors Github username's:
