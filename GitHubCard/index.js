@@ -1,9 +1,54 @@
+import axios from "axios"
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+axios.get('https://api.github.com/users/seanmahansean')
+  .then( response => {
+    const div = document.getElementsByClassName("cards");
+    div[0].appendChild(gitHubFunction(response));
+    console.log(response);
+  })
+  .catch( err => {
+    console.log("error", err);
+  })
+axios.get('https://api.github.com/users/tetondan')
+  .then( response => {
+    const div = document.getElementsByClassName("cards");
+    div[0].appendChild(gitHubFunction(response));
+    console.log(response);
+  })
+  .catch( err => {
+    console.log("error", err);
+  })
+axios.get('https://api.github.com/users/bigknell')
+  .then( response => {
+    const div = document.getElementsByClassName("cards");
+    div[0].appendChild(gitHubFunction(response));
+    console.log(response);
+  })
+  .catch( err => {
+    console.log("error", err);
+  })
+axios.get('https://api.github.com/users/dustinmyers')
+  .then( response => {
+    const div = document.getElementsByClassName("cards");
+    div[0].appendChild(gitHubFunction(response));
+    console.log(response);
+  })
+  .catch( err => {
+    console.log("error", err);
+  })
+axios.get('https://api.github.com/users/justsml')
+  .then( response => {
+    const div = document.getElementsByClassName("cards");
+    div[0].appendChild(gitHubFunction(response));
+    console.log(response);
+  })
+  .catch( err => {
+    console.log("error", err);
+  })
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -49,6 +94,47 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function gitHubFunction(obj){
+  const cardDiv = document.createElement('div')
+  const cardImg = document.createElement('img')
+  const cardInfo = document.createElement('div')
+  const name = document.createElement('h3')
+  const username = document.createElement('p')
+  const location = document.createElement('p')
+  const page = document.createElement('p')
+  const a = document.createElement('a') 
+  const followers = document.createElement('p')
+  const following = document.createElement('p')
+  const bio = document.createElement('p')
+
+  cardDiv.classList.add('card')
+  cardInfo.classList.add('card-info')
+  name.classList.add('name');
+  username.classList.add('username')
+
+  cardImg.src = obj.data.avatar_url
+
+  name.textContent = obj.data.name;
+  username.textContent = obj.data.login
+  location.textContent = obj.location
+  page.textContent = obj.config.url
+  followers.textContent = obj.data.followers
+  following.textContent = obj.data.following
+  bio.textContent = obj.data.bio
+
+  cardDiv.appendChild(cardImg)
+  cardDiv.appendChild(cardInfo)
+  cardDiv.appendChild(name)
+  cardInfo.appendChild(username)
+  cardInfo.appendChild(location)
+  cardInfo.appendChild(page)
+  cardInfo.appendChild(followers)
+  cardInfo.appendChild(following)
+  cardInfo.appendChild(bio)
+  page.appendChild(a)
+  return cardDiv;
+}
 
 /*
   List of LS Instructors Github username's:
