@@ -38,7 +38,7 @@ import axios from 'axios'
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ["monicascz", "tetondan", "dustinmyers", "justsml", "luishrd", "bigknell"];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -59,16 +59,20 @@ const followersArray = [];
       </div>
     </div>
 */
+
 const cardsDivLoc= document.querySelector('.cards') // from index.html
 
-axios.get("https://api.github.com/users/monicascz")
+followersArray.forEach((username)=>{
+axios.get(`https://api.github.com/users/${username}`)
 .then((response)=>{
   const myData = response.data
   cardsDivLoc.appendChild(githubCardMaker(myData))
 })
 .catch((error)=>{
   console.log(error)
-})
+});
+});
+
 
 
 
