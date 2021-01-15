@@ -91,7 +91,7 @@ axios.get('https://api.github.com/users/alex-wallander')
 });
 
 
-const followersArray = [tetondan, dustinmyers, justsml, luishrd, bigknell];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
 const cards = document.querySelector('.cards')
 
@@ -151,7 +151,6 @@ axios
 .get(`https://api.github.com/users/${follower}`)
 .then((res) =>{
   console.log(res.data)
-  githubCards(res.data)
   cards.appendChild(githubCards(res.data))
 })
 .catch((err) =>{
