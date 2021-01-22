@@ -1,9 +1,22 @@
+import axios from 'axios';
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+const userData ='https://api.github.com/users/andrewroti';
+const userNameGet = 'https://api.github.com/users/';
 
+axios.get(userData)
+.then(res =>{
+  console.log("worked");
+  cardCreator(res.data);
+  
+})
+.catch(err =>{
+  console.log(err.data);
+})
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -28,7 +41,25 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell",
+  "credleo95",
+  
+];
+
+followersArray.forEach(name =>{
+  axios.get(userNameGet + name)
+  .then(res =>{
+    cardCreator(res.data);
+  })
+  .catch(err =>{
+    console.log(err.data);
+  })
+})
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -58,3 +89,57 @@ const followersArray = [];
     luishrd
     bigknell
 */
+
+function cardCreator(userDataObject){
+    const cardContainer = document.querySelector('.cards');
+    const card = document.createElement('div');
+    card.classList.add('card');
+    cardContainer.appendChild(card);
+    const userImage = document.createElement('img');
+    userImage.src = userDataObject.avatar_url;
+    const userImageLink = document.createElement('a');
+    userImageLink.href = userDataObject.avatar_url;
+    userImageLink.appendChild(userImage);
+    card.appendChild(userImageLink);
+    const cardInfo = document.createElement('div');
+    cardInfo.classList.add('card-info');
+    card.appendChild(cardInfo);
+    // everything below this line appends to cardInfo
+    const name = document.createElement('h3');
+    name.textContent = userDataObject.name;
+    name.classList.add('name');
+    cardInfo.appendChild(name);
+    const userName = document.createElement('p');
+    userName.classList.add('username');
+    userName.textContent = userDataObject.login;
+    cardInfo.appendChild(userName);
+    const location = document.createElement('p');
+    location.textContent = userDataObject.location;
+    cardInfo.appendChild(location);
+    const profile = document.createElement('p');
+    profile.textContent = "Profile: ";
+    cardInfo.appendChild(profile);
+    const userURL = document.createElement('a');
+    userURL.href = userDataObject.html_url;
+    userURL.textContent = userDataObject.html_url;
+    profile.appendChild(userURL);
+    const followers = document.createElement('p');
+    followers.textContent = "Followers: " + userDataObject.followers;
+    cardInfo.appendChild(followers);
+    const following = document.createElement('p');
+    following.textContent = "Following: " + userDataObject.following;
+    cardInfo.appendChild(following);
+    const bio = document.createElement('p');
+    bio.textContent = "Bio: " + userDataObject.bio;
+    if(userDataObject.bio === null){
+      bio.textContent = "All right, then.  Keep your secrets."
+    }
+    cardInfo.appendChild(bio);
+    
+    return cardContainer;
+}
+
+
+
+
+
