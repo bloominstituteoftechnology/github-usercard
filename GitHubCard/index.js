@@ -47,7 +47,8 @@ const followersArray = [
   "justsml",
   "luishrd",
   "bigknell",
-  "credleo95"
+  "credleo95",
+  
 ];
 
 followersArray.forEach(name =>{
@@ -103,6 +104,7 @@ function cardCreator(userDataObject){
     // everything below this line appends to cardInfo
     const name = document.createElement('h3');
     name.textContent = userDataObject.name;
+    name.classList.add('name');
     cardInfo.appendChild(name);
     const userName = document.createElement('p');
     userName.classList.add('username');
