@@ -90,10 +90,30 @@ function cardCreator(userDataObject){
     userName.classList.add('username');
     userName.textContent = userDataObject.login;
     cardInfo.appendChild(userName);
+    const location = document.createElement('p');
+    location.textContent = userDataObject.location;
+    cardInfo.appendChild(location);
+    const profile = document.createElement('p');
+    profile.textContent = "Profile: ";
+    cardInfo.appendChild(profile);
+    const userURL = document.createElement('a');
+    userURL.href = userDataObject.html_url;
+    userURL.text = userDataObject.html_url;
+    profile.appendChild(userURL);
+    const followers = document.createElement('p');
+    followers.textContent = userDataObject.followers;
+    cardInfo.appendChild(followers);
+    const following = document.createElement('p');
+    following.textContent = userDataObject.following;
+    cardInfo.appendChild(following);
+    const bio = document.createElement('p');
+    bio.textContent = userDataObject.bio;
+    cardInfo.appendChild(bio);
     
-    
+    return cardContainer;
 }
 
+cardCreator(userData);
 
 
 
