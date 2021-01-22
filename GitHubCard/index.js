@@ -97,7 +97,10 @@ function cardCreator(userDataObject){
     cardContainer.appendChild(card);
     const userImage = document.createElement('img');
     userImage.src = userDataObject.avatar_url;
-    card.appendChild(userImage);
+    const userImageLink = document.createElement('a');
+    userImageLink.href = userDataObject.avatar_url;
+    userImageLink.appendChild(userImage);
+    card.appendChild(userImageLink);
     const cardInfo = document.createElement('div');
     cardInfo.classList.add('card-info');
     card.appendChild(cardInfo);
@@ -128,6 +131,9 @@ function cardCreator(userDataObject){
     cardInfo.appendChild(following);
     const bio = document.createElement('p');
     bio.textContent = "Bio: " + userDataObject.bio;
+    if(userDataObject.bio === null){
+      bio.textContent = "All right, then.  Keep your secrets."
+    }
     cardInfo.appendChild(bio);
     
     return cardContainer;
