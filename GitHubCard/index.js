@@ -11,7 +11,7 @@ const userNameGet = 'https://api.github.com/users/';
 axios.get(userData)
 .then(res =>{
   console.log("worked");
-
+  cardCreator(res.data);
   
 })
 .catch(err =>{
@@ -46,7 +46,8 @@ const followersArray = [
   "dustinmyers",
   "justsml",
   "luishrd",
-  "bigknell"
+  "bigknell",
+  "credleo95"
 ];
 
 followersArray.forEach(name =>{
@@ -58,6 +59,7 @@ followersArray.forEach(name =>{
     console.log(err.data);
   })
 })
+
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -114,22 +116,22 @@ function cardCreator(userDataObject){
     cardInfo.appendChild(profile);
     const userURL = document.createElement('a');
     userURL.href = userDataObject.html_url;
-    userURL.text = userDataObject.html_url;
+    userURL.textContent = userDataObject.html_url;
     profile.appendChild(userURL);
     const followers = document.createElement('p');
-    followers.textContent = userDataObject.followers;
+    followers.textContent = "Followers: " + userDataObject.followers;
     cardInfo.appendChild(followers);
     const following = document.createElement('p');
-    following.textContent = userDataObject.following;
+    following.textContent = "Following: " + userDataObject.following;
     cardInfo.appendChild(following);
     const bio = document.createElement('p');
-    bio.textContent = userDataObject.bio;
+    bio.textContent = "Bio: " + userDataObject.bio;
     cardInfo.appendChild(bio);
     
     return cardContainer;
 }
 
-cardCreator(userData);
+
 
 
 
