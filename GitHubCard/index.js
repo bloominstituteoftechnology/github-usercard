@@ -1,8 +1,20 @@
+const { default: axios } = require("axios");
+
+import axios from 'axios';
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+const cardDiv = document.querySelector('div.cards')
+
+const request = axios.get('https://api.github.com/users/loleatha')
+.then (data => {
+  console.log(data.data);
+  cardDiv.appendChild(build(data.data))
+})
+.catch(err => console.log('Theres an error', err));
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -17,6 +29,7 @@
     and append the returned markup to the DOM as a child of .cards
 */
 
+
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
@@ -27,8 +40,7 @@
     Using that array, iterate over it, requesting data for each user, creating a new card for each
     user, and adding that card to the DOM.
 */
-
-const followersArray = [];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +61,58 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function gitCard (obj) {
+  const card = document.createElement('div')
+  const img = document.createElement('img src')
+  const cardInfo = document.createElement('div')
+  const name = document.createElement('h3')
+  const userName = document.createElement('p')
+  const location = document.createElement('p')
+  const profile = document.createElement('p')
+  const address = document.createElement('a')
+  const followers = document.createElement('p')
+  const following = document.createElement('p')
+  const bio = document.createElement('p')
+  const pageLink = document.createElement('a')
+
+  img.src = object.avatar_url
+  name.textContent = object.name
+  userName.textContent = object.login
+  location.textContent = "Location "+object.location
+  profile.textContent = "Profile: "+object.profile
+  followers.textContent = "Followers: "+object.followers
+  following.textContent = "Following: "+object.following
+  pageLink.text = object.html_url
+  pageLink.href = object.html
+
+  card.classList.add('card')
+  cardInfo.classList.add('card-info')
+  name.classList.add('name')
+  userName.classList.add('username')
+
+  card.appendChild(img)
+  card.appendChild(cardInfo)
+  cardInfo.appendChild(name)
+  cardInfo.appendChild(username)
+  cardInfo.appendChild(location)
+  cardInfo.appendChild(profile)
+  profile.appendChild(pageLink)
+  cardInfo.appendChild(followers)
+  cardInfo.appendChild(following)
+  cardInfo.appendChild(bio)
+
+  return card;
+}
+
+followersArray.forEach(item => {
+  const request = axios.get('https://api.github.com/users/${item')
+  .then(data => {
+    console.log(data.data)
+    cardDiv.appendChild(build(data.data))
+  })
+  .catch (err => console.log('Theres an error', err))
+})
 
 /*
   List of LS Instructors Github username's:
