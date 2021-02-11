@@ -9,6 +9,8 @@ import axios from 'axios';
 //   })
 
 
+
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -39,7 +41,13 @@ import axios from 'axios';
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'
+];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -61,76 +69,9 @@ const followersArray = [];
     </div>
 */
 
-// function cardMaker(username){
-//   axios.get(`https://api.github.com/users/${username}`)
-//     .then(response => {
-//       // console.log(response.data.avatar_url)
-//       // console.log(response.data.name)
-//       // console.log(response.data.login)
-//       // console.log(response.data.location)
-//       // console.log(response.data.html_url)
-//       // console.log(response.data.followers)
-//       // console.log(response.data.following)
-//       // console.log(response.data.bio)
-
-//       const avatar_URL = response.data.avatar_url;
-//       const nameStr = response.data.name;
-//       const login = response.data.login;
-//       const location = response.data.location;
-//       const githubURL = response.data.html_url;
-//       const followers = response.data.followers;
-//       const following = response.data.following;
-//       const bio = response.data.bio;
-
-//       const card = document.createElement('div');
-//       const img = document.createElement('img');
-//       const cardInfo = document.createElement('div');
-//       const name = document.createElement('h3');
-//       const usernameP = document.createElement('p');
-//       const locationP = document.createElement('p');
-//       const profile = document.createElement('p');
-//       const profileATag = document.createElement('a');
-//       const myFollowers = document.createElement('p');
-//       const myFollowing = document.createElement('p');
-//       const myBio = document.createElement('p');
-
-//       card.classList.add('card');
-//       img.setAttribute('src', avatar_URL);
-//       cardInfo.classList.add('card-info');
-//       name.classList.add('name');
-//       usernameP.classList.add('username');
-//       profileATag.setAttribute('href', githubURL)
-
-//       name.textContent = nameStr;
-//       usernameP.textContent = login;
-//       locationP.textContent = `Location: ${location}`;
-//       profile.textContent = `Profile:\n`;
-//       profileATag.textContent = githubURL;
-//       myFollowers.textContent = `Followers: ${followers}`;
-//       myFollowing.textContent = `Following: ${following}`;
-//       myBio.textContent = `Bio: ${bio}`;
-
-//       card.appendChild(img);
-//       card.appendChild(cardInfo);
-//       cardInfo.appendChild(name);
-//       cardInfo.appendChild(usernameP);
-//       cardInfo.appendChild(locationP);
-//       cardInfo.appendChild(profile);
-//       profile.appendChild(profileATag);
-//       cardInfo.appendChild(myFollowers);
-//       cardInfo.appendChild(myFollowing);
-//       cardInfo.appendChild(myBio);
-
-//       // console.log(card);
-//       return card;
-//     })
-//     .catch(err => {
-//       console.log(err, 'An error occurred.');
-//     })
-// }
-
-function cardRequest(username){
+function cardMaker(username){
   axios.get(`https://api.github.com/users/${username}`)
+    .then(response => {
       // console.log(response.data.avatar_url)
       // console.log(response.data.name)
       // console.log(response.data.login)
@@ -139,78 +80,75 @@ function cardRequest(username){
       // console.log(response.data.followers)
       // console.log(response.data.following)
       // console.log(response.data.bio)
+      console.log(response);
+      makeCard(response);
 
-    .then(response => {
-      const myItems = [];
-
-      const avatar_URL = response.data.avatar_url;
-      const nameStr = response.data.name;
-      const login = response.data.login;
-      const location = response.data.location;
-      const githubURL = response.data.html_url;
-      const followers = response.data.followers;
-      const following = response.data.following;
-      const bio = response.data.bio;
-      myItems.push(avatar_URL, nameStr, login, location, githubURL, followers, following, bio)
-      return myItems
-    })
-    .then(list => {
-      return list;
-
-      // const card = document.createElement('div');
-      // const img = document.createElement('img');
-      // const cardInfo = document.createElement('div');
-      // const name = document.createElement('h3');
-      // const usernameP = document.createElement('p');
-      // const locationP = document.createElement('p');
-      // const profile = document.createElement('p');
-      // const profileATag = document.createElement('a');
-      // const myFollowers = document.createElement('p');
-      // const myFollowing = document.createElement('p');
-      // const myBio = document.createElement('p');
-
-      // card.classList.add('card');
-      // img.setAttribute('src', avatar_URL);
-      // cardInfo.classList.add('card-info');
-      // name.classList.add('name');
-      // usernameP.classList.add('username');
-      // profileATag.setAttribute('href', githubURL)
-
-      // name.textContent = nameStr;
-      // usernameP.textContent = login;
-      // locationP.textContent = `Location: ${location}`;
-      // profile.textContent = `Profile:\n`;
-      // profileATag.textContent = githubURL;
-      // myFollowers.textContent = `Followers: ${followers}`;
-      // myFollowing.textContent = `Following: ${following}`;
-      // myBio.textContent = `Bio: ${bio}`;
-
-      // card.appendChild(img);
-      // card.appendChild(cardInfo);
-      // cardInfo.appendChild(name);
-      // cardInfo.appendChild(usernameP);
-      // cardInfo.appendChild(locationP);
-      // cardInfo.appendChild(profile);
-      // profile.appendChild(profileATag);
-      // cardInfo.appendChild(myFollowers);
-      // cardInfo.appendChild(myFollowing);
-      // cardInfo.appendChild(myBio);
-
-      // console.log(card);
-      // return card;
     })
     .catch(err => {
       console.log(err, 'An error occurred.');
     })
 }
 
-console.log(cardRequest('alexismarroquin7'));
-// const me = cardMaker('alexismarroquin7');
-// console.log(me)
-// const cards = document.querySelector('.cards');
-// console.log(cards)
-// cards.appendChild(cardMaker('alexismarroquin7'));
+function makeCard(response){
+  const avatar_URL = response.data.avatar_url;
+  const nameStr = response.data.name;
+  const login = response.data.login;
+  const location = response.data.location;
+  const githubURL = response.data.html_url;
+  const followers = response.data.followers;
+  const following = response.data.following;
+  const bio = response.data.bio;
 
+  const card = document.createElement('div');
+  const img = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const usernameP = document.createElement('p');
+  const locationP = document.createElement('p');
+  const profile = document.createElement('p');
+  const profileATag = document.createElement('a');
+  const myFollowers = document.createElement('p');
+  const myFollowing = document.createElement('p');
+  const myBio = document.createElement('p');
+
+  card.classList.add('card');
+  img.setAttribute('src', avatar_URL);
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  usernameP.classList.add('username');
+  profileATag.setAttribute('href', githubURL)
+
+  name.textContent = nameStr;
+  usernameP.textContent = login;
+  locationP.textContent = `Location: ${location}`;
+  profile.textContent = `Profile:\n`;
+  profileATag.textContent = githubURL;
+  myFollowers.textContent = `Followers: ${followers}`;
+  myFollowing.textContent = `Following: ${following}`;
+  myBio.textContent = `Bio: ${bio}`;
+
+  card.appendChild(img);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(usernameP);
+  cardInfo.appendChild(locationP);
+  cardInfo.appendChild(profile);
+  profile.appendChild(profileATag);
+  cardInfo.appendChild(myFollowers);
+  cardInfo.appendChild(myFollowing);
+  cardInfo.appendChild(myBio);
+
+  // console.log(card);
+  const cards = document.querySelector('.cards');
+  console.log(cards);
+  cards.appendChild(card);
+}
+
+cardMaker('alexismarroquin7');
+
+followersArray.forEach(item => {
+  cardMaker(item);
+});
 
 /*
   List of LS Instructors Github username's:
