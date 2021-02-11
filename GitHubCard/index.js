@@ -1,8 +1,20 @@
+import axios from 'axios';
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
+axios.get('https://api.github.com/users/jasoncorchado')
+.then( (res) => {
+  console.log(res.data);
+  console.log(profileMaker(res.data));
+  document.querySelector('.cards').appendChild(profileMaker(res.data));
+})
+.catch(err => {
+  console.log(err);
+})
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -28,7 +40,20 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['trwhatcott', 'esmitley', 'Mykie92', 'theMultitude', 'bigknell'];
+axios.get(`https://api.github.com/users/bigknell/followers`)
+  
+followersArray.forEach((obj) => {
+  axios.get(`https://api.github.com/users/${obj}`)
+  .then( (res) => {
+    profileMaker(res.data);
+    document.querySelector('.cards').appendChild(profileMaker(res.data));
+  })
+  .catch(err => {
+    console.log(err);
+  })
+});
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +74,47 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function profileMaker(thePerson){
+  let profile = document.createElement('div');
+  let pic = document.createElement('img');
+  let pinfo = document.createElement('div');
+  let pname = document.createElement('h3');
+  let puser = document.createElement('p');
+  let ploca = document.createElement('p');
+  let pro = document.createElement('p');
+  let anchor = document.createElement('a');
+  let fllwr = document.createElement('p');
+  let fllin = document.createElement('p');
+  let about = document.createElement('p');
+  
+  profile.classList.add('card');
+  pinfo.classList.add('card-info');
+  pname.classList.add('name');
+  puser.classList.add('username');
+  
+  profile.appendChild(pic);
+  profile.appendChild(pinfo);
+  pinfo.appendChild(pname);
+  pinfo.appendChild(puser);
+  pinfo.appendChild(ploca);
+  pinfo.appendChild(pro);
+  pinfo.appendChild(fllwr);
+  pinfo.appendChild(fllin);
+  pinfo.appendChild(about);
+  pro.appendChild(anchor);
+
+  pic.setAttribute('src', thePerson.avatar_url);
+  pname.textContent = thePerson.name;
+  puser.textContent = thePerson.login;
+  ploca.textContent = thePerson.location;
+  anchor.textContent = `Profile: ${thePerson.html_url}`;
+  fllwr.textContent = `Followers: ${thePerson.followers}`;
+  fllin.textContent = `Following: ${thePerson.following}`;
+  about.textContent = thePerson.bio;
+  return profile;
+
+}
 
 /*
   List of LS Instructors Github username's:
