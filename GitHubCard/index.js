@@ -5,8 +5,7 @@ import axios from 'axios';
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-axios 
-  .get(`https://api.github.com/users/l-steinmacher`)
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -19,7 +18,8 @@ axios
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
- const cards = document.querySelector('.cards')
+ const entryPoint = document.querySelector('.cards')
+ 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
@@ -31,7 +31,14 @@ axios
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  tetondan,
+  dustinmyers,
+  justsml,
+  luishrd,
+  bigknell,
+  cmgriffing,
+];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -94,6 +101,25 @@ function cardMaker (obj) {
 
 return userCard;
 }
+
+axios 
+  .get(`https://api.github.com/users/l-steinmacher`)
+  .then(( res ) => {
+    console.log('Then is working');
+    const persons = res.data.message;
+
+    persons.forEach(person => {
+      const personCard = cardMaker(person){
+        entryPoint.appendChild(personCard);
+      }
+    });
+  })
+  .catch((err) => {
+    debugger
+    console.log('error')
+  })
+  
+
 /*
   List of LS Instructors Github username's:
     tetondan
@@ -101,4 +127,5 @@ return userCard;
     justsml
     luishrd
     bigknell
+    cmgriffing
 */
