@@ -4,6 +4,13 @@
     https://api.github.com/users/<your name>
 */
 
+const cardsDiv = document.querySelector('.cards');
+
+axios.get('https://api.github.com/users/jfox16')
+.then(result => {
+  cardsDiv.appendChild(createCard(result.data));
+});
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -28,7 +35,20 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'
+];
+
+followersArray.forEach(follower => {
+  axios.get(`https://api.github.com/users/${follower}`)
+  .then(result => {
+    cardsDiv.appendChild(createCard(result.data));
+  });
+});
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +69,51 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function createCard(userData) {
+
+  const cardDiv = document.createElement('div');
+  cardDiv.classList.add('card');
+
+  const userImg = document.createElement('img');
+  userImg.setAttribute('src', userData.avatar_url);
+  cardDiv.appendChild(userImg);
+
+  const infoDiv = document.createElement('div');
+  cardDiv.appendChild(infoDiv);
+
+  const name = document.createElement('h3');
+  name.classList.add('name');
+  name.textContent = userData.name;
+  infoDiv.appendChild(name);
+
+  const username = document.createElement('p');
+  username.classList.add('username');
+  username.textContent = userData.login;
+  infoDiv.appendChild(username);
+
+  const location = document.createElement('p');
+  location.textContent = `Location: ${userData.location}`;
+  infoDiv.appendChild(location);
+
+  const profileLink = document.createElement('p');
+  profileLink.innerHTML = `Profile: <a href=${userData.html_url}>${userData.html_url}</a>`;
+  infoDiv.appendChild(profileLink);
+
+  const followers = document.createElement('p');
+  followers.textContent = `Followers: ${userData.followers}`;
+  infoDiv.appendChild(followers);
+
+  const following = document.createElement('p');
+  following.textContent = `Followers: ${userData.following}`;
+  infoDiv.appendChild(following);
+
+  const bio = document.createElement('p');
+  bio.textContent = `Bio: ${userData.bio}`;
+  infoDiv.appendChild(bio);
+
+  return cardDiv;
+}
 
 /*
   List of LS Instructors Github username's:
