@@ -3,6 +3,20 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+import axios from "axios";
+
+function getUserData(username) {
+  axios
+    .get(`https://api.github.com/users/${username}`)
+    .then((res) => {
+      cardMaker(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+getUserData("djcri");
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -16,6 +30,49 @@
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
+const cards = document.querySelector(".cards");
+
+function cardMaker(data) {
+  const card = document.createElement("div");
+  const img = document.createElement("img");
+  const cardInfo = document.createElement("div");
+  const cardH3 = document.createElement("h3");
+  const username = document.createElement("p");
+  const loc = document.createElement("p");
+  const profile = document.createElement("p");
+  const link = document.createElement("a");
+  const followers = document.createElement("p");
+  const following = document.createElement("p");
+  const bio = document.createElement("p");
+
+  card.className = "card";
+  cardInfo.className = "card-info";
+  cardH3.className = "name";
+  username.className = "username";
+
+  img.setAttribute("src", data.avatar_url);
+  cardH3.textContent = data.name;
+  username.textContent = data.login;
+  loc.textContent = data.location;
+  profile.textContent = "Profile: ";
+  link.textContent = data.html_url;
+  link.setAttribute("href", data.html_url);
+  followers.textContent = data.followers;
+  following.textContent = data.following;
+  bio.textContent = data.bio;
+
+  card.appendChild(img);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(cardH3);
+  cardInfo.appendChild(username);
+  cardInfo.appendChild(loc);
+  cardInfo.appendChild(profile);
+  profile.appendChild(link);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+  cards.appendChild(card);
+}
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -28,7 +85,17 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell",
+];
+
+followersArray.forEach((follower) => {
+  getUserData(follower);
+});
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
