@@ -62,7 +62,7 @@ setTimeout(() => {
         console.log("Things didn't work out:", error);
       });
   });
-}, 1000);
+}, 500);
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
