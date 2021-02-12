@@ -91,7 +91,6 @@ function cardMaker (obj) {
   cardInfo.appendChild(followers);
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
-console.log(userCard)
 return userCard;
 };
 
@@ -99,7 +98,6 @@ axios
   .get( `https://api.github.com/users/l-steinmacher` )
 
   .then(( res ) => {
-    console.log(res.data);
     const persons = res.data;
     const personCard = cardMaker(persons)
     entryPoint.appendChild(personCard)   
@@ -108,18 +106,7 @@ axios
   .catch((err) => {
     console.log('error')
   })
-
-  
-  function addFriends (arr){
-    arr.forEach(( friend ) => {
-      axios.get(`https://api.github.com/users/${friend}`)
-      .then((res) => {
-
-      })
-    })
-  }
-
-  const followersArray = [
+const followersArray = [
     'tetondan',
     'dustinmyers',
     'justsml',
@@ -127,6 +114,29 @@ axios
     'bigknell',
     'cmgriffing',
   ];
+function friendAdder (arr) {
+  let gitUsers =  [];
+  gitUsers = arr.forEach(friend => {
+    axios.get(`https://api.github.com/users/${friend}`)
+    .then(( res ) => {
+      console.log(res.data);
+      const persons = res.data;
+      const personCard = cardMaker(persons)
+      entryPoint.appendChild(personCard)   
+    })
+  
+    .catch((err) => {
+      console.log('error')
+    });
+  });
+  return gitUsers;
+};
+
+friendAdder(followersArray)
+
+
+
+  console.log(followersArray.length)
 /*
   List of LS Instructors Github username's:
     tetondan
