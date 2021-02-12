@@ -1,4 +1,13 @@
-/*
+import axios from "axios";
+console.log(axios);
+
+const result = axios.get("https://api.github.com/users/df955");
+console.log(result);
+
+const followersArray = [];
+followersArray.push('tetondan','dustinmyers','justsml','luishrd','bigknell','df955');;
+
+/*s
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
@@ -28,7 +37,6 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -50,6 +58,58 @@ const followersArray = [];
     </div>
 */
 
+const cardEntry = document.querySelector('.cards')
+
+function gitCardMaker(userInfo){
+  const divCard = document.newElement('div');
+  const loginName = document.newElement('p')
+  const image = document.newElement('img');
+  const divCardInfo = document.newElement('div');
+  const usersName = document.newElement('h3');
+  const userLocation = document.newElement('p');
+  const userUrl = document.newElement('a');
+  const userFollower = document.newElement('p');
+  const userFollowing = document.newElement('p');
+  const userBio = document.newElement('p');
+
+  image.src = userInfo.avatar.url;
+  loginName.textContent = userInfo.name;
+  usersName.textContent = userInfo.login;
+  userLocation.textContent = `Location: ${userInfo.location}`;
+  userUrl.href = userInfo.html_url;
+  userUrl.textContent = userInfo.html_url;
+  userFollower.textContent = `Followers: ${userInfo.followers}`;
+  userFollowing.textContent = `Following: ${userInfo.Info.following}`;
+  userBio.textContent = `Bio: ${userInfo.bio}`;
+
+  divCard.classList.add("card");
+  divCardInfo.classList.add("card-info");
+  loginName.classList.add("name");
+  usersName.classList.add("username");
+
+  divCard.appendChild(image);
+  divCard.appendChild(divCardInfo);
+  divCardInfo.appendChild(loginName);
+  divCardInfo.appendChild(usersName);
+  divCardInfo.appendChild(location);
+  divCardInfo.appendChild(userFollower);
+  divCardInfo.appendChild(userFollower);
+  divCardInfo.appendChild(userBio);
+
+  return divCard;
+  
+}
+followersArray.forEach(item => {
+  const URL = `https://api.github.com/users/${item}`
+  axios
+    .get(URL)
+    .then((res) => {
+      const received = res.data
+      const newGitCard = gitCardMaker(received);
+      cardEntry.appendChild(newGitCard);
+    })
+
+})
 /*
   List of LS Instructors Github username's:
     tetondan
