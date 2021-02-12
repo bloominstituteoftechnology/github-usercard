@@ -132,3 +132,41 @@ function cardCreator(object){
     luishrd
     bigknell
 */
+
+
+// stretch task function which adds person and followers
+function addFollowers(name){
+    axios
+    .get(`https://api.github.com/users/${name}`)
+    .then(res =>{
+      card.appendChild(cardCreator(res.data));
+      console.log('all is fine')
+    })
+    .catch(err =>{
+      console.log(err);
+    })
+    .then( () => {
+      axios
+      .get(`https://api.github.com/users/${name}/followers`)
+      .then(res => {
+        console.log(res);
+        const array = res.data;
+        array.forEach(follower => {
+          axios
+          .get(`https://api.github.com/users/${follower.login}`)
+          .then(res => 
+            {card.appendChild(cardCreator(res.data))})
+          .catch(err => {
+            console.log(err); //! i'm not sure it's really needed becayse .catch below works fine
+          })
+        })
+      })
+      .catch(err => {
+        debugger
+        console.log(err)
+      })
+    })
+  }
+
+  addFollowers('justsml')
+  addFollowers('luishrd')
