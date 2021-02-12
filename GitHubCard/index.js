@@ -5,12 +5,13 @@
 */
 import axios from "axios";
 axios
+  // .get(`#`)
   .get(`https://api.github.com/users/nekhan2020`)
   .then((res) => {
     const gitHubData = res.data;
     gitCardMaker(gitHubData);
-    console.log(gitHubData.html_url);
-    console.log("this is the data coming in", gitHubData);
+    // console.log(gitHubData.html_url);
+    // console.log("this is the data coming in", gitHubData);
   })
   .catch((badStuff) => {
     console.error("CASUALTY:", badStuff);
@@ -53,6 +54,7 @@ const followersArray = [
 setTimeout(() => {
   followersArray.forEach((person) => {
     axios
+      // .get(`#`)
       .get(`https://api.github.com/users/${person}`)
       .then((res) => {
         const followerInfo = res.data;
@@ -106,41 +108,40 @@ function gitCardMaker(postMaker) {
   divInfo.classList.add("card-info");
   pUser.classList.add("username");
 
-  //! appending
-  cardDiv.append(cardImg);
-  cardDiv.append(divInfo);
-  divInfo.append(cardH3);
-  divInfo.append(pUser);
-  divInfo.append(pLocation);
-  divInfo.append(pProfile);
-  pProfile.append(aTag);
-  divInfo.append(pFollowers);
-  divInfo.append(pFollowing);
-  divInfo.append(pBio);
-
   //! adding text/data
   cardImg.src = postMaker.avatar_url;
   cardH3.innerHTML = postMaker.name;
   pUser.innerHTML = postMaker.login;
   pLocation.innerHTML = postMaker.location;
-  pProfile.innerHTML = "Profile:";
-  aTag.textContent = postMaker.html_url;
+  aTag.textContent = `Check Out ${postMaker.name}'s GitHub Here!`;
   aTag.href = postMaker.html_url;
-
-  // aTag.innerHTML = `Link to ${postMaker.name}'s GitHub Page!`;
-  // aTag.href = postMaker.html_url;
+  aTag.style.color = "red";
   pFollowers.innerHTML = `${postMaker.name} has ${postMaker.followers} followers!`;
   pFollowing.innerHTML = `${postMaker.name} is following ${postMaker.following} other developers!`;
   pBio.innerHTML = `${postMaker.name}'s Bio: ${postMaker.bio}`;
+  pProfile.textContent = `Profile: `; //?
 
+  //! appending
+  cardDiv.append(cardImg, divInfo);
+  divInfo.append(
+    cardH3,
+    pUser,
+    pLocation,
+    pBio,
+    pProfile,
+    pFollowing,
+    pFollowers
+  );
+  pProfile.appendChild(aTag);
+  console.log(pProfile, aTag);
   return cardsContainer.append(cardDiv);
 }
 
 /*
-  List of LS Instructors Github username's:
-    tetondan
-    dustinmyers
-    justsml
-    luishrd
-    bigknell
+List of LS Instructors Github username's:
+tetondan
+dustinmyers
+justsml
+luishrd
+bigknell
 */
