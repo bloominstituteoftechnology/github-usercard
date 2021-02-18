@@ -38,7 +38,7 @@ const cardsDiv = document.querySelector('div.cards')
     user, and adding that card to the DOM.
 */
 
-const followersArray = [ tetondan,dustinmyers,justsml,luishrd,bigknell];
+const friendsArray = [ 'tetondan','dustinmyers','justsml','luishrd','bigknell'];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -101,14 +101,14 @@ const parentDiv = document.createElement('div')
 
   return parentDiv
 }
-followersArray.forEach(item => { const request = axios.get(`https://api.github.com/users/${item}`)
+friendsArray.forEach(item => axios.get("https://api.github.com/users/"+item)
 .then(data => {
   console.log(data.data)
-  cardDiv.appendChild(build(data.data))
+  cardsDiv.appendChild(build(data.data))
 })
 .catch(err => console.log('ERROR', err))
 
-})
+);
 
 
 /*
