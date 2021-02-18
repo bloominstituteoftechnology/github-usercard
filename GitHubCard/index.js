@@ -89,8 +89,10 @@ const newCard = (obj) => {
     cardDiv.classList.add('card');    
 
     const image = document.createElement('img');
-    image.classList.add('card-info');
     image.src = obj.avatar_url;
+    
+    const cardInfo = document.createElement('div');
+    cardInfo.classList.add('card-info');
 
     const headingThree = document.createElement('h3');
     headingThree.classList.add('name');
@@ -121,14 +123,35 @@ const newCard = (obj) => {
 
     entryPoint.appendChild(cardDiv)
     cardDiv.appendChild(image);
-    cardDiv.appendChild(headingThree);
-    cardDiv.appendChild(usernameP);
-    cardDiv.appendChild(locationP);
-    cardDiv.appendChild(profileP);
+    cardDiv.appendChild(cardInfo)
+    cardInfo.appendChild(headingThree);
+    cardInfo.appendChild(usernameP);
+    cardInfo.appendChild(locationP);
+    cardInfo.appendChild(profileP);
     profileP.appendChild(anchor);
-    cardDiv.appendChild(followersP);
-    cardDiv.appendChild(followingP);
-    cardDiv.appendChild(bioP);
+    cardInfo.appendChild(followersP);
+    cardInfo.appendChild(followingP);
+    cardInfo.appendChild(bioP);
+    
+    /*
+  STEP 3: Create a function that accepts a single object as its only argument.
+    Using DOM methods and properties, create and return the following markup:
+
+    <div class="card">
+      <img src={image url of user} />
+      <div class="card-info">
+        <h3 class="name">{users name}</h3>
+        <p class="username">{users user name}</p>
+        <p>Location: {users location}</p>
+        <p>Profile:
+          <a href={address to users github page}>{address to users github page}</a>
+        </p>
+        <p>Followers: {users followers count}</p>
+        <p>Following: {users following count}</p>
+        <p>Bio: {users bio}</p>
+      </div>
+    </div>
+*/
 
     console.log(cardDiv)   
 }
