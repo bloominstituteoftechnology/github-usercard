@@ -23,7 +23,7 @@ console.log(myInfo);
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
-function myCard(data){
+function myCard(title, content){
   const card = document.createElement('div')
   const imageGit = document.createElement('img')
   const cardInfo = document.createElement('div')
@@ -58,18 +58,14 @@ function myCard(data){
   following.classList.add("following")
   bio.classList.add("bio")
   
-  console.log(card)
+  //console.log(card)
  
-card.textContent = imageGit 
-card.textContent = cardInfo 
-cardInfo.textContent = name 
-cardInfo.textContent = username
-cardInfo.textContent = location
-cardInfo.textContent = profile
-profile.textContent = myURL
-cardInfo.textContent = followers
-cardInfo.textContent = following
-cardInfo.textContent = bio
+
+  
+card.textContent = title
+card.textContent = content
+
+
 
 return card
 
