@@ -59,12 +59,25 @@ function myCard(data){
   bio.classList.add("bio")
   
   console.log(card)
-  
-  console.log("myInfo:", data)
+ 
+card.textContent = imageGit 
+card.textContent = cardInfo 
+cardInfo.textContent = name 
+cardInfo.textContent = username
+cardInfo.textContent = location
+cardInfo.textContent = profile
+profile.textContent = myURL
+cardInfo.textContent = followers
+cardInfo.textContent = following
+cardInfo.textContent = bio
+
+return card
+
+ 
 
 }
 
-myCard(myInfo)
+
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
