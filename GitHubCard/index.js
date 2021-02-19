@@ -1,9 +1,13 @@
+
+import axios from 'axios'
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
 
+
+ axios.get(`https://api.github.com/users/Yonathan-Admasu728`)
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -28,7 +32,13 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'tetondan',
+'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'
+];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +59,53 @@ const followersArray = [];
       </div>
     </div>
 */
+function gitActMaker(objectData) {
+//instantiat elements
+const card = document.createElement('div')
+const imgsrc = document.createElement('img')
+const cardInfo = document.createElement('div')
+const name = document.createElement('h3')
+const username = document.createElement('p')
+const location = document.createElement('p')
+const profile = document.createElement('p')
+const profileAnchor = document.createElement('a')
+const followers = document.createElement('p')
+const following = document.createElement('p')
+const bio = document.createElement('p')
+// let's create heirarchy- structure 
+card.appendChild(imgsrc)
+card.appendChild(cardInfo)
+cardInfo.appendChild(name)
+cardInfo.appendChild(username)
+cardInfo.appendChild(location)
+cardInfo.appendChild(profile)
+cardInfo.appendChild(followers)
+cardInfo.appendChild(following)
+cardInfo.appendChild(bio)
+profile.appendChild(profileAnchor)
+//setting class names, attributes and text
+card.classList.add('card')
+imgsrc.classList.add('img')
+profileAnchor.classList.add('profileAnchor')
+card.textContent = "Yonathan's gitHub heheh"
+imgsrc.src = objectData.img
+bio.classList.add('bio')
+bio.textContent = objectData.bio
+profileAnchor.attributes = objectData.html_url
+name.textContent = objectData.name
+username.textContent = objectData.login
+profile.classList.add('profile')
+profile.textContent = objectData.url
+//let's add some interactivity with eventlistener 
+card.addEventListener('click', () => {
+  card.classList.toggle('selected')
+})
+return card;
+
+}
+//task4 here 
+const postiionRight = document.querySelector('.card')
+postiionRight.appendChild(gitActMaker(`https://api.github.com/users/Yonathan-Admasu728`))
 
 /*
   List of LS Instructors Github username's:
@@ -58,3 +115,33 @@ const followersArray = [];
     luishrd
     bigknell
 */
+
+
+const getAccount = (acountName) => {
+  axios.get(`https://api.github.com/users/${acountName}`)
+  .then(({data}) => {
+    const gitAcount = data.message[0]
+    const card = gitActMaker({gitAcount})
+    postiionRight.appendChild(card)
+  })
+  .catch(err => console.log(err))
+}
+console.log(getAccount('tetondan'))
+
+const fetchAccount = (acountName) => {
+  fetch(`https://api.github.com/users/${acountName}`)
+  .then(response => response.json())
+  .then(data => {
+    console.log('data', data)
+    const gitAcount = data.message[0]
+    const card = gitActMaker({gitAcount})
+    postiionRight.appendChild(card)
+  })
+  .catch(err => console.log(err))
+}
+
+followersArray.forEach(item => {
+  const newAcount = axios.get(`https://api.github.com/users/${item}`)
+  postiionRight.appendChild(newAcount)
+})
+console.log(fetchAccount)
