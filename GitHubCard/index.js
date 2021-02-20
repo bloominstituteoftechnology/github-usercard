@@ -5,9 +5,11 @@ import axios from 'axios'
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+let myAcctUrl = axios.get('https://api.github.com/users/Yonathan-Admasu728') 
 
 
- axios.get(`https://api.github.com/users/Yonathan-Admasu728`)
+
+ //axios.get(`https://api.github.com/users/Yonathan-Admasu728`)
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -15,11 +17,19 @@ import axios from 'axios'
 
     Skip to STEP 3.
 */
+console.log(myAcctUrl);
 
 /*
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
+let getAccount = axios.get('https://api.github.com/users/Yonathan-Admasu728') 
+.then(res => {
+  // console.log('success');
+  gitActMaker(res);
+})
+.catch(console.log('error or waiting'));
+console.log(getAccount);
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -31,14 +41,22 @@ import axios from 'axios'
     Using that array, iterate over it, requesting data for each user, creating a new card for each
     user, and adding that card to the DOM.
 */
-
 const followersArray = [
   'tetondan',
 'dustinmyers',
   'justsml',
   'luishrd',
   'bigknell'
-];
+]; //let's itterate through these smart people and add it the page
+const otherAccts = followersArray.forEach(el => {
+  axios.get('https://api.github.com/users/' + el)
+       .then(res => {
+  // console.log('success');
+  gitActMaker(res);
+})
+.catch(console.log('error or waiting'));
+});
+console.log(otherAccts)
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -59,53 +77,61 @@ const followersArray = [
       </div>
     </div>
 */
-function gitActMaker(objectData) {
-//instantiat elements
-const card = document.createElement('div')
-const imgsrc = document.createElement('img')
-const cardInfo = document.createElement('div')
-const name = document.createElement('h3')
-const username = document.createElement('p')
-const location = document.createElement('p')
-const profile = document.createElement('p')
-const profileAnchor = document.createElement('a')
-const followers = document.createElement('p')
-const following = document.createElement('p')
-const bio = document.createElement('p')
-// let's create heirarchy- structure 
-card.appendChild(imgsrc)
-card.appendChild(cardInfo)
-cardInfo.appendChild(name)
-cardInfo.appendChild(username)
-cardInfo.appendChild(location)
-cardInfo.appendChild(profile)
-cardInfo.appendChild(followers)
-cardInfo.appendChild(following)
-cardInfo.appendChild(bio)
-profile.appendChild(profileAnchor)
-//setting class names, attributes and text
-card.classList.add('card')
-imgsrc.classList.add('img')
-profileAnchor.classList.add('profileAnchor')
-card.textContent = "Yonathan's gitHub heheh"
-imgsrc.src = objectData.img
-bio.classList.add('bio')
-bio.textContent = objectData.bio
-profileAnchor.attributes = objectData.html_url
-name.textContent = objectData.name
-username.textContent = objectData.login
-profile.classList.add('profile')
-profile.textContent = objectData.url
-//let's add some interactivity with eventlistener 
-card.addEventListener('click', () => {
-  card.classList.toggle('selected')
-})
-return card;
-
+function gitActMaker(singleObject) {
+  // DECLARE VARS SET VALUES AND APPEND IN ORDER
+  // DIV CLASS CARD
+  console.log(singleObject);
+  let divCard = document.createElement('div');
+  divCard.classList.add('card');
+  // PROFILE IMAGE
+  let userImg = document.createElement('img');
+  userImg.src = singleObject.data.avatar_url;
+  divCard.appendChild(userImg);
+  // DIV CLASS CARD INFO
+  let divInfo = document.createElement('div');
+  divInfo.classList.add('card-info');
+  divCard.appendChild(divInfo);
+  // H3 CLASS NAME
+  let name = document.createElement('h3');
+  name.classList.add('name');
+  name.textContent = singleObject.data.name;
+  divInfo.appendChild(name);
+  // P CLASS USERNAME
+  let username = document.createElement('p');
+  username.classList.add('username');
+  username.textContent = singleObject.data.login;
+  divInfo.appendChild(username);
+  // P LOCATION
+  let locP = document.createElement('p');
+  // console.log(locP);
+  locP.textContent = 'Location: ' + singleObject.data.location;
+  divInfo.appendChild(locP);
+  // P PROFILE
+  let profile = document.createElement('p');
+  profile.textContent = ('Profile:' + '\n');
+  divInfo.appendChild(profile);
+  // ADDRESS TO PAGE
+  let address = document.createElement('a');
+  address.href = singleObject.data.html_url;
+  address.textContent = singleObject.data.html_url;
+  profile.appendChild(address);
+  // P FOLLOWERS
+  let followers = document.createElement('p');
+  followers.textContent = `Followers: ${singleObject.data.followers}`
+  divInfo.appendChild(followers);
+  // P FOLLOWING
+  let following = document.createElement('p');
+  following.textContent = `Following: ${singleObject.data.following}`;
+  divInfo.appendChild(following);
+  // P BIO
+  let bio = document.createElement('p');
+  bio.textContent = `Bio: ${singleObject.data.bio}`;
+  divInfo.appendChild(bio);
+  // APPEND TO PAGE
+  let divCardLocation = document.querySelector('div.cards');
+  divCardLocation.appendChild(divCard);
+  return divCard;
 }
-//task4 here 
-const postiionRight = document.querySelector('.card')
-postiionRight.appendChild(gitActMaker(`https://api.github.com/users/Yonathan-Admasu728`))
 
 /*
   List of LS Instructors Github username's:
@@ -115,33 +141,3 @@ postiionRight.appendChild(gitActMaker(`https://api.github.com/users/Yonathan-Adm
     luishrd
     bigknell
 */
-
-
-const getAccount = (acountName) => {
-  axios.get(`https://api.github.com/users/${acountName}`)
-  .then(({data}) => {
-    const gitAcount = data.message[0]
-    const card = gitActMaker({gitAcount})
-    postiionRight.appendChild(card)
-  })
-  .catch(err => console.log(err))
-}
-console.log(getAccount('tetondan'))
-
-const fetchAccount = (acountName) => {
-  fetch(`https://api.github.com/users/${acountName}`)
-  .then(response => response.json())
-  .then(data => {
-    console.log('data', data)
-    const gitAcount = data.message[0]
-    const card = gitActMaker({gitAcount})
-    postiionRight.appendChild(card)
-  })
-  .catch(err => console.log(err))
-}
-
-followersArray.forEach(item => {
-  const newAcount = axios.get(`https://api.github.com/users/${item}`)
-  postiionRight.appendChild(newAcount)
-})
-console.log(fetchAccount)
