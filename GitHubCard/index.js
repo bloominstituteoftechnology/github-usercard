@@ -18,6 +18,7 @@
 */
 
 import axios from "axios";
+import arrows from "./constants";
 
 axios
   .get("https://api.github.com/users/alextcedwards")
@@ -88,14 +89,28 @@ function cardMaker(array) {
   const followers = document.createElement("p");
   const followCount = document.createElement("p");
   const bio = document.createElement("p");
+  const cardCont = document.createElement("div");
+  const buttonCont = document.createElement("div");
+  const cardButtons = document.createElement("div");
+  const openButton = document.createElement("button");
+  const closeButton = document.createElement("button");
+  const cardContent = document.createElement("div");
+  const cardImg = document.createElement("img");
 
   card.classList.add("card");
+  cardCont.classList.add("card-container");
   cardInfo.classList.add("card-info");
   name.classList.add("name");
   userName.classList.add("username");
+  buttonCont.classList.add("button-container");
+  cardButtons.classList.add("card-buttons");
+  cardContent.classList.add("card-content", "toggle-on");
+  openButton.classList.add("card-btn-open");
+  closeButton.classList.add("card-btn-close", "hide-btn");
 
-  card.appendChild(image);
-  card.appendChild(cardInfo);
+  cardCont.appendChild(image);
+  card.appendChild(cardCont);
+  cardCont.appendChild(cardInfo);
   cardInfo.appendChild(name);
   cardInfo.appendChild(userName);
   cardInfo.appendChild(location);
@@ -104,9 +119,18 @@ function cardMaker(array) {
   cardInfo.appendChild(followers);
   cardInfo.appendChild(followCount);
   cardInfo.appendChild(bio);
+  card.appendChild(buttonCont);
+  buttonCont.appendChild(cardButtons);
+  buttonCont.appendChild(cardContent);
+  cardContent.appendChild(cardImg);
+  cardButtons.appendChild(openButton);
+  cardButtons.appendChild(closeButton);
 
   image.setAttribute("src", array.avatar_url);
   link.href = array.html_url;
+  openButton.textContent = arrows.open;
+  closeButton.textContent = arrows.close;
+  cardImg.setAttribute("src", `http://ghchart.rshah.org/${array.login}`);
 
   name.textContent = array.name;
   userName.textContent = array.login;
@@ -116,6 +140,15 @@ function cardMaker(array) {
   followers.textContent = `Followers: ${array.followers}`;
   followCount.textContent = `Following: ${array.following}`;
   bio.textContent = `Bio: ${array.bio}`;
+
+  cardButtons.addEventListener("click", (event) => {
+    //  - the open button needs to go away (the 'hide-btn' class name controls this)
+    openButton.classList.toggle("hide-btn");
+    //  - the close button needs to show (the 'hide-btn' class name controls this)
+    closeButton.classList.toggle("hide-btn");
+    //  - the contents need to show (the 'toggle-on' class name controls this)
+    cardContent.classList.toggle("toggle-on");
+  });
 
   return card;
 }
