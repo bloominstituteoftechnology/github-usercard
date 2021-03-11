@@ -4,6 +4,35 @@
     https://api.github.com/users/<your name>
 */
 
+const followersArray = ["tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell"
+];
+
+import axios from "axios"
+
+followersArray.forEach(person => {
+  axios.get(`https://api.github.com/users/${person}`)
+  .then((response) => {
+    console.log(response)
+    myFunction(response.data)
+  })
+  .catch((error) => {
+    console.log(error)
+  })
+})
+
+axios.get('https://api.github.com/users/CrashOverride1987')
+.then((response) => {
+  console.log(response)
+  myFunction(response.data)
+})
+.catch((error) => {
+  console.log(error)
+
+})
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -28,8 +57,55 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
 
+function myFunction(object) {
+
+  const card = document.createElement('div')
+  card.classList.add('card')
+
+  const img = document.createElement('img')
+  img.setAttribute('src', object.avatar_url)
+
+  const cardInfo = document.createElement('div')
+  cardInfo.classList.add('name')
+
+  const name = document.createElement('h3')
+  name.classList.add('name')
+  name.textContent = object.name
+
+  const userName = document.createElement('p')
+  userName.classList.add('username')
+  userName.textContent = object.login
+
+  const location = document.createElement('p')
+  location.textContent = "Location: " + object.location
+
+  const profile = document.createElement('p')
+
+  const anchor = document.createElement('a')
+  anchor.setAttribute('href', object.html_url)
+  profile.appendChild(anchor)
+
+  const followers = document.createElement('p')
+  followers.textContent = "Followers: " + object.followers
+
+  const following = document.createElement('p')
+  following.textContent = "Following: " + object.following
+
+card.appendChild(img)
+card.appendChild(cardInfo)
+cardInfo.appendChild(name)
+cardInfo.appendChild(userName)
+cardInfo.appendChild(location)
+cardInfo.appendChild(profile)
+cardInfo.appendChild(followers)
+cardInfo.appendChild(following)
+
+const cards = document.querySelector('.cards')
+cards.appendChild(card)
+
+console.log(card)
+}
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
