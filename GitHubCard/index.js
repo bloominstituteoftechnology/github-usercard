@@ -4,6 +4,19 @@
     https://api.github.com/users/<your name>
 */
 
+const {default: axios} = require("axios");
+
+axios.get("https://api.github.com/users/emmalouiseread");
+.then(response => {
+  appendData(response.data);
+});
+.catch(err => {
+  console.log(err);
+});
+.then(() => {
+  console.log("Success");
+});
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -28,7 +41,25 @@
     user, and adding that card to the DOM.
 */
 
+let cards = document.querySelector(".cards");
+
 const followersArray = [];
+followersArray.push("tetondan", "dustinmyers", "justsml", "luishr", "bigknell");
+
+followersArray.forEach(person => {
+  axios.get(`https://api.github.com/users/${person}`)
+  .then(response => {
+    let recieved = response.data;
+    let newcard = card(recieved);
+    cards.appendChild(newcard);
+  });
+  .catch(err => {
+  console.log(err);
+});
+.then(() => {
+  console.log("Success");
+});
+}
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +80,44 @@ const followersArray = [];
       </div>
     </div>
 */
+
+const card = function(obj) {
+  let firstDiv = document.createElement("div");
+  firstDiv.className = "card";
+  let img = document.createElement("img");
+  firstDiv.appendChild(img);
+  let secondDiv = document.createElement("div");
+  secondDiv.className = "card-info";
+  firstDiv.appendChild(secondDiv);
+  let title = document.createElement("h3");
+  h3.className = "name";
+  secondDiv.appendChild(title);
+  let username = document.createElement("p");
+  username.className = "username";
+  secondDiv.appendChild(username);
+  let location = document.createElement("p");
+  secondDiv.appendChild(location);
+  let profile = document.createElement("p");
+  secondDiv.appendChild(profile);
+  let address = document.createElement("a");
+  profile.appendChild(address);
+  let followers = document.createElement("p");
+  secondDiv.appendChild(followers);
+  let following = document.createElement("p");
+  secondDiv.appendChild(following);
+  let bio = document.createElement("p");
+  secondDiv.appendChild(bio);
+  img.src = obj.avatar_url;
+  username.textContent = obj.login;
+  location.textContent = `Location: ${obj.location}`;
+  profile.textContent = "Profile:";
+  address.setAttribute(obj.html_url);
+  address.textContent = obj.html_url;
+  followers.textContent = `Followers: ${obj.followers}`;
+  following.textContent = `Following: ${obj.following}`;
+  bio.textContent = `Bio: ${obj.bio}`;
+  return firstDiv;
+}
 
 /*
   List of LS Instructors Github username's:
