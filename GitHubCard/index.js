@@ -2,18 +2,31 @@ import axios from 'axios'
 const gitHubInfo = document.querySelector('cards')
 // console.log(axios);
 
+followersArray.forEach(person => {
+  axios
+  .get(`https://api.github.com/users/${person}`)
+  .then(response => {
+  const gitHubInfo = document.querySelector('.cards')
+  gitHubInfo.appendChild(cardCreator(response.data))
+})
+  .catch(error => {
+  console.log(error)
+})
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
 
-axios
+axios //axios IS the "promise"
 .get("https://api.github.com/users/DasRedcoat")
+
 .then(response => {
-  gitHubInfo.appendChild(cards(response.data))
-  console.log(response)
+  const gitHubInfo = document.querySelector('.cards')
+  gitHubInfo.appendChild(cardCreator(response.data))
 })
+
 .catch(error => {
   console.log(error)
 })
@@ -79,15 +92,15 @@ axios
     user, and adding that card to the DOM.
 */
 
-const followersArray = [
-  // {` `}
-];
+// const followersArray = [
+//   "tetondan"
+//   "dustinmyers"
+//   "justsml"
+//   "luishrd"
+//   "bigknell"
+// ];
 
-// tetondan
-// dustinmyers
-// justsml
-// luishrd
-// bigknell
+
 
 
 /*
@@ -146,9 +159,10 @@ function cardCreator({avatar_url, name, login, location, html_url, followers, fo
 
   const pBio = document.createElement('p')
   pBio.textContent = `Bio: ${bio}`
+
+  return container  
 }
 
-return cardCreator
 
 /*
   List of LS Instructors Github username's:
