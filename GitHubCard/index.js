@@ -3,7 +3,36 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+const followersArray = ['tetondan',
+'dustinmyers',
+'justsml',
+'luishrd',
+'bigknell'];
 
+import axios from 'axios'
+followersArray.forEach(person => {
+  axios.get(`https://api.github.com/users/${person}`)
+  .then((res) => {
+    const card = newFunction(res.data)
+    cards.appendChild(newFunction(res.data))
+    console.log(card)
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+})
+axios.get('https:api.github.com/users/Dislaenvy')
+.then((res) => {
+  // const cards = document.querySelector('.cards')
+  const card = newFunction(res.data)
+cards.appendChild(newFunction(res.data))
+  console.log(card)
+  
+})
+.catch((err) => {
+  console.log(err)
+})
+const cards = document.querySelector('.cards')
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -26,9 +55,53 @@
 
     Using that array, iterate over it, requesting data for each user, creating a new card for each
     user, and adding that card to the DOM.
-*/
+    */
+  function newFunction(obj){
+    const card = document.createElement('div')
+    card.classList.add('card')
+    const imgs = document.createElement('img')
+    imgs.setAttribute('src', obj.avatar_url)
+    const cardInfo = document.createElement('div')
+    cardInfo.classList.add('card-info')
+    const name = document.createElement('h3')
+    name.classList.add('name')
+    name.textContent = obj.name
+    const userName = document.createElement('p')
+    userName.classList.add('username')
+    userName.textContent = obj.login
+    const location = document.createElement('p')
+    location.textContent = 'location:' + obj.location
+    const profile = document.createElement('p')
+    profile.textContent = 'Profile:'
+    const anchor = document.createElement('a')
+    anchor.setAttribute('href', obj.html_url)
+    anchor.textContent = obj.html_url
+    profile.appendChild(anchor)
+    const followers = document.createElement('p')
+    followers.textContent = 'Followers:' + obj.followers
+    const following = document.createElement('p')
+    following.textContent = 'Following:' + obj.following
+    const bio = document.createElement('p')
+    bio.textContent = 'Bio:' + obj.bio
 
-const followersArray = [];
+    // cards.appendChild(card)
+    card.appendChild(imgs)
+    card.appendChild(cardInfo)
+    cardInfo.appendChild(name)
+    cardInfo.appendChild(userName)
+    cardInfo.appendChild(location)
+    cardInfo.appendChild(profile)
+    cardInfo.appendChild(followers)
+    cardInfo.appendChild(following)
+    cardInfo.appendChild(bio)
+    console.log(obj.name)
+    return card;
+  }
+  
+  
+  
+  
+  
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
