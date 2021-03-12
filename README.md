@@ -32,7 +32,7 @@ In this project we are going to be accessing the GitHub API and building a socia
 
 * [ ] Submit a Pull-Request to merge `<firstName-lastName>` Branch into `main` (student's  Repo). **Please don't merge your own pull request**
 
-### Project Setup
+### Project Setup.
 
 * [ ] Navigate to the root of the project with your command line.
 * [ ] Run `npm install` to download any dependencies listed in the `package.json` file.
