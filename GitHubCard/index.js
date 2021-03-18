@@ -1,8 +1,21 @@
+import axios from 'axios';
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
+const githubURL = 'https://api.github.com/users/charlie-may86';
+
+axios.get(githubURL)
+  .then(res => {
+    console.log('here is the data', res);
+    console.log('This is my handle:', res.data.login)
+  })
+  .catch(err => {
+    debugger
+  })
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
