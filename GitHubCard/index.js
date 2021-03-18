@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from 'axios';
 
 /*
@@ -10,8 +11,17 @@ const githubURL = 'https://api.github.com/users/charlie-may86';
 
 axios.get(githubURL)
   .then(res => {
-    console.log('here is the data', res);
-    console.log('This is my handle:', res.data.login)
+    const charlieCard = cardMaker({
+      imageURL: res.data.avatar_url,
+      name: res.data.name,
+      userName: res.data.login,
+      location: res.data.location,
+      githubAdress: res.data.html_url,
+      followers: res.data.followers,
+      following: res.data.following,
+      bio: res.data.bio
+    })
+    cardEntry.append(charlieCard);
   })
   .catch(err => {
     debugger
@@ -62,6 +72,62 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function cardMaker({ imageURL, name, userName, location, githubAdress, followers, following, bio  }) {
+  // parent div and class
+  const cardDiv = document.createElement('div');
+  cardDiv.classList.add('card');
+  // image
+  const cardImg = document.createElement('img');
+  cardImg.src = imageURL;
+  // card info and class
+  const cardInfo = document.createElement('div');
+  cardInfo.classList.add('card-info');
+  // h3
+  const cardHeader = document.createElement('h3');
+  cardHeader.classList.add('name');
+  cardHeader.textContent = name;
+  // username
+  const cardUserName = document.createElement('p');
+  cardUserName.classList.add('username');
+  cardUserName.textContent = userName;
+  // location
+  const cardLocation = document.createElement('p');
+  cardLocation.textContent = `Location: ${location}`;
+  // profile
+  const cardProfile = document.createElement('p');
+  cardProfile.textContent = 'Profile'
+  const cardProfileAttr = document.createElement('a');
+  cardProfileAttr.href = githubAdress;
+  cardProfileAttr.textContent = githubAdress;
+  // followers
+  const cardFollowers = document.createElement('p');
+  cardFollowers.textContent = followers;
+  // following
+  const cardFollowing = document.createElement('p');
+  cardFollowing.textContent = following;
+  // bio
+  const cardBio = document.createElement('p');
+  cardBio.textContent = bio;
+  // create parent-child relationship
+  cardDiv.appendChild(cardImg);
+  cardDiv.appendChild(cardInfo);
+  cardInfo.appendChild(cardHeader);
+  cardInfo.appendChild(cardUserName);
+  cardInfo.appendChild(cardLocation);
+  cardInfo.appendChild(cardProfile);
+  cardProfile.appendChild(cardProfileAttr);
+  cardInfo.appendChild(cardFollowers);
+  cardInfo.appendChild(cardFollowing);
+  cardInfo.appendChild(cardBio);
+
+  return cardDiv;
+}
+
+
+// eslint-disable-next-line no-unused-vars
+const cardEntry = document.querySelector('.cards');
+
 
 /*
   List of LS Instructors Github username's:
