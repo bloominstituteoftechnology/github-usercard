@@ -1,9 +1,13 @@
+
+import axios from 'axios'
+console.log(axios)
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+axios.get("https://api.github.com/users/Stan2dor")
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -16,6 +20,8 @@
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
+
+const entry = document.querySelector('.cards');
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
