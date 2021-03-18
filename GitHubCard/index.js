@@ -1,8 +1,16 @@
+import axios from 'axios'
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
+// axios.get('https://api.github.com/users/StnsGeneral')
+//   .then(res => {
+//     const userObjInfo = res.data
+//     console.log(userObjInfo)
+//   })
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -17,6 +25,10 @@
     and append the returned markup to the DOM as a child of .cards
 */
 
+// Where to append the function elements to inside of the HTML
+const appendLocation = document.querySelector('.cards')
+// appendLocation.appendChild(githubCards(userObjInfo))
+
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
@@ -28,7 +40,21 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell',
+  'StnsGeneral'
+];
+
+followersArray.forEach(username => {
+  axios.get(`https://api.github.com/users/${username}`)
+    .then(res => {
+      const userObjInfo = res.data
+      appendLocation.appendChild(githubCards(userObjInfo))
+    })
+})
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -58,3 +84,51 @@ const followersArray = [];
     luishrd
     bigknell
 */
+
+function githubCards(obj) {
+  // Instantiating
+  const cardDiv = document.createElement('div')
+  const imageContainer = document.createElement('img')
+  const cardInfoDiv = document.createElement('div')
+  const header = document.createElement('h3')
+  const paragraphUsername = document.createElement('p')
+  const paragraphLocation = document.createElement('p')
+  const paragraphProfile = document.createElement('p')
+  const anchorElement = document.createElement('a')
+  const paragraphFollowers = document.createElement('p')
+  const paragraphFollowing = document.createElement('p')
+  const paragraphBio = document.createElement('p')
+
+  // Classes
+  cardDiv.classList.add('card')
+  cardInfoDiv.classList.add('card-info')
+  header.classList.add('name')
+  paragraphUsername.classList.add('username')
+
+  // HTML structure
+  cardDiv.appendChild(imageContainer)
+  cardDiv.appendChild(cardInfoDiv)
+  cardInfoDiv.appendChild(header)
+  cardInfoDiv.appendChild(paragraphUsername)
+  cardInfoDiv.appendChild(paragraphLocation)
+  cardInfoDiv.appendChild(paragraphProfile)
+  paragraphProfile.appendChild(anchorElement)
+  cardInfoDiv.appendChild(paragraphFollowers)
+  cardInfoDiv.appendChild(paragraphFollowing)
+  cardInfoDiv.appendChild(paragraphBio)
+
+  // Adding information to elements
+  imageContainer.src = obj.avatar_url
+  header.textContent = obj.name
+  paragraphUsername.textContent = obj.login
+  paragraphLocation.textContent = obj.location
+  paragraphProfile.textContent = "Profile: "
+  anchorElement.href = obj.html_url
+  anchorElement.textContent = obj.html_url
+  paragraphFollowers.textContent = 'Followers: ' + obj.followers
+  paragraphFollowing.textContent = 'Following: ' + obj.following
+  paragraphBio.textContent = 'Bio: ' + obj.bio
+
+  // Return
+  return cardDiv
+}
