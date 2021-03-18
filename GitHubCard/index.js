@@ -47,6 +47,13 @@ const followersArray = [
 	"bigknell",
 ];
 
+followersArray.forEach((name) => {
+	endpoint = name;
+	axios.get(`https://api.github.com/users/${endpoint}`).then((res) => {
+		cardDiv.appendChild(divMaker(res));
+	});
+});
+
 // followersArray.forEach((name) => appendingUserCards(name));
 
 /*
