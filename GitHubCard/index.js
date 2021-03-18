@@ -4,10 +4,6 @@
     https://api.github.com/users/<your name>
 */
 import axios from "axios";
-axios
-	.get("https://api.github.com/users/hanselviva")
-	.then((theData) => console.log("Here's the data: \n", theData))
-	.catch();
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -22,9 +18,7 @@ axios
     and append the returned markup to the DOM as a child of .cards
 */
 const cardDiv = document.querySelector(".cards");
-
-let endpoint = "hanselviva";
-axios.get(`https://api.github.com/users/${endpoint}`).then((res) => {
+axios.get(`https://api.github.com/users/hanselviva`).then((res) => {
 	cardDiv.appendChild(divMaker(res));
 });
 
@@ -40,21 +34,25 @@ axios.get(`https://api.github.com/users/${endpoint}`).then((res) => {
 */
 
 const followersArray = [
+	"sindresorhus",
+	"getify",
+	"kamranahmedse",
+	"donnemartin",
 	"tetondan",
+	"jwasham",
 	"dustinmyers",
 	"justsml",
 	"luishrd",
 	"bigknell",
 ];
 
+let endpoint = "";
 followersArray.forEach((name) => {
 	endpoint = name;
 	axios.get(`https://api.github.com/users/${endpoint}`).then((res) => {
 		cardDiv.appendChild(divMaker(res));
 	});
 });
-
-// followersArray.forEach((name) => appendingUserCards(name));
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
