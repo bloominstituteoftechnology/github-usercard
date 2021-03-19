@@ -121,14 +121,16 @@ function githubCards(obj) {
   imageContainer.src = obj.avatar_url
   header.textContent = obj.name
   paragraphUsername.textContent = obj.login
-  paragraphLocation.textContent = obj.location
-  paragraphProfile.textContent = "Profile: "
+  paragraphLocation.textContent = `Location: ${obj.location}`
+  paragraphProfile.prepend('Profile: ')
   anchorElement.href = obj.html_url
-  anchorElement.textContent = obj.html_url
-  paragraphFollowers.textContent = 'Followers: ' + obj.followers
-  paragraphFollowing.textContent = 'Following: ' + obj.following
-  paragraphBio.textContent = 'Bio: ' + obj.bio
+  anchorElement.innerHTML = obj.html_url
+  paragraphFollowers.textContent = `Followers: ${obj.followers}`
+  paragraphFollowing.textContent = `Following: ${obj.following}`
+  paragraphBio.textContent = `Bio: ${obj.bio}`
 
   // Return
+
+  console.log(cardDiv)
   return cardDiv
 }
