@@ -130,7 +130,5 @@ function githubCards(obj) {
   paragraphBio.textContent = `Bio: ${obj.bio}`
 
   // Return
-
-  console.log(cardDiv)
   return cardDiv
 }
