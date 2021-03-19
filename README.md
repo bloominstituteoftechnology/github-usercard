@@ -22,21 +22,21 @@ In this project we are going to be accessing the GitHub API and building a socia
 
 **Follow these steps to set up and work on your project:**
 
-* [ ] Create a forked copy of this project.
-* [ ] Clone your OWN version of the repository (Not Lambda's by mistake!).
-* [ ] Create a new branch: git checkout -b `<firstName-lastName>`.
-* [ ] Implement the project on your newly created `<firstName-lastName>` branch, committing changes regularly.
-* [ ] Push commits: git push origin `<firstName-lastName>`.
+* [x] Create a forked copy of this project.
+* [x] Clone your OWN version of the repository (Not Lambda's by mistake!).
+* [x] Create a new branch: git checkout -b `<firstName-lastName>`.
+* [x] Implement the project on your newly created `<firstName-lastName>` branch, committing changes regularly.
+* [x] Push commits: git push origin `<firstName-lastName>`.
 
 **Follow these steps for completing your project.**
 
-* [ ] Submit a Pull-Request to merge `<firstName-lastName>` Branch into `main` (student's  Repo). **Please don't merge your own pull request**
+* [x] Submit a Pull-Request to merge `<firstName-lastName>` Branch into `main` (student's  Repo). **Please don't merge your own pull request**
 
 ### Project Setup
 
-* [ ] Navigate to the root of the project with your command line.
-* [ ] Run `npm install` to download any dependencies listed in the `package.json` file.
-* [ ] Run `npm start` to compile your project and launch a development server.
+* [x] Navigate to the root of the project with your command line.
+* [x] Run `npm install` to download any dependencies listed in the `package.json` file.
+* [x] Run `npm start` to compile your project and launch a development server.
 
 ### Axios Setup
 
@@ -47,13 +47,13 @@ In this project we are going to be accessing the GitHub API and building a socia
 
 #### Option 2 (installing Axios with npm)
 
-* [ ] Navigate to the root of the project with your command line.
-* [ ] Run `npm install axios` to download the dependency (it will be added to the `package.json` file).
-* [ ] At the top of the `GitHubCard/index.js` file, type `import axios from 'axios';`
+* [x] Navigate to the root of the project with your command line.
+* [x] Run `npm install axios` to download the dependency (it will be added to the `package.json` file).
+* [x] At the top of the `GitHubCard/index.js` file, type `import axios from 'axios';`
 
 ### Part 1: Requesting Data from the GitHub API
 
-* [ ] Follow the instructions found in the `GitHubCard/index.js` file to request data from the GitHub API.
+* [x] Follow the instructions found in the `GitHubCard/index.js` file to request data from the GitHub API.
 
 ### Part 2: Create the component function
 
