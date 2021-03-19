@@ -3,7 +3,12 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+axios.get('https://api.github.com/users/Deve-DeeDee')
+.then(aboutMe => {
+console.log(aboutMe)
+const newCard = gitHubCard(aboutMe);
+document.querySelector('.cards') .appendChild(newCard)
+})
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -28,7 +33,7 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell'];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +54,59 @@ const followersArray = [];
       </div>
     </div>
 */
+function gitHubCard(obj) {
+  const card = document.createElement('div')
+  card.classList.add('card');
+
+  const img = document.createElement('img');
+  img.src = obj.data.avatar_url;
+  img.style.borderRadius = '50%';
+
+  const cardInfo = document.createElement('div');
+  cardInfo.classList.add('card-info');
+
+  const name = document.createElement('h3')
+  name.classList.add('username');
+  userName.textContent = obj.data.login;
+
+  const userName = documemt.createElement('p');
+  userName.classList.add('username');
+  userName.textContent = obj.data.login;
+
+  const location = document.createElement('p');
+  location.textContent = `Location: ${obj.data.location}`;
+
+  const profile = document.createElement('p');
+  profile.textContent = `Profile:`;
+
+  const profileUrl = document.createElement('a');
+  profileUrl.href = obj.config.url;
+  profileUrl.textContent = `${obj.config.url}`;
+
+  const followers = document.createElement('p');
+  followers.textContent =`followers: ${obj.data.followers}`;
+  
+  const following = document.createElement('p');
+  followers.textContent = `following: ${obj.data.following}`
+
+  const bio = document.createElement('p');
+  bio.textContent = `Bio ${obj.data.following}`;
+
+  profile.appendChild(profileUrl);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo(bio);
+  card.appendChild(img)
+  card.appendChild(cardInfo);
+
+  return card;
+
+}
+
 
 /*
   List of LS Instructors Github username's:
