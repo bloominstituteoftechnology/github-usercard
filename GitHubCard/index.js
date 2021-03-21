@@ -1,8 +1,59 @@
+import axios from 'axios';
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+const githubUserCardMaker = user => {
+  const container = document.createElement('div') // parent element of card
+  const userImg = document.createComment('img')
+  const cardContent = document.createElement('div') // content container for card
+    const userNameHeading = document.createElement('h3')
+    const userName = document.createElement('p')
+    const userLocation = document.createElement('p')
+    const userProfile = document.createElement('p')
+    const userGithubLink = document.createElement('a')
+    const userFollowerCount = document.createElement('p')
+    const userFollowingCount = document.createElement('p')
+    const userBio = document.createElement('p')
+
+  container.classList.add('card')
+  cardContent.classList.add('card-info')
+    userNameHeading.classList.add('name')
+    userName.classList.add('username')
+
+  userImg.src = user.data.avatar_url
+  userNameHeading.textContent = user.data.name
+  userName.textContent = user.data.login
+  userLocation.textContent = `Location: ${user.data.location}`
+  userProfile.textContent = 'Profile: '
+    userGithubLink.href = user.data.html_url
+    userGithubLink.title = "User's Github Link"
+    userGithubLink.textContent = user.data.html_url
+  userFollowerCount.textContent = `Followers: ${user.data.followers}`
+  userFollowingCount.textContent = `Following: ${user.data.following}`
+  userBio.textContent = `Bio: ${user.data.bio}`
+
+  container.appendChild(userImg)
+  container.appendChild(cardContent)
+    cardContent.appendChild(userNameHeading)
+    cardContent.appendChild(userName)
+    cardContent.appendChild(userLocation)
+    cardContent.appendChild(userProfile)
+      userProfile.appendChild(userGithubLink)
+    cardContent.appendChild(userFollowerCount)
+    cardContent.appendChild(userFollowingCount)
+    cardContent.appendChild(userBio)
+
+  return container // return PARENT element
+}
+
+const tdubsAxiosPromise = axios.get('https://api.github.com/users/tdubs42')
+.then(user => {
+  const newGithubUserCard = githubUserCardMaker(user)
+  document.querySelector('div.cards').appendChild(newGithubUserCard)
+})
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -28,7 +79,21 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'https://api.github.com/users/ClydeFrog04',
+  'https://api.github.com/users/ngwatso',
+  'https://api.github.com/users/HeyMichelle',
+  'https://api.github.com/users/vishalicious213',
+  'https://api.github.com/users/aburn7577'
+]
+
+followersArray.forEach(follower => {
+  axios.get(follower)
+  .then(user => {
+    const newGithubUserCard = githubUserCardMaker(user)
+    document.querySelector('div.cards').appendChild(newGithubUserCard)
+  })
+})
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
