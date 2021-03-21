@@ -54,6 +54,7 @@ const tdubsAxiosPromise = axios.get('https://api.github.com/users/tdubs42')
   const newGithubUserCard = githubUserCardMaker(user)
   document.querySelector('div.cards').appendChild(newGithubUserCard)
 })
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
