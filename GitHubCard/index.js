@@ -54,7 +54,24 @@ const followersArray = [];
     </div>
 */
 
-const gitMaker({ "avatar_url", "name", "login", "location", "html_url", "followers", "following", "bio" })
+const gitMaker({ "avatar_url", "name", "login", "location", "html_url", "followers", "following", "bio" }){
+  const cardDiv = document.createElement('div');
+  const userImg = document.createElement('img');
+  const cardInfoDiv = document.createElement('div');
+  const nameH3 = document.createElement('h3');
+  const userNameP = document.createElement('p');
+  const locationP = document.createElement('p');
+  const profileP = document.createElement('p');
+  const githubLink = document.createElement('a');
+  const followersP = document.createElement('p');
+  const followingP = document.createElement('p');
+  const bioP = document.createElement('p');
+  //append to parents
+  //add classes and hrefs
+  //add textContent
+  //^ GO BACK TO STEP 4!!!!
+  return cardDiv;
+}
 
 /*
   List of LS Instructors Github username's:
