@@ -3,6 +3,10 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+import axios from 'axios';
+
+const result = axios.get("https://api.github.com/users/joshualevan");
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -11,7 +15,7 @@
 
     Skip to STEP 3.
 */
-
+// httpie.org => $ http https://api.github.com/users/joshualevan --verbose
 /*
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
@@ -49,6 +53,8 @@ const followersArray = [];
       </div>
     </div>
 */
+
+const gitMaker({ "avatar_url", "name", "login", "location", "html_url", "followers", "following", "bio" })
 
 /*
   List of LS Instructors Github username's:
