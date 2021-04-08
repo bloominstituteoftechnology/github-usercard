@@ -50,12 +50,12 @@ function myProfile({data}){
 axios
 .get("https://api.github.com/users/andrewsbusby")
 .then((me) => {
-  console.log(me, me.data);
+  console.log(me.data);
   const gitMe = me.data;
-  const meArr = Array.from(me.data)
+  const meArr = Array.from(gitMe)
   
-  meArr.forEach((info) => {
-    const andrew = myProfile({info});
+  meArr.forEach((data) => {
+    const andrew = myProfile({data});
     console.log(andrew);
     entry.appendChild(gitMe);
   })
