@@ -5,11 +5,9 @@ import axios from 'axios';
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-axios
-.get("https://api.github.com/users/andrewsbusby")
-.then((me) => {
-  console.log(me);
-})
+
+const entry = document.querySelector('.cards');
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -17,7 +15,55 @@ axios
 
     Skip to STEP 3.
 */
-function myProfile({})
+function myProfile({data}){
+  const pic = document.createElement('img');
+  const name = document.createElement('h1');
+  const login = document.createElement('h3');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const fallowers = document.createElement('p');
+  const fallowing = document.createElement('p');
+  const bio = document.elementFromPoint('p');
+
+  name.textContent(`Name: ${name}`);
+  pic.textContent(`${'https://avatars.githubusercontent.com/u/64098862?v=4'}`)
+  login.textContent(`${login}`);
+  location.textContent(`Location: ${location}`);
+  profile.textContent(`Profile: ${html_url}`);
+  fallowers.textContent(`Followers: ${followers}`);
+  fallowing.textContent(`Following: ${following}`);
+  bio.textContent(`Bio: ${bio}`);
+
+  name.classList.add('name');
+  login.classList.add('username');
+
+  name.append(login);
+  name.append(location);
+  name.append(profile);
+  name.append(fallowers);
+  name.append(fallowing);
+  name.append(bio);
+  
+  return name;
+}
+
+axios
+.get("https://api.github.com/users/andrewsbusby")
+.then((me) => {
+  console.log(me, me.data);
+  const gitMe = me.data;
+  const meArr = Array.from(me.data)
+  
+  meArr.forEach((info) => {
+    const andrew = myProfile({info});
+    console.log(andrew);
+    entry.appendChild(gitMe);
+  })
+  .catch((err)=>{
+    console.log(err);
+  });
+});
+
 /*
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
