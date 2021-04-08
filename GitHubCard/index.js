@@ -69,6 +69,18 @@ function Request(user) {
 
     cards.appendChild(Profile(Response.data));
 
+    // Stretch
+
+    Axios.get(Response.data.followers_url).then((Response) => {
+
+      Response.data.forEach((user) => {
+
+        cards.appendChild(Profile(user));
+
+      });
+
+    });
+
   });
 
 }
