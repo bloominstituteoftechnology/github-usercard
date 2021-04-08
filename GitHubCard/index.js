@@ -78,7 +78,20 @@ const entryPoint = document.querySelector(".cards");
     username.textContent = `Profile: ${object.username}`;
     followers.textContent = `Followers: ${object.followers}`
     following.textContent = `Following: ${object.following}`
-    
+    bio.textContent = `Bio: ${object.bio}`;
+    link.setAttribute(`href`,object.url);
+
+    card.append(img);
+    card.appendChild(info);
+    info.appendChild(name);
+    info.appendChild(user);
+    info.appendChild(location);
+    info.appendChild(username);
+    info.appendChild(followers);
+    info.appendChild(following);
+    username.appendChild(link);
+
+    return card;
   }
 
 
