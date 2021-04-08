@@ -4,11 +4,13 @@ import axios from 'axios';
     (replacing the placeholder with your Github name):
     https://api.github.com/users/ricardo-pena
 */
-
+let url = "https://api.github.com/users/";
+let main = document.querySelector('.cards');
   axios.get("https://api.github.com/users/ricardo-pena")
   .then((res) =>{
     console.log(res);
     console.log('Right Here: ',createComponent(res));
+    main.appendChild(createComponent(res))
   })
   .catch((err)=>{
     console.log(err);
@@ -38,13 +40,24 @@ import axios from 'axios';
     user, and adding that card to the DOM.
 */
 
-// const followersArray = [
-//   tetondan,
-//   dustinmyers,
-//   justsml,
-//   luishrd,
-//   bigknell];
+const followersArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell"];
+followersArray.forEach((element)=>{
 
+  let userUrl = url+element;
+  axios.get(userUrl).then((res)=>{
+    main.appendChild(createComponent(res));
+  }).catch((err)=>{
+    console.log(err);
+  })
+
+  
+
+})
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -90,7 +103,7 @@ function createComponent(obj){
 
   //<p>Location: {users location}</p>
   let locationP = document.createElement('p');
-  locationP.textContent = obj.data.location;
+  locationP.textContent = `Location: ${obj.data.location}`;
   //<p>Profile:
   
   let profileP = document.createElement('p');
@@ -99,19 +112,20 @@ function createComponent(obj){
   //<a href={address to users github page}>{address to users github page}</a>
   let gitAddress = document.createElement('a');
   gitAddress.href = obj.data['html_url'];
+  gitAddress.textContent = obj.data['html_url'];
   profileP.appendChild(gitAddress);
   
   //<p>Followers: {users followers count}</p>
   let followersP = document.createElement('p');
-  followersP.textContent = obj.data.followers;
+  followersP.textContent = `Followers: ${obj.data.followers}`;
 
   //<p>Following: {users following count}</p>
   let followingP = document.createElement('p');
-  followingP.textContent = obj.data.following;
+  followingP.textContent = `Following: ${obj.data.following}`;
 
   //<p>Bio: {users bio}</p>
   let bioP = document.createElement('p');
-  bioP.textContent = obj.data.bio;
+  bioP.textContent = `Bio: ${obj.data.bio}`;
 
 //Apending
 
