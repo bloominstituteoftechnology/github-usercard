@@ -60,7 +60,7 @@ const entryPoint = document.querySelector(".cards");
     const name = document.createElement("h3");
     const user = document.createElement("p");
     const location = document.createElement("p");
-    const username = document.createElement("p");
+    const repos = document.createElement("p");
     const link = document.createElement("a");
     const followers = document.createElement("p");
     const following = document.createElement("p");
@@ -75,7 +75,7 @@ const entryPoint = document.querySelector(".cards");
 
     user.textContent = object.login;
     location.textContent = `Location: ${object.login}`;
-    username.textContent = `Profile: ${object.username}`;
+    repos.textContent = `Repos: ${object.public_repos}`;
     followers.textContent = `Followers: ${object.followers}`
     following.textContent = `Following: ${object.following}`
     bio.textContent = `Bio: ${object.bio}`;
@@ -86,10 +86,10 @@ const entryPoint = document.querySelector(".cards");
     info.appendChild(name);
     info.appendChild(user);
     info.appendChild(location);
-    info.appendChild(username);
+    info.appendChild(repos);
     info.appendChild(followers);
     info.appendChild(following);
-    username.appendChild(link);
+    repos.appendChild(link);
 
     return card;
   }
@@ -104,7 +104,7 @@ const entryPoint = document.querySelector(".cards");
       <img src={image url of user} />
       <div class="card-info">
         <h3 class="name">{users name}</h3>
-        <p class="username">{users user name}</p>
+        <p class="repos">{users user name}</p>
         <p>Location: {users location}</p>
         <p>Profile:
           <a href={address to users github page}>{address to users github page}</a>
@@ -117,7 +117,7 @@ const entryPoint = document.querySelector(".cards");
 */
 
 /*
-  List of LS Instructors Github username's:
+  List of LS Instructors Github repos's:
     tetondan
     dustinmyers
     justsml
