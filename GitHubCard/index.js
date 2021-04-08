@@ -6,7 +6,7 @@
 import axios from 'axios';
 
 const result = axios.get("https://api.github.com/users/joshualevan");
-
+ result.then(res =>).catch(err =>)
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
