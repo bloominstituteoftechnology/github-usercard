@@ -1,8 +1,16 @@
+import axios from 'axios'
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+axios
+.get('https://api.github.com/users/ZacharyCooremans')
+.then((res) => {
+  console.log(res)
+})
+.catch()
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -16,6 +24,37 @@
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
+const followersArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell"];
+
+followersArray.forEach(person => {
+  axios
+  .get(`https://api.github.com/users/${person}`)
+  .then((res) => {
+    console.log(res)
+    cardsPoint.append(cardMaker(res.data))
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+});
+
+axios
+.get("https://api.github.com/users/ZacharyCooremans")
+.then((res) => {
+  console.log('RESPONSE: \n \n', res)
+  console.log('res.data: \n \n', res.data)
+  const items = res.data;
+  const stuff = cardMaker(items)
+  cardsPoint.append(stuff)
+})
+.catch((err) => {
+  console.log(err)
+})
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -27,8 +66,6 @@
     Using that array, iterate over it, requesting data for each user, creating a new card for each
     user, and adding that card to the DOM.
 */
-
-const followersArray = [];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -50,6 +87,55 @@ const followersArray = [];
     </div>
 */
 
+const cardsPoint = document.querySelector('.cards')
+function cardMaker (obj) {
+
+  // instantiating the elements
+  const card = document.createElement('div');
+  const img = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const h3 = document.createElement('h3');
+  const pUser = document.createElement('p');
+  const pLocation = document.createElement('p');
+  const pProfile = document.createElement('p');
+  const a = document.createElement('a');
+  const pFollowers = document.createElement('p');
+  const pFollowing = document.createElement('p');
+  const pBio = document.createElement('p');
+
+  //setting class name, attributes
+  card.classList = 'card';
+  cardInfo.classList = 'card-info';
+  h3.classList = 'name';
+  pUser.classList = 'username';
+  a.setAttribute ('href', obj['html_url']);
+ 
+  img.src = obj['avatar_url'];
+  h3.textContent = obj['login'];
+  pUser.textContent = `${obj['name']}`;
+  pLocation.textContent = `Location ${obj['location']}`;
+  pProfile.textContent = 'Profile ';
+  a.textContent = obj['html_url'];
+  pFollowers.textContent = `Followers ${obj['followers']}`;
+  pFollowing.textContent = `Following ${obj['following']}`;
+  pBio.textContent = `Bio ${obj['bio']}`;
+
+  //url = <a href = 'https://github.com/ZacharyCooremans'>THIS IS A LINK</a>
+
+  // setting hierarchy
+  card.appendChild(img);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(h3);
+  cardInfo.appendChild(pUser);
+  cardInfo.appendChild(pLocation);
+  cardInfo.appendChild(pProfile);
+  pProfile.appendChild(a);
+  cardInfo.appendChild(pFollowers);
+  cardInfo.appendChild(pFollowing);
+  cardInfo.appendChild(pBio);
+
+  return card
+}
 /*
   List of LS Instructors Github username's:
     tetondan
