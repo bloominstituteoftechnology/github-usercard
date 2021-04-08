@@ -1,8 +1,20 @@
+import axios from 'axios'
+
+
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
+axios.get("https://api.github.com/users/KaseemBradley")
+.then(res => {
+  console.log(cardMaker(res.data))
+})
+
+
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -50,6 +62,68 @@ const followersArray = [];
     </div>
 */
 
+const cardMaker = (obj) => {
+  const div = document.createElement('div');
+  div.classList.add('card');
+
+  const img = document.createElement('img');
+  img.src = obj.avatar_url
+
+  const subDiv = document.createElement('div');
+  subDiv.classList.add('card-info');
+
+  const h3 = document.createElement('h3');
+  h3.classList.add('name');
+  h3.textContent = obj.name;
+
+  const userName = document.createElement('p');
+  userName.classList.add('username')
+  userName.textContent = obj.login
+
+  const location = document.createElement('p');
+  location.textContent = `Location: ${obj.location}`
+
+
+  const profile = document.createElement('p');
+  profile.textContent = "Profile:"
+
+
+  const profileLink = document.createElement('a')
+  profileLink.href = obj.html_url;
+  profileLink.textContent = obj.html_url
+
+
+  const followers = document.createElement('p');
+  followers.textContent = `Followers: ${obj.followers}`
+
+
+  const following = document.createElement('p');
+  following.textContent = `Following: ${obj.following}`
+
+  
+  const bio = document.createElement('p');
+  bio.textContent = `Bio: ${obj.bio}`
+
+
+
+  document.body.appendChild(div);
+  div.appendChild(img);
+  div.appendChild(subDiv);
+  subDiv.appendChild(h3);
+  subDiv.appendChild(userName);
+  subDiv.appendChild(location);
+  subDiv.appendChild(profile);
+  profile.appendChild(profileLink);
+  subDiv.appendChild(followers);
+  subDiv.appendChild(following);
+  subDiv.appendChild(bio);
+  
+
+
+  return div
+}
+
+// console.log(cardMaker());
 /*
   List of LS Instructors Github username's:
     tetondan
