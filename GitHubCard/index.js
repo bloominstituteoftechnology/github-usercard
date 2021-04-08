@@ -2,8 +2,32 @@ import axios from "axios"
   // STEP 1: using axios, send a GET request to the following URL
   //   (replacing the placeholder with your Github name):
   //   https://api.github.com/users/<your name>
+  const followersArray = ['tetondan','dustinmyers', 'tsml', 'luishrd', 'bigknell'];
+followersArray.forEach(person => {
+  axios
+  .get(`https://api.github.com/users/thekid510`)
+  .then((res)=> {
+    const newCard = cardMaker(res.data)
+    entryPoint.appendChild(cardMaker(res.data))
+    console.log(res.data)
 
+  })
+  .catch((error)=> {
+    console.log(error)
+  })
+})
 
+axios
+.get("https://api.github.com/users/thekid510")
+.then((res)=>{
+  entryPoint.appendChild(cardMaker(res.data))
+  cardMaker(res.data)
+
+})
+.catch((err)=>{
+  console.log(err);
+})
+const entryPoint = document.querySelector(".cards");
 
   // STEP 2: Inspect and study the data coming back, this is YOUR
   //   github info! You will need to understand the structure of this
@@ -28,7 +52,7 @@ import axios from "axios"
   //   user, and adding that card to the DOM.
 
 
-const followersArray = [];
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
