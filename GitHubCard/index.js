@@ -6,7 +6,7 @@
 
 import axios from 'axios';
 
-const result = axios
+axios
 .get("https://api.github.com/users/joshualevan")
 .then(res => {
   if (typeof res.data === 'object'){
@@ -21,6 +21,7 @@ const result = axios
   document.querySelector('.cards').appendChild(card);
 })
 .catch(err => console.log(err));
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -46,7 +47,13 @@ const result = axios
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'
+];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -114,3 +121,15 @@ const gitMaker = ({ avatar_url, name, login, location, html_url, followers, foll
     luishrd
     bigknell
 */
+
+followersArray.unshift('rickysalsberry');
+
+followersArray.forEach(follower => {
+  axios
+  .get(`https://api.github.com/users/${follower}`)
+  .then(res => {
+    const card = gitMaker(res.data);
+    document.querySelector('.cards').appendChild(card);
+  })
+  .catch(err => console.log(err))
+});
