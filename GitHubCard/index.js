@@ -6,7 +6,15 @@
 
 const { default: axios } = require("axios");
 
-axios.get("https://api.github.com/users/angelakennefick");
+axios.get("https://api.github.com/users/angelakennefick")
+  .then((response) => {
+   const cards = document.querySelector(".cards");
+      cards.appendChild(cardMaker(response.cardObj));
+    });
+
+// .catch(error => {
+//   console.log("Error:", err);
+// })
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -83,14 +91,14 @@ function cardMaker(cardObj) {
   name.classList.add("name");
   username.classList.add("username");
 
-  img.textContent = cardObj.avatar_url;
-  name.textContent = cardObj.name;
-  username.textContent = cardObj.login;
-  location.textContent = cardObj.location;
-  userPage.textContent = cardObj.url;
-  followers.textContent = cardObj.followers;
-  following.textContent = cardObj.following;
-  bio.textContent = cardObj.bio;
+  // img.textContent = cardObj.avatar_url;
+  // name.textContent = cardObj.name;
+  // username.textContent = cardObj.login;
+  // location.textContent = cardObj.location;
+  // userPage.textContent = cardObj.url;
+  // followers.textContent = cardObj.followers;
+  // following.textContent = cardObj.following;
+  // bio.textContent = cardObj.bio;
 
   return card;
 }
