@@ -3,10 +3,21 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
 import axios from 'axios';
 
-const result = axios.get("https://api.github.com/users/joshualevan");
- result.then(res =>).catch(err =>)
+const result = axios
+.get("https://api.github.com/users/joshualevan")
+.then(res => {
+  if (typeof res.data === 'object'){
+    console.log('API is an object');
+  }else{
+    console.log('API is not an object')
+  }
+  return res;
+})
+.then(res => console.log(res.data.avatar_url))
+.catch(err => console.log(err));
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -51,10 +62,9 @@ const followersArray = [];
         <p>Following: {users following count}</p>
         <p>Bio: {users bio}</p>
       </div>
-    </div>
-*/
+    </div>*/
 
-const gitMaker({ "avatar_url", "name", "login", "location", "html_url", "followers", "following", "bio" }){
+const gitMaker = ({ avatar_url, name, login, location, html_url, followers, following, bio }) => {
   const cardDiv = document.createElement('div');
   const userImg = document.createElement('img');
   const cardInfoDiv = document.createElement('div');
@@ -82,20 +92,19 @@ const gitMaker({ "avatar_url", "name", "login", "location", "html_url", "followe
   cardInfoDiv.classList.add('card-info');
   nameH3.classList.add('name');
   userNameP.classList.add('username');
-  githubLink.href = { "html_url"};
+  githubLink.href = { html_url };
   //add textContent and srcs
-  userImg.src = { "avatar_url"};
-  nameH3.textContent = { "name" };
-  userNameP.textContent = { "login" };
-  locationP.textContent = { "location" };
+  userImg.src = "abcdefg";
+  nameH3.textContent = { name };
+  userNameP.textContent = { login };
+  locationP.textContent = { location };
   profileP.innerHTML = `Profile: ${githubLink}`;
-  followersP.textContent = { "followers" };
-  followingP.textContent = { "following" };
-  bioP.textContent = { "bio" };
+  followersP.textContent = { followers };
+  followingP.textContent = { following };
+  bioP.textContent = { bio };
   //^ GO BACK TO STEP 4!!!!
   return cardDiv;
 }
-
 /*
   List of LS Instructors Github username's:
     tetondan
