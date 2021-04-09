@@ -1,6 +1,4 @@
-import axios from 'axios'
-
-
+import axios from "axios";
 
 /*
   STEP 1: using axios, send a GET request to the following URL
@@ -8,25 +6,35 @@ import axios from 'axios'
     https://api.github.com/users/<your name>
 */
 
-axios.get("https://api.github.com/users/KaseemBradley")
-.then(res => {
-   console.log(cardMaker(res.data))
-})
-.catch(err => {
-  console.log(err)
-})
-
-
-const followersArray = ["tetondan", "dustinmyers", "justsml", "luishrd", "bigknell"];
-
-followersArray.forEach(item => {
-  axios.get(`https://api.github.com/users/${item}`)
-  .then(res => {
-    cardMaker(res.data)
+axios
+  .get("https://api.github.com/users/KaseemBradley")
+  .then((res) => {
+    console.log(cardMaker(res.data));
   })
-})
+  .catch((err) => {
+    console.log(err);
+  });
 
+const followersArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell",
+  
+];
 
+followersArray.forEach((item) => {
+  axios
+  .get(`https://api.github.com/users/${item}`)
+  .then((res) => {
+    cardMaker(res.data);
+    
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+});
 
 
 /*
@@ -53,8 +61,6 @@ followersArray.forEach(item => {
     user, and adding that card to the DOM.
 */
 
-
-
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -76,48 +82,41 @@ followersArray.forEach(item => {
 */
 
 const cardMaker = (obj) => {
-  const div = document.createElement('div');
-  div.classList.add('card');
+  const div = document.createElement("div");
+  div.classList.add("card");
 
-  const img = document.createElement('img');
-  img.src = obj.avatar_url
+  const img = document.createElement("img");
+  img.src = obj.avatar_url;
 
-  const subDiv = document.createElement('div');
-  subDiv.classList.add('card-info');
+  const subDiv = document.createElement("div");
+  subDiv.classList.add("card-info");
 
-  const h3 = document.createElement('h3');
-  h3.classList.add('name');
+  const h3 = document.createElement("h3");
+  h3.classList.add("name");
   h3.textContent = obj.name;
 
-  const userName = document.createElement('p');
-  userName.classList.add('username')
-  userName.textContent = obj.login
+  const userName = document.createElement("p");
+  userName.classList.add("username");
+  userName.textContent = obj.login;
 
-  const location = document.createElement('p');
-  location.textContent = `Location: ${obj.location}`
+  const location = document.createElement("p");
+  location.textContent = `Location: ${obj.location}`;
 
+  const profile = document.createElement("p");
+  profile.textContent = "Profile:";
 
-  const profile = document.createElement('p');
-  profile.textContent = "Profile:"
-
-
-  const profileLink = document.createElement('a')
+  const profileLink = document.createElement("a");
   profileLink.href = obj.html_url;
-  profileLink.textContent = obj.html_url
+  profileLink.textContent = obj.html_url;
 
+  const followers = document.createElement("p");
+  followers.textContent = `Followers: ${obj.followers}`;
 
-  const followers = document.createElement('p');
-  followers.textContent = `Followers: ${obj.followers}`
+  const following = document.createElement("p");
+  following.textContent = `Following: ${obj.following}`;
 
-
-  const following = document.createElement('p');
-  following.textContent = `Following: ${obj.following}`
-
-  
-  const bio = document.createElement('p');
-  bio.textContent = `Bio: ${obj.bio}`
-
-
+  const bio = document.createElement("p");
+  bio.textContent = `Bio: ${obj.bio}`;
 
   document.body.appendChild(div);
   div.appendChild(img);
@@ -130,12 +129,9 @@ const cardMaker = (obj) => {
   subDiv.appendChild(followers);
   subDiv.appendChild(following);
   subDiv.appendChild(bio);
-  
 
-
-  return div
-}
-
+  return div;
+};
 
 /*
   List of LS Instructors Github username's:
