@@ -55,10 +55,10 @@ axios
   console.log('Response', me.data.name)
    const gitMe = (me.data);
    const meArr = Object.values(gitMe);
-   debugger
-   meArr.forEach((me) => {
-    console.log(myProfile({me}));
-      // debugger   
+  //  debugger
+   meArr.forEach((data) => {
+    // console.log(myProfile({me}));
+      debugger   
 
     entryPoint.appendChild(meArr);
   })
@@ -70,7 +70,8 @@ axios
   //   console.log(error);
   });
 // );
-const entryPoint = document.querySelector('cards');
+const entryPoint = document.querySelector('.cards');
+console.log(entryPoint);
 /*
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
