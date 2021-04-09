@@ -1,8 +1,12 @@
+import axios from 'axios';
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -11,7 +15,63 @@
 
     Skip to STEP 3.
 */
+function myProfile({data}){
+  const card = document.createElement('div');
+  const pic = document.createElement('img');
+  const me = document.createElement('h1');
+  const login = document.createElement('h3');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const fallowers = document.createElement('p');
+  const fallowing = document.createElement('p');
+  const bio = document.createElement('p');
 
+  me.textContent=`Name: ${[name]}`;
+  pic.textContent=`${'https://avatars.githubusercontent.com/u/64098862?v=4'}`;
+  login.textContent=`${login}`;
+  location.textContent=`Location: ${location}`;
+  profile.textContent=`Profile: ${'html_url'}`;
+  fallowers.textContent=`Followers: ${'followers'}`;
+  fallowing.textContent=`Following: ${'following'}`;
+  bio.textContent=`Bio: ${bio}`;
+
+  me.classList.add('name');
+  login.classList.add('username');
+
+  card.append(me);
+  card.append(login);
+  card.append(location);
+  card.append(profile);
+  card.append(fallowers);
+  card.append(fallowing);
+  card.append(bio);
+  
+  return card;
+}
+
+axios
+.get("https://api.github.com/users/andrewsbusby")
+.then((me) => {
+  console.log('Response', me.data.name)
+   const gitMe = (me.data);
+   const meArr = Object.values(gitMe);
+  //  debugger
+   meArr.forEach((data) => {
+    // console.log(myProfile({me}));
+      debugger   
+
+    entryPoint.appendChild(meArr);
+  })
+
+ 
+    
+  // }
+  // .catch((error)=>{
+  //   console.log(error);
+  });
+// );
+const entryPoint = document.querySelector('.cards');
+console.log(entryPoint);
 /*
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
