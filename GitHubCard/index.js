@@ -6,7 +6,7 @@ import axios from 'axios';
     https://api.github.com/users/<your name>
 */
 
-const entry = document.querySelector('.cards');
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -17,53 +17,58 @@ const entry = document.querySelector('.cards');
 */
 function myProfile({data}){
   const pic = document.createElement('img');
-  const name = document.createElement('h1');
+  const me = document.createElement('h1');
   const login = document.createElement('h3');
   const location = document.createElement('p');
   const profile = document.createElement('p');
   const fallowers = document.createElement('p');
   const fallowing = document.createElement('p');
-  const bio = document.elementFromPoint('p');
+  const bio = document.createElement('p');
 
-  name.textContent(`Name: ${name}`);
-  pic.textContent(`${'https://avatars.githubusercontent.com/u/64098862?v=4'}`)
-  login.textContent(`${login}`);
-  location.textContent(`Location: ${location}`);
-  profile.textContent(`Profile: ${html_url}`);
-  fallowers.textContent(`Followers: ${followers}`);
-  fallowing.textContent(`Following: ${following}`);
-  bio.textContent(`Bio: ${bio}`);
+  me.textContent=`Name: ${name}`;
+  pic.textContent=`${'https://avatars.githubusercontent.com/u/64098862?v=4'}`;
+  login.textContent=`${login}`;
+  location.textContent=`Location: ${location}`;
+  profile.textContent=`Profile: ${'html_url'}`;
+  fallowers.textContent=`Followers: ${'followers'}`;
+  fallowing.textContent=`Following: ${'following'}`;
+  bio.textContent=`Bio: ${bio}`;
 
-  name.classList.add('name');
+  me.classList.add('name');
   login.classList.add('username');
 
-  name.append(login);
-  name.append(location);
-  name.append(profile);
-  name.append(fallowers);
-  name.append(fallowing);
-  name.append(bio);
+  me.append(login);
+  me.append(location);
+  me.append(profile);
+  me.append(fallowers);
+  me.append(fallowing);
+  me.append(bio);
   
-  return name;
+  return me;
 }
 
 axios
 .get("https://api.github.com/users/andrewsbusby")
 .then((me) => {
-  console.log(me.data);
-  const gitMe = me.data;
-  const meArr = Array.from(gitMe)
-  
-  meArr.forEach((data) => {
-    const andrew = myProfile({data});
-    console.log(andrew);
-    entry.appendChild(gitMe);
-  })
-  .catch((err)=>{
-    console.log(err);
-  });
-});
+   const gitMe = (me);
+   const meArr = Object.values(gitMe);
+   Array.from(meArr);
+   meArr.forEach((me) => {
+    console.log(myProfile({me}));
+      debugger   
 
+    entry.appendChild(meArr);
+  })
+
+ 
+    // const andrew = myProfile(meArr);
+    // entry.appendChild((meArr));
+  }
+  // .catch((error)=>{
+  //   console.log(error);
+  // });
+);
+const entry = document.querySelector('.cards');
 /*
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
