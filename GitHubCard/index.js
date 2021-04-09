@@ -67,7 +67,32 @@ function cardMaker(cardObj) {
   const following = document.createElement("p");
   const bio = document.createElement("p");
 
+  card.appendChild(img);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(username);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  profile.appendChild(userPage);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
   
+  card.classList.add("card");
+  cardInfo.classList.add("card-info");
+  name.classList.add("name");
+  username.classList.add("username");
+
+  img.textContent = cardObj.avatar_url;
+  name.textContent = cardObj.name;
+  username.textContent = cardObj.login;
+  location.textContent = cardObj.location;
+  userPage.textContent = cardObj.url;
+  followers.textContent = cardObj.followers;
+  following.textContent = cardObj.following;
+  bio.textContent = cardObj.bio;
+
+  return card;
 }
 /*
   List of LS Instructors Github username's:
