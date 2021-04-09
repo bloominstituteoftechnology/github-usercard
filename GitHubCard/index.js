@@ -1,9 +1,12 @@
+
+import axios from 'axios';
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+const myData = axios.get('http://api.github.com/users/zach-morris-txt')
+console.log(myData)
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -49,7 +52,48 @@ const followersArray = [];
       </div>
     </div>
 */
+function myGitCard({singleObj}){
+  //Instantiate
+  const card = document.createElement('div')
+  const img = document.createElement('img')
+  const cardInfo = document.createElement('div')
+  const name = document.createElement('h3')
+  const username = document.createElement('p')
+  const location = document.createElement('p')
+  const profile = document.createElement('p')
+  const aTag = document.createElement('a')
+  const followers = document.createElement('p')
+  const following = document.createElement('p')
+  const bio = document.createElement('p')
 
+  //CSS Class / Attribute
+  card.classList.add('.card')
+  img.classList.add('img-img')//CHECK
+  name.classList.add('.name')
+  username.classList.add('.username')
+  username.classList.add('.card-p')
+  location.classList.add('.card-p')
+  profile.classList.add('.card-p')
+  followers.classList.add('.card-p')
+  following.classList.add('.card-p')
+  bio.classList.add('.card-p')
+
+  img.src = //ImgUrlOfUser
+  name.textContent = //Users Name
+  username.textContent = //UsersUserName
+  location.textContent = //location
+  profile.textContent = //Profile Link
+  followers.textContent = //followers
+  following.textContent = //following
+  bio.textContent = //bio
+
+  //Hierarchy
+  card.appendChild(img, cardInfo)
+  cardInfo.appendChild(name, username, location, profile, followers, following, bio)
+  profile.appendChild(aTag)
+
+  return card
+}
 /*
   List of LS Instructors Github username's:
     tetondan
