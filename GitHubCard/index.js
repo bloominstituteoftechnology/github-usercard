@@ -7,10 +7,14 @@
 const { default: axios } = require("axios");
 
 axios.get("https://api.github.com/users/angelakennefick")
-  .then((response) => {
+  .then(response => {
    const cards = document.querySelector(".cards");
-      cards.appendChild(cardMaker(response.cardObj));
-    });
+   cards.appendChild(cardMaker(response.cardObj));
+   console.log("GitHub Data", response);
+  })
+  .catch(error => {
+    console.log("Error:", error)
+  })
 
 // .catch(error => {
 //   console.log("Error:", err);
