@@ -27,9 +27,32 @@ kk
 
     Using that array, iterate over it, requesting data for each user, creating a new card for each
     user, and adding that card to the DOM.
-*/
-
-const followersArray = [];
+// */
+// const followersArray = [];
+// const followersArray = [ "tetondan", "dustinmyers", "justsml", "luishrd", "bigknell"];
+// followersArray.forEach(item => {
+//   axios.get(`https://api.github.com/users/${item}`)
+//   .then(res => {
+//     cardMaker(res.data)
+//   })
+// })
+// followersArray.forEach(profileURL => {
+  // const url = `https://api.github.com/users/${profileURL}`
+  
+//   axios.get(`https://api.github.com/users/tetondan/followers`)
+//   .then((res) => {
+//     res.ata.forEach( user => {
+//       followersArray.push(user.login);
+//     })
+//     followersArray.forEach( username => {
+//       appendUserCard(username);
+//     })
+//   console.log("Step 5 Success");
+//   })
+//   .catch((err) => {
+//     console.log("Step 5 Error:", err);
+//   })
+// }) 
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -84,6 +107,7 @@ function cardMaker(cardData) {
   const following = document.createElement("p");
   const bio = document.createElement("p");
 
+  document.body.appendChild(card);
   card.appendChild(img);
   card.appendChild(cardInfo);
   cardInfo.appendChild(name);
@@ -99,13 +123,17 @@ function cardMaker(cardData) {
   cardInfo.classList.add("card-info");
   name.classList.add("name");
   username.classList.add("username");
-  img.classList.add("avatar_url");
+  profile.classList.add("profile");
+  // userPage.classList.add("html_url")
+  // img.classList.add("avatar_url");
 
   img.src = cardData.avatar_url;
   name.textContent = cardData.name;
   username.textContent = cardData.login;
-  location.textContent = "Location: " + cardData.location;
-  userPage.textContent = "Profile: " + cardData.url;
+  location.textContent = `Location: ${cardData.location}`;
+  profile.textContent = "Profile: " + cardData.html_url;
+  // userPage.href = cardData.html_url;
+  userPage.textContent = cardData.html_url;
   followers.textContent = "Followers: " + cardData.followers;
   following.textContent = "Following: " + cardData.following;
   bio.textContent = "Bio: " + cardData.bio;
