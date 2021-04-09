@@ -16,7 +16,7 @@ const result = axios
   }
   return res;
 })
-.then(res => console.log(res.data.avatar_url))
+.then(res => console.log(gitMaker(res.data)))
 .catch(err => console.log(err));
 
 /*
@@ -94,14 +94,14 @@ const gitMaker = ({ avatar_url, name, login, location, html_url, followers, foll
   userNameP.classList.add('username');
   githubLink.href = { html_url };
   //add textContent and srcs
-  userImg.src = "abcdefg";
-  nameH3.textContent = { name };
-  userNameP.textContent = { login };
-  locationP.textContent = { location };
-  profileP.innerHTML = `Profile: ${githubLink}`;
-  followersP.textContent = { followers };
-  followingP.textContent = { following };
-  bioP.textContent = { bio };
+  userImg.src = `${ avatar_url }`;
+  nameH3.textContent = `${ name }`;
+  userNameP.textContent = `${ login }`;
+  locationP.textContent = `${ location }`;
+  profileP.innerHTML = `Profile: <a>${githubLink}</a>`;
+  followersP.textContent = `${ followers }`;
+  followingP.textContent = `${ following }`;
+  bioP.textContent = `${ bio }`;
   //^ GO BACK TO STEP 4!!!!
   return cardDiv;
 }
