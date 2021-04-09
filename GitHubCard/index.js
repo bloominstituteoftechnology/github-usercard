@@ -4,21 +4,6 @@
     https://api.github.com/users/<your name>
 */
 
-const { default: axios } = require("axios");
-
-axios.get("https://api.github.com/users/angelakennefick")
-  .then(response => {
-   const cards = document.querySelector(".cards");
-   cards.appendChild(cardMaker(response.cardObj));
-   console.log("GitHub Data", response);
-  })
-  .catch(error => {
-    console.log("Error:", error)
-  })
-
-// .catch(error => {
-//   console.log("Error:", err);
-// })
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -64,9 +49,29 @@ const followersArray = [];
         <p>Bio: {users bio}</p>
       </div>
     </div>
+*//*
+  List of LS Instructors Github username's:
+    tetondan
+    dustinmyers
+    justsml
+    luishrd
+    bigknell
 */
+
+const { default: axios } = require("axios");
+// Step 1/2
+axios.get("https://api.github.com/users/angelakennefick")
+  .then(data => {
+   const cards = document.querySelector(".cards");
+   cards.appendChild(cardMaker(data.cardData));
+   console.log("GitHub Data", data);
+  })
+  .catch(error => {
+    console.log("Error:", error)
+  })
+// Step 3
 const cardDiv = document.querySelector(".card");
-function cardMaker(cardObj) {
+function cardMaker(cardData) {
   const card = document.createElement("div");
   const img = document.createElement("img");
   const cardInfo = document.createElement("div");
@@ -95,22 +100,26 @@ function cardMaker(cardObj) {
   name.classList.add("name");
   username.classList.add("username");
 
-  // img.textContent = cardObj.avatar_url;
-  // name.textContent = cardObj.name;
-  // username.textContent = cardObj.login;
-  // location.textContent = cardObj.location;
-  // userPage.textContent = cardObj.url;
-  // followers.textContent = cardObj.followers;
-  // following.textContent = cardObj.following;
-  // bio.textContent = cardObj.bio;
+  img.innerHTML = cardData.avatar_url;
+  name.textContent = cardData.name;
+  username.textContent = cardData.login;
+  location.textContent = cardData.location;
+  userPage.textContent = cardData.url;
+  followers.textContent = cardData.followers;
+  following.textContent = cardData.following;
+  bio.textContent = cardData.bio;
 
   return card;
 }
-/*
-  List of LS Instructors Github username's:
-    tetondan
-    dustinmyers
-    justsml
-    luishrd
-    bigknell
-*/
+// Step 4 
+function appendCard(username){
+  axios.get(`https://api.github.com/users/${username}`).then(res => {
+    const anotherCard = cardMaker(res.data);
+    document.querySelector(".cards").appendChild(anotherCard);
+    console.log("Step 4 success");
+  })
+  .catch(err => {
+    console.log("Step 4 Error:", err)
+  });
+}
+appendCard("angelakennefick");
