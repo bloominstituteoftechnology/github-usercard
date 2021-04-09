@@ -10,7 +10,20 @@ import axios from 'axios'
 
 axios.get("https://api.github.com/users/KaseemBradley")
 .then(res => {
-  console.log(cardMaker(res.data))
+   console.log(cardMaker(res.data))
+})
+.catch(err => {
+  console.log(err)
+})
+
+
+const followersArray = ["tetondan", "dustinmyers", "justsml", "luishrd", "bigknell"];
+
+followersArray.forEach(item => {
+  axios.get(`https://api.github.com/users/${item}`)
+  .then(res => {
+    cardMaker(res.data)
+  })
 })
 
 
@@ -40,7 +53,7 @@ axios.get("https://api.github.com/users/KaseemBradley")
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -123,7 +136,7 @@ const cardMaker = (obj) => {
   return div
 }
 
-// console.log(cardMaker());
+
 /*
   List of LS Instructors Github username's:
     tetondan
