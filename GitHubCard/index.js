@@ -70,7 +70,7 @@ axios.get("https://api.github.com/users/angelakennefick")
     console.log("Error:", error)
   })
 // Step 3
-const cardDiv = document.querySelector(".card");
+const cardDiv = document.querySelector(".cards");
 function cardMaker(cardData) {
   const card = document.createElement("div");
   const img = document.createElement("img");
@@ -99,17 +99,19 @@ function cardMaker(cardData) {
   cardInfo.classList.add("card-info");
   name.classList.add("name");
   username.classList.add("username");
+  img.classList.add("avatar_url");
 
-  img.innerHTML = cardData.avatar_url;
+  img.src = cardData.avatar_url;
   name.textContent = cardData.name;
   username.textContent = cardData.login;
-  location.textContent = cardData.location;
-  userPage.textContent = cardData.url;
-  followers.textContent = cardData.followers;
-  following.textContent = cardData.following;
-  bio.textContent = cardData.bio;
+  location.textContent = "Location: " + cardData.location;
+  userPage.textContent = "Profile: " + cardData.url;
+  followers.textContent = "Followers: " + cardData.followers;
+  following.textContent = "Following: " + cardData.following;
+  bio.textContent = "Bio: " + cardData.bio;
 
   return card;
+
 }
 // Step 4 
 function appendCard(username){
