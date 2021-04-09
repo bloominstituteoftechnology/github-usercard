@@ -16,6 +16,7 @@ import axios from 'axios';
     Skip to STEP 3.
 */
 function myProfile({data}){
+  const card = document.createElement('div');
   const pic = document.createElement('img');
   const me = document.createElement('h1');
   const login = document.createElement('h3');
@@ -25,7 +26,7 @@ function myProfile({data}){
   const fallowing = document.createElement('p');
   const bio = document.createElement('p');
 
-  me.textContent=`Name: ${name}`;
+  me.textContent=`Name: ${[name]}`;
   pic.textContent=`${'https://avatars.githubusercontent.com/u/64098862?v=4'}`;
   login.textContent=`${login}`;
   location.textContent=`Location: ${location}`;
@@ -37,38 +38,39 @@ function myProfile({data}){
   me.classList.add('name');
   login.classList.add('username');
 
-  me.append(login);
-  me.append(location);
-  me.append(profile);
-  me.append(fallowers);
-  me.append(fallowing);
-  me.append(bio);
+  card.append(me);
+  card.append(login);
+  card.append(location);
+  card.append(profile);
+  card.append(fallowers);
+  card.append(fallowing);
+  card.append(bio);
   
-  return me;
+  return card;
 }
 
 axios
 .get("https://api.github.com/users/andrewsbusby")
 .then((me) => {
-   const gitMe = (me);
+  console.log('Response', me.data.name)
+   const gitMe = (me.data);
    const meArr = Object.values(gitMe);
-   Array.from(meArr);
+   debugger
    meArr.forEach((me) => {
     console.log(myProfile({me}));
-      debugger   
+      // debugger   
 
-    entry.appendChild(meArr);
+    entryPoint.appendChild(meArr);
   })
 
  
-    // const andrew = myProfile(meArr);
-    // entry.appendChild((meArr));
-  }
+    
+  // }
   // .catch((error)=>{
   //   console.log(error);
-  // });
-);
-const entry = document.querySelector('.cards');
+  });
+// );
+const entryPoint = document.querySelector('cards');
 /*
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
