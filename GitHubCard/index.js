@@ -16,7 +16,10 @@ const result = axios
   }
   return res;
 })
-.then(res => console.log(gitMaker(res.data)))
+.then(res => {
+  const card = gitMaker(res.data);
+  document.querySelector('.cards').appendChild(card);
+})
 .catch(err => console.log(err));
 
 /*
@@ -72,7 +75,6 @@ const gitMaker = ({ avatar_url, name, login, location, html_url, followers, foll
   const userNameP = document.createElement('p');
   const locationP = document.createElement('p');
   const profileP = document.createElement('p');
-  const githubLink = document.createElement('a');
   const followersP = document.createElement('p');
   const followingP = document.createElement('p');
   const bioP = document.createElement('p');
@@ -83,7 +85,6 @@ const gitMaker = ({ avatar_url, name, login, location, html_url, followers, foll
   cardInfoDiv.appendChild(userNameP);
   cardInfoDiv.appendChild(locationP);
   cardInfoDiv.appendChild(profileP);
-  cardInfoDiv.appendChild(githubLink);
   cardInfoDiv.appendChild(followersP);
   cardInfoDiv.appendChild(followingP);
   cardInfoDiv.appendChild(bioP);
@@ -92,13 +93,13 @@ const gitMaker = ({ avatar_url, name, login, location, html_url, followers, foll
   cardInfoDiv.classList.add('card-info');
   nameH3.classList.add('name');
   userNameP.classList.add('username');
-  githubLink.href = { html_url };
+  //githubLink.href = `${ html_url }`;
   //add textContent and srcs
   userImg.src = `${ avatar_url }`;
   nameH3.textContent = `${ name }`;
   userNameP.textContent = `${ login }`;
   locationP.textContent = `${ location }`;
-  profileP.innerHTML = `Profile: <a>${githubLink}</a>`;
+  profileP.innerHTML = `Profile: <a href = "${ html_url }">${ html_url }</a> `;
   followersP.textContent = `${ followers }`;
   followingP.textContent = `${ following }`;
   bioP.textContent = `${ bio }`;
