@@ -53,70 +53,83 @@
     </div>
 */
 
-const entryPoint = document.querySelector('.cards')
+const entryPoint = document.querySelector(".cards");
 
+function cardMaker(obj) {
+  const card = document.createElement('div');
+  const userImage = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const userName = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const href = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+ 
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  userName.classList.add('username');
+  entryPoint.appendChild(card);
+  card.appendChild(userImage);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  profile.appendChild(href);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+  userImage.src = obj.avatar_url;
+  name.textContent = obj.name;
+  userName.textContent = obj.login;
+  location.textContent = `Location: ${obj.location}`;
+  profile.textContent = "Profile: ";
+  href.href = obj.html_url;
+  href.textContent = 'html_url';
+  followers.textContent = `Followers: ${obj.followers}`;
+  following.textContent = `Following: ${obj.following}`;
+  bio.textContent = `Bio: ${obj.bio}`;
+ 
+  return card;
+};
 
-
-
-
-function cardMaker(object) {
-  const div1 = document.createElement('div');
-  const img = document.createElement('img');
-  const div2 = document.createElement('div'); 
-  const h3 = document.createElement('h3');
-  const p1 = document.createElement('p');
-  const p2 = document.createElement('p');
-  const p3 = document.createElement('p');
-  const a = document.createElement('a');
-  const p4 = document.createElement('p');
-  const p5 = document.createElement('p');
-  const p6 = document.createElement('p');
-
-  img.src = object.avatar_url;
-  h3.textContent = object.name;
-  p1.textContent = object.login;
-  p2.textContent = `Location: ${object.location}`;
-  p3.textContent = 'Profile:';
-  a.href = object.html_url;
-  a.textContent = 'html_url';
-  p4.textContent = `Followers: ${object.followers}`;
-  p5.textContent = `Following: ${object.following}`;
-  p6.textContent = `Bio: ${object.bio}`;
-
-  div1.classList.add('card');
-  div2.classList.add('card-info');
-  h3.classList.add('name');
-  p1.classList.add('username');
-
-  entryPoint.appendChild('div1')
-  div1.appendChild('img');
-  div1.appendChild('div2');
-  div2.appendChild('h3');
-  div2.appendChild('p1');
-  div2.appendChild('p2');
-  div2.appendChild('p3');
-  p3.appendChild('a');
-  div2.appendChild('p4');
-  div2.appendChild('p5');
-  div2.appendChild('p6');
-
-  return div1;
-}
-
-import axios from 'axios';
-
+import axios from "axios";
 axios
   .get(`https://api.github.com/users/edisonjeon`)
   .then((res) => {
-    const div1 = cardMaker(res.data);
-    entryPoint.appendChild(div1);
+    const card = cardMaker(res.data);
+    entryPoint.appendChild(card);
+    console.log(card);
   })
   .catch((err) => {
-    console.log(err)
-  });
+    console.log(err);
+  })
 
 
+const followersArray = [
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'
+];
 
+followersArray.forEach( function(username) {
+  axios
+  .get(`https://api.github.com/users/${username}`)
+  .then((res) => {
+    const card = cardMaker(res.data);
+    entryPoint.appendChild(card);
+    console.log(card);
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+});
 
 
 
