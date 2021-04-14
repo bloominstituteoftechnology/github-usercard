@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+const cardParent = document.querySelector('.cards');
 /*
 STEP 1: using axios, send a GET request to the following URL
 (replacing the placeholder with your Github name):
@@ -7,7 +8,7 @@ https://api.github.com/users/<your name>
 */
 
 axios.get('https://api.github.com/users/juush')
-.then((data) => renderCard(data))
+.then((data) => cardParent.appendChild(renderCard(data)))
 .catch((err) => console.log(err));
 
 /*
@@ -34,75 +35,99 @@ Using that array, iterate over it, requesting data for each user, creating a new
 user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'
+];
 
-/*
-STEP 3: Create a function that accepts a single object as its only argument.
-Using DOM methods and properties, create and return the following markup:
+followersArray.forEach(e => {
+  axios.get(`https://api.github.com/users/${e}`)
+    .then((data) => cardParent.appendChild(renderCard(data)))
+    .catch((err) => console.log(err));
+  });
 
-<div class="card">
+  /*
+  STEP 3: Create a function that accepts a single object as its only argument.
+  Using DOM methods and properties, create and return the following markup:
+
+  <div class="card">
   <img src={image url of user} />
   <div class="card-info">
-    <h3 class="name">{users name}</h3>
-      <p class="username">{users user name}</p>
-      <p>Location: {users location}</p>
-      <p>Profile:
-        <a href={address to users github page}>{address to users github page}</a>
-      </p>
-      <p>Followers: {users followers count}</p>
-      <p>Following: {users following count}</p>
-      <p>Bio: {users bio}</p>
+  <h3 class="name">{users name}</h3>
+  <p class="username">{users user name}</p>
+  <p>Location: {users location}</p>
+  <p>Profile:
+  <a href={address to users github page}>{address to users github page}</a>
+  </p>
+  <p>Followers: {users followers count}</p>
+  <p>Following: {users following count}</p>
+  <p>Bio: {users bio}</p>
   </div>
-</div>
-*/
+  </div>
+  */
 
-const renderCard = (data) => {
-  //console.log the data for easy access to the info from the console
-  console.log(data);
+  const renderCard = ({ data }) => {
+    //console.log the data for easy access to the info from the console
 
-  //new paragraph function
-  const newPara = () => document.createElement('p');
-  
-  //creates elements
-  const cardDiv = document.createElement('div');
-  const cardImage = document.createElement('img');
-  const cardInfo = document.createElement('div');
-  const cardHeader = document.createElement('h3');
-  const username = newPara();
-  const location = newPara();
-  const profile = newPara();
-  const anchor = document.createElement('a');
-  const followers = newPara();
-  const following = newPara();
-  const bio = newPara();
+    //new paragraph function
+    const newPara = () => document.createElement('p');
 
-  //adding classes to elements
-  cardDiv.classList.add('card');
-  cardInfo.classList.add('card-info');
-  cardHeader.classList.add('name');
-  username.classList.add('username');
+    //creates elements
+    const cardDiv = document.createElement('div');
+    const cardImage = document.createElement('img');
+    const cardInfo = document.createElement('div');
+    const cardHeader = document.createElement('h3');
+    const username = newPara();
+    const location = newPara();
+    const profile = newPara();
+    const anchor = document.createElement('a');
+    const followers = newPara();
+    const following = newPara();
+    const bio = newPara();
 
-  //appending elements
-  cardDiv.appendChild(cardImage);
-  cardDiv.appendChild(cardInfo);
-  cardInfo.appendChild(cardHeader);
-  cardInfo.appendChild(username);
-  cardInfo.appendChild(location);
-  cardInfo.appendChild(profile);
-  profile.appendChild(anchor);
-  cardInfo.appendChild(followers);
-  cardInfo.appendChild(following);
-  cardInfo.appendChild(bio);
+    console.log(data)
+    //adding textcontet and images to elements
+    cardHeader.textContent = data.name;
+    cardImage.src = data.avatar_url;
+    username.textContent = data.login;
+    location.textContent = data.location;
+    anchor.textContent = data.url;
+    anchor.href = data.url;
+    followers.textContent = data.followers;
+    following.textContent = data.following;
+    bio.textContent = data.bio;
 
-  console.log(cardDiv);
-  return cardDiv;
-};
+    //adding classes to elements
+    cardDiv.classList.add('card');
+    cardInfo.classList.add('card-info');
+    cardHeader.classList.add('name');
+    username.classList.add('username');
 
-/*
-List of LS Instructors Github username's:
-tetondan
-dustinmyers
-justsml
-luishrd
-bigknell
-*/
+    //appending elements
+    cardDiv.appendChild(cardImage);
+    cardDiv.appendChild(cardInfo);
+    cardInfo.appendChild(cardHeader);
+    cardInfo.appendChild(username);
+    cardInfo.appendChild(location);
+    cardInfo.appendChild(profile);
+    profile.appendChild(anchor);
+    cardInfo.appendChild(followers);
+    cardInfo.appendChild(following);
+    cardInfo.appendChild(bio);
+
+    return cardDiv;
+  };
+
+
+
+  /*
+  List of LS Instructors Github username's:
+  tetondan
+  dustinmyers
+  justsml
+  luishrd
+  bigknell
+  */
