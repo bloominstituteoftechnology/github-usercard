@@ -5,7 +5,11 @@ import axios from 'axios'
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+const userData = axios.get('https://api.github.com/users/Ryan-Donovan33')
+.then(({data}) => {
+  console.log(data)
+})
+.catch(err => console.log('did not retrieve correclty', err))
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -31,7 +35,36 @@ import axios from 'axios'
 */
 
 const followersArray = [];
+//Step 3 
 
+function userCard () {
+  const card = document.createElement('div');
+  const userImg = document.createElement('img');
+  const userInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const userName = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const gitPage = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  card.classList.add('card');
+  userInfo.classList.add('card-info');
+  name.classList.add('name');
+  userName.classList('username');
+
+  card.appendChild(userImg);
+  card.appendChild(userInfo);
+  userInfo.appendChild(location)
+  userInfo.appendChild(profile)
+  profile.appendChild(gitPage)
+  userInfo.appendChild(followers)
+  userInfo.appendChild(following)
+  userInfo.appendChild(bio)
+
+}
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
