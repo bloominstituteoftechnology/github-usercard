@@ -29,6 +29,22 @@ function cardMaker(obj)  {
   const following = document.createElement('p')
   const bio = document.createElement('p')
 
+  img.src = obj.data.avatar_url
+  name.textContent = obj.data.name
+  username.textContent = obj.data.login
+  location.textContent = 'Location: ' + obj.data.location
+  profile.textContent =  'Profile: ' 
+  address.textContent = obj.data.html_url
+  address.href = obj.data.url
+  followers.textContent = 'Followers: ' + obj.data.followers
+  following.textContent = 'Following: ' + obj.data.following
+  bio.textContent = 'Bio: ' + obj.data.bio
+  
+  card.classList.add('card')
+  cardInfo.classList.add('card-info')
+  name.classList.add('name')
+  username.classList.add('username')
+
   card.appendChild(img)
   card.appendChild(cardInfo)
   cardInfo.appendChild(name)
@@ -39,22 +55,6 @@ function cardMaker(obj)  {
   cardInfo.appendChild(followers)
   cardInfo.appendChild(following)
   cardInfo.appendChild(bio)
-
-  img.src = obj.data.avatar_url
-  name.textContent = obj.data.name
-  username.textContent = obj.data.login
-  location.textContent = 'Location: ' + obj.data.location
-  profile.textContent =  'Profile: ' + obj.data.html_url
-  address.setAttribute('href', obj.data.url)
-  address.textContent = obj.data.url
-  followers.textContent = 'Followers: ' + obj.data.followers
-  following.textContent = 'Following: ' + obj.data.following
-  bio.textContent = 'Bio: ' + obj.data.bio
-  
-  card.classList.add('card')
-  cardInfo.classList.add('card-info')
-  name.classList.add('name')
-  username.classList.add('username')
   
   return card
 }
