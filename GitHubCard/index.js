@@ -1,9 +1,22 @@
+import axios from 'axios'
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
-*/
 
+*/    
+
+axios
+  .get('https://api.github.com/users/Ryan-Donovan33')
+  .then(({data}) => {
+    const userData = data;
+    console.log('THIS IS THE DATA',userData)
+    // console.log(userCard(userData))
+    const newUser = userCard(userData);
+    entryPoint.appendChild(newUser)
+  })
+  .catch(err => console.log('did not retrieve correclty', err))
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -16,7 +29,7 @@
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
-
+const entryPoint = document.querySelector('div.cards')
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
@@ -28,8 +41,63 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
+followersArray.forEach((user) => {
+axios
+  .get(`https://api.github.com/users/${user}`)
+  .then(({data}) => {
+    const friendUser = data
+    const newUserCard = userCard(friendUser)
+    entryPoint.appendChild(newUserCard)
+  })
+  .catch(err => console.log('Not grabbing friend!'. err))
+})
+
+//Step 3 
+
+
+function userCard (obj) {
+  const card = document.createElement('div');
+  const userImg = document.createElement('img');
+  const userInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const userName = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const gitPage = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  card.classList.add('card')
+  userInfo.classList.add('card-info')
+  name.classList.add('name')
+  userName.classList.add('username')
+
+  card.appendChild(userImg)
+  card.appendChild(userInfo)
+  userInfo.appendChild(name)
+  userInfo.appendChild(userName)
+  userInfo.appendChild(location)
+  userInfo.appendChild(profile)
+  profile.appendChild(gitPage)
+  userInfo.appendChild(followers)
+  userInfo.appendChild(following)
+  userInfo.appendChild(bio)
+
+  userImg.src = obj.avatar_url
+  name.textContent = obj.name
+  location.textContent = obj.location
+  userName.textContent = obj.login
+  gitPage.outerHTML = obj.html_url
+  followers.textContent = `Followers: ${obj.followers}`
+  following.textContent = `Following: ${obj.following}`
+  bio.textContent = `Bio: ${obj.bio}`
+
+
+  return card 
+}
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
