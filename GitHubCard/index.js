@@ -90,7 +90,7 @@ function userCard (obj) {
   name.textContent = obj.name
   location.textContent = obj.location
   userName.textContent = obj.login
-  gitPage.textContent = obj.html_url
+  gitPage.outerHTML = obj.html_url
   followers.textContent = `Followers: ${obj.followers}`
   following.textContent = `Following: ${obj.following}`
   bio.textContent = `Bio: ${obj.bio}`
