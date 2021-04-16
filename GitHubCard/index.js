@@ -1,5 +1,5 @@
 import axios from 'axios';
-/*
+/*for commit
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
