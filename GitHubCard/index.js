@@ -130,5 +130,5 @@ const followersArray = ["tetondan", "dustinmyers", "justsml", "luishrd", "bigkne
     dustinmyers
     justsml
     luishrd
-    bigknellss
+    bigknell
 */
