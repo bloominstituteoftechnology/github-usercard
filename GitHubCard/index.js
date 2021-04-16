@@ -4,12 +4,19 @@ import axios from 'axios'
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
-*/
-const userData = axios.get('https://api.github.com/users/Ryan-Donovan33')
-.then(({data}) => {
-  console.log(data)
-})
-.catch(err => console.log('did not retrieve correclty', err))
+
+*/    
+
+axios
+  .get('https://api.github.com/users/Ryan-Donovan33')
+  .then((res) => {
+    const userData = res.data;
+    console.log('THIS IS THE DATA',userData)
+    userCard(userData)
+    const newUser = userCard(userData);
+    entryPoint.appendChild(newUser)
+  })
+  .catch(err => console.log('did not retrieve correclty', err))
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -22,7 +29,7 @@ const userData = axios.get('https://api.github.com/users/Ryan-Donovan33')
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
-
+const entryPoint = document.querySelector('div.cards')
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
@@ -37,7 +44,8 @@ const userData = axios.get('https://api.github.com/users/Ryan-Donovan33')
 const followersArray = [];
 //Step 3 
 
-function userCard () {
+
+function userCard (obj) {
   const card = document.createElement('div');
   const userImg = document.createElement('img');
   const userInfo = document.createElement('div');
@@ -50,13 +58,14 @@ function userCard () {
   const following = document.createElement('p');
   const bio = document.createElement('p');
 
-  card.classList.add('card');
-  userInfo.classList.add('card-info');
-  name.classList.add('name');
-  userName.classList('username');
+  card.classList.add('card')
+  userInfo.classList.add('card-info')
+  name.classList.add('name')
+  userName.classList.add('username')
 
-  card.appendChild(userImg);
-  card.appendChild(userInfo);
+  card.appendChild(userImg)
+  card.appendChild(userInfo)
+  userInfo.appendChild(name)
   userInfo.appendChild(location)
   userInfo.appendChild(profile)
   profile.appendChild(gitPage)
@@ -64,6 +73,12 @@ function userCard () {
   userInfo.appendChild(following)
   userInfo.appendChild(bio)
 
+  userImg.src = obj.avatar_url
+  name.textContent = obj.name
+  location.textContent = obj.location
+
+
+  return card 
 }
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
