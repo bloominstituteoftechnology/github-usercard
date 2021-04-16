@@ -9,10 +9,10 @@ import axios from 'axios'
 
 axios
   .get('https://api.github.com/users/Ryan-Donovan33')
-  .then((res) => {
-    const userData = res.data;
+  .then(({data}) => {
+    const userData = data;
     console.log('THIS IS THE DATA',userData)
-    userCard(userData)
+    // console.log(userCard(userData))
     const newUser = userCard(userData);
     entryPoint.appendChild(newUser)
   })
@@ -41,7 +41,19 @@ const entryPoint = document.querySelector('div.cards')
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+
+followersArray.forEach((user) => {
+axios
+  .get(`https://api.github.com/users/${user}`)
+  .then(({data}) => {
+    const friendUser = data
+    const newUserCard = userCard(friendUser)
+    entryPoint.appendChild(newUserCard)
+  })
+  .catch(err => console.log('Not grabbing friend!'. err))
+})
+
 //Step 3 
 
 
@@ -66,6 +78,7 @@ function userCard (obj) {
   card.appendChild(userImg)
   card.appendChild(userInfo)
   userInfo.appendChild(name)
+  userInfo.appendChild(userName)
   userInfo.appendChild(location)
   userInfo.appendChild(profile)
   profile.appendChild(gitPage)
@@ -76,6 +89,11 @@ function userCard (obj) {
   userImg.src = obj.avatar_url
   name.textContent = obj.name
   location.textContent = obj.location
+  userName.textContent = obj.login
+  gitPage.textContent = obj.html_url
+  followers.textContent = `Followers: ${obj.followers}`
+  following.textContent = `Following: ${obj.following}`
+  bio.textContent = `Bio: ${obj.bio}`
 
 
   return card 
