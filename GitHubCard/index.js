@@ -1,9 +1,16 @@
+import axios from 'axios'
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+const myInfo = axios.get('https://api.github.com/users/mrn720')
+.then(({data}) => {
+  const userData = data
+  const myCard = userCard(userData)
+  firstCard.appendChild(myCard)
+})
+.catch(err => console.log('Did not retrieve data, try again', err))
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -17,6 +24,9 @@
     and append the returned markup to the DOM as a child of .cards
 */
 
+const firstCard = document.querySelector('div.cards')
+
+
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
@@ -28,7 +38,17 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+
+followersArray.forEach((user) => {
+  axios.get(`https://api.github.com/users/${user}`)
+  .then(({data}) => {
+    const userInfo = data
+    const cardCreate = userCard(userInfo)
+    firstCard.appendChild(cardCreate)
+  })
+  .catch(err => console.log('Try again', err))
+})
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,7 +69,44 @@ const followersArray = [];
       </div>
     </div>
 */
+function userCard (gitInfo) {
+  const cardWhole = document.createElement('div')
+  const userImage = document.createElement('img')
+  const cardInfo = document.createElement('div')
+  const usersName = document.createElement('h3')
+  const userName1 = document.createElement('p')
+  const location = document.createElement('p')
+  const profile = document.createElement('p')
+  const followers = document.createElement('p')
+  const following = document.createElement('p')
+  const bio = document.createElement('p')
 
+  cardWhole.classList.add('card')
+  cardInfo.classList.add('card-info')
+  usersName.classList.add('name')
+  userName1.classList.add('username')
+
+  cardWhole.appendChild(userImage)
+  cardWhole.appendChild(cardInfo)
+  cardInfo.appendChild(usersName)
+  cardInfo.appendChild(userName1)
+  cardInfo.appendChild(location)
+  cardInfo.appendChild(profile)
+  cardInfo.appendChild(followers)
+  cardInfo.appendChild(following)
+  cardInfo.appendChild(bio)
+
+  userImage.src = gitInfo.avatar_url
+  usersName.textContent = gitInfo.name
+  userName1.textContent = gitInfo.login
+  location.textContent = `Location: ${gitInfo.location}`
+  profile.textContent = `URL: ${gitInfo.url}`
+  followers.textContent = `Followers: ${gitInfo.followers}`
+  following.textContent = `Following: ${gitInfo.following}`
+  bio.textContent = `Bio: ${gitInfo.bio}`
+
+  return cardWhole
+}
 /*
   List of LS Instructors Github username's:
     tetondan
