@@ -5,10 +5,13 @@ import axios from 'axios'
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+  const content = document.querySelector('.cards')
   axios
   .get('https://api.github.com/users/Purefallen11')
   .then((res =>{
-    console.log(res)
+    let myCard = res.data
+    content.appendChild(cardMaker(myCard))
+
   }))
   .catch(err => 
     console.log(err))
@@ -24,9 +27,9 @@ import axios from 'axios'
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
-const myInfo = function(){
+
   
-}
+
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
@@ -38,7 +41,19 @@ const myInfo = function(){
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'];
+
+  followersArray.forEach(data =>{
+    axios.get(`https://api.github.com/users/${data}`)
+    .then((res =>{
+      let newData = res.data
+    }))
+  })
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -80,7 +95,7 @@ function cardMaker(data){
   location = data.location
   link.href = data.html_url
 
-  card.appendChild(image)
+  card.appendChild(img)
   card.appendChild(cardInfo)
   cardInfo.appendChild(name)
   cardInfo.appendChild(userName)
@@ -91,8 +106,16 @@ function cardMaker(data){
   cardInfo.appendChild(bio)
   profile.appendChild(link)
 
-  
+  name.textContent = data.name
+  userName.textContent = data.login
+  location.textContent = 'location: ' + data.location
+  followers.textContent = 'followers: ' + data.followers
+  following.textContent = 'following: ' + data.following
+  bio.textContent = 'bio: ' + data.bio
+
+  return card
 }
+
 /*
   List of LS Instructors Github username's:
     tetondan
