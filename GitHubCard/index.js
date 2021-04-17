@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -28,7 +30,7 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,7 +51,7 @@ const followersArray = [];
       </div>
     </div>
 */
-
+console.log(axios.get('https://api.github.com/users/olem22'));
 /*
   List of LS Instructors Github username's:
     tetondan
@@ -58,3 +60,52 @@ const followersArray = [];
     luishrd
     bigknell
 */
+function cardMaker(user){
+
+const myCard = document.createElement('div')
+const myImg = document.createElement('img')
+const myInfo = document.createElement('div')
+const myName = document.createElement('h3')
+const myUserName = document.createElement('p')
+const myLocation = document.createElement('p')
+const p = document.createElement('p')
+const a = document.createElement('a')
+const myFollowers = document.createElement('p')
+const myFollowing = document.createElement('p')
+const myBio = document.createElement('p')
+
+
+myCard.className = 'card'
+
+axios.get(`https://api.github.com/users/${user}`)
+  .then(function(userArr){
+    myImg.src = userArr.data.avatar_url
+
+myInfo.className = 'card-info'
+myName.className = userArr.data.name
+myName.textContent = `${userArr.data.name}`
+myUserName.className = userArr.data.login
+myUserName.textContent = `${userArr.data.login}`
+myLocation.textContent = `Location: ${userArr.data.location}`;
+
+p.textContent = `Profile:`;
+a.textContent = `${userArr.data.html_url}`;
+a.href = userArr.data.html_url;
+
+myFollowers.textContent = `Followers: ${userArr.data.followers}`;
+myFollowing.textContent = `Following: ${userArr.data.following}`;
+myBio.textContent = `Bio: ${userArr.data.bio}`;
+
+p.append(a);
+  })
+
+myInfo.append(myName, myUserName, myLocation, p, myFollowers, myFollowing, myBio);
+
+myCard.append(myImg, myInfo);
+return myCard;
+}
+
+const Instructors = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell',`kempie1`, 'AnastasiiaaaaM', 'DmitriyNoa', 'olem22'];
+const dfsdf = document.querySelector('.cards')
+//dfsdf.append(cardMaker('olem22'));
+Instructors.forEach(myCard => dfsdf.append(cardMaker(myCard)))
