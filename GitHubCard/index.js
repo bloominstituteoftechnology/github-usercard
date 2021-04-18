@@ -48,10 +48,12 @@ const followersArray = [
   'luishrd',
   'bigknell'];
 
+
   followersArray.forEach(data =>{
     axios.get(`https://api.github.com/users/${data}`)
     .then((res =>{
       let newData = res.data
+      container.appendChild(cardMaker(newData))
     }))
   })
 
