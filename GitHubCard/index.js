@@ -1,60 +1,97 @@
-/*
-  STEP 1: using axios, send a GET request to the following URL
-    (replacing the placeholder with your Github name):
-    https://api.github.com/users/<your name>
-*/
+import axios from 'axios';
 
-/*
-  STEP 2: Inspect and study the data coming back, this is YOUR
-    github info! You will need to understand the structure of this
-    data in order to use it to build your component function
+const followersArray = ['joeybertschler', 'john', 'bob', 'bobby', 'bean', 'timmothy'];
 
-    Skip to STEP 3.
-*/
+//delay console.log of array, not useful here but wanted to try setTimeout 
+setTimeout( ()=>{
+  console.log(followersArray)
+}, 0.07
+);
 
-/*
-  STEP 4: Pass the data received from Github into your function,
-    and append the returned markup to the DOM as a child of .cards
-*/
+const URL = 'https://api.github.com/users/'
 
-/*
-  STEP 5: Now that you have your own card getting added to the DOM, either
-    follow this link in your browser https://api.github.com/users/<Your github name>/followers,
-    manually find some other users' github handles, or use the list found at the
-    bottom of the page. Get at least 5 different Github usernames and add them as
-    Individual strings to the friendsArray below.
+const makeCards = followersArray.forEach( (id) => {
+  axios.get(URL + id)
+       .then( (r) => {
+        console.log(r)
+        const mainBoardDiv = document.querySelector('.cards')
+        mainBoardDiv.appendChild(cardCreator(r.data))
+       })
+})
 
-    Using that array, iterate over it, requesting data for each user, creating a new card for each
-    user, and adding that card to the DOM.
-*/
+//-----------just one user version---------------------------------
+// axios.get(URL + 'JoeyBertschler')
+//       .then(r => {
+//         console.log('success');
+//         console.log('data retreived', r)
+//         const foundationDiv = document.querySelector('.cards');
+//         foundationDiv.appendChild(cardCreator(r.data));})
+//       .catch( (err) => console.log('error or waiting'));
 
-const followersArray = [];
 
-/*
-  STEP 3: Create a function that accepts a single object as its only argument.
-    Using DOM methods and properties, create and return the following markup:
+const cardCreator = (r) => {
+    console.log('card creator initalized')
+  //log passed in data
+  // console.log(r);
 
-    <div class="card">
-      <img src={image url of user} />
-      <div class="card-info">
-        <h3 class="name">{users name}</h3>
-        <p class="username">{users user name}</p>
-        <p>Location: {users location}</p>
-        <p>Profile:
-          <a href={address to users github page}>{address to users github page}</a>
-        </p>
-        <p>Followers: {users followers count}</p>
-        <p>Following: {users following count}</p>
-        <p>Bio: {users bio}</p>
-      </div>
-    </div>
-*/
+    //main div
+    const outestDiv = document.createElement('div');
+    outestDiv.classList.add('card');
 
-/*
-  List of LS Instructors Github username's:
-    tetondan
-    dustinmyers
-    justsml
-    luishrd
-    bigknell
-*/
+        //img
+        const imgOfUser = document.createElement('img');
+          imgOfUser.src = r.avatar_url; 
+          outestDiv.appendChild(imgOfUser);
+
+        //inner div
+        const innerDiv = document.createElement('div');
+        innerDiv.classList.add('card-info')
+          outestDiv.appendChild(innerDiv);
+
+            //title i.e. user's actual name
+            const h3UserName = document.createElement('h3');
+              // TRY after h3UserName.textContent(data.name)
+              h3UserName.classList.add('name')
+              h3UserName.textContent = r.name 
+              innerDiv.appendChild(h3UserName)
+
+            //username i.e. login
+            const pUserName = document.createElement('p');
+              pUserName.classList.add('username')
+              pUserName.textContent = r.login
+              innerDiv.appendChild(pUserName);
+
+            //location
+            const pUserLocation = document.createElement('p');
+              pUserLocation.textContent = "Location: " + r.location;
+              innerDiv.appendChild(pUserLocation);
+
+            //profile paragraph for around url
+            const pProfile = document.createElement('p');
+            pProfile.textContent = "Profile ";
+            innerDiv.appendChild(pProfile);
+
+            //profile page URL
+                const pProfileLink = document.createElement('a');
+                pProfileLink.textContent = "Profile: " + r.html_url
+                pProfile.appendChild(pProfileLink);
+
+            //users follower count
+            const pFollowers = document.createElement('p');
+              pFollowers.textContent =`Followers: ` + r.followers 
+              //TRY add `` followers thingy
+              innerDiv.appendChild(pFollowers);
+
+            //following count
+            const pFollowing = document.createElement('p')
+              pFollowing.textContent =`Following: ` + r.following
+              innerDiv.appendChild(pFollowing); 
+
+            //their bio
+            const userBio = document.createElement('p');
+              pFollowing.textContent = r.bio
+              innerDiv.appendChild(userBio);
+
+            console.log('card creator finished running')
+            return outestDiv;
+};
