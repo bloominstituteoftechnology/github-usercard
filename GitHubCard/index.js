@@ -22,13 +22,10 @@ console.log(result);
 const cards = document.querySelector('.cards')
 axios
   .get('https://api.github.com/users/iwood55')
-  .then((result) => {
-    const data = result.data;
-    data.forEach((obj) => {
-      const card = followerMaker(obj);
-      cards.appendChild(card)
-      console.log(result)
-    });
+  .then((res) => {
+    const data = res.data
+    let card = followerMaker(data)
+    cards.appendChild(card)
   })
   .catch((error) => {
     console.log('ope, my fault', error)
@@ -47,8 +44,23 @@ axios
     Using that array, iterate over it, requesting data for each user, creating a new card for each
     user, and adding that card to the DOM.
 */
+const followersArray = [
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishr',
+  'bigknell'
+];
 
-const followersArray = [];
+followersArray.forEach(obj => {
+  axios
+  .get(`https://api.github.com/users/${obj}`)
+  .then((res) => {
+    const data = res.data
+    let card = followerMaker(data)
+    cards.appendChild(card)
+  })
+})
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -85,15 +97,15 @@ function followerMaker(obj){
   cardInfo.classList.add('card-info');
   name.classList.add('name');
   username.classList.add('username');
-  image.textContent = `${'avatar_url'}` ;
-  name.textContent = `${'name'}`;
-  username.textContent = `${'login'}`;
-  location.textContent = `Location: ${'location'}`;
-  profile.textContent = `Profile:`;
-  anchor.textContent = `${'html_url'}`;
-  followers.textContent = `Followers: ${'followers'}`;
-  following.textContent = `Following: ${'following'}`;
-  bio.textContent = `Bio: ${'bio'}`;
+  image.src = obj.avatar_url;
+  name.textContent = obj.name;
+  username.textContent = obj.login;
+  location.textContent = `Location: ${obj.location}`;
+  profile.textContent = `Profile: `;
+  anchor.textContent = obj.html_url;
+  followers.textContent = `Followers: ${obj.followers}`;
+  following.textContent = `Following: ${obj.following}`;
+  bio.textContent = `Bio: ${obj.bio}`;
   card.appendChild(image)
   card.appendChild(cardInfo)
   cardInfo.appendChild(name)
