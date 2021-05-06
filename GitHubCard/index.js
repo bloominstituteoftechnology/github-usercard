@@ -6,9 +6,11 @@ import axios from 'axios';
 */
 
 axios
-  .get('https://apigithub.com/users/andrewsbusby')
+  .get('https://api.github.com/users/andrewsbusby')
   .then(res =>{
-    console.log(res);
+    const user = res.data
+    document.querySelector('.cards').append(githubMaker(user));
+    console.log(res.data);
   })
   .catch(err =>{
     console.log(err);
@@ -59,6 +61,51 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function githubMaker({avatar_url, bio, name, login, html_url, location, followers, following}) {
+
+  const divCard = document.createElement('div');
+  const userImg = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const nameH3 = document.createElement('h3');
+  const userName = document.createElement('p');
+  const locationP = document.createElement('p');
+  const profile = document.createElement('p');
+  const followersP = document.createElement('p');
+  const followingP = document.createElement('p');
+  const bioP = document.createElement('p');
+
+  // APPENDING
+  divCard.append(userImg);
+  divCard.append(cardInfo);
+  cardInfo.append(nameH3);
+  cardInfo.append(userName);
+  cardInfo.append(locationP);
+  cardInfo.append(profile);
+  cardInfo.append(followersP);
+  cardInfo.append(followingP);
+  cardInfo.append(bioP);
+
+  // ADDING CLASSES
+  divCard.classList.add('card');
+  cardInfo.classList.add('card-info');
+  nameH3.classList.add('class-name');
+  userName.classList.add('username');
+
+  // ADD CONTEXT
+  userImg.src = `${avatar_url}`;
+  nameH3.textContent = `${name}`;
+  userName.textContent = `${login}`;
+  locationP.textContent = `${location}`;
+  profile.textContent = `Profile: ${html_url}`;
+  followersP.textContent = `Followers: ${followers}`;
+  followingP.textContent = `Following: ${following}`;
+  bioP.textContent = `Bio: ${bio}`;
+
+  return divCard;
+}
+
+
 
 /*
   List of LS Instructors Github username's:
