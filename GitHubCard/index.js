@@ -4,6 +4,25 @@
     https://api.github.com/users/<your name>
 */
 
+import axios from 'axios';
+
+axios
+.get("https://api.github.com/users/joshualevan")
+.then(res => {
+  if (typeof res.data === 'object'){
+    console.log('API is an object');
+  }else{
+    console.log('API is not an object')
+  }
+  return res;
+})
+.then(res => {
+  const card = gitMaker(res.data);
+  document.querySelector('.cards').appendChild(card);
+})
+.catch(err => console.log(err));
+
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -11,7 +30,7 @@
 
     Skip to STEP 3.
 */
-
+// httpie.org => $ http https://api.github.com/users/joshualevan --verbose
 /*
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
@@ -28,7 +47,13 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'
+];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -47,9 +72,47 @@ const followersArray = [];
         <p>Following: {users following count}</p>
         <p>Bio: {users bio}</p>
       </div>
-    </div>
-*/
+    </div>*/
 
+const gitMaker = ({ avatar_url, name, login, location, html_url, followers, following, bio }) => {
+  const cardDiv = document.createElement('div');
+  const userImg = document.createElement('img');
+  const cardInfoDiv = document.createElement('div');
+  const nameH3 = document.createElement('h3');
+  const userNameP = document.createElement('p');
+  const locationP = document.createElement('p');
+  const profileP = document.createElement('p');
+  const followersP = document.createElement('p');
+  const followingP = document.createElement('p');
+  const bioP = document.createElement('p');
+  //append to parents
+  cardDiv.appendChild(userImg);
+  cardDiv.appendChild(cardInfoDiv);
+  cardInfoDiv.appendChild(nameH3);
+  cardInfoDiv.appendChild(userNameP);
+  cardInfoDiv.appendChild(locationP);
+  cardInfoDiv.appendChild(profileP);
+  cardInfoDiv.appendChild(followersP);
+  cardInfoDiv.appendChild(followingP);
+  cardInfoDiv.appendChild(bioP);
+  //add classes and hrefs
+  cardDiv.classList.add('card');
+  cardInfoDiv.classList.add('card-info');
+  nameH3.classList.add('name');
+  userNameP.classList.add('username');
+  //githubLink.href = `${ html_url }`;
+  //add textContent and srcs
+  userImg.src = `${ avatar_url }`;
+  nameH3.textContent = `${ name }`;
+  userNameP.textContent = `${ login }`;
+  locationP.textContent = `${ location }`;
+  profileP.innerHTML = `Profile: <a href = "${ html_url }">${ html_url }</a> `;
+  followersP.textContent = `${ followers }`;
+  followingP.textContent = `${ following }`;
+  bioP.textContent = `${ bio }`;
+  //^ GO BACK TO STEP 4!!!!
+  return cardDiv;
+}
 /*
   List of LS Instructors Github username's:
     tetondan
@@ -58,3 +121,15 @@ const followersArray = [];
     luishrd
     bigknell
 */
+
+followersArray.unshift('rickysalsberry');
+
+followersArray.forEach(follower => {
+  axios
+  .get(`https://api.github.com/users/${follower}`)
+  .then(res => {
+    const card = gitMaker(res.data);
+    document.querySelector('.cards').appendChild(card);
+  })
+  .catch(err => console.log(err))
+});
