@@ -3,6 +3,9 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+import axios from 'axios';
+const result = axios.get("https://api.github.com/users/iwood55");
+console.log(result);
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -16,6 +19,23 @@
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
+const cards = document.querySelector('.cards')
+axios
+  .get('https://api.github.com/users/iwood55')
+  .then((result) => {
+    const data = result.data;
+    data.forEach((obj) => {
+      const card = followerMaker(obj);
+      cards.appendChild(card)
+      console.log(result)
+    });
+  })
+  .catch((error) => {
+    console.log('ope, my fault', error)
+  })
+  .finally(() => {
+    console.log('yeehaw partner')
+  })
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -49,7 +69,43 @@ const followersArray = [];
       </div>
     </div>
 */
-
+function followerMaker(obj){
+  const card = document.createElement('div');
+  const image = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const username = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const anchor = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  username.classList.add('username');
+  image.textContent = `${'avatar_url'}` ;
+  name.textContent = `${'name'}`;
+  username.textContent = `${'login'}`;
+  location.textContent = `Location: ${'location'}`;
+  profile.textContent = `Profile:`;
+  anchor.textContent = `${'html_url'}`;
+  followers.textContent = `Followers: ${'followers'}`;
+  following.textContent = `Following: ${'following'}`;
+  bio.textContent = `Bio: ${'bio'}`;
+  card.appendChild(image)
+  card.appendChild(cardInfo)
+  cardInfo.appendChild(name)
+  cardInfo.appendChild(username)
+  cardInfo.appendChild(location)
+  cardInfo.appendChild(profile)
+  profile.appendChild(anchor)
+  cardInfo.appendChild(followers)
+  cardInfo.appendChild(following)
+  cardInfo.appendChild(bio)
+  return card;
+}
 /*
   List of LS Instructors Github username's:
     tetondan
