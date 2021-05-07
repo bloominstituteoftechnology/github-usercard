@@ -1,9 +1,15 @@
+const { default: axios } = require("axios");
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+axios 
+.get("https://api.github.com/users/jesus-senac")
+.then()
+.catch()
+.finally()
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -49,7 +55,38 @@ const followersArray = [];
       </div>
     </div>
 */
+function myProject (element){
+  //creating eleemnts
+  const div = document.createElement('div')
+  const img =  document.createElement('img')
+  const div2 = document.createElement('div')
+  const sub3 = document.createElement('h3')
+  const text = document.createElement('p')
+  const attribite = document.createElement('a')
 
+  //add clases
+
+  div.classList.add('card')
+  div2.classList.add('card-info')
+  sub3.classList.add('name')
+  text.classList.add('username')
+
+  //appendchild
+
+  div.appendChild(div)
+  div.appendChild(img)
+  div2.appendChild(div)
+  div2.appendChild(sub3)
+  div2.appendChild(text)
+  div2.appendChild(attribite)
+
+  //text content
+  img.src = ({url})
+
+
+
+}
+return div;
 /*
   List of LS Instructors Github username's:
     tetondan
