@@ -3,7 +3,20 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+import axios from "axios";
 
+const result = axios.get("https://api.github.com/users/john-laubscher");
+console.log(result)
+
+axios
+.get("https://api.github.com/users/john-laubscher")
+  console.log("1. here is the result", result)
+.then((futureData) =>{
+    console.log("2. here is future data", futureData)
+  })
+.catch((error) =>{
+    console.log(error)
+  });
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
