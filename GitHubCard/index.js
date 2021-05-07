@@ -45,6 +45,7 @@ axios
 const newArray = axios.get("https://api.github.com/users/john-laubscher");
 followersArray.push("deG3nt3lm4n", "bgoonz", "esin", "Magicianred")
 
+cardCreator(newArray);
 
 const followersArray = [];
 
