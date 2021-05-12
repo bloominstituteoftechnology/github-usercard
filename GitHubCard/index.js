@@ -3,6 +3,26 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+import axios from 'axios';
+
+const followersArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell",
+];
+
+for (let i = 0; i < followersArray.length; ++i){
+
+const BASE_URL = 'https://api.github.com/users/' + followersArray[i];
+
+const test = axios.get(BASE_URL);
+
+
+
+
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -28,7 +48,7 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +69,45 @@ const followersArray = [];
       </div>
     </div>
 */
+function githubcard (data) {
+ const card = document.createElement('div');
+ card.classList.add('card');
+
+ const avatarImg = document.createElement('img');
+ avatarImg.src = data.avatar_url;
+
+ const cardInfo = document.createElement('div');
+ cardInfo.classList.add('card-info');
+
+ const usersName = document.createElement('h3');
+ usersName.classList.add('name');
+ usersName.innerText = data.name;
+
+ const userName = document.createElement('p');
+ userName.classList.add('username')
+ userName.innerText = data.login;
+
+ card.append(avatarImg);
+ card.append(cardInfo);
+ usersName.append(userName)
+ card.append(usersName);
+
+ return card
+}
+
+
+
+test.then((value) => {
+
+
+  const babycard = githubcard(value.data)
+  const mamacard = document.querySelector('.cards')
+  mamacard.append(babycard);
+}
+
+)}
+
+
 
 /*
   List of LS Instructors Github username's:
