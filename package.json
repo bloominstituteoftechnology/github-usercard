@@ -19,5 +19,9 @@
     "eslint": "^7.3.0",
     "parcel-bundler": "^1.12.4"
   },
-  "dependencies": {}
+  "dependencies": {
+    "a": "^2.1.2",
+    "axios": "^0.21.0",
+    "axioss": "0.0.1-security"
+  }
 }
