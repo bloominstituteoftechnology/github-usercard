@@ -4,12 +4,14 @@ import axios from "axios";
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-console.log("%cStep 1", "color: orange");
-const bus42 = "https://api.github.com/users/bus42";
-axios.get(bus42).then((res) => {
-  // console.log(res.data);
-  document.querySelector(".cards").appendChild(cardMaker(res.data));
-});
+
+function getBuddy(buddy) {
+  const buddyURL = `https://api.github.com/users/${buddy}`;
+  axios.get(buddyURL).then((res) => {
+    // console.log(res.data);
+    document.querySelector(".cards").appendChild(cardMaker(res.data));
+  });
+}
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -34,7 +36,7 @@ axios.get(bus42).then((res) => {
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+let followersArray = [];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -122,6 +124,11 @@ function cardMaker(dataObj) {
 
   return cardDiv;
 }
+
+getBuddy("bus42");
+
+followersArray = ["tetondan", "dustinmyers", "justsml", "luishrd", "bigknell"];
+followersArray.forEach(follower => getBuddy(follower));
 
 /*
   List of LS Instructors Github username's:
