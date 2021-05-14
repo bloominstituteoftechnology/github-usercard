@@ -1,3 +1,51 @@
+
+import axios from 'axios';
+
+function createCard(data){
+  let cardDiv = document.createElement('div');
+  cardDiv.classList.add('card');
+  let img = document.createElement('img');
+  img.setAttribute('src', data.avatar_url);
+  let cardInfoDiv = document.createElement('div');
+  cardInfoDiv.classList.add('card-info');
+  let h3 = document.createElement('h3');
+  h3.textContent = data.name;
+  h3.classList.add('name');
+  let p1 = document.createElement('p');
+  p1.textContent = data.login;
+  p1.classList.add('username');
+  let p2 = document.createElement('p');
+  p2.textContent = 'Location: ' + data.location;
+  let p3 = document.createElement('p');
+  p3.textContent = 'Profile: ' ;
+  let a = document.createElement('a');
+  a.textContent = data.html_url;
+  a.setAttribute('href', data.html_url);
+  let p4 = document.createElement('p');
+  p4.textContent = 'Followers: '+  data.followers;
+  let p5 = document.createElement('p');
+  p5.textContent = 'Following: '+  data.following;
+  let p6 = document.createElement('p');
+  p6.textContent = 'Bio: '+  data.bio;
+  p3.appendChild(a);
+  cardInfoDiv.appendChild(h3);
+  cardInfoDiv.appendChild(p1);
+  cardInfoDiv.appendChild(p2);
+  cardInfoDiv.appendChild(p3);
+  cardInfoDiv.appendChild(p4);
+  cardInfoDiv.appendChild(p5);
+  cardInfoDiv.appendChild(p6);
+  cardDiv.appendChild(img);
+  cardDiv.appendChild(cardInfoDiv);
+  return cardDiv;
+}
+
+axios.get('https://api.github.com/users/Jacobugath')
+  .then((r) => {
+  let cards = document.querySelector('.cards');
+  cards.appendChild(createCard(r.data));
+})
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -29,6 +77,22 @@
 */
 
 const followersArray = [];
+followersArray.push('tetondan');
+followersArray.push('dustinmyers');
+followersArray.push('justsml');
+followersArray.push('luishrd');
+followersArray.push('bigknell');
+
+followersArray.forEach( (element) =>{
+  console.log('yes');
+  axios.get('https://api.github.com/users/'+element)
+  .then((r) => {
+    console.log(r.data);
+    let cards = document.querySelector('.cards');
+    cards.appendChild(createCard(r.data));
+})
+})
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
