@@ -6,7 +6,9 @@ import axios from "axios";
 */
 console.log("%cStep 1", "color: orange");
 const bus42 = "https://api.github.com/users/bus42";
-axios.get(bus42).then((res) => console.table(res.data));
+axios.get(bus42).then((res) => {
+  document.querySelector(".cards").appendChild(cardMaker(res.data));
+});
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -53,9 +55,20 @@ const followersArray = [];
     </div>
 */
 
+const cards = document.querySelector(".cards");
+
 function cardMaker(dataObj) {
   const { avatar_url, name, login, location, url, followers, following } =
     dataObj;
+  const cardDiv = document.createElement("div");
+  cardDiv.classList.add("card");
+
+  const userImg = document.createElement("img");
+  userImg.alt = name;
+  userImg.src = avatar_url;
+  cardDiv.appendChild(userImg);
+
+  return cardDiv;
 }
 
 /*
