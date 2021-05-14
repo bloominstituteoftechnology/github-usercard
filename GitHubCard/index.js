@@ -6,25 +6,30 @@ import axios from 'axios';
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-const fetchGitHubCardData = (e) => {
-  axios.get('https://api.github.com/users/markporo')
-    .then(function (res) {
-      console.log(e);
-      // handle success
-      res.data.forEach(user => {
-        const usersCard = createGitHubCard(user);
+const fetchGitHubCardData = function (arrUserName) {
+
+  arrUserName.forEach(user => {
+
+    axios.get('https://api.github.com/users/' + user)
+      .then(function (res) {
+        console.log(res.data);
+        const usersInfoObj = res.data;
+        // handle success
+        const usersCard = createGitHubCard(usersInfoObj);
         //append card to CardsDiv
         cardsDiv.appendChild(usersCard);
-      });
-    })
-    .catch(function (err) {
-      // handle error
-      console.log(err);
-    })
-    .finally(function () {
-      // always executed
-      console.log("finally it the axios magic has recieved the data")
-    });
+      })
+
+      .catch(function (err) {
+        // handle error
+        console.log(arrUserName);
+        console.log(err);
+      })
+    // .finally(function () {
+    //   // always executed
+    //   console.log("finally it the axios magic has recieved the data")
+    // });
+  })
 };
 
 
@@ -72,7 +77,7 @@ const followersArray = ["tetondan", "dustinmyers", "justsml", "luishrd", 'bigkne
 
 const cardsDiv = document.querySelector(".cards");
 
-function createGitHubCard({ avatar_url, name, login, location, html_url, followers, following, bio }) {
+function createGitHubCard({ avatar_url, name, login, location, html_url, followers, following, bio, }) {
   //create elements
   const card = document.createElement("div");
   const img = document.createElement("img");
@@ -111,9 +116,9 @@ function createGitHubCard({ avatar_url, name, login, location, html_url, followe
   userName.textContent = login;
   realLocation.textContent = location;
   profileAddress.textContent = html_url;
-  followersCount.textContent = followers;
-  followingCount.textContent = following;
-  realBio.textContent = bio;
+  followersCount.textContent = `Number of Followers: ${followers}`;
+  followingCount.textContent = `Following: ${following}`;
+  realBio.textContent = `Bio: ${bio}`;
 
   return card;
 }
