@@ -68,14 +68,19 @@
       </div>
     </div>
 */
-const followersArray = ['vocausey','Stu','cynthia-coronado','andybolos','pace-ls','tetondan','dustinmyers','justsml','luishrd','bigknell'];
-followersArray.forEach(name =>{
+const followersArray = ['vocausey','Stu','cynthia-coronado','andybolos','matt22881','tetondan','dustinmyers','justsml','luishrd','bigknell'];
+ 
+followersArray.forEach(name =>
+  {
   axios.get("https://api.github.com/users/${name}")
 .then(futureData => { 
   makeGithubCard(futureData.gitcard)
-      }
+      })
  
-    )
+ .catch((drama) => { 
+       
+
+     })
   }
 )
 
