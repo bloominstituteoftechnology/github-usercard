@@ -53,6 +53,11 @@ const followersArray = [];
     </div>
 */
 
+function cardMaker(dataObj) {
+  const { avatar_url, name, login, location, url, followers, following } =
+    dataObj;
+}
+
 /*
   List of LS Instructors Github username's:
     tetondan
