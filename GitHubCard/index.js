@@ -7,6 +7,7 @@ import axios from "axios";
 console.log("%cStep 1", "color: orange");
 const bus42 = "https://api.github.com/users/bus42";
 axios.get(bus42).then((res) => {
+  // console.log(res.data);
   document.querySelector(".cards").appendChild(cardMaker(res.data));
 });
 /*
@@ -58,15 +59,66 @@ const followersArray = [];
 const cards = document.querySelector(".cards");
 
 function cardMaker(dataObj) {
-  const { avatar_url, name, login, location, url, followers, following } =
+  const { avatar_url, name, login, location, url, followers, following, bio } =
     dataObj;
+
+  //container
   const cardDiv = document.createElement("div");
   cardDiv.classList.add("card");
 
+  // avatar
   const userImg = document.createElement("img");
   userImg.alt = name;
   userImg.src = avatar_url;
   cardDiv.appendChild(userImg);
+
+  // info container
+  const cardInfo = document.createElement("div");
+  cardInfo.classList.add("card-info");
+  cardDiv.appendChild(cardInfo);
+
+  // heading
+  const heading = document.createElement("h3");
+  heading.classList.add("name");
+  heading.textContent = name;
+  cardInfo.appendChild(heading);
+
+  //username
+  const username = document.createElement("p");
+  username.classList.add("username");
+  username.textContent = login;
+  cardInfo.appendChild(username);
+
+  // location
+  const userLocation = document.createElement("p");
+  userLocation.textContent = `Location: ${location}`;
+  cardInfo.appendChild(userLocation);
+
+  // profile
+  const profile = document.createElement("p");
+  profile.textContent = "Profile: ";
+  cardInfo.appendChild(profile);
+
+  // profile link
+  const profileLink = document.createElement("a");
+  profileLink.setAttribute("href", url);
+  profileLink.textContent = url;
+  profile.appendChild(profileLink);
+
+  // followers
+  const userFollowers = document.createElement("p");
+  userFollowers.textContent = `Followers: ${followers}`;
+  cardInfo.appendChild(userFollowers);
+
+  // following
+  const usersFollowing = document.createElement("p");
+  usersFollowing.textContent = `Following: ${following}`;
+  cardInfo.appendChild(usersFollowing);
+
+  // bio
+  const userBio = document.createElement("p");
+  userBio.textContent = `Bio: ${bio}`;
+  cardInfo.appendChild(userBio);
 
   return cardDiv;
 }
