@@ -1,8 +1,27 @@
+import axios from 'axios';
+
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+axios.get('https://api.github.com/users/markporo')
+  .then(function (res) {
+    // handle success
+    console.log(res);
+
+  })
+  .catch(function (err) {
+    // handle error
+    console.log(err);
+
+  })
+  .finally(function () {
+    // always executed
+    console.log("finally it the axios magic has recieved the data")
+  });
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -11,6 +30,9 @@
 
     Skip to STEP 3.
 */
+
+
+
 
 /*
   STEP 4: Pass the data received from Github into your function,
@@ -49,6 +71,63 @@ const followersArray = [];
       </div>
     </div>
 */
+
+
+const cardsDiv = document.querySelector(".cards");
+
+
+
+
+function createGitHubCard({ avatar_url, name, login, location, html_url, followers, following, bio }) {
+  //create elements
+  const card = document.createElement("div");
+  const img = document.createElement("img");
+  const cardInfo = document.createElement("div");
+  const realName = document.createElement("h3");
+  const userName = document.createElement("p");
+  const realLocation = document.createElement("p");
+  const profile = document.createElement("p");
+  const followingCount = document.createElement("p");
+  const followersCount = document.createElement("p");
+  const realBio = document.createElement("p");
+  const profileAddress = document.createElement("a");
+
+
+
+  // Append Children in correct order
+  card.appendChild(img);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(realName);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(realLocation);
+  cardInfo.appendChild(profile);
+  cardInfo.appendChild(followersCount);
+  cardInfo.appendChild(followingCount);
+  cardInfo.appendChild(realBio);
+  profile.appendChild(profileAddress);
+
+  // add classes or styles or src's
+  card.classList.add("card");
+  img.style.src = avatar_url;
+  cardInfo.classList.add("card-info");
+  realName.classList.add("name");
+  userName.classList.add("userName");
+  profileAddress.style.href = html_url;
+
+  //Add textContent
+  realName.textContent = name;
+  userName.textContent = login;
+  realLocation.textContent = location;
+  profileAddress.textContent = html_url;
+  followersCount.textContent = followers;
+  followingCount.textContent = following;
+  realBio.textContent = bio;
+
+  return card;
+}
+
+//append card to CardsDiv
+cardsDiv.appendChild(createGitHubCard());
 
 /*
   List of LS Instructors Github username's:
