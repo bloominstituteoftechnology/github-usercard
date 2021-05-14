@@ -9,7 +9,7 @@ function getBuddy(buddy) {
   const buddyURL = `https://api.github.com/users/${buddy}`;
   axios.get(buddyURL).then((res) => {
     // console.log(res.data);
-    document.querySelector(".cards").appendChild(cardMaker(res.data));
+    cards.appendChild(cardMaker(res.data));
   });
 }
 /*
