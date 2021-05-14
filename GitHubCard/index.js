@@ -4,6 +4,13 @@
     https://api.github.com/users/<your name>
 */
 
+const axios = require('axios');
+
+axios.get('https://api.github.com/users/owalker2014').then(resp => {
+
+    console.log(resp.data);
+});
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -16,6 +23,18 @@
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
+
+axios.get('https://api.github.com/users/owalker2014')
+    .then( response => {
+        // Remember response is an object, response.data is an array.
+        response.data.forEach( item => {
+            let button = buttonCreator(item);
+            parent.appendChild(button);
+        })
+    })
+    .catch( error => {
+        console.log("Error:", err);
+    })
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
