@@ -1,9 +1,22 @@
+import axios from 'axios'
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+const githubCardContainer = document.querySelector('.cards')
 
+axios
+  .get('https://api.github.com/users/cynthia-coronado')
+  .then((response) => {
+    //console.log(response.data)
+    githubCardContainer.appendChild(githubCardMaker(response.data))
+    //console.log(githubCardMaker(response.data))
+  })
+  .catch((error) => {
+    console.log('ERROR')
+  })
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -28,7 +41,24 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell',
+];
+followersArray.forEach(follower => {
+  axios
+    .get(`https://api.github.com/users/${follower}`)
+    .then((response) => {
+      //console.log(response.data)
+      githubCardContainer.appendChild(githubCardMaker(response.data))
+    })
+    .catch((error) => {
+      console.log('ERROR TWO')
+    })
+})
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +79,61 @@ const followersArray = [];
       </div>
     </div>
 */
+function githubCardMaker(object) {
+
+  console.log(object)
+
+  //instantiating elements
+  const githubCard = document.createElement('div')
+  const githubImage = document.createElement('img')
+  const githubCardInfo = document.createElement('div')
+  const githubName = document.createElement('h3')
+  const githubUsername = document.createElement('p')
+  const githubLocation = document.createElement('p')
+  const githubProfile = document.createElement('p')
+  const githhubAddress = document.createElement('a')
+  const githubFollowers = document.createElement('p')
+  const githubFollowing = document.createElement('p')
+  const githubBio = document.createElement('p')
+
+  console.log(githubCard)
+
+  //set classnames, attribute and text
+  githubCard.classList.add('card')
+  githubImage.src = object.avatar_url
+  githubCardInfo.classList.add('card-info')
+  githubName.classList.add('name')
+  githubName.textContent = object.name
+  githubUsername.classList.add('username')
+  githubUsername.textContent = object.login
+  githubLocation.textContent = `Location: ${object.location}`
+  githubProfile.textContent = `Profile:`
+  githhubAddress.href = object.url
+  githhubAddress.textContent = `${object.html_url}`
+  githubFollowers.textContent = `Followers: ${object.followers}`
+  githubFollowing.textContent = `Following: ${object.following}`
+  githubBio.textContent = `Bio: ${object.bio}`
+
+  console.log(githubName.textContent)
+
+  //creating hierarchy
+  githubCard.appendChild(githubImage)
+  githubCard.appendChild(githubCardInfo)
+  githubCardInfo.appendChild(githubName)
+  githubCardInfo.appendChild(githubUsername)
+  githubCardInfo.appendChild(githubLocation)
+  githubCardInfo.appendChild(githubProfile)
+  githubCardInfo.appendChild(githhubAddress)
+  githubCardInfo.appendChild(githubFollowers)
+  githubCardInfo.appendChild(githubFollowing)
+  githubCardInfo.appendChild(githubBio)
+
+  console.log(githubCard)
+  console.log(githubCardInfo)
+
+  return githubCard
+
+}
 
 /*
   List of LS Instructors Github username's:
