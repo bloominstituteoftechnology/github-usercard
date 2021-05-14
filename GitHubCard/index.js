@@ -5,11 +5,11 @@ import axios from 'axios'
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
 axios
   .get('https://api.github.com/users/cynthia-coronado')
   .then((response) => {
-    const responseData = response.data
-    console.log(responseData)
+    console.log(response.data)
   })
   .catch((error) => {
     console.log('ERROR')
@@ -59,6 +59,52 @@ const followersArray = [];
       </div>
     </div>
 */
+function githubCardMaker(object) {
+
+  //instantiating elements
+  const githubCard = document.createElement('div')
+  const githubImage = doucment.createElement('img')
+  const githubCardInfo = document.createElement('div')
+  const githubName = document.createElement('h3')
+  const githubUsername = document.createElement('p')
+  const githubLocation = document.createElement('p')
+  const githubProfile = document.createElement('p')
+  const githhubAddress = document.createElement('a')
+  const githubFollowers = document.createElement('p')
+  const githubFollowing = document.createElement('p')
+  const githubBio = document.createElement('p')
+
+  //set classnames, attribute and text
+  githubCard.classList.add('card')
+  githubImage.src = object.data.avatar_url
+  githubCardInfo.classList.add('card-info')
+  githubName.classList.add('name')
+  githubName.textContent = object.data.name
+  githubUsername.classList.add('username')
+  githubUsername.textContent = object.data.login
+  githubLocation.textContent = `Location: ${object.data.location}`
+  githubProfile.textContent = `Profile:`
+  githhubAddress.href = object.data.url
+  githhubAddress.textContent = `${object.data.url}`
+  githubFollowers.textContent = `Followers: ${object.data.followers}`
+  githubFollowing.textContent = `Following: ${object.data.following}`
+  githubBio.textContent = `Bio: ${object.data.bio}`
+
+  //creating hierarchy
+  githubCard.appendChild(githubImage)
+  githubCard.appendChild(githubCardInfo)
+  githubCardInfo.appendChild(githubName)
+  githubCardInfo.appendChild(githubUsername)
+  githubCardInfo.appendChild(githubLocation)
+  githubCardInfo.appendChild(githubProfile)
+  githubCardInfo.appendChild(githhubAddress)
+  githubCardInfo.appendChild(githubFollowers)
+  githubCardInfo.appendChild(githubFollowing)
+  githubCardInfo.appendChild(githubBio)
+
+  return githubCard
+
+}
 
 /*
   List of LS Instructors Github username's:
