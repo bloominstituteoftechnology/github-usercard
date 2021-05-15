@@ -72,9 +72,9 @@ const followersArray = ['vocausey','Stu','cynthia-coronado','andybolos','matt228
  
 followersArray.forEach(name =>
   {
-  axios.get("https://api.github.com/users/${name}")
-.then(futureData => { 
-  makeGithubCard(futureData.gitcard)
+  axios.get(`https://api.github.com/users/${name}`)
+.then(res => { 
+  makeGithubCard(res.data)
       })
  
  .catch((drama) => { 
@@ -95,16 +95,16 @@ card.classList.add('card')
 const image = document.createElement('img')
 const cardInfo = document.createElement('div')
 cardInfo.classList.add('card-info')
-const header = document.createElement("h3"); 
+const header = document.createElement(`h3`); 
 header.textContent =('name')
-const userName = document.createElement('p')
+const userName = document.createElement(`p`)
 userName.textContent = 'username'
 const location = document.createElement("p"); 
 const profile = document.createElement('p')
 const link = document.createElement(`a`)
 const followers = document.createElement("p"); 
 const following = document.createElement('p')
-const bio = document.createElement("p"); 
+const bio = document.createElement(`p`); 
 
 
 
