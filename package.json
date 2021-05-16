@@ -16,8 +16,9 @@
   },
   "homepage": "https://github.com/LambdaSchool/github-usercard#readme",
   "devDependencies": {
-    "eslint": "^7.3.0",
-    "parcel-bundler": "^1.12.4"
+    "eslint": "^7.3.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "axios": "^0.21.1"
+  }
 }
