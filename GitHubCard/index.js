@@ -1,8 +1,18 @@
+
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
+import axios from 'axios'
+
+const data = axios.get('https://api.github.com/users/brianarmstrong9018').then(res => {
+  cards.append(githubUser(res))
+})
+.catch(err =>
+  console.log(err))
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -17,6 +27,8 @@
     and append the returned markup to the DOM as a child of .cards
 */
 
+const cards = document.querySelector('.cards')
+
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
@@ -28,7 +40,20 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan','dustinmyers','justsml',
+  'luishrd',
+  'bigknell', "codingphasedotcom",
+  'bradtraversy'
+];
+
+followersArray.forEach(user => {
+  axios.get(`https://api.github.com/users/${user}`).then(res => {
+      cards.append(githubUser(res))
+    })
+    .catch(err => {
+      console.log(err)
+    })
+})
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -58,3 +83,51 @@ const followersArray = [];
     luishrd
     bigknell
 */
+
+
+function githubUser({data}){
+  //create elements
+  const divCard = document.createElement('div')
+  const img = document.createElement('img')
+  const divInfo = document.createElement('div')
+  const h3Name = document.createElement('h3')
+  const userName = document.createElement('p')
+  const location = document.createElement('p')
+  const profile = document.createElement('p')
+  const addressLink = document.createElement('a')
+  const followers = document.createElement('p')
+  const following = document.createElement('p')
+  const bio = document.createElement('p')
+
+  //Give classNames
+  divCard.className = 'card'
+  divInfo.className = 'card-info'
+  h3Name.className = 'name'
+  userName.className = 'username'
+
+  //text-content
+  img.setAttribute('src', `${data.avatar_url}`)
+  h3Name.textContent = `${data.name}`
+  userName.textContent = `${data.login}`
+  location.textContent = `Location: ${data.location}`
+  addressLink.setAttribute('href', `${data.html_url}`)
+  addressLink.textContent = `Github-URL: ${data.html_url}`
+  followers.textContent = `Followers: ${data.followers}`
+  following.textContent = `Following: ${data.following}`
+  bio.textContent = `${data.bio}`
+
+  //appending elements
+  // cards.append(divCard)
+  divCard.append(img)
+  divCard.append(divInfo)
+  divInfo.append(h3Name)
+  divInfo.append(userName)
+  divInfo.append(location)
+  divInfo.append(profile)
+  profile.append(addressLink)
+  divInfo.append(followers)
+  divInfo.append(following)
+
+  return divCard
+}
+
