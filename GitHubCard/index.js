@@ -1,9 +1,13 @@
+import axios from 'axios'
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+axios.get(' https://api.github.com/users/Williamlarose')
+  .then(yo => {
+    console.log(yo)
+  })
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -28,7 +32,7 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,8 +53,74 @@ const followersArray = [];
       </div>
     </div>
 */
+const followersArray = ['Williamlarose',
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell',
+
+];
+const Cards = document.querySelector('.cards')
+
+function Gitcard(object) {
+  const card = document.createElement('div')
+  const img = document.createElement('img')
+  const info = document.createElement('div')
+  const name = document.createElement('h3')
+  const user = document.createElement('p')
+  const location = document.createElement('p')
+  const profile = document.createElement('p')
+  const link = document.createElement('a')
+  const followers = document.createElement('p')
+  const following = document.createElement('p')
+  const bio = document.createElement('p')
+
+  card.classList.add('card')
+  info.classList.add('card-info')
+  name.classList.add('name')
+  user.classList.add('username')
+
+
+
+  img.src = object.avatar_url
+  name.textContent = object.name
+  user.textContent = object.login
+  location.textContent = ` Location: ${object.location}`
+
+  link.href = object.html_url
+  link.textContent = object.html_url
+  profile.textContent = `Profile: `
+  followers.textContent = object.followers
+  following.textContent = object.following
+  bio.textContent = 'bio:'
+
+  card.appendChild(img)
+  card.appendChild(info)
+  info.appendChild(name)
+  info.appendChild(user)
+  info.appendChild(location)
+  info.appendChild(profile)
+  profile.appendChild(link)
+  info.appendChild(followers)
+  info.appendChild(following)
+  info.appendChild(bio)
+
+  return card
+}
+
+
+followersArray.forEach(obj => {
+  axios.get(` https://api.github.com/users/${obj}`)
+    .then(yo => {
+      const git = Gitcard(yo.data)
+      Cards.appendChild(git)
+    });
+})
+
 
 /*
+
   List of LS Instructors Github username's:
     tetondan
     dustinmyers
