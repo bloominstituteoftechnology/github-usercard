@@ -5,28 +5,32 @@ import axios from "axios"
     https://api.github.com/users/<your name>
 */
 
-const followersArray = ["tetondan",
-                "dustinmyers",
-                "justsml",
-                "luishrd",
-                "bigknell"];
 
 const userData = axios.get('https://api.github.com/users/loshjarson')
       .then (response => {
         const cardsContainer = document.querySelector('.cards');
         cardsContainer.appendChild(CardMaker(response));
         console.log(response);
-        const followerData = axios.get("https://api.github.com/users/loshjarson/followers")
+        const followerData = axios.get(response.data.followers_url)
             .then (response => {
               console.log(response)
+              const followersArray = ["tetondan",
+                "dustinmyers",
+                "justsml",
+                "luishrd",
+                "bigknell"];
               response.data.forEach(follower => {
                 followersArray.push(follower.login)
               })
-              console.log(followersArray)
+              followersArray.forEach(user => {
+                const newUserData = axios.get(`https://api.github.com/users/${user}`)
+                    .then (response => {
+                      const cardsContainer = document.querySelector('.cards');
+                      cardsContainer.appendChild(CardMaker(response))
+                    })
+              })
             })
-      })
-
-      console.log(followersArray)
+      });
 
 
       /*
@@ -60,14 +64,6 @@ const userData = axios.get('https://api.github.com/users/loshjarson')
 //   "bigknell",
 //   "JamariaSims",
 //   "BrandonWorobi"];
-console.log(followersArray)
-followersArray.forEach(user => {
-  const newUserData = axios.get(`https://api.github.com/users/${user}`)
-      .then (response => {
-        const cardsContainer = document.querySelector('.cards');
-        cardsContainer.appendChild(CardMaker(response))
-      })
-})
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
