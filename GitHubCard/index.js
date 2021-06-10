@@ -1,8 +1,12 @@
+import axios from 'axios'
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+const userData = axios.get('https://api.github.com/users/jlbevans')
+.then(res => res)
+.catch(err => console.log(err))
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -49,6 +53,61 @@ const followersArray = [];
       </div>
     </div>
 */
+const cardEntry = document.querySelector('div.cards')
+
+function cardMaker({avatar_url, name, login, location, html_url, followers, following, bio}) {
+  
+  const card = document.createElement('div')
+  const profilePic = document.createElement('img')
+  const info = document.createElement('div')
+  const fullName = document.createElement('h3')
+  const userName = document.createElement('p')
+  const cLocation = document.createElement('p')
+  const profile = document.createElement('p')
+  const address = document.createElement('a')
+  const follow = document.createElement('p')
+  const followed = document.createElement('p')
+  const aboutMe = document.createElement('p')
+
+  card.appendChild(profilePic)
+  card.appendChild(info)
+  info.appendChild(fullName)
+  info.appendChild(userName)
+  info.appendChild(cLocation)
+  info.appendChild(profile)
+  info.appendChild(follow)
+  info.appendChild(followed)
+  info.appendChild(aboutMe)
+  profile.appendChild(address)
+
+  card.classList.add('card')
+  info.classList.add('card-info')
+  fullName.classList.add('name')
+  userName.classList.add('username')
+  address.setAttribute('href', html_url)
+  profilePic.src = avatar_url
+
+  fullName.textContent = name
+  userName.textContent = login
+  cLocation.textContent = location
+  profile.textContent = 'Profile:'
+  address.textContent = html_url
+  follow.textContent = followers
+  followed.textContent = following
+  aboutMe.textContent = bio
+
+
+  return card
+
+}
+
+cardEntry.appendChild(cardMaker(userData));
+
+followersArray.forEach(panelObj => {
+  const newPanel = cardMaker(panelObj)
+  cardEntry.append(newPanel)
+})
+
 
 /*
   List of LS Instructors Github username's:
