@@ -71,7 +71,18 @@ const cardMaker = (data) => {
   bio.textContent = data.bio
 
   //appending children
+  mainDiv.appendChild(img)
+  mainDiv.appendChild(cardInfo)
+  cardInfo.appendChild(userName)
+  cardInfo.appendChild(actualUserName)
+  cardInfo.appendChild(location)
+  cardInfo.appendChild(profile)
+  cardInfo.appendChild(addressLink)
+  cardInfo.appendChild(followers)
+  cardInfo.appendChild(following)
+  cardInfo.appendChild(bio)
 
+  //adding styling classes
 
 
 
