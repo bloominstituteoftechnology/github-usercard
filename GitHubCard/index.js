@@ -4,8 +4,11 @@ import axios from 'axios'
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-const userData = axios.get('https://api.github.com/users/jlbevans')
-.then(res => res)
+axios.get('https://api.github.com/users/jlbevans')
+.then(res => {
+  console.log(res.data)
+  cardEntry.appendChild(cardMaker(res.data));
+})
 .catch(err => console.log(err))
 
 /*
@@ -32,7 +35,26 @@ const userData = axios.get('https://api.github.com/users/jlbevans')
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const getFollowers = (usersname) => {
+  axios.get(`https://api.github.com/users/${usersname}`)
+  .then(res => {
+    console.log(res.data)
+  cardEntry.appendChild(cardMaker(res.data));
+  })
+  .catch(err => console.log(err))
+}
+
+const followersArray = [
+  'CoBe18',
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd'
+]
+
+followersArray.forEach( follower => {
+  getFollowers(follower)
+})
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -75,10 +97,11 @@ function cardMaker({avatar_url, name, login, location, html_url, followers, foll
   info.appendChild(userName)
   info.appendChild(cLocation)
   info.appendChild(profile)
+  info.appendChild(address)
   info.appendChild(follow)
   info.appendChild(followed)
   info.appendChild(aboutMe)
-  profile.appendChild(address)
+  
 
   card.classList.add('card')
   info.classList.add('card-info')
@@ -101,12 +124,12 @@ function cardMaker({avatar_url, name, login, location, html_url, followers, foll
 
 }
 
-cardEntry.appendChild(cardMaker(userData));
+// cardEntry.appendChild(cardMaker());
 
-followersArray.forEach(panelObj => {
-  const newPanel = cardMaker(panelObj)
-  cardEntry.append(newPanel)
-})
+// followersArray.forEach(panelObj => {
+//   const newPanel = cardMaker(panelObj)
+//   cardEntry.appendChild(newPanel)
+// })
 
 
 /*
