@@ -8,37 +8,44 @@ import axios from "axios";
 
 function cardMaker(data) {
   const cardHolder = document.querySelector(".cards");
-  const mainCard = document.createElement("div");
+  const card = document.createElement("div");
+  card.setAttribute("display", "flex");
+  card.setAttribute("justify-content", "center");
 
   const cardImage = document.createElement("img");
-  console.log(data);
   cardImage.setAttribute("src", data["avatar_url"]);
-  mainCard.append(cardImage);
-
-  const cardInfo = document.createElement("div");
+  cardImage.setAttribute("width", "100%");
+  card.append(cardImage);
 
   const cardName = document.createElement("h3");
   cardName.textContent = data["name"];
+  cardName.setAttribute("font-size", "40px");
+  card.append(cardName);
 
   const cardUserName = document.createElement("p");
-  cardUserName.textContent = data["login"];
-  mainCard.append(cardUserName);
+  cardUserName.textContent = `Username: ${data["login"]}`;
+  card.append(cardUserName);
+
   const cardLocation = document.createElement("p");
-  cardLocation.textContent = data["location"];
-  mainCard.append(cardLocation);
+  cardLocation.textContent = `Location: ${data["location"]}`;
+  card.append(cardLocation);
+
   const profileAddress = document.createElement("a");
   profileAddress.setAttribute("src", "url");
-  mainCard.append(profileAddress);
+  card.append(profileAddress);
+
   const profileFollowers = document.createElement("p");
-  profileFollowers.textContent = data["followers"];
-  mainCard.append(profileFollowers);
+  profileFollowers.textContent = `Followers: ${data["followers"]}`;
+  card.append(profileFollowers);
+
   const profileFollowing = document.createElement("p");
-  profileFollowing.textContent = data["following"];
-  mainCard.append(profileFollowing);
+  profileFollowing.textContent = `Following: ${data["following"]}`;
+  card.append(profileFollowing);
+
   const profileBio = document.createElement("p");
   profileBio.textContent = data["bio"];
-  mainCard.append(profileBio);
-  cardHolder.append(mainCard);
+  card.append(profileBio);
+  cardHolder.append(card);
 }
 
 axios.get(`https://api.github.com/users/JamariaSims`).then((response) => {
