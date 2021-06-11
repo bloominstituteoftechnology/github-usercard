@@ -2,21 +2,13 @@ import axios from 'axios'
 
 
 
-const axiosRequest = axios.get('https://api.github.com/users/purefallen11');
-console.log(axiosRequest)
-/*
-  STEP 1: using axios, send a GET request to the following URL
-    (replacing the placeholder with your Github name):
-    https://api.github.com/users/<your name>
-*/
-
-/*
-  STEP 2: Inspect and study the data coming back, this is YOUR
-    github info! You will need to understand the structure of this
-    data in order to use it to build your component function
-
-    Skip to STEP 3.
-*/
+const axiosRequest = axios.get('https://api.github.com/users/purefallen11')
+  .then(res => {
+        console.log(res)
+  })
+  .catch(err => {
+        console.log(err)
+  })
 
 /*
   STEP 4: Pass the data received from Github into your function,
@@ -54,7 +46,36 @@ const followersArray = [];
       </div>
     </div>
 */
+const cardMaker = (data) => {
+  //creating elements
+  mainDiv.createElement("div")
+  img.createElement("img")
+  cardInfo.createElement("div")
+  userName.createElement("h3")
+  actualUserName.createElement("p")
+  location.createElement("p")
+  profile.createElement("p")
+  addressLink.createElement("a")
+  followers.createElement("p")
+  following.createElement("p")
+  bio.createElement("p")
 
+  //adding content
+  img.setAttribute("src", data.avatar_url)
+  userName.textContent = data.name
+  location.textContent = data.location
+  profile.textContent = "Profile"
+  addressLink.setAttribute("href", data.url)
+  followers.textContent = data.followers
+  following.textContent = data.following
+  bio.textContent = data.bio
+
+  //appending children
+
+
+
+
+}
 /*
   List of LS Instructors Github username's:
     tetondan
