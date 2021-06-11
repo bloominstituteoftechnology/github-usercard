@@ -1,3 +1,9 @@
+import axios from 'axios'
+
+
+
+const axiosRequest = axios.get('https://api.github.com/users/purefallen11');
+console.log(axiosRequest)
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -29,7 +35,6 @@
 */
 
 const followersArray = [];
-
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
