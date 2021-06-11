@@ -6,6 +6,8 @@ import axios from "axios";
     https://api.github.com/users/<your name>
 */
 
+const heart = document.querySelector("body");
+
 function cardMaker(data) {
   const cardHolder = document.querySelector(".cards");
   const card = document.createElement("div");
