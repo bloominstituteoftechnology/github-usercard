@@ -2,13 +2,15 @@ import axios from 'axios'
 
 
 
-const axiosRequest = axios.get('https://api.github.com/users/purefallen11')
+axios.get('https://api.github.com/users/purefallen11')
   .then(res => {
         console.log(res)
-  })
-  .catch(err => {
+        userDiv.appendChild(cardMaker(res.data) )
+      })
+        .catch(err => {
         console.log(err)
   })
+
 
 /*
   STEP 4: Pass the data received from Github into your function,
@@ -46,27 +48,27 @@ const followersArray = [];
       </div>
     </div>
 */
-const cardMaker = (data) => {
+const cardMaker = ({avatar_url, name, location, url, followers, following, bio}) => {
   //creating elements
-  mainDiv.createElement("div")
-  img.createElement("img")
-  cardInfo.createElement("div")
-  userName.createElement("h3")
-  actualUserName.createElement("p")
-  location.createElement("p")
-  profile.createElement("p")
-  addressLink.createElement("a")
-  followers.createElement("p")
-  following.createElement("p")
-  bio.createElement("p")
+  const mainDiv = document.createElement("div")
+  const img = document.createElement("img")
+  const cardInfo = document.createElement("div")
+  const userName = document.createElement("h3")
+  const actualUserName = document.createElement("p")
+  const location = document.createElement("p")
+  const profile = document.createElement("p")
+  const addressLink = document.createElement("a")
+  const followers = document.createElement("p")
+  const following = document.createElement("p")
+  const bio = document.createElement("p")
 
   //adding content
-  img.setAttribute("src", data.avatar_url)
-  userName.textContent = data.name
-  location.textContent = data.location
+  img.src = avatar_url
+  userName.textContent = name
+  location.textContent = location
   profile.textContent = "Profile"
-  addressLink.setAttribute("href", data.url)
-  followers.textContent = data.followers
+  addressLink.src= data.url
+  followers.textContent = "followers" + " " + data.followers
   following.textContent = data.following
   bio.textContent = data.bio
 
@@ -91,6 +93,7 @@ const cardMaker = (data) => {
   return mainDiv
 }
 
+const userDiv = document.querySelector(".cards")
 
 /*
   List of LS Instructors Github username's:
