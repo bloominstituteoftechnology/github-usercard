@@ -83,10 +83,15 @@ const cardMaker = (data) => {
   cardInfo.appendChild(bio)
 
   //adding styling classes
+  mainDiv.classList.add("card")
+  cardInfo.classList.add("card-info")
+  userName.classList.add("name")
+  actualUserName.classList.add("username")
 
-
-
+  return mainDiv
 }
+
+
 /*
   List of LS Instructors Github username's:
     tetondan
