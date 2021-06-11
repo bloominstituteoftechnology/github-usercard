@@ -76,7 +76,16 @@ axios.get(`https://api.github.com/users/JamariaSims`).then((response) => {
 */
 
 const followersArray = [];
-
+followersArray.push("https://api.github.com/users/tetondan");
+followersArray.push("https://api.github.com/users/dustinmyers");
+followersArray.push("https://api.github.com/users/justsml");
+followersArray.push("https://api.github.com/users/luishrd");
+followersArray.push("https://api.github.com/users/bigknell");
+for (let i = 0; i < followersArray.length; i++) {
+  axios.get(followersArray[i]).then((response) => {
+    cardMaker(response.data);
+  });
+}
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
