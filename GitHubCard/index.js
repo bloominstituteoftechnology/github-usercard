@@ -3,13 +3,13 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-import axios from 'axios'
-const data = axios.get('https://api.github.com/users/TaylorCoder22').then(res => {
-  cards.append(gitCard(res))
+axios.get('https://api.github.com/users/TaylorCoder22')
+.then((res) => {
+  const user = githubUser(res.data)
+  const cards = document.querySelector('.cards')
+  cards.appendChild(user)
 })
-.catch(err => {
-  console.log(err)
-})
+.catch((err) => console.log(err))
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -23,7 +23,6 @@ const data = axios.get('https://api.github.com/users/TaylorCoder22').then(res =>
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
-const cards = document.querySelector('.cards')
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -38,9 +37,12 @@ const cards = document.querySelector('.cards')
 
 const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell', 'TaylorCoder22'];
 
-followersArray.forEach(user => {
-  axios.get('https://api.github.com/users/${user}').then(res => {
-    cards.append(gitCard(res))
+followersArray.forEach(follower => {
+  axios.get('https://api.github.com/users/${follower}')
+  .then((res) => {
+    const user = githubUser(res.data)
+    const cards = document.querySelector('.cards')
+    cards.appendChild(user)
   })
   .catch(err => {
     console.log(err)
@@ -75,43 +77,44 @@ followersArray.forEach(user => {
     luishrd
     bigknell
 */
-function gitCard ({data}){
-  const divCard = document.createElement('div')
-  const img = document.createElement('img')
-  const divInfo = document.createElement('div')
-  const h3Name = document.createElement('h3')
-  const userName = document.createElement('p')
+function githubUser({user}) {
+  const card = document.createElement('div')
+  const image = document.createElement('img')
+  const cardInfo = document.createElement('div')
+  const name = document.createElement('h3')
+  const username = document.createElement('p')
   const location = document.createElement('p')
   const profile = document.createElement('p')
-  const addressLink = document.createElement('a')
+  const profileLink = document.createElement('a')
   const followers = document.createElement('p')
   const following = document.createElement('p')
   const bio = document.createElement('p')
 
-  divCard.className = 'card'
-  divInfo.className = 'card-info'
-  h3Name.className = 'name'
-  userName.className = 'username'
+  card.appendChild(image)
+  card.appendChild(cardInfo)
+  cardInfo.appendChild(name)
+  cardInfo.appendChild(username)
+  cardInfo.appendChild(location)
+  cardInfo.appendChild(profile)
+  profile.appendChild(profileLink)
+  cardInfo.appendChild(followers)
+  cardInfo.appendChild(following)
+  cardInfo.appendChild(bio)
 
-  img.setAttribute('src', `${data.avatar_url}`)
-  h3Name.textContent = `${data.name}`
-  userName.textContent = `${data.login}`
-  location.textContent = `Location: ${data.location}`
-  addressLink.setAttribute('href', `${data.html_url}`)
-  addressLink.textContent = `Github-URL: ${data.html_url}`
-  followers.textContent = `Followers: ${data.followers}`
-  following.textContent = `Following: ${data.following}`
-  bio.textContent = `${data.bio}`
+  image.src = user['avatar_url']
+  name.textContent = user['name']
+  username.textContent = user['login']
+  location.textContent = user['location']
+  profileLink.textContent = user['html_url']
+  profileLink.href = user['html_url']
+  profile.textContent = 'Profile: ${profileLink.textContent}'
+  followers.textContent = 'Followers: ${user["followers"]}'
+  following.textContent = 'Following: ${user["following]"}'
+  bio.textContent = user['bio']
 
-  divCard.append(img)
-  divCard.append(divInfo)
-  divInfo.append(h3Name)
-  divInfo.append(userName)
-  divInfo.append(location)
-  divInfo.append(profile)
-  profile.append(addressLink)
-  divInfo.append(followers)
-  divInfo.append(following)
+  card.classList.add('card')
+  cardInfo.classList.add('card-info')
+  username.classList.add('username')
 
-  return divCard
+  return card;
 }
