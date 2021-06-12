@@ -48,9 +48,9 @@ const followersArray = [];
       </div>
     </div>
 */
-const cardMaker = ({avatar_url, name, location, url, followers, following, bio}) => {
+const cardMaker = (data) => {
   //creating elements
-  const mainDiv = document.createElement("div")
+  const mainDiv =document.createElement("div")
   const img = document.createElement("img")
   const cardInfo = document.createElement("div")
   const userName = document.createElement("h3")
@@ -63,13 +63,15 @@ const cardMaker = ({avatar_url, name, location, url, followers, following, bio})
   const bio = document.createElement("p")
 
   //adding content
-  img.src = avatar_url
-  userName.textContent = name
-  location.textContent = location
-  profile.textContent = "Profile"
-  addressLink.src= data.url
+  img.src = data.avatar_url
+  userName.textContent = data.name
+  location.textContent = data.location
+  profile.textContent = "Profile : "
+  addressLink.setAttribute("href", data.html_url)
+  addressLink.setAttribute("target", "_blank")
+  addressLink.innerHTML = "Visit my github"
   followers.textContent = "followers" + " " + data.followers
-  following.textContent = data.following
+  following.textContent = "following" + " " + data.following
   bio.textContent = data.bio
 
   //appending children
@@ -79,7 +81,7 @@ const cardMaker = ({avatar_url, name, location, url, followers, following, bio})
   cardInfo.appendChild(actualUserName)
   cardInfo.appendChild(location)
   cardInfo.appendChild(profile)
-  cardInfo.appendChild(addressLink)
+  profile.appendChild(addressLink)
   cardInfo.appendChild(followers)
   cardInfo.appendChild(following)
   cardInfo.appendChild(bio)
