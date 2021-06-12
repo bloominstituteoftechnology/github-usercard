@@ -1,16 +1,16 @@
-/*
-  STEP 1: using axios, send a GET request to the following URL
-    (replacing the placeholder with your Github name):
-    https://api.github.com/users/<your name>
-*/
+import axios from 'axios'
 
-/*
-  STEP 2: Inspect and study the data coming back, this is YOUR
-    github info! You will need to understand the structure of this
-    data in order to use it to build your component function
 
-    Skip to STEP 3.
-*/
+
+axios.get('https://api.github.com/users/purefallen11')
+  .then(res => {
+        console.log(res)
+        userDiv.appendChild(cardMaker(res.data) )
+      })
+        .catch(err => {
+        console.log(err)
+  })
+
 
 /*
   STEP 4: Pass the data received from Github into your function,
@@ -29,7 +29,6 @@
 */
 
 const followersArray = [];
-
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -49,6 +48,54 @@ const followersArray = [];
       </div>
     </div>
 */
+const cardMaker = (data) => {
+  //creating elements
+  const mainDiv =document.createElement("div")
+  const img = document.createElement("img")
+  const cardInfo = document.createElement("div")
+  const userName = document.createElement("h3")
+  const actualUserName = document.createElement("p")
+  const location = document.createElement("p")
+  const profile = document.createElement("p")
+  const addressLink = document.createElement("a")
+  const followers = document.createElement("p")
+  const following = document.createElement("p")
+  const bio = document.createElement("p")
+
+  //adding content
+  img.src = data.avatar_url
+  userName.textContent = data.name
+  location.textContent = data.location
+  profile.textContent = "Profile : "
+  addressLink.setAttribute("href", data.html_url)
+  addressLink.setAttribute("target", "_blank")
+  addressLink.innerHTML = "Visit my github"
+  followers.textContent = "followers" + " " + data.followers
+  following.textContent = "following" + " " + data.following
+  bio.textContent = data.bio
+
+  //appending children
+  mainDiv.appendChild(img)
+  mainDiv.appendChild(cardInfo)
+  cardInfo.appendChild(userName)
+  cardInfo.appendChild(actualUserName)
+  cardInfo.appendChild(location)
+  cardInfo.appendChild(profile)
+  profile.appendChild(addressLink)
+  cardInfo.appendChild(followers)
+  cardInfo.appendChild(following)
+  cardInfo.appendChild(bio)
+
+  //adding styling classes
+  mainDiv.classList.add("card")
+  cardInfo.classList.add("card-info")
+  userName.classList.add("name")
+  actualUserName.classList.add("username")
+
+  return mainDiv
+}
+
+const userDiv = document.querySelector(".cards")
 
 /*
   List of LS Instructors Github username's:
