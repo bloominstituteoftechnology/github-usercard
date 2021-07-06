@@ -1,8 +1,25 @@
+import axios from 'axios';
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
+axios
+.get("https://api.github.com/users/CerritoCode0101")
+.then((res) => {
+const info = res.data;
+const page = document.querySelector('.cards');
+const maker = gitMaker(info);
+page.appendChild(maker);
+console.log(page);
+
+});
+// .catch((err) => {
+// console.log('error', err);
+// });
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -28,7 +45,24 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  "https://github.com/tetondan",
+  "https://github.com/dustinmyers",
+  "https://api.github.com/users/justsml",
+  "https://api.github.com/users/luishrd",
+  "https://api.github.com/users/bigknell"
+
+];
+
+followersArray.forEach(follower => {
+  axios.get(`${follower}`)
+  .then(res => {
+    const card = gitMaker(res.data);
+    const cardClass = document.querySelector('.cards');
+    cardClass.appendChild(card)
+
+  })  
+})
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +83,52 @@ const followersArray = [];
       </div>
     </div>
 */
+
+
+function gitMaker(data){
+  const parent = document.createElement('div');
+  const img = document.createElement('img');
+  const subDiv = document.createElement('div');
+  const name = document.createElement('h3');
+  const userP = document.createElement('p');
+  const locationP = document.createElement('p');
+  const profileP = document.createElement('p');
+  const anchor = document.createElement('a')
+  const followersP = document.createElement('p');
+  const followingP = document.createElement('p');
+  const bioP = document.createElement('p');
+
+  parent.className = 'card'
+  subDiv.className = 'card-info'
+  name.className = 'name'
+  userP.className = 'username'
+
+  parent.appendChild(img);
+  parent.appendChild(subDiv);
+  subDiv.appendChild(name);
+  subDiv.appendChild(userP);
+  subDiv.appendChild(locationP);
+  subDiv.appendChild(profileP);
+  profileP.appendChild(anchor);
+  subDiv.appendChild(followersP);
+  parent.appendChild(followingP);
+  parent.appendChild(bioP);
+
+  anchor.setAttribute("href", data.url);
+  img.setAttribute('src', data.avatar_url);  
+  
+  name.textContent = `Name: ${data.name}`;
+  userP.textContent = `Username: ${data.login}`;
+  locationP.textContent = `Location:${data.location}`;
+  profileP.textContent = `Profile: ${data.url}`;
+  followersP.textContent = `Followers: ${data.followers}`;
+  followingP.textContent = `Following: ${data}`;
+  bioP.textContent = `Bio: ${data.bio}`;
+
+  
+return parent;
+}
+
 
 /*
   List of LS Instructors Github username's:
