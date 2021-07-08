@@ -1,9 +1,23 @@
+
+
 import axios from 'axios';
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
+
+
+const grabData = (event) => {
+  console.log('its working')
+  axios.get("https://api.github.com/users/EricGant")
+    .then(res => {
+      console.log(res.data)
+    })
+    .catch(err =>{
+})
+}
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -12,19 +26,7 @@ import axios from 'axios';
 
     Skip to STEP 3.
 */
-const URL = "http get https://api.github.com/users/EricGant --verbose"
 
-const grabData = e => {
-  console.log('its working')
-  axios.get(URL + 1)
-    .then(response => {
-      debugger
-      console.log('test')
-    })
-    .catch(err =>)
-      debugger
-}
-console.log(grabData)
 /*
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
@@ -40,13 +42,12 @@ console.log(grabData)
     Using that array, iterate over it, requesting data for each user, creating a new card for each
     user, and adding that card to the DOM.
 */
-
-const followersArray = [    
-  'tetondan',
-  'dustinmyers',
-  'justsml'.
-  'luishrd',
-  'bigknell]',
+const users = [    
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell"]
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -67,6 +68,56 @@ const followersArray = [
       </div>
     </div>
 */
+const cardAtt = document.querySelector('.cards')
+const container = document.querySelector('.container')
+
+const newCard = ({obj}) =>{
+  const cards = document.createElement('div')
+  cards.classList.add('card')
+  const img = document.createElement('img')
+  const cardinfo = document.createElement('div')
+  cardinfo.classList.add('card-info')
+  const h3 = document.createElement('h3')
+  h3.classList.add('name')
+  const p1 = document.createElement('p')
+  p1.classList.add('username')
+  const p2 = document.createElement('p')
+  const p3 = document.createElement('p')
+  const a = document.createElement('a')
+  const p4 = document.createElement('p')
+  const p5 = document.createElement('p')
+  const p6 = document.createElement('p')
+  h3.textContent = name
+  img.textContent = img
+  cardAtt.appendChild(cards)
+  cards.appendChild(img)
+  cards.appendChild(cardinfo)
+  cardinfo.appendChild(h3)
+  cardinfo.appendChild(p1)
+  cardinfo.appendChild(p2)
+  cardinfo.appendChild(p3)
+  p3.appendChild(a)
+  cardinfo.appendChild(p4)
+  cardinfo.appendChild(p5)
+  cardinfo.appendChild(p6)
+  return cards
+}
+newCard({grabData})
+
+const grabDataAgain = (event) => {
+  console.log('its working')
+  axios.get("https://api.github.com/users/EricGant")
+    .then(res => {
+      res.data.forEach(name => {
+        const cards = newCard(name)
+        container.appendChild(cards)
+      })
+        
+      })
+    .catch(err =>{
+})
+}
+
 
 /*
   List of LS Instructors Github username's:
