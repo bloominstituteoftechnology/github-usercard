@@ -1,23 +1,8 @@
-//Axios import
-import axios from 'axios';
-
-//404 errors look at end of video
-
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
-
-//--- Get Request---//
-//Axios.get retrieves from the following URL
-axios.get(`https://api.github.com/users/tfbielawski`)
-//Then logs the data to the console
-.then(( data ) => {console.log(data)})
-//Catch error statement
-.catch(err => console.log(err));
-
 
 
 /*
@@ -45,8 +30,6 @@ axios.get(`https://api.github.com/users/tfbielawski`)
     user, and adding that card to the DOM.
 */
 
-//Declare the array holding LS instructor names
-const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -68,21 +51,83 @@ const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigkne
     </div>
 */
 
+
+//Axios import statement
+import axios from 'axios';
+
+
+//---Entry point---//
+const entryPoint = document.querySelector(".cards");
+
+//--- Get Request/function call---//
+const getGitting = (username) =>
+{
+  //Axios gets the info, using the username variable passed in
+  axios.get(`https://api.github.com/users/${username}`)
+
+  //Then statement
+  .then(res => 
+  {
+    //Console log the results
+    console.log(res.data);
+    //Call the maker function, pass in the Axios.get results, append to entry point
+    entryPoint.appendChild(gitHubCardMaker(res.data));
+  })
+
+  //.catch if there is an error...
+  .catch(err => 
+  {
+    //Log the error
+    console.log(err);
+  })
+
+  //.finally statement runs anyway
+  .finally(() => 
+  {
+    console.log("done");
+  })
+}
+
+getGitting("tfbielawski");
+
+//Declare the array holding LS instructor names
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+
+//ForEach to iterate the followersArray and assign to the card. 
+followersArray.forEach(userName => 
+{
+  //Axios.get's the user data
+  axios.get(`https://api.github.com/users/${userName}`)
+  //.then 
+  .then((more => 
+  {
+    //Call gitHubCardMaker, pass in more, assign to entry and append
+    entryPoint.appendChild(gitHubCardMaker(more.data))
+  }))
+})
+
+
 //Define the function, passes in data
-function gitHubCard(data)
+function gitHubCardMaker(data)
 {
 
   //---Div class "card" --//
   //Create a div element, assign to divClassCard
   const divClassCard = document.createElement("div");
+  //Assign the class
+  divClassCard.classList.add("card");
 
   //---Image element---//
   //Crate img element and assign to imgSrc
   const imgSrc = document.createElement("img");
+  //Assign the class
+  imgSrc.classList.add("card-info");
   //Append imgSrc to divClassCard
   divClassCard.appendChild(imgSrc);
   //Link the image to imgSrc
-  imgSrc.src = data.avatar_url;
+  //imgSrc.setAttribute("href", `${data.avatar_url}`);
+  imgSrc.setAttribute("src", data.avatar_url);
+
 
   //---Card info div element---//
   //Create a div element, assign to divCardInfo
@@ -100,7 +145,7 @@ function gitHubCard(data)
   //Append h3ClassName to divClassCardInfo
   divClassCardInfo.appendChild(h3ClassName);
   //Assign the data name value to pClassName
-  h3ClassName.textContent = `name: ${data.name}`;
+  h3ClassName.textContent = `Name: ${data.name}`;
 
   //---p, user name---//
   //Create p element, assign to pClassUserName
@@ -110,7 +155,7 @@ function gitHubCard(data)
   //Append pClassUserName to divClassCardInfo
   divClassCardInfo.appendChild(pClassUserName);
   //Assign the data login value to pClassUserName
-  pClassUserName.textContent = `login: ${data.login}`;
+  pClassUserName.textContent = `User Name: ${data.login}`;
 
   //---p location---//
   //Create p element, assign to pLocation
@@ -118,7 +163,7 @@ function gitHubCard(data)
   //Append pLocation to divClassCardInfo
   divClassCardInfo.appendChild(pLocation);
   //Assign the location value to pLocation
-  pLocation.textContent = `location: ${data.location}`;
+  pLocation.textContent = `Location: ${data.location}`;
 
   //---p profile, a href---//
   //Create p element, assign to pProfile
@@ -139,7 +184,7 @@ function gitHubCard(data)
   //Append pFollowers to divClassCardInfo
   divClassCardInfo.appendChild(pFollowers);
   //Apply the follwers data to pFollowers
-  pFollowers.textContent = `followers: ${data.followers}`;
+  pFollowers.textContent = `Followers: ${data.followers}`;
 
   //---p following---//
   //Create p element, assign to pFollowing
@@ -147,7 +192,7 @@ function gitHubCard(data)
   //Append pFollowing to divClassCardInfo
   divClassCardInfo.appendChild(pFollowing);
   //Apply the following data value to pFollowing
-  pFollowing.textContent = `following: ${data.following}`;
+  pFollowing.textContent = `Following: ${data.following}`;
 
 
   //---p Bio---//
@@ -156,13 +201,12 @@ function gitHubCard(data)
   //Append pBio to divClassCardInfo
   divClassCardInfo.appendChild(pBio);
   //Apply the bio data value to pBio
-  pBio.textContent = `bio: ${data.bio}`;
+  pBio.textContent = `Bio: ${data.bio}`;
 
   //Function return statement, return the divClassCard
   return divClassCard;
 }
 
-gitHubCard(data);
 
 /*
   List of LS Instructors Github username's:
