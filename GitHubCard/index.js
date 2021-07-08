@@ -44,7 +44,38 @@ const getCard = axios
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ["Jie-chelchel", "rkshockey", "Raj-04", "tetondan", "dustinmyers"];
+
+function step5(un){
+  un.forEach(function(str) {
+    axios.get(`https://api.github.com/users/${str}`)
+    .then(res => res.data) 
+    .then(step3)
+    .then(step4)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+      .finally(() => {
+      console.log("done")
+    })
+  }
+  
+  // .then(res => {
+  //   res.data.forEach(un => {
+  //     const newCard = un
+  //     return newCard
+  //   })
+//     .then(newCard => {
+//       cards.appendChild(newCard)
+//     })
+//     .catch(err => {
+//       console.log(err)
+//     })
+//   })
+// }
+
+console.log(step5(followersArray))
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -87,12 +118,13 @@ function step3(obj){
   image.src = obj.avatar_url;
   rName.textContent = obj.name;
   userName.textContent = obj.login;
-  location.textContent = obj.location;
+  location.textContent = `Location:${obj.location}`;
+  profile.textContent = `Profile:`
   a.href = obj.html_url;
   a.textContent = obj.html_url;
   followers.textContent = `Followers: ${obj.followers}`;
   following.textContent = `Following: ${obj.following}`;
-  bio.textContent = obj.bio;
+  bio.textContent = `Bio: ${obj.bio}`;
 
   userCard.appendChild(image);
   userCard.appendChild(cardInfo);
@@ -104,7 +136,7 @@ function step3(obj){
   cardInfo.appendChild(followers);
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
-  console.log(userCard);
+  
   return userCard;
 }
 
