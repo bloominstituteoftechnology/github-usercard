@@ -1,3 +1,4 @@
+import axios from 'axios';
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -11,7 +12,19 @@
 
     Skip to STEP 3.
 */
+const URL = "http get https://api.github.com/users/EricGant --verbose"
 
+const grabData = e => {
+  console.log('its working')
+  axios.get(URL + 1)
+    .then(response => {
+      debugger
+      console.log('test')
+    })
+    .catch(err =>)
+      debugger
+}
+console.log(grabData)
 /*
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
@@ -28,7 +41,12 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [    
+  'tetondan',
+  'dustinmyers',
+  'justsml'.
+  'luishrd',
+  'bigknell]',
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
