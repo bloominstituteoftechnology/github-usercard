@@ -52,14 +52,14 @@ const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigkne
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
 
-    <div class="card">
-      <img src={image url of user} />
-      <div class="card-info">
-        <h3 class="name">{users name}</h3>
-        <p class="username">{users user name}</p>
-        <p>Location: {users location}</p>
-        <p>Profile:
-          <a href={address to users github page}>{address to users github page}</a>
+    -<div class="card">
+      -<img src={image url of user} />
+      -<div class="card-info">
+        -<h3 class="name">{users name}</h3>
+        -<p class="username">{users user name}</p>
+        -<p>Location: {users location}</p>
+        -<p>Profile:
+          -<a href={address to users github page}>{address to users github page}</a>
         </p>
         <p>Followers: {users followers count}</p>
         <p>Following: {users following count}</p>
@@ -68,9 +68,101 @@ const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigkne
     </div>
 */
 
-        
+//Define the function, passes in data
+function gitHubCard(data)
+{
+
+  //---Div class "card" --//
+  //Create a div element, assign to divClassCard
+  const divClassCard = document.createElement("div");
+
+  //---Image element---//
+  //Crate img element and assign to imgSrc
+  const imgSrc = document.createElement("img");
+  //Append imgSrc to divClassCard
+  divClassCard.appendChild(imgSrc);
+  //Link the image to imgSrc
+  imgSrc.src = data.avatar_url;
+
+  //---Card info div element---//
+  //Create a div element, assign to divCardInfo
+  const divClassCardInfo = document.createElement("div");
+  //Assign the class
+  divClassCardInfo.classList.add("card-info");
+  //Append to divClassCard
+  divClassCard.appendChild(divClassCardInfo);
+
+  //---h3 name element---//
+  //Create h3 element, assign to h3ClassName
+  const h3ClassName = document.createElement("h3");
+  //Assign the class
+  h3ClassName.classList.add("name");
+  //Append h3ClassName to divClassCardInfo
+  divClassCardInfo.appendChild(h3ClassName);
+  //Assign the data name value to pClassName
+  h3ClassName.textContent = `name: ${data.name}`;
+
+  //---p, user name---//
+  //Create p element, assign to pClassUserName
+  const pClassUserName =  document.createElement("p");
+  //Assign the class
+  pClassUserName.classList.add("username");
+  //Append pClassUserName to divClassCardInfo
+  divClassCardInfo.appendChild(pClassUserName);
+  //Assign the data login value to pClassUserName
+  pClassUserName.textContent = `login: ${data.login}`;
+
+  //---p location---//
+  //Create p element, assign to pLocation
+  const pLocation =  document.createElement("p");
+  //Append pLocation to divClassCardInfo
+  divClassCardInfo.appendChild(pLocation);
+  //Assign the location value to pLocation
+  pLocation.textContent = `location: ${data.location}`;
+
+  //---p profile, a href---//
+  //Create p element, assign to pProfile
+  const pProfile=  document.createElement("p");
+  //Append pProfile to divClassCardInfo
+  divClassCardInfo.appendChild(pProfile);
+
+  //Create "a" element, assign to aWebAddress
+  const aWebAddress=  document.createElement("a");
+  //Append aWebAddress to pProfile
+  pProfile.appendChild(aWebAddress);
+  //Assign the url to aWebAddress
+  aWebAddress.setAttribute("href", data.url);
+
+  //---p followers---//
+  //Create p element, assign to pFollowers
+  const pFollowers=  document.createElement("p");
+  //Append pFollowers to divClassCardInfo
+  divClassCardInfo.appendChild(pFollowers);
+  //Apply the follwers data to pFollowers
+  pFollowers.textContent = `followers: ${data.followers}`;
+
+  //---p following---//
+  //Create p element, assign to pFollowing
+  const pFollowing =  document.createElement("p");
+  //Append pFollowing to divClassCardInfo
+  divClassCardInfo.appendChild(pFollowing);
+  //Apply the following data value to pFollowing
+  pFollowing.textContent = `following: ${data.following}`;
 
 
+  //---p Bio---//
+  //Create p element, assign to pBio
+  const pBio =  document.createElement("p");
+  //Append pBio to divClassCardInfo
+  divClassCardInfo.appendChild(pBio);
+  //Apply the bio data value to pBio
+  pBio.textContent = `bio: ${data.bio}`;
+
+  //Function return statement, return the divClassCard
+  return divClassCard;
+}
+
+gitHubCard(data);
 
 /*
   List of LS Instructors Github username's:
