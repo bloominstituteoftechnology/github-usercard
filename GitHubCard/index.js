@@ -1,8 +1,24 @@
+//Axios import
+import axios from 'axios';
+
+//404 errors look at end of video
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
+
+//--- Get Request---//
+//Axios.get retrieves from the following URL
+axios.get(`https://api.github.com/users/tfbielawski`)
+//Then logs the data to the console
+.then(( data ) => {console.log(data)})
+//Catch error statement
+.catch(err => console.log(err));
+
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -17,6 +33,7 @@
     and append the returned markup to the DOM as a child of .cards
 */
 
+
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
@@ -28,7 +45,8 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+//Declare the array holding LS instructor names
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +67,10 @@ const followersArray = [];
       </div>
     </div>
 */
+
+        
+
+
 
 /*
   List of LS Instructors Github username's:
