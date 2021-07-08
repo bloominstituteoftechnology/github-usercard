@@ -1,3 +1,5 @@
+const { default: Axios } = require("axios");
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -58,3 +60,69 @@ const followersArray = [];
     luishrd
     bigknell
 */
+function GithubCard(imgUrl, name, userName, location, followers, following, bio, profileLink) {
+  // I'm creating all the elements for the component
+  const newCard = document.createElement('div');
+  const userImg = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const cardName = document.createElement('h3');
+  const cardUserName = document.createElement('p');
+  const cardLocation = document.createElement('p');
+  const cardProfileP = document.createElement('p');
+  const cardFollowers = document.createElement('p');
+  const cardFollowing = document.createElement('p');
+  const cardBio = document.createElement('p');
+  const cardProfileA = document.createElement('a');
+
+  // Now I'm appending all the elements to the DOM
+  newCard.appendChild(userImg);
+  newCard.appendChild(cardInfo);
+  cardInfo.appendChild(cardName);
+  cardInfo.appendChild(cardUserName);
+  cardInfo.appendChild(cardLocation);
+  cardInfo.appendChild(cardProfileP);
+  cardInfo.appendChild(cardFollowers);
+  cardInfo.appendChild(cardFollowing);
+  cardInfo.appendChild(cardBio);
+  cardProfileP.appendChild(cardProfileA);
+
+  // adding styling (the classes)
+  newCard.classList.add('card');
+  cardInfo.classList.add('card-info');
+  cardName.classList.add('name');
+  cardUserName.classList.add('username');
+
+  // adding interactivity/content
+  userImg.src = imgUrl;
+  cardName.textContent = name;
+  cardUserName.textContent = userName;
+  cardLocation.textContent = location;
+  cardFollowers.textContent = followers;
+  cardFollowing.textContent = following;
+  cardBio.textContent = bio;
+  cardprofileA = profileLink;
+
+  return newCard;
+}
+
+// creating a variable and making it's value you the div container I want to append my component to.
+const entryPoint = document.querySelector('.cards');
+// imgUrl, name, userName, location, followers, following, bio, profileLink
+let dataArray = [];
+Axios
+  .get('https://api.github.com/users/llpookyll')
+  .then((res) => {
+    console.log('Here is the response', res);
+
+    dataArray.push(res.data);
+
+    console.log('the array', dataArray);
+
+    dataArray.forEach((data) => {
+      entryPoint.append(GithubCard(data.avatar_url, data.name, data.login, data.location, data.followers, data.following, data.bio, data.html_url))
+    });
+    
+  })
+  .catch((err) => {
+    console.log('Here is the error', err);
+  });
