@@ -1,9 +1,10 @@
+import axios from 'axios'
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+axios.get('https://api.github.com/users/broveku')
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -28,7 +29,38 @@
     user, and adding that card to the DOM.
 */
 
+const cards = document.querySelector('.cards')
+
 const followersArray = [];
+
+const card = document.createElement('div')
+const imgURL = document.createElement('img')
+const cardInfo = document.createElement('div')
+const userName = document.createElement('h3')
+const usersUsername = document.createElement('p')
+const userLocation = document.createElement('p')
+const userProfile = document.createElement('p')
+const userProfileLink = document.createElement('a')
+const userFollowers = document.createElement('p')
+const userFollowing = document.createElement('p)')
+const userBio = document.createElement('p')
+
+card.classList.add('card')
+cardInfo.classList.add('card-info')
+userName.classList.add('name')
+usersUsername.classList.add('username')
+
+cards.appendChild(card)
+card.appendChild(imgURL)
+card.appendChild(cardInfo)
+cardInfo.appendChild(userName)
+cardInfo.appendChild(usersUsername)
+cardInfo.appendChild(userLocation)
+cardInfo.appendChild(userProfile)
+userProfile.appendChild(userProfileLink)
+cardInfo.appendChild(userFollowers)
+cardInfo.appendChild(userFollowing)
+cardInfo.appendChild(userBio)
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
