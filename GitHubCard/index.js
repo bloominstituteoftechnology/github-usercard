@@ -103,6 +103,31 @@ axios.get('https://api.github.com/users/broveku')
 
 const followersArray = []
 
+axios.get('https://api.github.com/users/tetondan/followers')
+  .then(res => {
+    res.data.forEach(obj => {
+      followersArray.push(obj.login)
+    })
+    return followersArray
+  })
+  
+  .then(names =>{
+    followersArray.forEach(name => {
+
+      axios.get(`https://api.github.com/users/${name}`)
+        .then(res =>{
+          console.log(res.data)
+          target.appendChild(cardMaker(res.data))
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    })
+  })
+  
+    
+
+  // console.log(followersArray)
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
