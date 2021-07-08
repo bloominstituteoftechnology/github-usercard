@@ -4,18 +4,22 @@ import axios from 'axios';
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-const URL = "https://api.github.com/users/Klove-A"
-function getUser(gitURL){
-  axios.get(gitURL)
-  .then(res => {
-    console.log(res.data)
-  })
-  .catch(err => {
-    console.log(err)
-  })
-} 
 
-getUser(URL);
+
+const getCard = axios
+  .get("https://api.github.com/users/Klove-A")
+  .then(res => res.data)
+  .then(step3)
+  .then(step4)
+.catch(err => {
+  console.log(err)
+})
+  .finally(() => {
+  console.log("done")
+})
+
+
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -80,14 +84,15 @@ function step3(obj){
   rName.classList.add("name");
   userName.classList.add("username");
 
-  image.src = `${obj.avatar_url}`;
-  rName.textContent = `${obj.name}`;
-  userName.textContent = `${obj.login}`;
-  location.textContent = `${obj.location}`;
-  a.href = `${obj.html_url}`;
-  followers.textContent = `${obj.followers}`;
-  following.textContent = `${obj.following}`;
-  bio.textContent = `${obj.bio}`;
+  image.src = obj.avatar_url;
+  rName.textContent = obj.name;
+  userName.textContent = obj.login;
+  location.textContent = obj.location;
+  a.href = obj.html_url;
+  a.textContent = obj.html_url;
+  followers.textContent = `Followers: ${obj.followers}`;
+  following.textContent = `Following: ${obj.following}`;
+  bio.textContent = obj.bio;
 
   userCard.appendChild(image);
   userCard.appendChild(cardInfo);
@@ -99,9 +104,16 @@ function step3(obj){
   cardInfo.appendChild(followers);
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
+  console.log(userCard);
+  return userCard;
 }
 
-console.log(step3(getUser(URL)));
+function step4(markup){
+  const cards = document.querySelector(".cards")
+  cards.appendChild(markup)
+}
+// cards.appendChild(userCard);
+// console.log(step3(getCard));
 
 /*
   List of LS Instructors Github username's:
