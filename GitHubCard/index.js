@@ -7,6 +7,7 @@ import axios from 'axios';
 
 const cards = document.querySelector('.cards');
 
+// Requesting data and feeding it into the makeCard function
 function gitHubCard(url) {
   axios.get(`https://api.github.com/users/${url}`)
   .then(res => {
@@ -51,6 +52,7 @@ gitHubCard('KRQuinn');
 
 const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
+// Creating card for every element in array
 followersArray.forEach(element => {
   gitHubCard(element);
 })
@@ -75,7 +77,7 @@ followersArray.forEach(element => {
     </div>
 */
 
-//
+// Instantiate element Callback
 function Instantiate(type){
   return document.createElement(type);
 }
