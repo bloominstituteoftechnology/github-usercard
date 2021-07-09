@@ -1,14 +1,15 @@
+import axios from 'axios';
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+// Used HTTPie to pull up the reques, startline, headers etc. 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
     data in order to use it to build your component function
-
+//RICKS NOTES: The structure looks like an object of ky value pairs. 
     Skip to STEP 3.
 */
 
@@ -49,6 +50,56 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function gitHubCardMaker(object){
+const cardNode = document.createElement('div');
+console.log(cardNode);
+const img = document.createElement('img');
+const cardInfo = document.createElement('div');
+const h3 = document.createElement('h3');
+const pUserName = document.createElement('p');
+const pLocation = document.createElement('p');
+const pProfile = document.createElement('p');
+const aProfileURL = document.createElement('a');
+const pFollowers = document.createElement('p');
+const pFollowing = document.createElement('p');
+const pBio = document.createElement('p');
+
+
+
+cardNode.classList.add('card');
+cardInfo.classList.add('card-info');
+h3.classList.add('name');
+pUserName.classList.add('username');
+
+img.setAttribute('src', object.avatar_url);
+// img.src = object.avatar_url;
+h3.textContent = object.name;
+pUserName.textContent = object.login;
+pLocation.textContent = object.location;
+pProfile.textContent = 'Profile: ';
+aProfileURL.setAttribute('href', object.html_url);
+//aProfileURL.href = object.html_url;
+aProfileURL.textContent = object.html_url;
+pFollowers.textContent = `Followers: ${object.followers}`;
+pFollowing.textContent = `Following: ${object.following}`;
+pBio.textContent = `Bio: ${object.bio}`;
+
+cardNode.appendChild(img);
+cardNode.appendChild('cardInfo');
+cardInfo.appendChild('h3');
+cardInfo.appendChild('pUserName');
+cardInfo.appendChild('pLocation');
+cardInfo.appendChild('pProfile');
+cardInfo.appendChild('profileUrl');
+cardInfo.appendChild('pFollowers');
+cardInfo.appendChild('pFollowing');
+cardInfo.appendChild('bio');
+
+return cardNode;
+};
+
+console.log(gitHubCardMaker());
 
 /*
   List of LS Instructors Github username's:
