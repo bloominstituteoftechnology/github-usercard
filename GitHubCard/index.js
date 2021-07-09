@@ -107,7 +107,7 @@ function newCard (obj) {
   cardinfo.appendChild(username)
   cardinfo.appendChild(location)
   cardinfo.appendChild(profile)
-  profile.appendChild(ghub)
+  cardinfo.appendChild(ghub)
   cardinfo.appendChild(followers)
   cardinfo.appendChild(following)
   cardinfo.appendChild(bio)
