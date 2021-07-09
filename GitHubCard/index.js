@@ -1,9 +1,25 @@
+import axios from "axios";
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+const URL = "https://api.github.com/users/ModupeD";
 
+const grabTheData = event => {
+  console.log("about to fetch data!");
+  axios
+    .get(URL + 1)
+    .then(res => {
+      debugger;
+    })
+    .catch(err => {
+      debugger;
+    });
+};
+
+theButton.addEventListener("click", grabTheData);
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
