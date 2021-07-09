@@ -1,3 +1,9 @@
+/**
+ * Tom Bielawski
+ * Lambda School WEB45
+ * 2.1.4 GitHub Card Maker
+ * 7/8/2021
+ */
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
