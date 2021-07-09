@@ -17,6 +17,20 @@ import axios from 'axios';
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
+const cardsDiv = document.querySelector('.cards');
+
+axios.get('https:api.github.com/users/rickmansfield', {
+})
+.then(function (response) {
+  console.log(response);
+  cardsDiv.appendChild(gitHubCardMaker(response.data));
+})
+.catch(function (error) {
+  console.log(error);
+})
+.then(function () {
+  // always executed
+});
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -29,7 +43,35 @@ import axios from 'axios';
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'KevinHock',
+  'cdwieber',
+  'owen800q',
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell',
+  `EricGrant`
+];
+followersArray.forEach( str => {
+  addAPerson(str);
+});
+function addAPerson(name){
+  axios.get(`https:api.github.com/users/${name}`, {
+  })
+  .then(function (response) {
+    console.log(response);
+    cardsDiv.appendChild(gitHubCardMaker(response.data));
+  })
+  .catch(function (error) {
+    console.log(error);
+  })
+  .then(function () {
+    // always executed
+  });
+}
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -65,12 +107,22 @@ const pFollowers = document.createElement('p');
 const pFollowing = document.createElement('p');
 const pBio = document.createElement('p');
 
-
-
 cardNode.classList.add('card');
 cardInfo.classList.add('card-info');
 h3.classList.add('name');
 pUserName.classList.add('username');
+
+cardNode.appendChild(img);
+cardNode.appendChild(cardInfo);
+cardInfo.appendChild(h3);
+cardInfo.appendChild(pUserName);
+cardInfo.appendChild(pLocation);
+cardInfo.appendChild(pProfile);
+cardInfo.appendChild(aProfileURL);
+cardInfo.appendChild(pFollowers);
+cardInfo.appendChild(pFollowing);
+cardInfo.appendChild(pBio);
+
 
 img.setAttribute('src', object.avatar_url);
 // img.src = object.avatar_url;
@@ -85,21 +137,11 @@ pFollowers.textContent = `Followers: ${object.followers}`;
 pFollowing.textContent = `Following: ${object.following}`;
 pBio.textContent = `Bio: ${object.bio}`;
 
-cardNode.appendChild(img);
-cardNode.appendChild(cardInfo);
-cardInfo.appendChild(h3);
-cardInfo.appendChild(pUserName);
-cardInfo.appendChild(pLocation);
-cardInfo.appendChild(pProfile);
-cardInfo.appendChild(aProfileURL);
-cardInfo.appendChild(pFollowers);
-cardInfo.appendChild(pFollowing);
-cardInfo.appendChild(pBio);
 
 return cardNode;
-};
+}
 
-console.log(gitHubCardMaker());
+
 
 /*
   List of LS Instructors Github username's:
