@@ -86,15 +86,15 @@ pFollowing.textContent = `Following: ${object.following}`;
 pBio.textContent = `Bio: ${object.bio}`;
 
 cardNode.appendChild(img);
-cardNode.appendChild('cardInfo');
-cardInfo.appendChild('h3');
-cardInfo.appendChild('pUserName');
-cardInfo.appendChild('pLocation');
-cardInfo.appendChild('pProfile');
-cardInfo.appendChild('profileUrl');
-cardInfo.appendChild('pFollowers');
-cardInfo.appendChild('pFollowing');
-cardInfo.appendChild('bio');
+cardNode.appendChild(cardInfo);
+cardInfo.appendChild(h3);
+cardInfo.appendChild(pUserName);
+cardInfo.appendChild(pLocation);
+cardInfo.appendChild(pProfile);
+cardInfo.appendChild(aProfileURL);
+cardInfo.appendChild(pFollowers);
+cardInfo.appendChild(pFollowing);
+cardInfo.appendChild(pBio);
 
 return cardNode;
 };
