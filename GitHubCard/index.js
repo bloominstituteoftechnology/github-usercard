@@ -1,3 +1,4 @@
+import axios from 'axios';
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -58,3 +59,47 @@ const followersArray = [];
     luishrd
     bigknell
 */
+
+
+function cardz (element){
+  const card = document.createElement('div');
+  card.classList.add('card');
+  const carddiv = document.createElement('div');
+  carddiv.classList.add('card-info');
+  const cardImg = document.createElement('img');
+  cardImg.src = element.data.avatar_url;
+  const cardUserName = document.createElement('p');
+  cardUserName.innerText = 'Location: '+element.data.location;
+  const cardH3 = document.createElement('h3');
+  cardH3.classList.add('name');
+  cardH3.innerText = element.data.name;
+  const cardProfile = document.createElement('p');
+  cardProfile.innerText = 'Profile: ' + element.data.name;
+  const cardFollowers = document.createElement('p');
+  cardFollowers.innerText = 'Followers: ' + element.data.followers;
+  const cardFollowing = document.createElement('p');
+  cardFollowing.innerText = 'Following: ' + element.data.following;
+  const cardBio = document.createElement('p');
+  cardBio.innerText = 'Bio: ' + element.data.bio;
+
+  card.appendChild(cardImg);
+  card.appendChild(carddiv);
+  carddiv.appendChild(cardH3);
+  carddiv.appendChild(cardUserName);
+  carddiv.appendChild(cardProfile);
+  carddiv.appendChild(cardFollowers);
+  carddiv.appendChild(cardFollowing);
+  carddiv.appendChild(cardBio);
+
+  document.querySelector('.cards').appendChild(card);
+  return card;
+}
+
+axios.get('https://api.github.com/users/SethBlakley')
+  .then(response => {
+    cardz(response);
+  })
+  .catch(err => {
+    console.log(err);
+  })
+
