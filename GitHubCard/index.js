@@ -1,5 +1,7 @@
 // import axios from 'axios'
 
+// const { default: axios } = require("axios")
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -10,8 +12,9 @@ const URL = 'https://api.github.com/users/jthernandez999'
 axios
   .get(URL)
   .then(res => {
-    const user = cardMaker(res.data)
-    cardsDiv.appendChild(user)
+    const newUser = cardMaker(res.data)
+    console.log(res.data)
+    cardsDiv.appendChild(newUser)
   })
   .catch(err => {
     console.log('Error', err);
@@ -40,7 +43,21 @@ const cardsDiv = document.querySelector('.cards')
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+
+
+followersArray.forEach(newUser => {
+  axios.get(`https://api.github.com/users/${newUser}`)
+  .then(res => {
+    const newCard = cardMaker(res.data)
+  cardsDiv.appendChild(newCard)
+  console.log(res)
+  })
+  
+})
+
+
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -85,13 +102,13 @@ img.setAttribute('src', avatar_url)
 personsName.textContent = name
 userName.textContent = login
 userLocation.textContent = `Location: ${location} `
-link.setAttribute = ('src', html_url)
+link.textContent = `Profile: ${html_url}`
 userFollowers.textContent = `Followers: ${followers}`
 userFollowing.textContent = `Following: ${following}`
 userBio.textContent = `Bio: ${bio}` 
 
 
-
+  link.setAttribute('href', html_url)
   card.classList.add('card')
   cardInfo.classList.add('card-info')
   personsName.classList.add('name')
