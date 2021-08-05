@@ -9,7 +9,7 @@
     github info! You will need to understand the structure of this
     data in order to use it to build your component function
 
-    Skip to STEP 3.
+    Skip to STEP 3 (line 34).
 */
 
 /*
