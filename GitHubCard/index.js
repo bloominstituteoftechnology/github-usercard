@@ -4,6 +4,13 @@
     https://api.github.com/users/<your name>
 */
 
+axios.get('https://api.github.com/users/Brendonjhawkins')
+.then(res => {
+  console.log(res.data);
+}).catch(err => {
+  console.error('There was a mix up!!')
+})
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
