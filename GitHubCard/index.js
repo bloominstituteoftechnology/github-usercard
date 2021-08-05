@@ -1,9 +1,16 @@
+import axios from 'axios'
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+axios.get('https://api.github.com/users/christina-yun')
+.then( response => {
+  console.log('my gitHub', response);
+}) 
+.catch(err => 
+  {console.error('This is an error')
+});
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -16,6 +23,16 @@
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
+function newCard(userName){
+  axios.get(`https://api.github.com/users/${userName}`)
+  .then( response => {
+    return cardMaker(response.data);
+  }) 
+  .catch(err => 
+    {console.error('This is an error')
+  });
+}
+newCard('christina-yun');
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -49,7 +66,49 @@ const followersArray = [];
       </div>
     </div>
 */
+function cardMaker(gitUser){
+  const card = document.createElement('div');
+  const avatar = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const handle = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const profileLink = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
 
+  //append children!
+  card.appendChild(avatar);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(handle);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  profile.appendChild(profileLink);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+  
+  //add classes
+  card.classList ='card';
+  cardInfo.classList = 'card-info';
+  name.classList.add('name')
+  handle.classList.add('username');
+
+  //add text and other things?
+  avatar.src = gitUser.avatar_url;
+  location.textContent =`Location: ${gitUser.location}`;
+  profile.textContent = 'Profile: ';
+  profileLink.textContent = `${gitUser.html_url}`;
+  profileLink.href = gitUser.html_url;
+  followers.textContent = `Followers: ${gitUser.followers}`;
+  following.textContent = `Following: ${gitUser.following}`;
+  bio.textContent = `Bio: ${gitUser.bio}`;
+
+  return card;
+};
 /*
   List of LS Instructors Github username's:
     tetondan
