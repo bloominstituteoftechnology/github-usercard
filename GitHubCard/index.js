@@ -4,6 +4,20 @@
     https://api.github.com/users/<your name>
 */
 
+const followersArray = ["brentbess21", "tetondan", "dustinmyers", "justsml", "luishrd", "bigknell"];
+
+const entryPoint = document.querySelector(".cards");
+
+axios.get(`https://api.github.com/users/brentbess21`)
+.then(response =>{
+  const newProfile = cardMaker(response);
+  entryPoint.appendChild(newProfile);
+})
+.catch(err=>{
+  console.error(err);
+})
+
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -28,7 +42,7 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+// const followersArray = ["brentbess21", "tetondan", "dustinmyers", "justsml", "luishrd", "bigknell"];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +63,57 @@ const followersArray = [];
       </div>
     </div>
 */
+
+
+function cardMaker(obj){
+  //create elements
+  const cardContainer = document.createElement("div");
+  const cardImg = document.createElement("img");
+  const cardInfoDiv = document.createElement("div");
+  const cardName = document.createElement("h3");
+  const cardUsername = document.createElement("p");
+  const cardLocation = document.createElement("p");
+  const cardProfile = document.createElement("p");
+  const cardProfileLink = document.createElement("a");
+  const cardFollowers = document.createElement("p");
+  const cardFollowing = document.createElement("p");
+  const cardBio = document.createElement("p");
+
+  //create structure 
+  cardContainer.appendChild(cardImg);
+  cardContainer.appendChild(cardInfoDiv);
+  cardInfoDiv.appendChild(cardName);
+  cardInfoDiv.appendChild(cardUsername);
+  cardInfoDiv.appendChild(cardLocation);
+  cardInfoDiv.appendChild(cardProfile);
+  cardProfile.appendChild(cardProfileLink);
+  cardInfoDiv.appendChild(cardFollowers);
+  cardInfoDiv.appendChild(cardFollowing);
+  cardInfoDiv.appendChild(cardBio);
+
+  //pass in classes and attributes
+  cardContainer.classList.add("card");
+  cardImg.src = obj["data"]["avatar_url"];
+  cardInfoDiv.classList.add("card-info");
+  cardName.classList.add("name");
+  cardUsername.classList.add("username");
+  cardProfileLink.href = obj["data"]["url"];
+
+  //pass in content
+  cardName.textContent = obj.data.name;
+  cardUsername.textContent = obj.data.login;
+  cardLocation.textContent = obj.data.location;
+  cardProfileLink.textContent = obj.data.url;
+  cardFollowers.textContent = `Followers: ${obj.data.followers}`;
+  cardFollowing.textContent = `Following: ${obj.data.following}`;
+  cardBio.textContent = obj.data.bio;
+
+  //add functionality
+
+  //return card
+
+  return cardContainer;
+}
 
 /*
   List of LS Instructors Github username's:
