@@ -8,7 +8,8 @@ const followersArray = ["brentbess21", "tetondan", "dustinmyers", "justsml", "lu
 
 const entryPoint = document.querySelector(".cards");
 
-axios.get(`https://api.github.com/users/brentbess21`)
+function lotsOfCards(username) {
+axios.get(`https://api.github.com/users/${username}`)
 .then(response =>{
   const newProfile = cardMaker(response);
   entryPoint.appendChild(newProfile);
@@ -16,6 +17,12 @@ axios.get(`https://api.github.com/users/brentbess21`)
 .catch(err=>{
   console.error(err);
 })
+}
+
+followersArray.forEach(username =>{
+  lotsOfCards(username);
+})
+
 
 
 /*
