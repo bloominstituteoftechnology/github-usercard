@@ -23,10 +23,12 @@ axios.get('https://api.github.com/users/christina-yun')
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
+const cards = document.querySelector('.cards');
 function newCard(userName){
   axios.get(`https://api.github.com/users/${userName}`)
   .then( response => {
-    return cardMaker(response.data);
+    return cards.appendChild(cardMaker(response.data));
+
   }) 
   .catch(err => 
     {console.error('This is an error')
@@ -99,9 +101,11 @@ function cardMaker(gitUser){
 
   //add text and other things?
   avatar.src = gitUser.avatar_url;
+  name.textContent = gitUser.name;
+  handle.textContent = gitUser.login;
   location.textContent =`Location: ${gitUser.location}`;
   profile.textContent = 'Profile: ';
-  profileLink.textContent = `${gitUser.html_url}`;
+  profileLink.textContent = `${gitUser.url}`;
   profileLink.href = gitUser.html_url;
   followers.textContent = `Followers: ${gitUser.followers}`;
   following.textContent = `Following: ${gitUser.following}`;
