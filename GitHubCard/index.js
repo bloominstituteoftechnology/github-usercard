@@ -139,7 +139,7 @@ image.src = user.avatar_url
 return card
 }
 
-
+//ad
 
 
 
