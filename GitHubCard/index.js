@@ -24,6 +24,7 @@ axios.get('https://api.github.com/users/christina-yun')
     and append the returned markup to the DOM as a child of .cards
 */
 const cards = document.querySelector('.cards');
+
 function newCard(userName){
   axios.get(`https://api.github.com/users/${userName}`)
   .then( response => {
@@ -35,7 +36,6 @@ function newCard(userName){
   });
 }
 newCard('christina-yun');
-
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
@@ -47,8 +47,11 @@ newCard('christina-yun');
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['TraNequaFauntleroy','cyberkade', 'ayv8er', 'SomeiLam', 'justinfineberg'];
 
+followersArray.forEach(profile => {
+  return newCard(profile);
+});
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -75,8 +78,10 @@ function cardMaker(gitUser){
   const name = document.createElement('h3');
   const handle = document.createElement('p');
   const location = document.createElement('p');
+  //created profile and profile link elements
   const profile = document.createElement('p');
   const profileLink = document.createElement('a');
+  
   const followers = document.createElement('p');
   const following = document.createElement('p');
   const bio = document.createElement('p');
@@ -87,8 +92,15 @@ function cardMaker(gitUser){
   cardInfo.appendChild(name);
   cardInfo.appendChild(handle);
   cardInfo.appendChild(location);
+  //appended profile to card info (shows up correctly) and link to profile
+
+  //text content replaces everything between with tags. Need to set textContent before appending to profile
+  profile.textContent = 'Profile: ';
+  profileLink.textContent = gitUser.html_url;
+  profileLink.href = gitUser.html_url;
   cardInfo.appendChild(profile);
-  profile.appendChild(profileLink);
+  profile.appendChild(profileLink); 
+  
   cardInfo.appendChild(followers);
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
@@ -104,9 +116,12 @@ function cardMaker(gitUser){
   name.textContent = gitUser.name;
   handle.textContent = gitUser.login;
   location.textContent =`Location: ${gitUser.location}`;
-  profile.textContent = 'Profile: ';
-  profileLink.textContent = `${gitUser.url}`;
-  profileLink.href = gitUser.html_url;
+  
+  
+  //something is wrong here
+  // profileLink.textContent = gitUser.html_url;
+  // profileLink.href = gitUser.html_url;
+  
   followers.textContent = `Followers: ${gitUser.followers}`;
   following.textContent = `Following: ${gitUser.following}`;
   bio.textContent = `Bio: ${gitUser.bio}`;
