@@ -132,8 +132,8 @@ image.src = user.avatar_url
 
 //link
 
- address.setAttribute('href', user.url) 
-
+ address.setAttribute('href', user.html_url) 
+ address.target = '_blank'
 
 
 return card
