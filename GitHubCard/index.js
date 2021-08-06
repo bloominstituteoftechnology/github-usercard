@@ -8,7 +8,7 @@ const cards = document.querySelector('.cards')
 axios.get("https://api.github.com/users/ehsan2793")
 .then(response => {
   // console.log (response)
-  const card = cardMaker(response.data);
+  const card = cardMaker(response['data']);
   cards.appendChild(card);
 })
 .catch(error => {
@@ -45,8 +45,20 @@ const followersArray = ["https://api.github.com/users/tetondan",
 "https://api.github.com/users/bigknell",
 ]
 followersArray.forEach(item => {
-  const profile = cardMaker(item)
-  cards.appendChild(profile)
+
+
+axios.get(item)
+    .then(response => {
+        // console.log (response)
+        const card = cardMaker(response['data']);
+        cards.appendChild(card);
+    })
+    .catch(error => {
+        console.error (error)
+    })
+
+
+
 })
 /*
   List of LS Instructors Github username's:
@@ -93,12 +105,12 @@ const myname = document.createElement("h3")
 const myUsername = document.createElement("p")
 const myLocation = document.createElement('p')
 const profile = document.createElement("p")
-const address = document.createElement("a")
+const myaddress = document.createElement("a")
 const myFollowers = document.createElement('p')
 const myFollowing = document.createElement('p')
 const myBio = document.createElement('p')
 
-card.className = 'card';
+card.classList.add('card');
 cardInfo.classList.add('card-info');
 myname.classList.add('name');
 myUsername.classList.add('username');
@@ -110,7 +122,7 @@ cardInfo.appendChild(myname)
 cardInfo.appendChild(myUsername)
 cardInfo.appendChild(myLocation)
 cardInfo.appendChild(profile)
-profile.appendChild(address)
+profile.appendChild(myaddress)
 cardInfo.appendChild(myFollowers)
 cardInfo.appendChild(myFollowing)
 cardInfo.appendChild(myBio)
@@ -123,9 +135,9 @@ myUsername.textContent = `Username: ${login}`;
 myLocation.textContent = `Location: ${location}`;
 myFollowers.textContent = `Followers: ${followers}`;
 myFollowing.textContent = `Following: ${following}`
-profile.textContent = `Profile : ${html_url} ` 
-address.textContent = html_url
-address.setAttribute('src', `${html_url}`)
+profile.textContent = `Profile :  `
+    myaddress.textContent = `${html_url}`
+    myaddress.setAttribute('src', html_url)
 myBio.textContent = `Bio: ${bio ? bio : `no bio`}`;
 
 
