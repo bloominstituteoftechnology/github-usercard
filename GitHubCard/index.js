@@ -4,6 +4,10 @@
     https://api.github.com/users/<your name>
 */
 
+import axios from 'axios';
+
+const cards = document.querySelector('.cards');
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -11,6 +15,21 @@
 
     Skip to STEP 3 (line 34).
 */
+
+function gitHubCard(url) {
+  axios.get(`https://api.github.com/users/${url}`)
+  .then(res => {
+    const gitCard = makeCard(res.data);
+    cards.appendChild(gitCard);
+
+  })
+  .catch(err => {
+    console.log(err);
+  })
+  .finally(() => {
+    console.log('done');
+  })
+}
 
 /*
   STEP 4: Pass the data received from Github into your function,
@@ -28,7 +47,13 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+
+// Creating card for every element in array
+
+followersArray.forEach(element => {
+  gitHubCard(element);
+})
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +74,60 @@ const followersArray = [];
       </div>
     </div>
 */
+
+// Instantiate element Callback
+
+function Instantiate(type){
+  return document.createElement(type);
+}
+
+function makeCard(data) {
+
+  // Instantiating elements
+
+  const card = Instantiate('div');
+  const cardImg = Instantiate('img');
+  const cardInfo = Instantiate('div');
+  const cardName = Instantiate('h3');
+  const cardUsername = Instantiate('p');
+  const cardLoc = Instantiate('p');
+  const cardProf = Instantiate('p');
+  const cardFollowers = Instantiate('p');
+  const cardFollowing = Instantiate('p');
+  const cardBio = Instantiate('p');
+
+  // Creating Hierarchy
+
+  cardInfo.appendChild(cardName);
+  cardInfo.appendChild(cardUsername);
+  cardInfo.appendChild(cardLoc);
+  cardInfo.appendChild(cardProf);
+  cardInfo.appendChild(cardFollowers);
+  cardInfo.appendChild(cardFollowing);
+  cardInfo.appendChild(cardBio);
+  card.appendChild(cardImg);
+  card.appendChild(cardInfo);
+
+  // Setting class names
+
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  cardName.classList.add('name');
+  cardUsername.classList.add('username');
+
+  //Setting attributes
+  
+  cardImg.setAttribute('src', data.avatar_url);
+  cardName.textContent = data.name;
+  cardUsername.textContent = data.login;
+  cardLoc.textContent = `Location: ${data.location}`;
+  cardProf.innerHTML = `Profile: <a href="${data.html_url}">${data.html_url}</a>`;
+  cardFollowers.textContent = `Followers: ${data.followers}`;
+  cardFollowing.textContent = `Following: ${data.following}`;
+  cardBio.textContent = `Bio: ${data.bio}`;
+  
+  return card;
+}
 
 /*
   List of LS Instructors Github username's:
