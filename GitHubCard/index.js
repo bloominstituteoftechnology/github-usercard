@@ -3,7 +3,16 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-axios.get(`https://api.github.com/users/Norman Jeune`)
+
+  axios.get(`https://api.github.com/users/UlfricNormcloak`)
+   .then(res => {
+    res.data
+   })
+   .catch(err => {
+    console.error('Information not returned');
+   })
+  
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -29,6 +38,8 @@ axios.get(`https://api.github.com/users/Norman Jeune`)
 */
 
 const followersArray = [];
+   //axios.get(`https://api.github.com/users/`
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -50,14 +61,16 @@ const followersArray = [];
     </div>
 */
 
+const allCards = document.body.querySelector('.cards');
+
 function cardMaker ({ image, name, username, location, profile, addressLink, followers, following, bio }) {
 
   //instantiate elements
-  const cardHolder = document.createElement('div');//c
+  const cardHolder = document.createElement('div');
   const userImage = document.createElement('img');
-  const cardData = document.createElement('div');//c
-  const nameOfUser = document.createElement('h3');//c
-  const userHandle = document.createElement('p');//c
+  const cardData = document.createElement('div');
+  const nameOfUser = document.createElement('h3');
+  const userHandle = document.createElement('p');
   const userLocale = document.createElement('p');
   const gitProfile = document.createElement('p');
   const gitLink = document.createElement('a');
@@ -84,16 +97,24 @@ function cardMaker ({ image, name, username, location, profile, addressLink, fol
   cardData.appendChild(gitBio);
 
   //populating content
-  userImage.textContent = image;
+  userImage.setAttribute('src', '');
   nameOfUser.textContent = name;
   userHandle.textContent = username;
   userLocale.textContent = location;
   gitProfile.textContent = profile;
-  gitLink.textContent = addressLink;
+  gitLink.setAttribute('href', '');
   gitFollowers.textContent = followers;
   gitFollowing.textContent = following;
   gitBio.textContent = bio;
+
+  return card
 }
+
+
+
+
+
+
 
 
 
