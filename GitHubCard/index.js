@@ -3,7 +3,7 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+axios.get('https://api.github.com/users/AdamI19')
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -16,6 +16,20 @@
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
+const entryPoint = document.querySelector('.cards');
+
+function githubUser() {
+  axios.get('https://api.github.com/users/AdamI19').then(res => {
+    console.log(res);
+
+    const card = createUserCard(res.data);
+    entryPoint.appendChild(card);
+  })
+  .catch(err => {
+    console.log(err);
+  })
+}
+githubUser();
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -50,6 +64,41 @@ const followersArray = [];
     </div>
 */
 
+function createUserCard({user}) {
+const card = document.createElement('div');
+const image = document.createElement('img');
+const cardInfo = document.createElement('div');
+const heading = document.createElement('h3');
+const userName = document.createElement('p');
+const location = document.createElement('p');
+const profile = document.createElement('p');
+const address = document.createElement('a');
+const followers = document.createElement('p');
+const following = document.createElement('p');
+const bio = document.createElement('p');
+
+card.appendChild('image');
+card.appendChild('CardInfo');
+card.appendChild('heading');
+card.appendChild('userName');
+card.appendChild('location');
+card.appendChild('profile');
+card.appendChild('address');
+card.appendChild('followers');
+card.appendChild('following');
+card.appendChild('bio');
+
+card.classList.add('card');
+cardInfo.classList.add('card-info');
+heading.classList.add('name');
+userName.classList.add('username');
+
+heading.textContent = user.login;
+
+
+return card;
+
+}
 /*
   List of LS Instructors Github username's:
     tetondan
