@@ -4,6 +4,13 @@
     https://api.github.com/users/<your name>
 */
 
+axios.get('https://api.github.com/users/Brendonjhawkins')
+.then(res => {
+  console.log(res.data);
+}).catch(err => {
+  console.error('There was a mix up!!')
+})
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -49,6 +56,68 @@ const followersArray = [];
       </div>
     </div>
 */
+function gitData(user) {
+
+  // Instantiating the elements
+  const card = document.createElement('div'); //
+  const image = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const username = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p') 
+  const address = document.createElement('a')
+
+  // setting class names, attributes and text
+  image.src = 
+  address.href =
+  name.textContent = res.data.name
+  username.textContent = res.data.login
+  location.textContent = `Location: ${res.data.location}`
+  profile.innerHTML = `Profile:<br> ${address}`
+  address.textContent = res.data.
+  followers.textContent = res.data.followers
+  following.textContent = res.data.following
+  bio.textContent = res.data.bio
+
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  username.classList.add('username');
+
+  card.appendChild(img)
+  card.appendChild(cardInfo)
+  cardInfo.appendChild(name)
+  cardInfo.appendChild(username)
+  cardInfo.appendChild(location)
+  cardInfo.appendChild(profile)
+  cardInfo.appendChild(followers)
+  cardInfo.appendChild(following)
+  cardInfo.appendChild(bio)
+
+
+
+return card
+
+}
+
+function getCards(user) {
+  axios.get(`https://api.github.com/users/${user}`)
+  .then(res => {
+    res.data(item => {
+      const newCard = gitData({item});
+      card.appendChild(newCard);
+    })
+  })
+  .catch(err => {
+    console.error(err);
+  })
+}
+
+getCards('Brendonjhawkins')
 
 /*
   List of LS Instructors Github username's:
