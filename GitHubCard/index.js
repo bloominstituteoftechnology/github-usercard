@@ -1,10 +1,20 @@
+// import axios from 'axios'
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
-/*
+const cards = document.querySelector('.cards')
+axios.get("https://api.github.com/users/ehsan2793")
+.then(response => {
+  // console.log (response)
+  const card = cardMaker(response.data);
+  cards.appendChild(card);
+})
+.catch(error => {
+  console.error (error)
+})
+/* 
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
     data in order to use it to build your component function
@@ -28,8 +38,24 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
-
+const followersArray = ["https://api.github.com/users/tetondan", 
+"https://api.github.com/users/dustinmyers",
+"https://api.github.com/users/justsml",
+"https://api.github.com/users/luishrd",
+"https://api.github.com/users/bigknell",
+]
+followersArray.forEach(item => {
+  const profile = cardMaker(item)
+  cards.appendChild(profile)
+})
+/*
+  List of LS Instructors Github username's:
+    tetondan
+    dustinmyers
+    justsml
+    luishrd
+    bigknell
+*/
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -58,3 +84,51 @@ const followersArray = [];
     luishrd
     bigknell
 */
+function cardMaker ({avatar_url,name, login,location,following,followers,bio,html_url}) {
+
+const card = document.createElement('div');
+const pic = document.createElement('img');
+const cardInfo = document.createElement('div');
+const myname = document.createElement("h3")
+const myUsername = document.createElement("p")
+const myLocation = document.createElement('p')
+const profile = document.createElement("p")
+const address = document.createElement("a")
+const myFollowers = document.createElement('p')
+const myFollowing = document.createElement('p')
+const myBio = document.createElement('p')
+
+card.className = 'card';
+cardInfo.classList.add('card-info');
+myname.classList.add('name');
+myUsername.classList.add('username');
+
+
+card.appendChild(pic)
+card.appendChild(cardInfo)
+cardInfo.appendChild(myname)
+cardInfo.appendChild(myUsername)
+cardInfo.appendChild(myLocation)
+cardInfo.appendChild(profile)
+profile.appendChild(address)
+cardInfo.appendChild(myFollowers)
+cardInfo.appendChild(myFollowing)
+cardInfo.appendChild(myBio)
+
+
+pic.src = `${avatar_url}`;
+pic.alt = `this is the the picture of ${name}`;
+myname.textContent = `Name: ${name}`;
+myUsername.textContent = `Username: ${login}`;
+myLocation.textContent = `Location: ${location}`;
+myFollowers.textContent = `Followers: ${followers}`;
+myFollowing.textContent = `Following: ${following}`
+profile.textContent = `Profile : ${html_url} ` 
+address.textContent = html_url
+address.setAttribute('src', `${html_url}`)
+myBio.textContent = `Bio: ${bio ? bio : `no bio`}`;
+
+
+return card
+}
+
