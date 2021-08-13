@@ -4,6 +4,31 @@
     https://api.github.com/users/<your name>
 */
 
+import axios from 'axios'
+const entryPoint = document.querySelector('div.cards')
+
+const getInfo = (username) => {
+  axios.get(`https://api.github.com/users/${username}`)
+  .then(({data})=> {console.log(data)
+   entryPoint.appendChild(cardMaker(data))
+ })
+   .catch(err => console.log(err))
+}
+
+const followersArray = [
+  'jlbevans',
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'
+];
+
+followersArray.forEach(username => {
+  getInfo(username)
+})
+  
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -28,7 +53,7 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +74,57 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function cardMaker({ name, avatar_url, login, location, gitHub, url, followers, following, bio, html_url }) {
+  
+  const userName = document.createElement('div')
+  const profilePic = document.createElement('img')
+  const information = document.createElement('div')
+  const realName = document.createElement('h3')
+  const userLogin = document.createElement('p')
+  const userLocation = document.createElement('p')
+  const profile = document.createElement('p')
+  const address = document.createElement('a')
+  const userFollowers = document.createElement('p')
+  const userFollowing = document.createElement('p')
+  const userBio = document.createElement('p')
+
+  userName.appendChild(profilePic)
+  userName.appendChild(information)
+  information.appendChild(userLogin)
+  information.appendChild(realName)
+  information.appendChild(userLocation)
+  information.appendChild(profile)
+  information.appendChild(userFollowers)
+  information.appendChild(userFollowing)
+  information.appendChild(userBio)
+  profile.appendChild(address)
+
+  profilePic.setAttribute('src', avatar_url)
+  profilePic.setAttribute('alt', name)
+
+  userName.classList.add('card')
+  information.classList.add('card-info')
+  realName.classList.add('name')
+  userLogin.classList.add('username')
+
+  realName.textContent = name
+  userLogin.textContent = login
+  userLocation.textContent = location
+  profile.textContent = gitHub
+  address.textContent = url
+  userFollowers.textContent = followers
+  userFollowing.textContent = following
+  userBio.textContent = bio
+  address.textContent = html_url
+
+  return userName
+}
+
+// followersArray.forEach(({  name, login, location, gitHub, url, followers, following, bio, html_url}) => {
+//   const userName = cardMaker(  name, login, location, gitHub, url, followers, following, bio, html_url)
+//   cardCreator.appendChild(userName)
+// })
 
 /*
   List of LS Instructors Github username's:
