@@ -19,7 +19,7 @@ In this project we are going to be accessing the GitHub API and building a socia
   * Events and event listeners
 
 ## Set Up The Project With Git
-
+  
 **Follow these steps to set up and work on your project:**
 
 * [ ] Create a forked copy of this project.
