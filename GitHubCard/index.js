@@ -1,8 +1,19 @@
+import axios from 'axios';
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+axios.get('https://api.github.com/users/IrvinA')
+  .then(resp => {
+    console.log(resp.data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+
+
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -49,6 +60,52 @@ const followersArray = [];
       </div>
     </div>
 */
+function userCardMaker(Obj) {
+  const card = document.createElement('div');
+  const cardImg = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const usersName = document.createElement('h3');
+  const username = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const address = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+  const objData = obj.data;
+
+  cardImg.src = objData['avatar_url'];
+  usersName.textContent = objData.name;
+  username.textContent = objData.login;
+  location.textContent = `Location: ${objData.location}`;
+  address.href = objData['html_url'];
+  address.textContent = objData['html_url'];
+  followers.textContent = `Followers: ${objData.followers}`;
+  following.textContent = `Following: ${objData.following}`;
+  bio.textContent = `Bio: ${objData.bio}`;
+
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  usersName.classList.add('name');
+  username.classList.add('username');
+
+  card.appendChild(cardImg);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(usersName);
+  cardInfo.appendChild(username);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  profile.appendChild(address);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+
+  return card;
+}
+
+
+
+
 
 /*
   List of LS Instructors Github username's:
