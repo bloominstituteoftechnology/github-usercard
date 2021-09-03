@@ -3,19 +3,28 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+import axios from "axios"
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
     data in order to use it to build your component function
-
     Skip to STEP 3.
 */
+  const promise = axios.get("https://api.github.com/users/Joe-park")
 
+  promise.then(( resolved ) => console.log(resolved.data)).catch( err => console.log(err))
 /*
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
+
+  promise.then(( resolved ) => {
+    const githubStuff = resolved.data
+    let cards = document.querySelector(".cards")
+    let card = maker(githubStuff);
+    cards.appendChild(card)
+    
+  }).catch( err => console.log(err))
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -23,17 +32,36 @@
     manually find some other users' github handles, or use the list found at the
     bottom of the page. Get at least 5 different Github usernames and add them as
     Individual strings to the friendsArray below.
-
     Using that array, iterate over it, requesting data for each user, creating a new card for each
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell",
+];
+
+followersArray.forEach((user) => {
+  const promise = axios.get(`https://api.github.com/users/${user}/followers`)
+  promise.then(( resolved ) => {
+    const githubStuff = resolved.data
+    console.log(githubStuff)
+    let cards = document.querySelector(".cards")
+    githubStuff.forEach( follower => {
+      let card = maker(follower);
+      cards.appendChild(card)
+    }) 
+    
+  }).catch( err => console.log(err))
+})
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
-
     <div class="card">
       <img src={image url of user} />
       <div class="card-info">
@@ -58,3 +86,45 @@ const followersArray = [];
     luishrd
     bigknell
 */
+
+function maker(obj){
+  console.log(obj)
+  let mainDiv = document.createElement("div")
+  let mainImg = document.createElement("img")
+  let middleDiv = document.createElement("div")
+  let h3 = document.createElement("h3")
+  let p1 = document.createElement("p")
+  let p2 = document.createElement("p")
+  let p3 = document.createElement("p")
+  let a = document.createElement("a")
+  let p4 = document.createElement("p")
+  let p5 = document.createElement("p")
+  let p6 = document.createElement("p")
+
+  mainDiv.appendChild(mainImg);
+  mainDiv.appendChild(middleDiv);
+  middleDiv.appendChild(h3);
+  middleDiv.appendChild(p1);
+  middleDiv.appendChild(p2);
+  middleDiv.appendChild(p3);
+  middleDiv.appendChild(p4);
+  middleDiv.appendChild(p5)
+  middleDiv.appendChild(p6)
+  p3.appendChild(a);
+
+  mainDiv.classList.add("card")
+  middleDiv.classList.add("card-info")
+  h3.classList.add("name")
+  p1.classList.add("username")
+
+  mainImg.setAttribute("src", obj.avatar_url) 
+  h3.textContent = obj.login
+  p1.textContent = obj.login
+  p2.textContent = obj.location || "Los Angeles"
+  a.textContent = obj.html_url
+  p4.textContent = obj.followers
+  p5.textContent = obj.following
+  p6.textContent = obj.bio || "Web developer at Lambda School"
+
+  return mainDiv
+};
