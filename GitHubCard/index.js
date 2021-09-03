@@ -3,6 +3,27 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+const cards = document.querySelector(".cards");
+
+createMarkups(["anastasia-lapteva"]);
+createMarkups(["vasilii-garanin", "tetondan", "dustinmyers", "justsml", "luishrd", "bigknell"]);
+
+function createMarkups(usersArray)
+{
+    usersArray.forEach(username =>
+    {
+        axios.get(`https://api.github.com/users/${username}`)
+            .then(response =>
+            {
+                const card = createMarkup(response.data);
+                cards.appendChild(card);
+            })
+            .catch(err =>
+            {
+                console.error(err);
+            });
+    });
+};
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -28,12 +49,20 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
+
+// const followersArray = ["vasilii-garanin", "tetondan", "dustinmyers", "justsml", "luishrd", "bigknell"];
+
+// createMarkup(followersArray);
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
+*/
 
+function createMarkup(data)
+{
+    /*
     <div class="card">
       <img src={image url of user} />
       <div class="card-info">
@@ -48,13 +77,45 @@ const followersArray = [];
         <p>Bio: {users bio}</p>
       </div>
     </div>
-*/
+    */
 
-/*
-  List of LS Instructors Github username's:
-    tetondan
-    dustinmyers
-    justsml
-    luishrd
-    bigknell
-*/
+    const card = document.createElement("div");
+    const cardImg = document.createElement("img");
+    const cardInfo = document.createElement("div");
+    const infoName = document.createElement("h3");
+    const infoUserName = document.createElement("p");
+    const infoLocation = document.createElement("p");
+    const infoProfile = document.createElement("p");
+    const profileAddress = document.createElement("a");
+    const infoFollowers = document.createElement("p");
+    const infoFollowing = document.createElement("p");
+    const infoBio = document.createElement("p");
+
+    card.classList.add("card");
+    cardInfo.classList.add("card-info");
+    infoName.classList.add("name");
+    infoUserName.classList.add("username");
+    cardImg.src = data["avatar_url"];
+    infoName.textContent = data["name"];
+    infoUserName.textContent = data["login"];
+    infoLocation.textContent = `Location: ${data["location"]}`;
+    infoProfile.textContent = "Profile: ";
+    profileAddress.href = data["html_url"];
+    profileAddress.textContent = data["html_url"];
+    infoFollowers.textContent = `Followers: ${data["followers"]}`;
+    infoFollowing.textContent = `Following: ${data["following"]}`;
+    infoBio.textContent = `Bio: ${data["bio"]}`;
+
+    card.appendChild(cardImg);
+    card.appendChild(cardInfo);
+    cardInfo.appendChild(infoName);
+    cardInfo.appendChild(infoUserName);
+    cardInfo.appendChild(infoLocation);
+    cardInfo.appendChild(infoProfile);
+    infoProfile.appendChild(profileAddress);
+    cardInfo.appendChild(infoFollowers);
+    cardInfo.appendChild(infoFollowing);
+    cardInfo.appendChild(infoBio);
+
+    return card;
+};
