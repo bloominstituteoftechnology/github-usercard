@@ -3,12 +3,32 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+const cards = document.querySelector(".cards");
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
-    data in order to use it to build your component function
+    data in order to use it to build your component function*/
+cardsCreator(["vasilii-garanin"]);
+// cardsCreator(["anastasia-lapteva", "BrityHemming", "austenallred", "tetondan", "dustinmyers", "justsml"]);
+function cardsCreator(userArray)
+{
+    userArray.forEach(username =>
+    {
+        axios.get(`https://api.github.com/users/${username}`)
+            .then(response =>
+            {
+                console.log("response is here here", response.data);
+                const card = cardCreator(response.data);
+                cards.appendChild(card);
+            })
+            .catch(error =>
+            {
+                console.log(error);
+            });
 
+    });
+}
+/*
     Skip to STEP 3 (line 34).
 */
 
@@ -28,8 +48,8 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
-
+const followersArray = ["anastasia-lapteva", "BrityHemming", "austenallred", "tetondan", "dustinmyers", "justsml"];
+cardCreator(followersArray);
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -49,6 +69,53 @@ const followersArray = [];
       </div>
     </div>
 */
+function cardCreator(data)
+{
+    const card = document.querySelector("div");
+    const cardImg = document.querySelector("img");
+    // const cardInfo = document.querySelector('div');
+    // const cardInfoName = document.querySelector("h3");
+    // const cardInfoUserName = document.querySelector("p");
+    // const cardInfoLocation = document.querySelector("p");
+    // const cardInfoProfile = document.querySelector("p");
+    // const cardInfoProfileUrl = document.querySelector("a");
+    // const cardInfoFollowers = document.querySelector("p");
+    // const cardInfoFollowing = document.querySelector("p");
+    // const cardInfoBio = document.querySelector("p");
+
+    card.classList.add("card");
+    // cardInfo.classList.add("card-info");
+    // cardInfoName.classList.add("name");
+    // cardInfoUserName.classList.add("username");
+    // 
+
+    cardImg.src = data["avatar_url"];
+    // cardInfoName.textContent = data["name"];
+    cardInfoUserName.textContent = data["login"];
+    cardInfoLocation.textContent = `Location:${data["location"]}`;
+    cardInfoProfile.textContent = "Profile: ";
+    // cardInfoProfileUrl.href = data["html_url"];
+    // cardInfoProfileUrl.textContent = data["html_url"];
+    cardInfoFollowers.textContent = `Followers: ${data["followers"]}`;
+    cardInfoFollowing.textContent = `Following: ${data["following"]}`;
+    cardInfoBio.textContent = data["bio"];
+
+
+    card.appendChild(cardImg);
+    card.appendChild(cardInfo);
+    cardInfo.appendChild(cardInfoName);
+    cardInfo.appendChild(cardInfoUserName);
+    cardInfo.appendChild(cardInfoLocation);
+    cardInfo.appendChild(cardInfoProfile);
+    cardInfoProfile.appendChild(cardInfoProfileUrl);
+    cardInfo.appendChild(cardInfoFollowers);
+    cardInfo.appendChild(cardInfoFollowing);
+    cardInfo.appendChild(cardInfoBio);
+
+    console.log("Card is here: ", card);
+    return card;
+}
+
 
 /*
   List of LS Instructors Github username's:
