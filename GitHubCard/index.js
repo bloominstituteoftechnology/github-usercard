@@ -40,6 +40,7 @@ followersArray.forEach(elem=>{
   axios.get(`https://api.github.com/users/${elem}`)
   .then(resp =>{
     content.appendChild(createCard(resp.data))
+    console.log(resp.data)
     
   })
 
@@ -108,7 +109,7 @@ bioP.textContent = data.bioP;
 return card
 
 }
-createCard()
+
 /*
   List of LS Instructors Github username's:
     tetondan
