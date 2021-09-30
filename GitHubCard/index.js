@@ -59,7 +59,44 @@ const followersArray = [];
     </div>
 */
 
+function cardMaker (object) {
 
+  const cardDiv = document.createElement('div')
+  cardDiv.classList.add('card')
+  const userImg = document.createElement('img')
+  cardDiv.appendChild(userImg)
+  userImg.src = object.avatar_url
+  const infoDiv = document.createElement('div')
+  infoDiv.classList.add('card-info')
+  cardDiv.appendChild(infoDiv)
+  const name = document.createElement('h3')
+  name.classList.add('name')
+  name.textContent = object.name
+  infoDiv.appendChild(name)
+  const userName = document.createElement('p')
+  userName.classList.add('username')
+  userName.textContent = object.login
+  infoDiv.appendChild(userName)
+  const location = document.createElement('p')
+  location.textContent = `Location: ${object.location}`
+  infoDiv.appendChild(location)
+  const profile = document.createElement('a')
+  profile.href = object.html_url
+  profile.textContent = `Profile: ${object.html_url}`
+  infoDiv.appendChild(profile)
+  const followers = document.createElement('p')
+  followers.textContent = `Followers: ${object.followers}`
+  infoDiv.appendChild(followers)
+  const following = document.createElement('p')
+  following.textContent = `Following: ${object.following}`
+  infoDiv.appendChild(following)
+  const bio = document.createElement('p')
+  bio.textContent = `Bio: ${object.bio}`
+  infoDiv.appendChild(bio)
+
+
+
+}
 
 /*
   List of LS Instructors Github username's:
