@@ -5,7 +5,9 @@
 */
 import axios from "axios";
 axios.get(`https://api.github.com/users/Kseniyapl`)
-
+.then(resp =>{
+  console.log(resp)
+})
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -17,6 +19,7 @@ axios.get(`https://api.github.com/users/Kseniyapl`)
 /*
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
+
 */
 
 /*
@@ -51,6 +54,50 @@ const followersArray = [];
       </div>
     </div>
 */
+function createCard(data){
+
+const card = document.createElement('div');
+const img = document.createElement('img');
+const cardInfo = document.createElement('div');
+const nameH3 = document.createElement('h3');
+const userNameP = document.createElement('p');
+const locationP = document.createElement('p');
+const profileP = document.createElement('p');
+const hrefA = document.createElement('a');
+const followersP = document.createElement('p');
+const followingP = document.createElement('p');
+const bioP = document.createElement('p');
+
+card.classList.add('card')
+cardInfo.classList.add('card-info')
+nameH3.classList.add('name')
+userNameP.classList.add('username')
+
+card.appendChild(img)
+card.appendChild(cardInfo)
+cardInfo.appendChild(nameH3)
+cardInfo.appendChild(userNameP)
+cardInfo.appendChild(locationP)
+cardInfo.appendChild(profileP)
+cardInfo.appendChild(followersP)
+cardInfo.appendChild(followingP)
+cardInfo.appendChild(bioP)
+profileP.appendChild(hrefA)
+
+img.src = data.avatar_url;
+nameH3.textContent = data.name;
+userNameP.textContent = data.login;
+locationP.textContent = data.location;
+hrefA.textContent = data.avatar_url;
+followersP.textContent = data.followers;
+followingP.textContent = data.following;
+bioP.textContent = data.bioP;
+
+
+
+return card
+
+}
 
 /*
   List of LS Instructors Github username's:
