@@ -7,7 +7,8 @@ import axios from 'axios'
 
 axios.get(`https://api.github.com/users/peterdavidconley`)
 .then(resp => {
-  console.log(resp)
+  const githubData = resp.data
+  rootDiv.appendChild(cardMaker(githubData))
 })
 .catch(err => {
   console.error(err)
@@ -25,6 +26,9 @@ axios.get(`https://api.github.com/users/peterdavidconley`)
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
+
+const rootDiv = document.querySelector('.cards')
+
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -94,7 +98,7 @@ function cardMaker (object) {
   bio.textContent = `Bio: ${object.bio}`
   infoDiv.appendChild(bio)
 
-
+  return cardDiv;
 
 }
 
