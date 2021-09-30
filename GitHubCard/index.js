@@ -4,6 +4,10 @@
     https://api.github.com/users/jcpcabanada
 */
 import axios from 'axios';
+axios.get("https://api.github.com/users/jcpcabanada")
+  .then(resp =>{
+    console.log(resp);
+  })
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -28,7 +32,18 @@ import axios from 'axios';
     user, and adding that card to the DOM.
 */
 
-const followersArray = [tetondan, dustinmyers, justsml, luishrd, bigknell];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell','jcpcabanada'];
+
+  followersArray.forEach(elem => {
+    axios.get(`https://api.github.com/users/${elem}`)
+  .then(resp =>{
+    let info = resp.data
+    containeR.appendChild(cardFunc(info))
+    })
+      .catch(err => {
+      console.error(err);
+      })
+  })
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -37,32 +52,45 @@ const followersArray = [tetondan, dustinmyers, justsml, luishrd, bigknell];
 
     const containeR = document.querySelector('.cards');
 
-    function cardFunc(data){
-      const card = document.createElement('div');
-      const img = document.createElement('img');
-      const cardInfo = document.createElement('div');
-      const name = document.createElement('h3');
-      const username = document.createElement('p');
-      const location = document.createElement('p');
-      const profile = document.createElement('p');
-      const address = document.createElement('a');
-      const followers = document.createElement('p');
-      const following = document.createElement('p');
-      const bio = document.createElement('p');
+    function cardFunc(obj){
+      let card1 = document.createElement('div');
+      let img1 = document.createElement('img');
+      let cardInfo1 = document.createElement('div');
+      let name1 = document.createElement('h3');
+      let username1 = document.createElement('p');
+      let location1 = document.createElement('p');
+      let profile1 = document.createElement('p');
+      let address1 = document.createElement('a');
+      let followers1 = document.createElement('p');
+      let following1 = document.createElement('p');
+      let bio1 = document.createElement('p');
 
-      
+      name1.textContent = obj.data.name;
+      username1.textContent = obj.data.login;
+      location1.textContent = `location: ${obj.data.location}`;
+      followers1.textContent = `Followers: ${obj.data.followers}`;
+      following1.textContent = `Following: ${obj.data.following}`;
+      profile1.textContent = 'Profile:';
+      bio1.textContent = obj.data.bio;
+      img1.src = obj.data.avatar_url;
+      address1.textContent = obj.data.html_url;
+      address1.href = obj.data.html_url;
 
-      card.classList.add('card');
-      cardInfo.classList.add('card-info');
-      name.classList.add('name');
-      username.classList.add('username');
+
+      card1.classList.add('card');
+      cardInfo1.classList.add('card-info');
+      name1.classList.add('name');
+      username1.classList.add('username');
 
 
-      card.appendChild(img, cardInfo);
-      cardInfo.appendChild(name, username, location, profile, followers, following, bio);
-      profile.appendChild(address);
+      card1.appendChild(img1, cardInfo1);
+      cardInfo1.appendChild(name1, username1, location1, profile1, followers1, following1, bio1);
+      profile1.appendChild(address1);
 
+      return card1;
     }
+    console.log(cardFunc);
+
 
   /*
     <div class="card">
