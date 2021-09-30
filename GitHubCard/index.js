@@ -8,12 +8,15 @@ import axios from 'axios';
 const URL = 'https://api.github.com/users/beatlesm';
 
 const grabTheData = (event) => {
-  console.log('about to fetch data!');
   axios.get(URL)
     .then (res => {
        const myGit = {
           name: res.data.name,
-          location: res.data.location  
+          img: res.data.avatar_url,
+          location: res.data.location, 
+          followers: res.data.followers,
+          following: res.data.following,
+          bio: res.data.bio
         };   
         console.log('myGit: ', myGit);        
     })
