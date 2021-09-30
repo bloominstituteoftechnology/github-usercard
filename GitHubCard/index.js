@@ -1,8 +1,15 @@
+const { default: axios } = require("axios");
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+axios.get('https://api.github.com/users/deanhaleem')
+.then()
+.catch()
+
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -16,6 +23,25 @@
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
+const entry = document.querySelector('.cards');
+
+function cardMaker(obj){
+
+  //create all elements for card
+  const card = document.createElement('div');
+  const img = document.createElement('img');
+  const name = document.createElement('h2');
+  const username = document.createElement('h3')
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p')
+
+
+  //apply proper class names for each element
+  name.classList.add('name');
+}
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
