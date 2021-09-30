@@ -3,6 +3,45 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+import axios from 'axios';
+
+const URL = 'https://api.github.com/users/beatlesm';
+
+const grabTheData = (event) => {
+  console.log('about to fetch data!');
+  axios.get(URL)
+    .then (res => {
+       const myGit = {
+          name: res.data.name,
+          location: res.data.location  
+        };   
+        console.log('myGit: ', myGit);        
+    })
+    .catch(err => console.error(err))
+    .finally(() => {
+        console.log("I DON'T CARE IF IT WORKED OR NOT!!!");
+    }) // post() patch() delete() */
+}
+
+document.addEventListener('click', grabTheData) 
+
+/* axios.get(`https://dog.ceo/api/breed/${breed}/images/random/${count}`)
+  .then(resp => {
+    for (let i = 0; i < resp.data.message.length; i++) {
+      const dogObj = {
+        imageURL: resp.data.message[i],
+        breed: breed
+      }
+      const doggo = dogCardMaker(dogObj);
+      document.querySelector(selector).appendChild(doggo);
+    }
+  })
+  .catch(err => {
+    console.error(err);
+  })
+  .finally(() => {
+    console.log("I DON'T CARE IF IT WORKED OR NOT!!!");
+  }) // post() patch() delete() */
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
