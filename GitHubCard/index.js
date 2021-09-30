@@ -55,18 +55,31 @@ const followersArray = [];
 */
 
 function cardMaker({ object }) {
-  const card = document.createElement('div')
-  const img = document.createElement('img')
-  const cardInfo = document.createElement('div')
-  const name = document.createElement('h3')
-  const username = document.createElement('p')
-  const location = document.createElement('p')                  // Step 3
-  const profile = document.createElement('p')
-  const anchor = document.createElement('a')
-  const followers = document.createElement('p')
-  const following = document.createElement('p')
-  const bio = document.createElement('p')
+  const card = document.createElement('div');
+  const img = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const login = document.createElement('h3');
+  const username = document.createElement('p');
+  const location = document.createElement('p');                  // Step 3
+  const profile = document.createElement('p');
+  const anchor = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  login.textContent = `${login}`;
+  location.textContent = `${location}`;
+  URL.src = `${URL}`;
+  followers.textContent = `${followers}`;                   // Step 4
+  following.textContent = `${following}`;
+  bio.textContent = `${bio}`;
+
+  document.appendChild('.cards');
+
+
 };
+
+
 
 
 
