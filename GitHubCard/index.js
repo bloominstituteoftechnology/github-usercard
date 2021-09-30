@@ -41,7 +41,25 @@ const rootDiv = document.querySelector('.cards')
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml' ,'luishrd', 'bigknell'];
+
+function userCardMaker (username) {
+
+axios.get(`https://api.github.com/users/${username}`)
+.then(resp => {
+  const githubData = resp.data
+  rootDiv.appendChild(cardMaker(githubData))
+})
+.catch(err => {
+  console.error(err)
+})
+
+}
+
+for (let i = 0 ; i < followersArray.length ; i++) {
+  userCardMaker(followersArray[i])
+}
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
