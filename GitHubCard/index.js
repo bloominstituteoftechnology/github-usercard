@@ -32,7 +32,7 @@ axios.get("https://api.github.com/users/jcpcabanada")
     user, and adding that card to the DOM.
 */
 
-const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell','jcpcabanada'];
+  const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell','jcpcabanada'];
 
   followersArray.forEach(elem => {
     axios.get(`https://api.github.com/users/${elem}`)
@@ -52,7 +52,7 @@ const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigkne
 
     const containeR = document.querySelector('.cards');
 
-    function cardFunc(obj){
+    function cardFunc(data){
       let card1 = document.createElement('div');
       let img1 = document.createElement('img');
       let cardInfo1 = document.createElement('div');
@@ -65,16 +65,16 @@ const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigkne
       let following1 = document.createElement('p');
       let bio1 = document.createElement('p');
 
-      name1.textContent = obj.data.name;
-      username1.textContent = obj.data.login;
-      location1.textContent = `location: ${obj.data.location}`;
-      followers1.textContent = `Followers: ${obj.data.followers}`;
-      following1.textContent = `Following: ${obj.data.following}`;
+      name1.textContent = data.name;
+      username1.textContent = data.login;
+      location1.textContent = `location: ${data.location}`;
+      followers1.textContent = `Followers: ${data.followers}`;
+      following1.textContent = `Following: ${data.following}`;
       profile1.textContent = 'Profile:';
-      bio1.textContent = obj.data.bio;
-      img1.src = obj.data.avatar_url;
-      address1.textContent = obj.data.html_url;
-      address1.href = obj.data.html_url;
+      bio1.textContent = `Bio: ${data.bio}`;
+      img1.src = data.avatar_url;
+      address1.textContent = data.html_url;
+      address1.href = data.html_url;
 
 
       card1.classList.add('card');
@@ -83,9 +83,9 @@ const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigkne
       username1.classList.add('username');
 
 
-      card1.appendChild(img1, cardInfo1);
-      cardInfo1.appendChild(name1, username1, location1, profile1, followers1, following1, bio1);
-      profile1.appendChild(address1);
+      card1.append(img1, cardInfo1);
+      cardInfo1.append(name1, username1, location1, profile1, followers1, following1, bio1);
+      profile1.append(address1);
 
       return card1;
     }
