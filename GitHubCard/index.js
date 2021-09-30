@@ -3,6 +3,15 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+import axios from 'axios'
+
+axios.get(`https://api.github.com/users/peterdavidconley`)
+.then(resp => {
+  console.log(resp)
+})
+.catch(err => {
+  console.error(err)
+})
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -49,6 +58,8 @@ const followersArray = [];
       </div>
     </div>
 */
+
+
 
 /*
   List of LS Instructors Github username's:
