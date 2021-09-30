@@ -76,6 +76,17 @@ function githubCard({ object }) {
   info.appendChild(following)
   info.appendChild(bio)
 
+  card.classList.add('.card')
+  userImg.classList.add('.card img')
+  info.classList.add('')
+  name.classList.add('.card .name')
+  username.classList.add('.card p')
+  location.classList.add('.card p')
+  profile.classList.add('.card p')
+  followers.classList.add('.card p')
+  following.classList.add('.card p')
+  bio.classList.add('.card p')
+
 }
 
 /*
