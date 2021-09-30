@@ -3,6 +3,8 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+import axios from 'axios'
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -28,7 +30,14 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ["tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell"];
+  followersArray.forEach(Element =>{
+    axios.get(`https://api.github.com/users/${Element}`)
+  })
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -58,3 +67,42 @@ const followersArray = [];
     luishrd
     bigknell
 */
+const entryPoint = document.querySelector('.container');
+function hubMaker( object) {
+  const Card = document.createElement('div')
+  const img = document.createElement('div')
+  const info = document.createElement('div')
+  const name = document.createElement('h3')
+  const username = document.createElement('p')
+  const Location = document.createElement('p')
+  const Profile = document.createElement('p')
+  const link = document.createElement('a')
+  const Followers = document.createElement('p')
+  const Following = document.createElement('p')
+  const Bio = document.createElement('p')
+
+
+Card.classList.add('.card')
+info.classList.add('.card-info')
+name.classList.add('.username')
+
+heading.textContent = `username: ${name}`
+image.src = imageURL
+
+
+ Card.appendChild(img)
+ Card.appendChild(info)
+ info.appendChild(name)
+ info.appendChild(username)
+ info.appendChild(Location)
+ info.appendChild(Profile)
+ info.appendChild(Followers)
+ info.appendChild(Following)
+ info.appendChild(Bio)
+ Profile.appendChild(link)
+
+
+
+
+return card
+}
