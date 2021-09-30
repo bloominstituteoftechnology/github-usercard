@@ -6,7 +6,10 @@ import axios from 'axios';
     https://api.github.com/users/<your name>
 */
 
-axios.get('https://api.github.com/users/ryanghoward');
+// axios.get('https://api.github.com/users/ryanghoward')
+//   .then(resp => {
+//     console.log(resp);
+//   })
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -23,7 +26,7 @@ axios.get('https://api.github.com/users/ryanghoward');
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
-    follow this link in your browser https://api.github.com/users/<Your github name>/followers,
+    follow this link in your browser https://api.github.com/users/<Your github name>/followers, and
     manually find some other users' github handles, or use the list found at the
     bottom of the page. Get at least 5 different Github usernames and add them as
     Individual strings to the friendsArray below.
@@ -32,7 +35,8 @@ axios.get('https://api.github.com/users/ryanghoward');
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['dstrazzeri', 'FrameOfLightDesigner', 'tetondan', 'dustinmyers', 'justsml']
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -54,34 +58,104 @@ const followersArray = [];
     </div>
 */
 
-function cardMaker({ object }) {
+// const container = document.querySelector('.cards');
+
+// function cardMaker({ object }) {
+//   const card = document.createElement('div');
+//   const image = document.createElement('img');
+//   const cardInfo = document.createElement('div');
+//   const name = document.createElement('h3');
+//   const username = document.createElement('p');
+//   const location = document.createElement('p');                  
+//   const profile = document.createElement('p');
+//   const address = document.createElement('a');
+//   const followers = document.createElement('p');
+//   const following = document.createElement('p');
+//   const bio = document.createElement('p');
+
+//   card.classList.add('card');
+//   cardInfo.classList.add('card-info');
+//   name.classList.add('name');
+//   username.classList.add('username');
+
+//   name.textContent = object.data.name;
+//   username.textContent = object.data.login;
+//   location.textContent = `Location: ${location}`;
+//   followers.textContent = `Followers: ${followers}`;
+//   following.textContent = `Following: ${following}`;
+//   bio.textContent = `Profile: ${bio}`;
+//   image.src = object.data.avatar_url;
+//   address.textContent = object.data.html_url;
+//   address.href = object.data.html_url;
+
+//   card.appendChild(image, cardInfo);
+//   cardInfo.appendChild(name, username, location, profile, followers, following, bio);
+//   profile.appendChild.add(username);
+  
+//   document.querySelector.card.appendChild('.cards');
+
+//   return card;
+// }
+
+function cardMaker({avatar_url, name, login, location, html_url, followers, following, bio}) {
   const card = document.createElement('div');
-  const img = document.createElement('img');
-  const cardInfo = document.createElement('div');
-  const login = document.createElement('h3');
-  const username = document.createElement('p');
-  const location = document.createElement('p');                  // Step 3
-  const profile = document.createElement('p');
-  const anchor = document.createElement('a');
-  const followers = document.createElement('p');
-  const following = document.createElement('p');
-  const bio = document.createElement('p');
+  const avatar = document.createElement('img');
+  const div2 = document.createElement('div');
+  const h3 = document.createElement('h3');
+  const userName = document.createElement('p');
+  const userLocation = document.createElement('p');
+  const userProfile = document.createElement('p');
+  const userLink = document.createElement('a');
+  const userFollowers = document.createElement('p');
+  const userFollowing = document.createElement('p');
+  const userBio = document.createElement('p');
+  
+  avatar.src = avatar_url;
+  h3.textContent = name;
+  userName.textContent = login;
+  userLocation.textContent = `Location: ${location}`;
+  userProfile.textContent = `Profile: ${html_url}`;
+  userFollowers.textContent = `Followers: ${followers}`;
+  userFollowing.textContent = `Following: ${following}`;
+  userBio.textContent = `Bio: ${bio}`;
+  
+  card.classList.add('card');
+  div2.classList.add('card-info');
+  h3.classList.add('name');
+  userName.classList.add('username');
+  
+  // card.append('.cards')
+  card.appendChild(avatar);
+  card.appendChild(div2);
+  div2.appendChild(h3);
+  div2.appendChild(userName);
+  div2.appendChild(userLocation);
+  div2.appendChild(userProfile);
+  userProfile.appendChild(userLink);
+  div2.appendChild(userFollowers);
+  div2.appendChild(userFollowing);
+  div2.appendChild(userBio);
+  
+  return card;
+  }
+  
+  function getInfo() {
+    axios.get(`https://api.github.com/users/ryanghoward`)
+      .then(res => {
+        console.log(res.data)
+        const cardsElement = document.querySelector('.cards');
+        const newCard = cardMaker(res.data)
+        cardsElement.appendChild(newCard)
+      })
+      .catch(err => {
+        console.error(err);
+      })
+      .finally(() => {
+        console.log('get request')
+      })
+  }
 
-  login.textContent = `${login}`;
-  location.textContent = `${location}`;
-  URL.src = `${URL}`;
-  followers.textContent = `${followers}`;                   // Step 4
-  following.textContent = `${following}`;
-  bio.textContent = `${bio}`;
-
-  document.appendChild('.cards');
-
-
-};
-
-
-
-
+  getInfo()
 
 /*
   List of LS Instructors Github username's:
