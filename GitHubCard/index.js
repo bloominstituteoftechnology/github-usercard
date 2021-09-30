@@ -60,7 +60,7 @@ const followersArray = [];
     </div>
 */
 
-function githubCard({ avatar_url, name, login, location, html_url, userFollowers, userFollowing, userBio }) {
+function githubCard({ avatar_url, name, login, location, html_url, followers, following, bio }) {
   const card = document.createElement('div')
   const userImg = document.createElement('img')
   const info = document.createElement('div')
@@ -69,9 +69,9 @@ function githubCard({ avatar_url, name, login, location, html_url, userFollowers
   const userLocation = document.createElement('p')
   const profile = document.createElement('p')
   const link = document.createElement('a')
-  const followers = document.createElement('p')
-  const following = document.createElement('p')
-  const bio = document.createElement('p')
+  const userFollowers = document.createElement('p')
+  const userFollowing = document.createElement('p')
+  const userBio = document.createElement('p')
 
   card.appendChild(userImg)
   card.appendChild(info)
@@ -80,23 +80,23 @@ function githubCard({ avatar_url, name, login, location, html_url, userFollowers
   info.appendChild(userLocation)
   info.appendChild(profile)
   profile.appendChild(link)
-  info.appendChild(followers)
-  info.appendChild(following)
-  info.appendChild(bio)
+  info.appendChild(userFollowers)
+  info.appendChild(userFollowing)
+  info.appendChild(userBio)
 
   userImg.src = avatar_url
   realName.textContent = name
   username.textContent = login
   userLocation.textContent = location
   link.textContent = html_url
-  followers.textContent = userFollowers
-  following.textContent = userFollowing
-  bio.textContent = userBio
+  userFollowers.textContent = followers
+  userFollowing.textContent = following
+  userBio.textContent = bio
 
   card.classList.add('card')
   // userImg.classList.add('card-img')
   info.classList.add('card-info')
-  realName.classList.add('card-.name')
+  realName.classList.add('username')
   username.classList.add('card-p')
 
   return card
