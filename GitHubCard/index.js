@@ -27,8 +27,40 @@
     Using that array, iterate over it, requesting data for each user, creating a new card for each
     user, and adding that card to the DOM.
 */
+import axios from "axios";
 
-const followersArray = [];
+axios.get('https://api.github.com/users/hughespham2002')
+.then((response) => {
+
+  console.log(response);
+
+  const container = document.querySelector('.cards');
+  container.appendChild(cardMaker(response.data));
+  for(let i = 0; i <followersArray.length; i++) {
+    axios.get(`https://api.github.com/users/${followersArray[i]}`).then((response) => {
+      container.appendChild(cardMaker(response.data));
+    });
+  }
+});
+
+const followersArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell"
+];
+followersArray.map(function (user) {
+  axios.get('https://api.github.com/users/' + [user]).then((response) => {
+    const divCard = cardMaker(response);
+    const cards = document.querySelector('.cards');
+    cards.appendChild(divCard);
+  })
+
+  .catch((error) => {
+    console.log(error);
+  })
+});
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,7 +81,53 @@ const followersArray = [];
       </div>
     </div>
 */
+function cardMaker(object) {
+  const cardDiv = document.createElement('div');
+  cardDiv.classList.add('card');
+  
+  const image = document.createElement('img');
+  image.src = object.data.avatar_url;
 
+  const headerName = document.createElement('h3');
+  headerName.classList.add('name');
+  headerName.innerHTML = object.data.name;
+
+  const userName = document.createElement('p');
+  userName.classList.add('username');
+  userName.innerHTML = object.data.login;
+
+  const location = document.createElement('p');
+  location.innerHTML = `Location: ${object.data.location}`;
+
+  const profile = document.createElement('p');
+  profile.innerHTML = 'Profile';
+
+  const profileAddress = document.createElement('a');
+  profileAddress.href = object.data.html_url;
+  profileAddress.innerHTML = object.data.html_url;
+
+  const followers = document.createElement('p');
+  followers.innerHTML = `Followers: ${object.data.followers}`;
+
+  const following = document.createElement('p');
+  following.innerHTML = `Followers: ${object.data.following}`;
+  
+  const bio = document.createElement('p');
+  bio.innerHTML = `Bio: ${object.data.bio}`;
+
+  cardDiv.appendChild(image);
+  cardDiv.appendChild(headerName);
+  headerName.appendChild(name);
+  headerName.appendChild(userName);
+  headerName.appendChild(locationbar);
+  headerName.appendChild(profile);
+  profile.appendChild(profileAddress);
+  headerName.appendChild(followers);
+  headerName.appendChild(following);
+  headerName.appendChild(bio);
+
+  return cardDiv;
+}
 /*
   List of LS Instructors Github username's:
     tetondan
@@ -58,3 +136,4 @@ const followersArray = [];
     luishrd
     bigknell
 */
+
