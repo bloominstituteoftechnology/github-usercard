@@ -21,6 +21,7 @@ axios.get(`https://api.github.com/users/Kseniyapl`)
     and append the returned markup to the DOM as a child of .cards
 
 */
+let content = document.querySelector('.cards')
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -33,7 +34,16 @@ axios.get(`https://api.github.com/users/Kseniyapl`)
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+console.log(followersArray)
+followersArray.forEach(elem=>{
+  axios.get(`https://api.github.com/users/${elem}`)
+  .then(resp =>{
+    content.appendChild(createCard(resp.data))
+    
+  })
+
+})
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -98,7 +108,7 @@ bioP.textContent = data.bioP;
 return card
 
 }
-
+createCard()
 /*
   List of LS Instructors Github username's:
     tetondan
