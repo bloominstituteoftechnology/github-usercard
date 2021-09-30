@@ -4,16 +4,16 @@
     https://api.github.com/users/christiansmith2394
 */
 import axios from 'axios'
-  // axios.get('https://api.github.com/users/ChristianSmith2394')
-  //   .then(resp => {
-  //     const cards = document.querySelector('.cards')
-  //     const newCard = githubCard(resp.data.avatar_url,resp.data.name,resp.data.login,resp.data.location,resp.data.html_url,resp.data.userFollowers,resp.data.userFollowing,resp.data.userBio)
-  //     cards.appendChild(newCard)
-  //     console.log(resp)
-  //   })
-  //   .catch(err => {
-  //     console.error(err)
-  //   })
+  axios.get('https://api.github.com/users/ChristianSmith2394')
+    .then(resp => {
+      const cards = document.querySelector('.cards')
+      const newCard = githubCard(resp.data)
+      cards.appendChild(newCard)
+      console.log(resp)
+    })
+    .catch(err => {
+      console.error(err)
+    })
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -111,13 +111,3 @@ function githubCard({ avatar_url, name, login, location, html_url, userFollowers
     bigknell
 */
 
-  axios.get('https://api.github.com/users/ChristianSmith2394')
-    .then(resp => {
-      const cards = document.querySelector('.cards')
-      const newCard = githubCard(resp.data.avatar_url,resp.data.name,resp.data.login,resp.data.location,resp.data.html_url,resp.data.userFollowers,resp.data.userFollowing,resp.data.userBio)
-      cards.appendChild(newCard)
-      console.log(resp)
-    })
-    .catch(err => {
-      console.error(err)
-    })
