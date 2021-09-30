@@ -6,7 +6,7 @@
 import axios from "axios";
 const entryPoint = document.querySelector('.cards');
 axios.get(`https://api.github.com/users/kenjigr`).then(res => {
-  console.log(res.data);
+  // console.log(res.data);
   const cardData = res.data;
   const cardObj = {
     url: cardData.avatar_url,
@@ -20,9 +20,35 @@ axios.get(`https://api.github.com/users/kenjigr`).then(res => {
   }
   const userCard = cardMaker(cardObj);
   entryPoint.appendChild(userCard);
+    axios.get("https://api.github.com/users/KenjiGr/followers").then(res =>{
+      console.log(res.data);
+      for(let i = 0; i < res.data.length; i++){
+      const cardData = res.data[i];
+      console.log(cardData)
+      const cardObj = {
+        url: cardData.avatar_url,
+        name: cardData.name, 
+        login: cardData.login,
+        location: cardData.location,
+        html: cardData.html_url, 
+        userFollowers: cardData.followers, 
+        userFollowing: cardData.following, 
+        bio: cardData.bio
+    }
+    const userCard = cardMaker(cardObj);
+    entryPoint.appendChild(userCard);
+  }
+  }).catch(err =>{
+    console.log(err);
+  })
 }).catch(err => {
   console.error(err);
 });
+axios.get("https://api.github.com/users/KenjiGr/followers").then(res =>{
+  console.log(res.data);
+}).catch(err =>{
+  console.log(err);
+})
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -52,7 +78,7 @@ function getUsers(array){
   for(let i = 0; i < array.length; i++){
     axios.get(`https://api.github.com/users/${i}`).then(res => {
       const userData = res.data;
-      console.log(userData);
+      // console.log(userData);
       const userObj = {
         url: userData.avatar_url,
         name: userData.name, 
