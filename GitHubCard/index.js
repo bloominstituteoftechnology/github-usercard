@@ -3,6 +3,16 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+import axios from 'axios'
+
+axios.get(`https://api.github.com/users/peterdavidconley`)
+.then(resp => {
+  const githubData = resp.data
+  rootDiv.appendChild(cardMaker(githubData))
+})
+.catch(err => {
+  console.error(err)
+})
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -17,6 +27,9 @@
     and append the returned markup to the DOM as a child of .cards
 */
 
+const rootDiv = document.querySelector('.cards')
+
+
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
@@ -28,7 +41,25 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml' ,'luishrd', 'bigknell'];
+
+function userCardMaker (username) {
+
+axios.get(`https://api.github.com/users/${username}`)
+.then(resp => {
+  const githubData = resp.data
+  rootDiv.appendChild(cardMaker(githubData))
+})
+.catch(err => {
+  console.error(err)
+})
+
+}
+
+for (let i = 0 ; i < followersArray.length ; i++) {
+  userCardMaker(followersArray[i])
+}
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +80,45 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function cardMaker (object) {
+
+  const cardDiv = document.createElement('div')
+  cardDiv.classList.add('card')
+  const userImg = document.createElement('img')
+  cardDiv.appendChild(userImg)
+  userImg.src = object.avatar_url
+  const infoDiv = document.createElement('div')
+  infoDiv.classList.add('card-info')
+  cardDiv.appendChild(infoDiv)
+  const name = document.createElement('h3')
+  name.classList.add('name')
+  name.textContent = object.name
+  infoDiv.appendChild(name)
+  const userName = document.createElement('p')
+  userName.classList.add('username')
+  userName.textContent = object.login
+  infoDiv.appendChild(userName)
+  const location = document.createElement('p')
+  location.textContent = `Location: ${object.location}`
+  infoDiv.appendChild(location)
+  const profile = document.createElement('a')
+  profile.href = object.html_url
+  profile.textContent = `Profile: ${object.html_url}`
+  infoDiv.appendChild(profile)
+  const followers = document.createElement('p')
+  followers.textContent = `Followers: ${object.followers}`
+  infoDiv.appendChild(followers)
+  const following = document.createElement('p')
+  following.textContent = `Following: ${object.following}`
+  infoDiv.appendChild(following)
+  const bio = document.createElement('p')
+  bio.textContent = `Bio: ${object.bio}`
+  infoDiv.appendChild(bio)
+
+  return cardDiv;
+
+}
 
 /*
   List of LS Instructors Github username's:
