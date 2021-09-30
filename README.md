@@ -22,9 +22,9 @@ In this project we are going to be accessing the GitHub API and building a socia
 
 **Follow these steps to set up and work on your project:**
 
-* [ ] Create a forked copy of this project.
-* [ ] Clone your OWN version of the repository (Not Lambda's by mistake!).
-* [ ] Create a new branch: git checkout -b `<firstName-lastName>`.
+* [ ] Create a forked copy of this project. yes 
+* [ ] Clone your OWN version of the repository (Not Lambda's by mistake!). yes
+* [ ] Create a new branch: git checkout -b `<firstName-lastName>`. yes
 * [ ] Implement the project on your newly created `<firstName-lastName>` branch, committing changes regularly.
 * [ ] Push commits: git push origin `<firstName-lastName>`.
 
