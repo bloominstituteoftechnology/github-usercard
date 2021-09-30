@@ -4,8 +4,16 @@
     https://api.github.com/users/christiansmith2394
 */
 import axios from 'axios'
-
-axios.get('https://api.github.com/users/christiansmith2394')
+  axios.get('https://api.github.com/users/ChristianSmith2394')
+    .then(resp => {
+      console.log(resp)
+      const cards = document.querySelector('.cards')
+      const newCard = githubCard(resp.data.avatar_url,resp.data.name,resp.data.login,resp.data.location,resp.data.html_url,resp.data.userFollowers,resp.data.userFollowing,resp.data.userBio)
+      cards.appendChild(newCard)
+    })
+    .catch(err => {
+      console.error(err)
+    })
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -52,13 +60,13 @@ const followersArray = [];
     </div>
 */
 
-function githubCard({ object }) {
+function githubCard({ avatar_url, name, login, location, html_url, userFollowers, userFollowing, userBio }) {
   const card = document.createElement('div')
   const userImg = document.createElement('img')
   const info = document.createElement('div')
-  const name = document.createElement('h3')
+  const realName = document.createElement('h3')
   const username = document.createElement('p')
-  const location = document.createElement('p')
+  const userLocation = document.createElement('p')
   const profile = document.createElement('p')
   const link = document.createElement('a')
   const followers = document.createElement('p')
@@ -67,26 +75,31 @@ function githubCard({ object }) {
 
   card.appendChild(userImg)
   card.appendChild(info)
-  info.appendChild(name)
+  info.appendChild(realName)
   info.appendChild(username)
-  info.appendChild(location)
+  info.appendChild(userLocation)
   info.appendChild(profile)
   profile.appendChild(link)
   info.appendChild(followers)
   info.appendChild(following)
   info.appendChild(bio)
 
-  card.classList.add('.card')
-  userImg.classList.add('.card img')
-  info.classList.add('')
-  name.classList.add('.card .name')
-  username.classList.add('.card p')
-  location.classList.add('.card p')
-  profile.classList.add('.card p')
-  followers.classList.add('.card p')
-  following.classList.add('.card p')
-  bio.classList.add('.card p')
+  userImg.src = avatar_url
+  realName.textContent = name
+  username.textContent = login
+  userLocation.textContent = location
+  link.textContent = html_url
+  followers.textContent = userFollowers
+  following.textContent = userFollowing
+  bio.textContent = userBio
 
+  card.classList.add('card')
+  // userImg.classList.add('card-img')
+  info.classList.add('card-info')
+  realName.classList.add('card-.name')
+  username.classList.add('card-p')
+
+  return card
 }
 
 /*
