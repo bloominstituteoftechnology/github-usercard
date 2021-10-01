@@ -6,10 +6,10 @@ import axios from 'axios';
     https://api.github.com/users/<your name>
 */
 
-// axios.get('https://api.github.com/users/ryanghoward')
-//   .then(resp => {
-//     console.log(resp);
-//   })
+axios.get('https://api.github.com/users/ryanghoward')
+  .then(resp => {
+    console.log(resp);
+  })
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -35,7 +35,7 @@ import axios from 'axios';
     user, and adding that card to the DOM.
 */
 
-const followersArray = ['dstrazzeri', 'FrameOfLightDesigner', 'tetondan', 'dustinmyers', 'justsml'];
+const followersArray = ['ryanghoward', 'dstrazzeri', 'FrameOfLightDesigner', 'VABIII', 'justsml'];
 followersArray.forEach(elem => {
   axios.get(`https://api.github.com/users/${elem}`)
     .then(resp => {
@@ -47,7 +47,6 @@ followersArray.forEach(elem => {
       console.error(err)
     })
 })
-
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -88,7 +87,9 @@ function cardMaker({avatar_url, name, login, location, html_url, followers, foll
   h3.textContent = name;
   userName.textContent = login;
   userLocation.textContent = `Location: ${location}`;
-  userProfile.textContent = `Profile: ${html_url}`;
+  userProfile.textContent = `Profile: `;
+  userLink.href = html_url;
+  userLink.textContent = `${html_url}`;
   userFollowers.textContent = `Followers: ${followers}`;
   userFollowing.textContent = `Following: ${following}`;
   userBio.textContent = `Bio: ${bio}`;
@@ -110,23 +111,7 @@ function cardMaker({avatar_url, name, login, location, html_url, followers, foll
   div2.appendChild(userBio);
   
   return card;
-  }
-  
-  function getInfo() {
-    axios.get(`https://api.github.com/users/ryanghoward`)
-      .then(res => {
-        console.log(res.data)
-        const cardsElement = document.querySelector('.cards');
-        const newCard = cardMaker(res.data)
-        cardsElement.appendChild(newCard)
-      })
-      .catch(err => {
-        console.error(err);
-      })
-      .finally(() => {
-        console.log('get request')
-      })
-  }
+}
 
   getInfo()
 
