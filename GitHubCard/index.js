@@ -1,9 +1,19 @@
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
-    https://api.github.com/users/<your name>
+    https://api.github.com/users/christiansmith2394
 */
-
+import axios from 'axios'
+  axios.get('https://api.github.com/users/ChristianSmith2394')
+    .then(resp => {
+      const cards = document.querySelector('.cards')
+      const newCard = githubCard(resp.data)
+      cards.appendChild(newCard)
+      console.log(resp)
+    })
+    .catch(err => {
+      console.error(err)
+    })
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -50,6 +60,48 @@ const followersArray = [];
     </div>
 */
 
+function githubCard({ avatar_url, name, login, location, html_url, followers, following, bio }) {
+  const card = document.createElement('div')
+  const userImg = document.createElement('img')
+  const info = document.createElement('div')
+  const realName = document.createElement('h3')
+  const username = document.createElement('p')
+  const userLocation = document.createElement('p')
+  const profile = document.createElement('p')
+  const link = document.createElement('a')
+  const userFollowers = document.createElement('p')
+  const userFollowing = document.createElement('p')
+  const userBio = document.createElement('p')
+
+  card.appendChild(userImg)
+  card.appendChild(info)
+  info.appendChild(realName)
+  info.appendChild(username)
+  info.appendChild(userLocation)
+  info.appendChild(profile)
+  profile.appendChild(link)
+  info.appendChild(userFollowers)
+  info.appendChild(userFollowing)
+  info.appendChild(userBio)
+
+  userImg.src = avatar_url
+  realName.textContent = name
+  username.textContent = login
+  userLocation.textContent = location
+  link.textContent = html_url
+  userFollowers.textContent = followers
+  userFollowing.textContent = following
+  userBio.textContent = bio
+
+  card.classList.add('card')
+  // userImg.classList.add('card-img')
+  info.classList.add('card-info')
+  realName.classList.add('username')
+  username.classList.add('card-p')
+
+  return card
+}
+
 /*
   List of LS Instructors Github username's:
     tetondan
@@ -58,3 +110,4 @@ const followersArray = [];
     luishrd
     bigknell
 */
+
