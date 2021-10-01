@@ -6,11 +6,26 @@
 import axios from 'axios';
 
 const myURL = 'https://api.github.com/users/beatlesm';
+const tetondanURL = 'https://api.github.com/users/tetondan'
 
 const grabTheData = function (URL) {
   axios.get(URL)
     .then (res => {
        const gitObj = {
+          
+
+/*
+  STEP 2: Inspect and study the data coming back, this is YOUR
+    github info! You will need to understand the structure of this
+    data in order to use it to build your component function
+
+    Skip to STEP 3 (line 34).
+*/
+
+/*
+  STEP 4: Pass the data received from Github into your function,
+    and append the returned markup to the DOM as a child of .cards
+*/
           name: res.data.name,
           username: res.data.login, 
           img: res.data.avatar_url,
@@ -28,25 +43,6 @@ const grabTheData = function (URL) {
     .finally(() => console.log("I DON'T CARE IF IT WORKED OR NOT!!!")); 
     // post() patch() delete()     
 };
-
-grabTheData(myURL);
-
-/* document.addEventListener('click', grabTheData(URL) => {
-
-}); */
-
-/*
-  STEP 2: Inspect and study the data coming back, this is YOUR
-    github info! You will need to understand the structure of this
-    data in order to use it to build your component function
-
-    Skip to STEP 3 (line 34).
-*/
-
-/*
-  STEP 4: Pass the data received from Github into your function,
-    and append the returned markup to the DOM as a child of .cards
-*/
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -125,7 +121,12 @@ function gitCardMaker (gitObj) {
   return card;
 }
 
+grabTheData(myURL);
+grabTheData(tetondanURL);
 
+/* document.addEventListener('click', grabTheData(URL) => {
+
+}); */
 
 /*
   List of LS Instructors Github username's:
