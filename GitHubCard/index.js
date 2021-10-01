@@ -1,6 +1,3 @@
-
-import axios from 'axios';
-
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -31,8 +28,6 @@ import axios from 'axios';
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
-
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -62,6 +57,6 @@ const followersArray = [];
     bigknell
 */
 
-// TESTING 
+import axios from 'axios';
 
-WaveShaperNodersf'sdfsd';FontFacesda
+axios.get('https://api.github.com/users/mspicola');
