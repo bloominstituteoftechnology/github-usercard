@@ -5,26 +5,35 @@
 */
 import axios from 'axios';
 
-const URL = 'https://api.github.com/users/beatlesm';
+const myURL = 'https://api.github.com/users/beatlesm';
 
-const grabTheData = (event) => {
+const grabTheData = function (URL) {
   axios.get(URL)
     .then (res => {
-       const myGit = {
+       const gitObj = {
           name: res.data.name,
+          username: res.data.login, 
           img: res.data.avatar_url,
+          url: res.data.html_url,
           location: res.data.location, 
           followers: res.data.followers,
           following: res.data.following,
           bio: res.data.bio
-        };   
-        console.log('myGit: ', myGit);        
+        }   
+        console.log('gitObj: ', gitObj);
+        const gitCard = gitCardMaker(gitObj);
+        document.querySelector('.cards').appendChild(gitCard);                   
     })
     .catch(err => console.error(err))
-    .finally(() => console.log("I DON'T CARE IF IT WORKED OR NOT!!!")) // post() patch() delete() */
+    .finally(() => console.log("I DON'T CARE IF IT WORKED OR NOT!!!")); 
+    // post() patch() delete()     
 };
 
-document.addEventListener('click', grabTheData);
+grabTheData(myURL);
+
+/* document.addEventListener('click', grabTheData(URL) => {
+
+}); */
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -71,6 +80,52 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function gitCardMaker (gitObj) {
+
+  // instantiating the elements
+  const card = document.createElement('div');
+  const image = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const userName = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const url = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  // setting class names, attributes and text
+  bio.textContent = `Bio: ${gitObj.bio}`;
+  following.textContent = `Following: ${gitObj.following}`;
+  followers.textContent = `Followers: ${gitObj.followers}`;
+  url.href = gitObj.url;
+  url.textContent = gitObj.url;
+  profile.textContent = `Profile: `
+  profile.appendChild(url);
+  location.textContent = gitObj.location;
+  userName.textContent =gitObj.username;
+  userName.classList.add('username');
+  name.textContent = gitObj.name;
+  name.classList.add('name');
+  image.src = gitObj.img;
+  card.classList.add('card');
+  card.appendChild(image);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  cardInfo.classList.add('card-info')
+  // cardInfo.appendChild(userName);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+  return card;
+}
+
+
 
 /*
   List of LS Instructors Github username's:
