@@ -5,12 +5,40 @@ import axios from 'axios'
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-let userData = axios.get('https://api.github.com/users/andrejohnson')
-.then(resp =>{
-  console.log(resp.data)
+
+
+
+ let gitUser = document.querySelector('div.cards')
+
+const getInfo = (userName) =>{
+ axios.get(`https://api.github.com/users/${userName}`)
+.then(data =>{
+  // gitUser.appendChild(mUser(data))
+  mUser(data.data)
+
+  
+  console.log(data.data)
+
 })
+
 .catch(err =>{console.error(err)})
 .finally(done =>{console.log('this worked')})
+}
+
+
+
+const followersArray = [
+  'tetondan',
+ 'dustinmyers',
+ 'justsml',
+ 'luishrd',
+ 'bigknell'];
+
+
+followersArray.forEach(username => {
+  getInfo(username)
+})
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -35,7 +63,7 @@ let userData = axios.get('https://api.github.com/users/andrejohnson')
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -58,7 +86,7 @@ const followersArray = [];
 */
 
 
- let gitUser = document.querySelector('.cards')
+ 
 function mUser(obj){
  
   const card = document.createElement('div')
@@ -68,7 +96,7 @@ function mUser(obj){
   const img = document.createElement('img')
   card.appendChild(img)
         img.classList.add('img')
-        img.setAttribute('src', obj.avatar_url )
+        img.setAttribute('src',obj.avatar_url )
 
   const cardInfo = document.createElement('div')
   card.appendChild(cardInfo)
@@ -76,45 +104,48 @@ function mUser(obj){
 
   const h3 = document.createElement('h3')
   cardInfo.appendChild(h3)
-        h3.classList.add('h3')     
-        h3.textContent = `${obj.name}`
+        h3.classList.add('name')     
+        h3.textContent = obj.name
 
   const p = document.createElement('p')
   cardInfo.appendChild(p)
         p.classList.add('p')  
         p.textContent = obj.login 
-        h3.textContent = obj.login 
+     
 
-  const p1 = document.createElement('p1')
+  const p1 = document.createElement('p')
   cardInfo.appendChild(p1)
         p1.classList.add('p1')  
         p1.textContent = `Location: ${obj.location}`
 
-  const p2 = document.createElement('p2')
+  const p2 = document.createElement('p')
   cardInfo.appendChild(p2)              
         p2.classList.add('p2') 
-        p2.textContent = `Profile: ${link}` 
+        p2.textContent = `Profile: ` 
   const link = document.createElement('a')
+ 
   p2.appendChild(link)
         link.setAttribute('href', obj.html_url)
         link.textContent = obj.html_url
-
-  const p3 = document.createElement('p3')
+ console.log(link)
+  const p3 = document.createElement('p')
   cardInfo.appendChild(p3)
         p3.classList.add('p3') 
+        p3.textContent = `Followers: ${obj.followers}`;
 
-  const p4 = document.createElement('p3')
-  cardInfo.appendChild(p3)
-        p4.classList.add('p4')  
+  const p4 = document.createElement('p')
+  cardInfo.appendChild(p4)
+        p4.classList.add('p4') 
+        p4.textContent = `Followers: ${obj.following}` 
 
-  const p5 = document.createElement('p5')
+  const p5 = document.createElement('p')
   cardInfo.appendChild(p5)
         p5.classList.add('p5')      
-
+        p5.textContent = `Bio: ${obj.bio}`
   return card;
 }
 
-mUser(userData);
+
 
 /*
   List of LS Instructors Github username's:
