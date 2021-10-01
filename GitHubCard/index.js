@@ -3,6 +3,8 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+import axios from 'axios';
+axios.get(`https://api.github.com/users/LukeSchmude`)
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -49,7 +51,52 @@ const followersArray = [];
       </div>
     </div>
 */
+function makePanel({ cards }) {
+  const card = document.createElement('div');
+  const img = document.createElement('img');
+  const cardInfo = doucment.createElement('div');
+  const name = document.createElement('h3');
+  const userName = document.createElement('p')
+  const location = document.createElement('p')
+  const profile = document.createElement('p')
+  const linkToGithub = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p')
+  const bio = document.createElement('p')
 
+  card.appendChild(img);
+  card.appendChild(cardInfo);
+  card.appendChild(name);
+  card.appendChild(userName);
+  card.appendChild(location);
+  card.appendChild(profile);
+  card.appendChild(linkToGithub);
+  card.appendChild(followers);
+  card.appendChild(following);
+  card.appendChild(bio);
+/*
+  <div class="card">
+  <img src={image url of user} />
+  <div class="card-info">
+    <h3 class="name">{users name}</h3>
+    <p class="username">{users user name}</p>
+    <p>Location: {users location}</p>
+    <p>Profile:
+      <a href={address to users github page}>{address to users github page}</a>
+    </p>
+    <p>Followers: {users followers count}</p>
+    <p>Following: {users following count}</p>
+    <p>Bio: {users bio}</p>
+  </div>
+</div>
+*/
+card.classList.add('card');
+cardInfo.classList.add('card-info');
+name.classList.add('name');
+userName.classList.add('username');
+
+return makePanel;
+}
 /*
   List of LS Instructors Github username's:
     tetondan
