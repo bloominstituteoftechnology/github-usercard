@@ -36,6 +36,7 @@ axios.get('https://api.github.com/users/ryanghoward')
 */
 
 const followersArray = ['ryanghoward', 'dstrazzeri', 'FrameOfLightDesigner', 'VABIII', 'justsml'];
+
 followersArray.forEach(elem => {
   axios.get(`https://api.github.com/users/${elem}`)
     .then(resp => {
@@ -72,9 +73,9 @@ followersArray.forEach(elem => {
 
 function cardMaker({avatar_url, name, login, location, html_url, followers, following, bio}) {
   const card = document.createElement('div');
-  const avatar = document.createElement('img');
+  const imageAvatar = document.createElement('img');
   const div2 = document.createElement('div');
-  const h3 = document.createElement('h3');
+  const h3Name = document.createElement('h3Name');
   const userName = document.createElement('p');
   const userLocation = document.createElement('p');
   const userProfile = document.createElement('p');
@@ -83,12 +84,13 @@ function cardMaker({avatar_url, name, login, location, html_url, followers, foll
   const userFollowing = document.createElement('p');
   const userBio = document.createElement('p');
   
-  avatar.src = avatar_url;
-  h3.textContent = name;
+  imageAvatar.src = avatar_url;
+  h3Name.textContent = name;
   userName.textContent = login;
   userLocation.textContent = `Location: ${location}`;
   userProfile.textContent = `Profile: `;
   userLink.href = html_url;
+  userLink.target = '_blank';
   userLink.textContent = `${html_url}`;
   userFollowers.textContent = `Followers: ${followers}`;
   userFollowing.textContent = `Following: ${following}`;
@@ -96,12 +98,13 @@ function cardMaker({avatar_url, name, login, location, html_url, followers, foll
   
   card.classList.add('card');
   div2.classList.add('card-info');
-  h3.classList.add('name');
+  h3Name.classList.add('name');
   userName.classList.add('username');
   
-  card.appendChild(avatar);
+  card.appendChild(imageAvatar
+);
   card.appendChild(div2);
-  div2.appendChild(h3);
+  div2.appendChild(h3Name);
   div2.appendChild(userName);
   div2.appendChild(userLocation);
   div2.appendChild(userProfile);
@@ -113,7 +116,7 @@ function cardMaker({avatar_url, name, login, location, html_url, followers, foll
   return card;
 }
 
-  getInfo()
+  // getInfo();
 
 /*
   List of LS Instructors Github username's:
