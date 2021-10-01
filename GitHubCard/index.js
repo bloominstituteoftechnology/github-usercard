@@ -35,7 +35,18 @@ import axios from 'axios';
     user, and adding that card to the DOM.
 */
 
-const followersArray = ['dstrazzeri', 'FrameOfLightDesigner', 'tetondan', 'dustinmyers', 'justsml']
+const followersArray = ['dstrazzeri', 'FrameOfLightDesigner', 'tetondan', 'dustinmyers', 'justsml'];
+followersArray.forEach(elem => {
+  axios.get(`https://api.github.com/users/${elem}`)
+    .then(resp => {
+      let info = resp.data
+      const cardsElement = document.querySelector('.cards');
+      cardsElement.appendChild(cardMaker(info))
+    })
+    .catch(err => {
+      console.error(err)
+    })
+})
 
 
 /*
@@ -59,43 +70,6 @@ const followersArray = ['dstrazzeri', 'FrameOfLightDesigner', 'tetondan', 'dusti
 */
 
 // const container = document.querySelector('.cards');
-
-// function cardMaker({ object }) {
-//   const card = document.createElement('div');
-//   const image = document.createElement('img');
-//   const cardInfo = document.createElement('div');
-//   const name = document.createElement('h3');
-//   const username = document.createElement('p');
-//   const location = document.createElement('p');                  
-//   const profile = document.createElement('p');
-//   const address = document.createElement('a');
-//   const followers = document.createElement('p');
-//   const following = document.createElement('p');
-//   const bio = document.createElement('p');
-
-//   card.classList.add('card');
-//   cardInfo.classList.add('card-info');
-//   name.classList.add('name');
-//   username.classList.add('username');
-
-//   name.textContent = object.data.name;
-//   username.textContent = object.data.login;
-//   location.textContent = `Location: ${location}`;
-//   followers.textContent = `Followers: ${followers}`;
-//   following.textContent = `Following: ${following}`;
-//   bio.textContent = `Profile: ${bio}`;
-//   image.src = object.data.avatar_url;
-//   address.textContent = object.data.html_url;
-//   address.href = object.data.html_url;
-
-//   card.appendChild(image, cardInfo);
-//   cardInfo.appendChild(name, username, location, profile, followers, following, bio);
-//   profile.appendChild.add(username);
-  
-//   document.querySelector.card.appendChild('.cards');
-
-//   return card;
-// }
 
 function cardMaker({avatar_url, name, login, location, html_url, followers, following, bio}) {
   const card = document.createElement('div');
@@ -124,7 +98,6 @@ function cardMaker({avatar_url, name, login, location, html_url, followers, foll
   h3.classList.add('name');
   userName.classList.add('username');
   
-  // card.append('.cards')
   card.appendChild(avatar);
   card.appendChild(div2);
   div2.appendChild(h3);
