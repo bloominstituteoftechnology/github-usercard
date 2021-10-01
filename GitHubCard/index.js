@@ -3,16 +3,14 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-import axios from 'axios';
 
-const myURL = 'https://api.github.com/users/beatlesm';
-const tetondanURL = 'https://api.github.com/users/tetondan'
+import axios from 'axios';
+var myGit = {};
 
 const grabTheData = function (URL) {
   axios.get(URL)
     .then (res => {
-       const gitObj = {
-          
+       const gitObj = {  
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -35,7 +33,7 @@ const grabTheData = function (URL) {
           following: res.data.following,
           bio: res.data.bio
         }   
-        console.log('gitObj: ', gitObj);
+
         const gitCard = gitCardMaker(gitObj);
         document.querySelector('.cards').appendChild(gitCard);                   
     })
@@ -55,7 +53,22 @@ const grabTheData = function (URL) {
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+    'tetondan',
+    'dustinmyers',
+    'justsml',
+    'luishrd',
+    'bigknell'
+];
+
+let urlArr = [];
+for (let i = 0; i < followersArray.length; i++) {
+    urlArr.push(`https://api.github.com/users/${followersArray[i]}`);    
+}
+
+// urlArr.forEach(item => grabTheData(item));
+
+urlArr.map(item => grabTheData(item));
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -121,8 +134,9 @@ function gitCardMaker (gitObj) {
   return card;
 }
 
-grabTheData(myURL);
-grabTheData(tetondanURL);
+const myURL = 'https://api.github.com/users/beatlesm';
+
+// grabTheData(myURL);
 
 /* document.addEventListener('click', grabTheData(URL) => {
 
