@@ -34,7 +34,7 @@ const githubUsers = document.querySelector('.cards');
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+//const followersArray = [];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -55,7 +55,7 @@ const followersArray = [];
       </div>
     </div>
 */
-function userMaker(name, avatar_url, login, location, url, followers, following, bio){
+function userMaker(gitName){
   const userCard = document.createElement('div')
   const userInfo = document.createElement('div')
   const userImg = document.createElement('img')
@@ -82,23 +82,34 @@ userCard.classList.add('card-info')
 userInfo.classList.add('name')
 userInfo.classList.add('username')
 
+axios.get(`https://api.github.com/users/${gitName}`).then(res =>{
 
-userImg.src = avatar_url
-userName.textContent = name
-userLogin.textContent = login
-userLocation.textContent = location
-userURL.href = url
-userFollowers.textContent = followers
-userFollowing.textContent = following
-userBio.textContent = bio
+  userImg.src = res.data.avatar_url
+  userName.textContent = res.data.name
+  userLogin.textContent = res.data.login
+  userLocation.textContent = res.data.location
+  userURL.href = res.data.url
+  userFollowers.textContent = res.data.followers
+  userFollowing.textContent = res.data.following
+  userBio.textContent = res.data.bio
+})
 
 const gitUser = githubUsers.appendChild(userCard)
 return gitUser;
 
 }
 
-userMaker('Nithya Narayanan', 'https://avatars.githubusercontent.com/u/60498600?v=4','narayanan-nithya', 'San Diego, CA', 'https://api.github.com/users/narayanan-nithya', '1', '1', 'Basic')
+userMaker('narayanan-nithya')
 
+const followersArray = [];
+followersArray.push('tetondan')
+followersArray.push('dustinmyers')
+followersArray.push('justsml')
+followersArray.push('luishrd')
+followersArray.push('bigknell')
+followersArray.forEach(user =>{
+  userMaker(user);//
+})
 /*
   List of LS Instructors Github username's:
     tetondan
