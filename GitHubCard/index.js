@@ -9,7 +9,7 @@ import axios from 'axios';
 axios.get('https://api.github.com/users/ryanghoward')
   .then(res => {
     console.log(res);
-  })
+  });
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -56,6 +56,20 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function cardMaker({ avatar_url, name, login, location, html_url, followers, following, bio }) {
+  const card = document.createElement('div');
+  const imageAvatar = document.createElement('img');
+  const div2 = document.createElement('div');
+  const h3Name = document.createElement('h3');
+  const userName = document.createElement('p');
+  const userLocation = document.createElement('p');
+  const userProfile = document.createElement('p');
+  const userLink = document.createElement('a');
+  const userFollowers = document.createElement('p');
+  const userFollowing = document.createElement('p');
+  const userBio = document.createElement('p');
+}
 
 /*
   List of LS Instructors Github username's:
