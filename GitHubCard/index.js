@@ -1,7 +1,7 @@
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
-    https://api.github.com/users/<your name>
+    https://api.github.com/users/<SafiaOmar>
 */
 
 import axios from "axios";
@@ -17,7 +17,7 @@ console.error(err)
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
     data in order to use it to build your component function
-    
+
 
     Skip to STEP 3 (line 34).
 */
