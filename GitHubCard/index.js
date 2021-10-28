@@ -52,7 +52,21 @@ const followersArray = [];
       </div>
     </div>
 */
+function userMaker(name, imgURL, username, location, profileURL, followers, following, bio){
+  const userCard = document.createElement('div')
+  const userInfo = document.createElement('div')
+  const userImg = document.createElement('img')
+  const userName = document.createElement('h3')
+  const userLogin = document.createElement('p')
+  const userLocation = document.createElement('p')
+  const userProfile = document.createElement('p')
+  const userFollowers = document.createElement('p')
+  const userFollowing = document.createElement('p')
+  const userBio = document.createElement('p')
+}
 
+userCard.appendChild(userName)
+userCard.appendChild()
 /*
   List of LS Instructors Github username's:
     tetondan
