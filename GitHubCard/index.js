@@ -61,7 +61,7 @@ function cardMaker({ avatar_url, name, login, location, html_url, followers, fol
   const card = document.createElement('div');
   const imageAvatar = document.createElement('img');
   const div2 = document.createElement('div');
-  const h3Name = document.createElement('h3');
+  const h3Name = document.createElement('h3')
   const userName = document.createElement('p');
   const userLocation = document.createElement('p');
   const userProfile = document.createElement('p');
@@ -69,6 +69,17 @@ function cardMaker({ avatar_url, name, login, location, html_url, followers, fol
   const userFollowers = document.createElement('p');
   const userFollowing = document.createElement('p');
   const userBio = document.createElement('p');
+
+  imageAvatar.src = avatar_url;
+  h3Name.textContent = name;
+  userName.textContent = login;
+  userLocation.textContent = `Location ${location}`;
+  userProfile.textContent = `Profile: `;
+  userLink.href = '_blank';
+  userLink.textContent = `${html_url}`
+  userFollowers.textContent = `Followers: ${followers}`;
+  userFollowing.textContent = `Following: ${following}`;
+  userBio.textContent = `Bio: ${bio}`;
 }
 
 /*
