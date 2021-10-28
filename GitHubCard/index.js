@@ -1,9 +1,20 @@
+
+import axios from 'axios';
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-axios.get(`https://api.github.com/users/lailaarkadan`);
+axios.get(`https://api.github.com/users/lailaarkadan`)
+.then(res => {
+  console.log(res.data)
+})
+.catch(error => {
+  console.log(error)
+})
+
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -28,7 +39,7 @@ axios.get(`https://api.github.com/users/lailaarkadan`);
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+//const followersArray = [];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -93,13 +104,24 @@ function createCard(data) {
     para6.textContent = data.bio;
 
     
-     
-
-
     return cardDiv;
 }
 
+const followersArray = ["bigknell","tetondan","dustinmyers","justsml","luishrd"];  
+followersArray.forEach(follower => {
+  axios.get(`https://api.github.com/users/${follower}`)
+  .then(res => {
+    console.log('Github info: ', res)
+    const myData = object.data;
+    console.log(myData);
+    const userCard = createCard(myData);
+    cards.appendChild(userCard);
+  })
+  .catch(error => {
+    console.log('The API is currently down, try again later', error)
+  })
 
+})
 /*
   List of LS Instructors Github username's:
     tetondan
