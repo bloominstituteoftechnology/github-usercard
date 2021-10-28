@@ -2,7 +2,19 @@
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
-*/
+*/import axios from 'axios';
+// axios.get('https://api.github.com/users/BradM92')
+// .then(resp => {
+//   console.log(resp);
+//   const cards = document.querySelector('.cards');
+//   const newCard = GetGit(resp.data);
+//   cards.appendChild(newCard);
+//   console.log(resp.data.avatar_url);
+//   console.log(newCard);
+// })
+// .catch(err => {
+//   console.error(err);
+// })
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -28,7 +40,32 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'BradM92',
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'];
+
+  function fetchUser(userArray){
+    for(let i=0; i < userArray.length; i++){
+  axios.get(`https://api.github.com/users/${userArray[i]}`)
+.then(resp => {
+  console.log(resp);
+  const cards = document.querySelector('.cards');
+  const newCard = GetGit(resp.data);
+  cards.appendChild(newCard);
+  console.log(resp.data.avatar_url);
+  console.log(newCard);
+})
+.catch(err => {
+  console.error(err);
+})}
+  }
+
+  fetchUser(followersArray);
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +86,56 @@ const followersArray = [];
       </div>
     </div>
 */
+
+    function GetGit({avatar_url,name,login,location,html_url,followers,following,bio}){
+      
+
+      //make html elements
+      const card = document.createElement('div');
+      const avatar = document.createElement('img');
+      const cardInfo = document.createElement('div');
+      const realName = document.createElement('h3');
+      const userName = document.createElement('p');
+      const userLocation = document.createElement('p');
+      const userProfile = document.createElement('p');
+      const userPageLink = document.createElement('a');
+      const userFollowers = document.createElement('p');
+      const userFollowing = document.createElement('p');
+      const userBio = document.createElement('p');
+      
+
+      //assign the data from api
+      avatar.src = avatar_url;
+      realName.textContent = name;
+      userName.textContent = login;
+      userLocation.textContent = location;
+      userPageLink.src = html_url;
+      userFollowers.textContent = followers;
+      userFollowing.textContent = following;
+      userBio.textContent = bio;
+
+      //assign classes
+      card.classList.add('card');
+      cardInfo.classList.add('card-info');
+      realName.classList.add('name');
+      userName.classList.add('username');
+
+      //create hierarchy
+      card.appendChild(avatar);
+      card.appendChild(cardInfo);
+      cardInfo.appendChild(realName);
+      cardInfo.appendChild(userName)
+      cardInfo.appendChild(userLocation);
+      cardInfo.appendChild(userProfile);
+      userProfile.appendChild(userPageLink);
+      cardInfo.appendChild(userFollowers);
+      cardInfo.appendChild(userFollowing);
+      cardInfo.appendChild(userBio);
+
+
+
+      return card;
+    }
 
 /*
   List of LS Instructors Github username's:
