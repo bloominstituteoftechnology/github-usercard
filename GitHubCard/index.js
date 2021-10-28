@@ -90,7 +90,7 @@ function cardMaker(obj){
   const following = document.createElement('p')
   const bio = document.createElement('p')
 
-  card.classList.add('card')
+  card.classList.add('card');
   cardInfo.classList.add('card-info');
   name.classList.add('name');
   username.classList.add('username');
@@ -106,7 +106,8 @@ function cardMaker(obj){
   following.textContent = `Following: ${obj.following}`;
 
   
-  card.appendChild(cardInfo)
+  card.appendChild(cardInfo);
+  card.appendChild(img);
   cardInfo.appendChild(name);
   cardInfo.appendChild(username);
   cardInfo.appendChild(location);
