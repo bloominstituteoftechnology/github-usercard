@@ -21,16 +21,7 @@ function getGitHub(userHandle) {
 }
 
 getGitHub('jmerz826');
-// tetondan
-//     dustinmyers
-//     justsml
-//     luishrd
-//     bigknell
-getGitHub('tetondan');
-getGitHub('justsml');
-getGitHub('luishrd');
-getGitHub('bigknell');
-// getGitHub('oblador');
+
 
 
 
@@ -58,7 +49,11 @@ getGitHub('bigknell');
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+
+followersArray.forEach(person => {
+  getGitHub(person);
+})
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
