@@ -7,16 +7,12 @@ const { default: axios } = require("axios");
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-const placeholder = document.querySelector('.cards');
-
-const userInfo = axios
-.get('https://api.github.com/users/MNoble2014')
-.then(res => {
-  placeholder.appendChild(githbCardCreator(res.data));
+axios.get('https://api.gethub.com/users/MNoble2014')
+.then(response => {
+  const newCard = cardMaker(response.data);
+  const cards = document.querySelector('.cards');
+  cards.appendChild(newCard);
 })
-.catch(err => {
-  console.log(err);
-});
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -42,8 +38,7 @@ const userInfo = axios
     user, and adding that card to the DOM.
 */
 
-const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
-
+const followersArray = [];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
