@@ -58,28 +58,28 @@ const followersArray = [];
 */
 
 function cardMaker({ avatar_url, name, login, location, html_url, followers, following, bio }) {
-  const card = document.createElement('div');
+  const card = document.createElement('div').classList.add('card');
   const imageAvatar = document.createElement('img');
-  const div2 = document.createElement('div');
-  const h3Name = document.createElement('h3')
-  const userName = document.createElement('p');
-  const userLocation = document.createElement('p');
-  const userProfile = document.createElement('p');
-  const userLink = document.createElement('a');
-  const userFollowers = document.createElement('p');
-  const userFollowing = document.createElement('p');
-  const userBio = document.createElement('p');
+  const div2 = document.createElement('div').classList.add('card-info');
+  const h3Name = document.createElement('h3').classList.add('name');
+  const userName = document.createElement('p').classList.add('username');
+  const userLocation = document.createElement('p').textContent = `Location ${location}`;
+  const userProfile = document.createElement('p').textContent = `Profile: `;
+  const userLink = document.createElement('a').textContent = `${html_url}`;
+  const userFollowers = document.createElement('p').textContent = `Followers: ${followers}`;
+  const userFollowing = document.createElement('p').textContent = `Following: ${following}`;
+  const userBio = document.createElement('p').textContent = `Bio: ${bio}`;
 
   imageAvatar.src = avatar_url;
   h3Name.textContent = name;
-  userName.textContent = login;
-  userLocation.textContent = `Location ${location}`;
-  userProfile.textContent = `Profile: `;
   userLink.href = '_blank';
   userLink.textContent = `${html_url}`
-  userFollowers.textContent = `Followers: ${followers}`;
-  userFollowing.textContent = `Following: ${following}`;
-  userBio.textContent = `Bio: ${bio}`;
+  // userName.textContent = login;
+  // userLocation.textContent = `Location ${location}`;
+  // userProfile.textContent = `Profile: `;
+  // userFollowers.textContent = `Followers: ${followers}`;
+  // userFollowing.textContent = `Following: ${following}`;
+  // userBio.textContent = `Bio: ${bio}`;
 }
 
 /*
