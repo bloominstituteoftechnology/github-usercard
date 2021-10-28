@@ -87,7 +87,7 @@ function createCard(data) {
     cardInDiv.appendChild(para6);
 
 // styles
-    card.classList.add("card");
+    cardDiv.classList.add("card");
     cardInDiv.classList.add("card-info");
     h3.classList.add("name");
     para6.classList.add("username");
@@ -112,13 +112,13 @@ followersArray.forEach(follower => {
   axios.get(`https://api.github.com/users/${follower}`)
   .then(res => {
     console.log('Github info: ', res)
-    const myData = object.data;
+    const myData = res.data;
     console.log(myData);
     const userCard = createCard(myData);
-    cards.appendChild(userCard);
+    
   })
   .catch(error => {
-    console.log('The API is currently down, try again later', error)
+    console.log(error)
   })
 
 })
