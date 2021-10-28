@@ -35,7 +35,7 @@ axios.get('https://api.github.com/users/ryanghoward')
     user, and adding that card to the DOM.
 */
 
-const followersArray = ['dstrazzeri', 'VABIII', 'FftyShadesofCode', 'fletchulence'];
+const followersArray = ['dstrazzeri', 'VABIII', 'FftyShadesofCode', 'fletchulence', 'ryanghoward'];
 
 followersArray.forEach(e => {
   axios.get(`http://api.github.com/users/${e}`)
@@ -47,7 +47,7 @@ followersArray.forEach(e => {
     .catch(err => {
       console.error(err)
     })
-});
+})
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -70,21 +70,22 @@ followersArray.forEach(e => {
 */
 
 function cardMaker({ avatar_url, name, login, location, html_url, followers, following, bio }) {
-  const card = document.createElement('div');
   const imageAvatar = document.createElement('img');
-  const div2 = document.createElement('div');
-  const h3Name = document.createElement('h3');
   const userName = document.createElement('p');
+  const h3Name = document.createElement('h3');
   const userLocation = document.createElement('p');
-  const userProfile = document.createElement('p');
   const userLink = document.createElement('a');
   const userFollowers = document.createElement('p');
   const userFollowing = document.createElement('p');
   const userBio = document.createElement('p');
+  const card = document.createElement('div');
+  const div2 = document.createElement('div');
+  const userProfile = document.createElement('p');
 
   h3Name.textContent = name;
-  userLink.href = '_blank';
+  userLink.href = html_url;
   userLink.textContent = `${html_url}`
+  userLink.target = '_blank';
   imageAvatar.src = avatar_url;
   userName.textContent = login;
   userLocation.textContent = `Location ${location}`;
@@ -92,9 +93,24 @@ function cardMaker({ avatar_url, name, login, location, html_url, followers, fol
   userFollowers.textContent = `Followers: ${followers}`;
   userFollowing.textContent = `Following: ${following}`;
   userBio.textContent = `Bio: ${bio}`;
+  card.classList.add('card');
+
+  // <div class="card">
+  //     <img src={image url of user} />
+  //     <div class="card-info">
+  //       <h3 class="name">{users name}</h3>
+  //       <p class="username">{users user name}</p>
+  //       <p>Location: {users location}</p>
+  //       <p>Profile:
+  //         <a href={address to users github page}>{address to users github page}</a>
+  //       </p>
+  //       <p>Followers: {users followers count}</p>
+  //       <p>Following: {users following count}</p>
+  //       <p>Bio: {users bio}</p>
+  //     </div>
+  //   </div>
 
   card.appendChild(imageAvatar);
-
   card.appendChild(div2);
   div2.appendChild(h3Name);
   div2.appendChild(userName);
