@@ -105,9 +105,8 @@ function cardMaker(obj){
   followers.textContent = `Followers: ${obj.followers}`;
   following.textContent = `Following: ${obj.following}`;
 
-  
-  card.appendChild(cardInfo);
   card.appendChild(img);
+  card.appendChild(cardInfo);
   cardInfo.appendChild(name);
   cardInfo.appendChild(username);
   cardInfo.appendChild(location);
