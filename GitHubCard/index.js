@@ -42,11 +42,18 @@ console.log(data)
 
 const followersArray = [];
 
-function getData(username){
-  const
-  axios.get(`https://api.github.com/users/${username}/followers`);
+// function getData(username){
+  
+//   axios.get(`https://api.github.com/users/${username}/followers`)
+//   .then(res => {
+//     console.log(res.data);
+//   })
+//   .catch(err => {
+//     console.error(err)
+//   })
 
-}
+// }
+// getData('SheebaHashmi');
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
