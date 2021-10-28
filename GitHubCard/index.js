@@ -7,6 +7,16 @@ import axios from 'axios';
 */
 
 axios.get('https://api.github.com/users/adamhinton')
+.then(res =>{
+const dataObjectV = res.data;
+const userCard = userCardMaker(dataObjectV);
+})
+
+.catch(err =>{
+  console.log(err)
+})
+
+console.log(userCard);
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -53,28 +63,30 @@ const followersArray = [];
   //     </div>
   //   </div>
 
+ 
 const userCardMaker = function (dataObject){
-const divCard = document.querySelector('div');
+const divCard = document.createElement('div');
   divCard.classList.add('card');
-const imgUser = document.querySelector('img';)
-const divCardInfo=  document.querySelector('div');
+const imgUser = document.createElement('img');
+  imgUser.src= dataObject['avatar_url'];
+const divCardInfo=  document.createElement('div');
   divCardInfo.classList.add('card-info');
-const h3Name = document.querySelector('h3');
-  h3Name.classList.add('name')
-  h3Name.textContent = dataObject['name'];
-const pUsername = document.querySelector('p');
+const h3Names = document.createElement('h3');
+  h3Names.classList.add('name');
+  h3Names.textContent = dataObject['name'];
+const pUsername = document.createElement('p');
   pUsername.classList.add('username');
   pUsername.textContent = dataObject['login'];
-const pLocation = document.querySelector('p');
+const pLocation = document.createElement('p');
   pLocation.textContent = dataObject['location'];
-const addresses = document.querySelector('a');
-  const pProfile = document.querySelector('p');
+  const profileLink = document.createElement('p');
+console.log(imgUser)
+  return divCard;
 
-
-
-return console.log(pProfile);
 }
-userCardMaker("jifoedf")
+
+userCardMaker('afjidsaofs')
+
 
 
 /*
