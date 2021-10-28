@@ -50,17 +50,19 @@ function githubCard(object) {
    image.src = object.avatar_url;
    title.textContent = object.name;
    username.textContent = object.login;
-   location.textContent = object.location;
-   anchor.href = object.url;
-   anchor.textContent = object.url;
-   followers.textContent = object.followers;
-   following.textContent = object.following;
-   bioContent.textContent = object.bio;
+   location.textContent = `Location: ${object.location}`;
+   anchor.href = object.html_url;
+   anchor.textContent = object.html_url;
+   followers.textContent = `Followers: ${object.followers}`;
+   following.textContent = `Following: ${object.following}`;
+   bioContent.textContent = ` Bio: ${object.bio}`;
 
    return divContain
 
 }
 
+
+const followersArray = [ tetondan,dustinmyers,justsml,luishrd,bigknel];
 
 
 /*
@@ -111,7 +113,7 @@ function githubCard(object) {
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
 
 
 
