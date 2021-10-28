@@ -50,9 +50,56 @@ const followersArray = [];
     </div>
 */
 
-function createCard() {
-  
+function createCard(data) {
+
+    const cardDiv = document.createElement("div");
+    const image = document.createElement("img");
+    const cardInDiv = document.createElement("div");
+    const h3 = document.createElement("h3");
+    const para1 = document.createElement("p");
+    const para2 = document.createElement("p");
+    const anch = document.createElement("a");
+    const para3 = document.createElement("p");
+    const para4 = document.createElement("p");
+    const para5 = document.createElement("p");
+    const para6 = document.createElement("p");
+
+//  structure
+    cardDiv.appendChild(image);
+    cardDiv.appendChild(cardInDiv);
+    cardInDiv.appendChild(h3);
+    cardInDiv.appendChild(para1);
+    cardInDiv.appendChild(para2);
+    cardInDiv.appendChild(para3);
+    cardInDiv.appendChild(para4);
+    cardInDiv.appendChild(para5);
+    cardInDiv.appendChild(para6);
+
+// styles
+    card.classList.add("card");
+    cardInDiv.classList.add("card-info");
+    h3.classList.add("name");
+    para6.classList.add("username");
+
+
+    //content
+
+    image.src = data.avatar_url;
+    h3.textContent = data.name;
+    para1.textContent=data.login;
+    para2.textContent= data.location;
+    para4.textContent = `Followers: ${data.followers}`;
+    para5.textContent = `Following: ${data.following}`;
+    para6.textContent = data.bio;
+
+    
+     
+
+
+    return cardDiv;
 }
+
+
 /*
   List of LS Instructors Github username's:
     tetondan
