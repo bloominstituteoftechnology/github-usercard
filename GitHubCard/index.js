@@ -83,11 +83,11 @@ userInfo.classList.add('name')
 userInfo.classList.add('username')
 
 
-userImg.textContent = avatar_url
+userImg.src = avatar_url
 userName.textContent = name
 userLogin.textContent = login
 userLocation.textContent = location
-userURL.textContent = url
+userURL.href = url
 userFollowers.textContent = followers
 userFollowing.textContent = following
 userBio.textContent = bio
@@ -97,7 +97,7 @@ return gitUser;
 
 }
 
-userMaker('Nithya Narayanan', 'https://avatars.githubusercontent.com/u/60498600?v=4','narayanan-nithya', 'San Diego, CA', 'url', 'followers', 'following', 'bio')
+userMaker('Nithya Narayanan', 'https://avatars.githubusercontent.com/u/60498600?v=4','narayanan-nithya', 'San Diego, CA', 'https://api.github.com/users/narayanan-nithya', '1', '1', 'Basic')
 
 /*
   List of LS Instructors Github username's:
