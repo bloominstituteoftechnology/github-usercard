@@ -51,6 +51,44 @@ const followersArray = [];
       </div>
     </div>
 */
+function userInfo(information){
+
+  const card = document.createElement('div')
+  card.classList.add('card')
+
+  const image = document.createElement('img')
+  image.src = information["avatar_url"]
+
+  const cardInfo = document.createElement('div')
+  cardInfo.classList.add('card-info')
+
+  const name = document.createElement('h3')
+  name.classList.add('name')
+  name.textContent = `Name: ${login}`
+
+  const userName = document.createElement('p')
+  userName.classList.add('username')
+  name.textContent = `UserName: ${id}`
+
+  const location = document.createElement('p')
+  location.textContent = `Location: ${location}`
+
+  const profile = document.createElement('p')
+  profile.textContent = `Profile: ${address.href}`
+
+  const address = document.createElement('a')
+  address.href = information['html_url']
+
+  const followers = document.createElement('p')
+  followers.textContent = `Followers: ${followers}`
+
+  const following = document.createElement('p')
+  following.textContent = `Following: ${following}`
+
+  const bio = document.createElement('p')
+  bio.textContent = `Bio: ${bio}`
+}
+
 
 /*
   List of LS Instructors Github username's:
