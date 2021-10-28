@@ -46,9 +46,6 @@ bigKahuna.appendChild(userCard)
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
-
-
   // STEP 3: Create a function that accepts a single object as its only argument.
   //   Using DOM methods and properties, create and return the following markup:
 
@@ -87,6 +84,7 @@ const pLocation = document.createElement('p');
     profileLink.textContent = `Profile:`
   const profileA = document.createElement('a');
     profileA.href = dataObject['url']
+    profileA.textContent = `${dataObject['url']}`
 const pFollowers = document.createElement('p');
   pFollowers.textContent= `Followers: ${dataObject['followers']}`;
 const pFollowing = document.createElement('p');
@@ -106,9 +104,9 @@ divCardInfo.appendChild(pFollowing);
 divCardInfo.appendChild(pBio);
 
 return divCard
-}
+};
 
-userCardMaker('afjidsaofs')
+
 
 
 
@@ -120,3 +118,26 @@ userCardMaker('afjidsaofs')
     luishrd
     bigknell
 */
+
+
+const followersArray = [
+ 'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell',
+ ];
+ 
+
+followersArray.forEach(item =>{
+  axios.get(`https://api.github.com/users/${item}`)
+.then(res =>{
+const dataObjectV = res.data;
+const userCard = userCardMaker(dataObjectV);
+const bigKahuna =document.querySelector('.cards');
+bigKahuna.appendChild(userCard)
+})
+.catch(err =>{
+  console.log(err)
+})
+})
