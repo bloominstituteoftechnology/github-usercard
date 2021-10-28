@@ -40,7 +40,7 @@ const followersArray = ['dstrazzeri', 'VABIII', 'FftyShadesofCode', 'fletchulenc
 followersArray.forEach(e => {
   axios.get(`http://api.github.com/users/${e}`)
     .then(res => {
-      let info = res.data
+      const info = res.data
       const cardsElement = document.querySelector('.cards');
       cardsElement.appendChild(cardMaker(info))
     })
@@ -93,22 +93,11 @@ function cardMaker({ avatar_url, name, login, location, html_url, followers, fol
   userFollowers.textContent = `Followers: ${followers}`;
   userFollowing.textContent = `Following: ${following}`;
   userBio.textContent = `Bio: ${bio}`;
-  card.classList.add('card');
 
-  // <div class="card">
-  //     <img src={image url of user} />
-  //     <div class="card-info">
-  //       <h3 class="name">{users name}</h3>
-  //       <p class="username">{users user name}</p>
-  //       <p>Location: {users location}</p>
-  //       <p>Profile:
-  //         <a href={address to users github page}>{address to users github page}</a>
-  //       </p>
-  //       <p>Followers: {users followers count}</p>
-  //       <p>Following: {users following count}</p>
-  //       <p>Bio: {users bio}</p>
-  //     </div>
-  //   </div>
+  card.classList.add('card');
+  div2.classList.add('card-info');
+  h3Name.classList.add('name');
+  userName.classList.add('name');
 
   card.appendChild(imageAvatar);
   card.appendChild(div2);
