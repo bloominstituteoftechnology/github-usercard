@@ -42,7 +42,8 @@ const userInfo = axios
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
