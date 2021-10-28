@@ -4,14 +4,36 @@ import axios from 'axios';
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-const myGithub = axios.get('https://api.github.com/users/jmerz826')
-  .then(res => {
-    console.log(res);
-  })
-  .catch(err => {
-    console.error(err);
-  })
-;
+
+function getGitHub(userHandle) {
+  const cardsContainer = document.querySelector('.cards');
+  const myGithub = axios.get(`https://api.github.com/users/${userHandle}`)
+    .then(res => {
+      // console.log(res);
+      const gitHubCard = githubCardMaker(res);
+      cardsContainer.appendChild(gitHubCard);
+    })
+    .catch(err => {
+      console.error(err);
+    })
+    ;
+  // console.log(myGithub)
+}
+
+getGitHub('jmerz826');
+// tetondan
+//     dustinmyers
+//     justsml
+//     luishrd
+//     bigknell
+getGitHub('tetondan');
+getGitHub('justsml');
+getGitHub('luishrd');
+getGitHub('bigknell');
+// getGitHub('oblador');
+
+
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -58,6 +80,10 @@ const followersArray = [];
     </div>
 */
 function githubCardMaker(obj) {
+  // Portion of dom in which we will inject our github card
+
+  // Gets data from inputted handle's github account 
+
   // create html element variables
   const cardDiv = document.createElement('div');
   const image = document.createElement('img');
@@ -104,7 +130,7 @@ function githubCardMaker(obj) {
 
   return cardDiv;
 }
-console.log(myGithub)
+// console.log(myGithub)
 // githubCardMaker(myGithub);
 /*
   List of LS Instructors Github username's:
