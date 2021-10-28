@@ -1,9 +1,17 @@
+import axios from 'axios';
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+const myGithub = axios.get('https://api.github.com/users/jmerz826')
+  .then(res => {
+    console.log(res);
+  })
+  .catch(err => {
+    console.error(err);
+  })
+;
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -49,7 +57,55 @@ const followersArray = [];
       </div>
     </div>
 */
+function githubCardMaker(obj) {
+  // create html element variables
+  const cardDiv = document.createElement('div');
+  const image = document.createElement('img');
+  const infoDiv = document.createElement('div');
+  const usernameTitle = document.createElement('h3');
+  const username = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const link = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
 
+  // add classes where appropriate
+  cardDiv.classList.add('card');
+  infoDiv.classList.add('card-info');
+  usernameTitle.classList.add('name');
+  username.classList.add('username');
+
+  // add content to the elements
+  image.setAttribute('src', obj.data.avatar_url);
+  usernameTitle.textContent = obj.data.name;
+  username.textContent = obj.data.login;
+  location.textContent = obj.data.location;
+  profile.textContent = 'Profile:';
+  link.setAttribute('href', obj.data.url);
+  link.textContent = obj.data.url;
+  followers.textContent = obj.data.followers;
+  following.textContent = obj.data.following;
+  bio.textContent = obj.data.bio;
+
+  // Create heirarchal order
+  cardDiv.appendChild(image);
+  cardDiv.appendChild(infoDiv);
+  infoDiv.appendChild(usernameTitle);
+  infoDiv.appendChild(username);
+  infoDiv.appendChild(location);
+  infoDiv.appendChild(profile);
+  profile.appendChild(link);
+  infoDiv.appendChild(followers);
+  infoDiv.appendChild(following);
+  infoDiv.appendChild(bio);
+
+
+  return cardDiv;
+}
+console.log(myGithub)
+// githubCardMaker(myGithub);
 /*
   List of LS Instructors Github username's:
     tetondan
