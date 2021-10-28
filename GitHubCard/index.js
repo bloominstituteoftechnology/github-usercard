@@ -10,13 +10,17 @@ axios.get('https://api.github.com/users/adamhinton')
 .then(res =>{
 const dataObjectV = res.data;
 const userCard = userCardMaker(dataObjectV);
+const bigKahuna =document.querySelector('.cards');
+bigKahuna.appendChild(userCard)
+//follow step 4
+//get the element with a class of cards from the DOM, document.querySelector('.cards')
+//append the user card to the element we just querySelected
 })
 
 .catch(err =>{
   console.log(err)
 })
-
-console.log(userCard);
+// console.log(userCard);
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -78,11 +82,30 @@ const pUsername = document.createElement('p');
   pUsername.classList.add('username');
   pUsername.textContent = dataObject['login'];
 const pLocation = document.createElement('p');
-  pLocation.textContent = dataObject['location'];
+  pLocation.textContent =`Location: ${dataObject['location']}`;
   const profileLink = document.createElement('p');
-console.log(imgUser)
-  return divCard;
+    profileLink.textContent = `Profile:`
+  const profileA = document.createElement('a');
+    profileA.href = dataObject['url']
+const pFollowers = document.createElement('p');
+  pFollowers.textContent= `Followers: ${dataObject['followers']}`;
+const pFollowing = document.createElement('p');
+  pFollowing.textContent= `Following: ${dataObject['following']}`;
+const pBio = document.createElement('p');
+  pBio.textContent = `Bio: ${dataObject['bio']}`;
 
+divCard.appendChild(imgUser);
+divCard.appendChild(divCardInfo);
+divCardInfo.appendChild(h3Names);
+divCardInfo.appendChild(pUsername);
+divCardInfo.appendChild(pLocation);
+divCardInfo.appendChild(profileLink);
+profileLink.appendChild(profileA);
+divCardInfo.appendChild(pFollowers);
+divCardInfo.appendChild(pFollowing);
+divCardInfo.appendChild(pBio);
+
+return divCard
 }
 
 userCardMaker('afjidsaofs')
