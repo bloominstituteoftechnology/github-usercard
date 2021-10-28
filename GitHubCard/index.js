@@ -59,7 +59,7 @@ const followersArray = [];
 
 function cardMaker({ avatar_url, name, login, location, html_url, followers, following, bio }) {
   const card = document.createElement('div').classList.add('card');
-  const imageAvatar = document.createElement('img');
+  const imageAvatar = document.createElement('img').src = avatar_url;
   const div2 = document.createElement('div').classList.add('card-info');
   const h3Name = document.createElement('h3').classList.add('name');
   const userName = document.createElement('p').classList.add('username');
@@ -70,16 +70,31 @@ function cardMaker({ avatar_url, name, login, location, html_url, followers, fol
   const userFollowing = document.createElement('p').textContent = `Following: ${following}`;
   const userBio = document.createElement('p').textContent = `Bio: ${bio}`;
 
-  imageAvatar.src = avatar_url;
   h3Name.textContent = name;
   userLink.href = '_blank';
   userLink.textContent = `${html_url}`
+  // imageAvatar.src = avatar_url;
   // userName.textContent = login;
   // userLocation.textContent = `Location ${location}`;
   // userProfile.textContent = `Profile: `;
   // userFollowers.textContent = `Followers: ${followers}`;
   // userFollowing.textContent = `Following: ${following}`;
   // userBio.textContent = `Bio: ${bio}`;
+
+  card.appendChild(imageAvatar);
+
+  card.appendChild(div2);
+  div2.appendChild(h3Name);
+  div2.appendChild(userName);
+  div2.appendChild(userLocation);
+  div2.appendChild(userProfile);
+  userProfile.appendChild(userLink);
+  div2.appendChild(userFollowers);
+  div2.appendChild(userFollowing);
+  div2.appendChild(userBio);
+
+  return card;
+
 }
 
 /*
