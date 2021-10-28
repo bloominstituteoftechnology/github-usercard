@@ -2,9 +2,8 @@ import axios from 'axios';
 
 axios.get('https://api.github.com/users/quathesage')
 
-
 .then(response => {
-  console.log(response.data)
+  // console.log(response.data)
   const githubData = response.data;
 const cardData = githubCard(githubData)
 const cards = document.querySelector('.cards');
@@ -62,8 +61,19 @@ function githubCard(object) {
 }
 
 
-const followersArray = [ tetondan,dustinmyers,justsml,luishrd,bigknel];
+const followersArray = [ 'tetondan','dustinmyers','justsml','luishrd','bigknell'];
 
+followersArray.forEach(item => {
+  axios.get(`https://api.github.com/users/${item}`)
+  .then(resp => {
+    const cardData = resp.data;
+    const element = document.querySelector('.cards');
+    element.appendChild(githubCard(cardData));
+  })
+  .catch(error => {
+    console.error(error);
+  })
+})
 
 /*
   STEP 1: using axios, send a GET request to the following URL
