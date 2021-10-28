@@ -1,3 +1,5 @@
+const { default: axios } = require("axios");
+
 `import axios from 'axios';`
 
 /*
@@ -5,6 +7,16 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+const placeholder = document.querySelector('.cards');
+
+const userInfo = axios
+.get('https://api.github.com/users/MNoble2014')
+.then(res => {
+  placeholder.appendChild(githbCardCreator(res.data));
+})
+.catch(err => {
+  console.log(err);
+});
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
