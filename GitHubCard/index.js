@@ -1,10 +1,11 @@
 import axios from "axios";
+import { appendChild } from "parse5/lib/tree-adapters/default";
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-axios.get('https://api.github.com/users/narayanan-nithya').then(res =>{
+axios.get('https://api.github.com/users/narayanan-nithya').then(res => {
   console.log(res);
 })
 /*
@@ -19,6 +20,8 @@ axios.get('https://api.github.com/users/narayanan-nithya').then(res =>{
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
+const githubUsers = document.querySelector('.cards');
+
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -89,9 +92,13 @@ userFollowers.textContent = followers
 userFollowing.textContent = following
 userBio.textContent = bio
 
-return userCard;
+const gitUser = githubUsers.appendChild(userCard)
+return gitUser;
 
 }
+
+userMaker('Nithya Narayanan', 'https://avatars.githubusercontent.com/u/60498600?v=4','narayanan-nithya', 'San Diego, CA', 'url', 'followers', 'following', 'bio')
+
 /*
   List of LS Instructors Github username's:
     tetondan
