@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -34,21 +36,72 @@ const followersArray = [];
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
 
-    <div class="card">
-      <img src={image url of user} />
-      <div class="card-info">
-        <h3 class="name">{users name}</h3>
-        <p class="username">{users user name}</p>
-        <p>Location: {users location}</p>
-        <p>Profile:
-          <a href={address to users github page}>{address to users github page}</a>
-        </p>
-        <p>Followers: {users followers count}</p>
-        <p>Following: {users following count}</p>
-        <p>Bio: {users bio}</p>
+    <div class="card">                                                                      profileCard
+      <img src={image url of user} />                                                        image
+      <div class="card-info">                                                                info
+        <h3 class="name">{users name}</h3>                                                     name
+        <p class="username">{users user name}</p>                                              userName
+        <p>Location: {users location}</p>                                                      location
+        <p>Profile:                                                                            p
+          <a href={address to users github page}>{address to users github page}</a>             address
+        </p>                                                                                   
+        <p>Followers: {users followers count}</p>                                              followers
+        <p>Following: {users following count}</p>                                              following
+        <p>Bio: {users bio}</p>                                                                bio
       </div>
     </div>
 */
+
+function profileMaker({}) {
+  //define new elements
+  const profileCard = document.createElement('.card');
+  const image = document.createElement('img');
+  const info = document.createElement('.card-info');
+  const name = document.createElement('.name');
+  const userName = document.createElement('.username');
+  const location = document.createElement('p');
+  const profile = document.createElement('p:nth-of-type(3)');
+  const address = document.createElement('a');
+  const followers = document.createElement('p:nth-of-type(4)');
+  const following = document.createElement('p:nth-of-type(5)');
+  const bio = document.createElement('p:nth-of-type(6)');
+  
+  //setup structure of elements
+  profileCard.appendChild(image);
+  profileCard.appendChild(info);
+  info.appendChild(name);
+  info.appendChild(userName);
+  info.appendChild(location);
+  info.appendChild(profile);
+  profile.appendChild(address);
+  info.appendChild(followers);
+  info.appendChild(following);
+  info.appendChild(bio);
+
+  //set class names
+  profileCard.classList.add('card');
+  info.classList.add('card-info');
+  name.classList.add('name');
+  userName.classList.add('username');
+
+  //set text content
+  name.textContent = .name;
+
+
+
+}
+
+// function me(object){
+//  const blah = document.querySelector(object);
+//  axios.get(`https://api.github.com/users/${object}`)
+//  .then(res => {
+//    for (let i = 0; i < res.data.message.length; i++) {
+//      const profile = {
+//        imageURL: res.data.message[i],
+//      }
+//    }
+//  })
+// }
 
 /*
   List of LS Instructors Github username's:
