@@ -52,21 +52,46 @@ const followersArray = [];
       </div>
     </div>
 */
-function userMaker(name, imgURL, username, location, profileURL, followers, following, bio){
+function userMaker(name, avatar_url, login, location, url, followers, following, bio){
   const userCard = document.createElement('div')
   const userInfo = document.createElement('div')
   const userImg = document.createElement('img')
   const userName = document.createElement('h3')
   const userLogin = document.createElement('p')
   const userLocation = document.createElement('p')
-  const userProfile = document.createElement('p')
+  const userURL = document.createElement('p')
   const userFollowers = document.createElement('p')
   const userFollowing = document.createElement('p')
   const userBio = document.createElement('p')
-}
 
-userCard.appendChild(userName)
-userCard.appendChild()
+userCard.appendChild(userInfo)
+userCard.appendChild(userImg)
+userInfo.appendChild(userName)
+userInfo.appendChild(userLogin)
+userInfo.appendChild(userLocation)
+userInfo.appendChild(userURL)
+userInfo.appendChild(userFollowers)
+userInfo.appendChild(userFollowing)
+userInfo.appendChild(userBio)
+
+userCard.classList.add('card')
+userCard.classList.add('card-info')
+userInfo.classList.add('name')
+userInfo.classList.add('username')
+
+
+userImg.textContent = avatar_url
+userName.textContent = name
+userLogin.textContent = login
+userLocation.textContent = location
+userURL.textContent = url
+userFollowers.textContent = followers
+userFollowing.textContent = following
+userBio.textContent = bio
+
+return userCard;
+
+}
 /*
   List of LS Instructors Github username's:
     tetondan
