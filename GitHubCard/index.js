@@ -1,8 +1,14 @@
 import axios from 'axios';
 
 axios.get('https://api.github.com/users/quathesage')
+
+
 .then(response => {
-  console.log(response);
+  console.log(response.data)
+  const githubData = response.data;
+const cardData = githubCard(githubData)
+const cards = document.querySelector('.cards');
+cards.appendChild(cardData);
 })
 .catch(error => {
   console.error(error);
@@ -42,7 +48,7 @@ function githubCard(object) {
 
   // Adding content to the element
    image.src = object.avatar_url;
-   title.textContent = 'User name';
+   title.textContent = object.name;
    username.textContent = object.login;
    location.textContent = object.location;
    anchor.href = object.url;
@@ -50,6 +56,8 @@ function githubCard(object) {
    followers.textContent = object.followers;
    following.textContent = object.following;
    bioContent.textContent = object.bio;
+
+   return divContain
 
 }
 
