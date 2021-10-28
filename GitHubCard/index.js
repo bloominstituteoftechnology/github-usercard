@@ -97,7 +97,7 @@ function cardMaker({ avatar_url, name, login, location, html_url, followers, fol
   card.classList.add('card');
   div2.classList.add('card-info');
   h3Name.classList.add('name');
-  userName.classList.add('name');
+  userName.classList.add('username');
 
   card.appendChild(imageAvatar);
   card.appendChild(div2);
