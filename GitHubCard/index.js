@@ -1,8 +1,17 @@
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
+const myName = axios.get('https://api.github.com/users/javarcho')
+.then(response => {
+  console.log(myName);
+})
+.catch (err =>{
+  console.error(err);
+})
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -49,6 +58,44 @@ const followersArray = [];
       </div>
     </div>
 */
+
+const cards = document.querySelector('.cards');
+
+function makeCard(object){
+  const containerDiv = document.createElement('div')
+  const image = document.createElement('img')
+  const secondDiv = document.createElement('div')
+  const h3 = document.createElement('h3')
+  const p1 = document.createElement('p')
+  const p2 = document.createElement('p')
+  const p3 = document.createElement('p')
+  const a = document.createElement('a')
+  const p4 = document.createElement('p')
+  const p5 = document.createElement('p')
+  const p6 = document.createElement('p')
+
+  containerDiv.appendChild(image)
+  containerDiv.appendChild(secondDiv)
+  secondDiv.appendChild(h3)
+  secondDiv.appendChild(p)
+  secondDiv.appendChild(p)
+  secondDiv.appendChild(p)
+  secondDiv.appendChild(a)
+  secondDiv.appendChild(p)
+  secondDiv.appendChild(p)
+  secondDiv.appendChild(p)
+
+  containerDiv.classList.add('card')
+  secondDiv.classList.add('card-info')
+  h3.classList.add('name')
+  p1.classList.add('username')
+
+p2.textContent = 'Location: '
+p4.textContent = 'Followers: '
+p5.textContent = 'Following: '
+p6.textContent = 'Bio: '
+}
+
 
 /*
   List of LS Instructors Github username's:
