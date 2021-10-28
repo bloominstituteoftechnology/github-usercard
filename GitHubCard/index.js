@@ -64,7 +64,7 @@ const followersArray = [];
 
 const cards = document.querySelector('.cards');
 
-function cardMaker ({gitHubTag}){
+function cardMaker (gitHubTag){
   const container = document.createElement('div');
   container.classList.add('card');
   const img = document.createElement('img');
@@ -82,13 +82,13 @@ function cardMaker ({gitHubTag}){
   const bio = document.createElement('p');
 
   img.src = gitHubTag.avatar_url;
-  // name.textContent =res.data.name;
-  // username.textContent = 'Username:' + res.data.login;
-  // location.textContent = 'Location:' + res.data.location;
-  // profileAddress.textContent = 'URL: ' + res.data.url;
-  // followers.textContent = 'Followers:' + res.data.followers;
-  // following.textContent = 'following:' + res.data.following;
-  // bio.textContent = 'Bio:' + res.data.bio;
+   name.textContent =gitHubTag.name;
+  username.textContent = 'Username:' + gitHubTag.login;
+  location.textContent = 'Location:' + gitHubTag.location;
+  profileAddress.textContent = 'URL: ' + gitHubTag.url;
+  followers.textContent = 'Followers:' + gitHubTag.followers;
+  following.textContent = 'following:' + gitHubTag.following;
+  bio.textContent = 'Bio:' + gitHubTag.bio;
 
 
 
@@ -107,15 +107,21 @@ function cardMaker ({gitHubTag}){
 
   return endGame;
 }
-axios.get ('htpps://api.github.com/users/${gitHubTag}')
+function getUser (username){
+  const cards =document.querySelector('.cards');
+
+  axios.get (`htpps://api.github.com/users/${username}`)
   .then(res => {
     const cards = document.querySelector('.cards')
     const cardReturn = cardMaker(res.data)
     cards.appendChild(cardReturn)
+    
   })
   .catch(err => {
     console.error(err)
   });
+}
+
 
 cardMaker('NyamekyeAnnor');
 const followersarray = [];``
@@ -124,3 +130,82 @@ followersarray.push('dustinmyers')
 followersarray.push('justsml')
 followersarray.push('luishrd')
 followersarray.push('bigknell')
+
+
+
+
+
+
+
+
+
+// go back to this is all fails 
+
+// const cards = document.querySelector('.cards');
+
+// function cardMaker (gitHubTag){
+//   const container = document.createElement('div');
+//   container.classList.add('card');
+//   const img = document.createElement('img');
+//   const cardInfo = document.createElement('div');
+//   cardInfo.classList.add('card-info');
+//   const name = document.createElement('h3');
+//   name.classList.add('name');
+//   const username = document.createElement('p');
+//   username.classList.add('username');
+//   const location = document.createElement('p');
+//   const profile = document.createElement('p');
+//   const profileAddress = document.createElement('a');
+//   const followers = document.createElement('p');
+//   const following = document.createElement('p');
+//   const bio = document.createElement('p');
+
+//   img.src = gitHubTag.avatar_url;
+//    name.textContent =gitHubTag.name;
+//   username.textContent = 'Username:' + gitHubTag.login;
+//   location.textContent = 'Location:' + gitHubTag.location;
+//   profileAddress.textContent = 'URL: ' + gitHubTag.url;
+//   followers.textContent = 'Followers:' + gitHubTag.followers;
+//   following.textContent = 'following:' + gitHubTag.following;
+//   bio.textContent = 'Bio:' + gitHubTag.bio;
+
+
+
+//   container.appendChild(img);
+//   container.appendChild(cardInfo);
+//   cardInfo.appendChild(name);
+//   cardInfo.appendChild(username);
+//   cardInfo.appendChild(location);
+//   cardInfo.appendChild(profile);
+//   cardInfo.appendChild(profileAddress);
+//   cardInfo.appendChild(followers);
+//   cardInfo.appendChild(following);
+//   cardInfo.appendChild(bio);
+
+//   const endGame = cards.appendChild(container);
+
+//   return endGame;
+// }
+// function getUser (username){
+//   const cards =document.querySelector('.cards');
+
+//   axios.get (`htpps://api.github.com/users/${username}`)
+//   .then(res => {
+//     const cards = document.querySelector('.cards')
+//     const cardReturn = cardMaker(res.data)
+//     cards.appendChild(cardReturn)
+    
+//   })
+//   .catch(err => {
+//     console.error(err)
+//   });
+// }
+
+
+// cardMaker('NyamekyeAnnor');
+// const followersarray = [];``
+// followersarray.push('tetondan')
+// followersarray.push('dustinmyers')
+// followersarray.push('justsml')
+// followersarray.push('luishrd')
+// followersarray.push('bigknell')
