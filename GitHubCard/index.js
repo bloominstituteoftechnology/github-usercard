@@ -10,7 +10,7 @@ let userData = axios({
   method: 'get'
 }).then((returnData) => {
   // console.log(userInfo(returnData['data']))
-  const cardsDiv = document.getElementsByClassName('cards').appendChild(userInfo(returnData['data']))
+  document.querySelector('cards').appendChild(userInfo(returnData['data']))
 });
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
