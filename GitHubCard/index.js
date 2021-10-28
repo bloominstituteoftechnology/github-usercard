@@ -6,15 +6,14 @@
 import axios from "axios";
 
 const cards = document.querySelector('.cards');
-const data = axios.get('https://api.github.com/users/SheebaHashmi')
+axios.get('https://api.github.com/users/SheebaHashmi')
 .then(res => {
-
   cards.appendChild(cardMaker(res.data));
 })
 .catch(err => {
   console.error(err)
 })
-console.log(data)
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -45,16 +44,17 @@ const followersArray = [ 'tetondan','dustinmyers','justsml','luishrd','bigknell'
 function getData(username){
   
   axios.get(`https://api.github.com/users/${username}`)
-  .then(res => {
-    followersArray.push(res.data.followers)
-    cards.appendChild(cardMaker(res.data));
+        .then(res => {
+          followersArray.push(res.data.followers)
+          cards.appendChild(cardMaker(res.data));
 
-  })
-  .catch(err => {
-    console.error(err)
-  })
+        })
+        .catch(err => {
+          console.error(err)
+        })
 
 }
+
 followersArray.forEach(person => getData(person));
 
 
