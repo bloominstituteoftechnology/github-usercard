@@ -1,9 +1,17 @@
+import axios from 'axios';
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
-    https://api.github.com/users/<your name>
+    https://api.github.com/users/DayLaFavor
 */
-
+let userData = axios({
+  url: 'https://api.github.com/users/DayLaFavor',
+  method: 'get'
+}).then((returnData) => {
+  // console.log(userInfo(returnData['data']))
+  document.querySelector('cards').appendChild(userInfo(returnData['data']))
+});
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -49,6 +57,56 @@ const followersArray = [];
       </div>
     </div>
 */
+function userInfo(information){
+
+  const card = document.createElement('div')
+  card.classList.add('card')
+
+  const image = document.createElement('img')
+  image.src = information["avatar_url"]
+
+  const cardInfo = document.createElement('div')
+  cardInfo.classList.add('card-info')
+
+  const name = document.createElement('h3')
+  name.classList.add('name')
+  name.textContent = `Name: ${information['name']}`
+
+  const userName = document.createElement('p')
+  userName.classList.add('username')
+  name.textContent = `UserName: ${information['login']}`  
+
+  const location = document.createElement('p')
+  location.textContent = `Location: ${information['location']}`
+
+  const profile = document.createElement('p')
+  profile.textContent = `Profile: ${information['html_url']}`
+
+  const address = document.createElement('a')
+  address.href = information['html_url']
+
+  const followers = document.createElement('p')
+  followers.textContent = `Followers: ${information['followers']}`
+
+  const following = document.createElement('p')
+  following.textContent = `Following: ${information['following']}`
+
+  const bio = document.createElement('p')
+  bio.textContent = `Bio: ${bio}`
+
+  location.appendChild(address)
+  cardInfo.appendChild(name)
+  cardInfo.appendChild(userName)
+  cardInfo.appendChild(location)
+  cardInfo.appendChild(followers)
+  cardInfo.appendChild(following)
+  cardInfo.appendChild(bio)
+  card.appendChild(image)
+  card.appendChild(cardInfo)
+
+  return card
+}
+
 
 /*
   List of LS Instructors Github username's:
