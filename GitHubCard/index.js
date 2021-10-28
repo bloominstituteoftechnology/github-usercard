@@ -6,6 +6,59 @@ import axios from 'axios';
     https://api.github.com/users/<your name>
 */
 
+function profileMaker({object}) {
+  //define new elements
+  const profileCard = document.createElement('.card');
+  const image = document.createElement('img');
+  const info = document.createElement('.card-info');
+  const name = document.createElement('.name');
+  const userName = document.createElement('.username');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const address = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  //setup structure of elements
+  profileCard.appendChild(image);
+  profileCard.appendChild(info);
+  info.appendChild(name);
+  info.appendChild(userName);
+  info.appendChild(location);
+  info.appendChild(profile);
+  profile.appendChild(address);
+  info.appendChild(followers);
+  info.appendChild(following);
+  info.appendChild(bio);
+
+  //set class names
+  profileCard.classList.add('card');
+  info.classList.add('card-info');
+  name.classList.add('name');
+  userName.classList.add('username');
+
+  //set text content
+  name.textContent = object['name'];
+  userName.textContent = object['login'];
+  
+  return profileCard
+
+}
+
+axios.get(`https://api.github.com/users/gastonirby`)
+  .then(res => {
+    const dataObject = res.data;
+    const profile = profileMaker(res.data)
+    //follow step 4
+    // get element with a class of cards from the DOM
+    const attach = document.querySelector('.cards')
+    //append the user card to the element 
+    attach.appendChild(profileCard)
+  })
+  .catch(err => {
+    console.log(err)
+  })
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -42,7 +95,7 @@ const followersArray = [];
         <h3 class="name">{users name}</h3>                                                     name
         <p class="username">{users user name}</p>                                              userName
         <p>Location: {users location}</p>                                                      location
-        <p>Profile:                                                                            p
+        <p>Profile:                                                                            profile
           <a href={address to users github page}>{address to users github page}</a>             address
         </p>                                                                                   
         <p>Followers: {users followers count}</p>                                              followers
@@ -51,57 +104,6 @@ const followersArray = [];
       </div>
     </div>
 */
-
-function profileMaker({}) {
-  //define new elements
-  const profileCard = document.createElement('.card');
-  const image = document.createElement('img');
-  const info = document.createElement('.card-info');
-  const name = document.createElement('.name');
-  const userName = document.createElement('.username');
-  const location = document.createElement('p');
-  const profile = document.createElement('p:nth-of-type(3)');
-  const address = document.createElement('a');
-  const followers = document.createElement('p:nth-of-type(4)');
-  const following = document.createElement('p:nth-of-type(5)');
-  const bio = document.createElement('p:nth-of-type(6)');
-  
-  //setup structure of elements
-  profileCard.appendChild(image);
-  profileCard.appendChild(info);
-  info.appendChild(name);
-  info.appendChild(userName);
-  info.appendChild(location);
-  info.appendChild(profile);
-  profile.appendChild(address);
-  info.appendChild(followers);
-  info.appendChild(following);
-  info.appendChild(bio);
-
-  //set class names
-  profileCard.classList.add('card');
-  info.classList.add('card-info');
-  name.classList.add('name');
-  userName.classList.add('username');
-
-  //set text content
-  name.textContent = .name;
-
-
-
-}
-
-// function me(object){
-//  const blah = document.querySelector(object);
-//  axios.get(`https://api.github.com/users/${object}`)
-//  .then(res => {
-//    for (let i = 0; i < res.data.message.length; i++) {
-//      const profile = {
-//        imageURL: res.data.message[i],
-//      }
-//    }
-//  })
-// }
 
 /*
   List of LS Instructors Github username's:
