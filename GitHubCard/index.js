@@ -6,7 +6,7 @@
 
 import axios from "axios";
 
-axios.get(`https://github.com/SafiaOmar/github-usercard.git`)
+axios.get(`https://github.com/SafiaOmar/`)
 .then(res =>{
   console.log(res.data)
 })
