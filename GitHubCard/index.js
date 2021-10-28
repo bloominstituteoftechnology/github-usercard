@@ -114,13 +114,15 @@ followersArray.forEach(follower => {
     console.log('Github info: ', res)
     const myData = res.data;
     console.log(myData);
+    const crav = document.querySelector('.cards');
     const userCard = createCard(myData);
+    crav.appendChild(userCard);
     
   })
   .catch(error => {
     console.log(error)
   })
-
+  
 })
 /*
   List of LS Instructors Github username's:
