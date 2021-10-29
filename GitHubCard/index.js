@@ -1,3 +1,5 @@
+import axios from 'axios';
+axios.get('https://api.github.com/users/jbanks628');
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -27,9 +29,30 @@
     Using that array, iterate over it, requesting data for each user, creating a new card for each
     user, and adding that card to the DOM.
 */
+const cardsElem = document.querySelector('.cards');
+const myUsername = 'jbanks628'
+const followersArray = [
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'
+];
+axios.get(`https://api.github.com/users/${jbanks628}`)
+ .then(userData => {
+   cardsElem.appendChild(userElem(userData.data));
+ })
+ .catch(err => {
+   console.error(err);
+ });
 
-const followersArray = [];
-
+ followersArray.forEach(followerLogin => {
+   axios.get(`https://api.github.com/users/${followerLogin}`)
+   .then(followerData => {
+     cardsElem.appendChild(userElem(followerData.data));
+   })
+   .catch(err => console.error(err));
+ });
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -58,3 +81,50 @@ const followersArray = [];
     luishrd
     bigknell
 */
+const cardsElem = document.querySelector('.cards');
+
+function userElem ({login, name, location, followers, following, bio, html_url}) {
+//Create Elements
+const divCard = document.createElement('div')
+const divInfo = document.createElement('div')
+const img = document.createElement('img')
+const uName = document.createElement('h3')
+const paraUsername = document.createElement('p')
+const paraLoc = document.createElement('p')
+const paraProf = document.createElement('p')
+const aHref = document.createElement('a')
+const paraFollowers = document.createElement('p')
+const paraFollowing = document.createElement('p')
+const paraBio = document.createElement('p')
+
+//adding classes
+divCard.classList.add('card');
+divInfo.classList.add('card-info');
+uName.classList.add('name');
+paraUsername.classList.add('username');
+
+//adding text content
+uName.textContent = `${name}`;
+paraLoc.textContent = `${location}` || "None of your business";
+paraUsername.textContent = `${login}`;
+aHref.textContent = `${html_url}`;
+paraFollowers.textContent = `${followers}`;
+paraFollowing.textContent = `${following}`;
+paraBio.textContent = `${bio}`;
+paraProf.textContent = 'Profile:';
+
+//link href and src
+img.src = `${avatar_url}`;
+aHref.href = `${html_url}`;
+
+//append children
+divCard.appendChild(img);
+divCard.appendChild(div .card-info);
+divInfo.appendChild(h3);
+divInfo.appendChild(p);
+paraProf.appendChild(a);
+
+return divCard;
+
+}
+console.log(userElem());
