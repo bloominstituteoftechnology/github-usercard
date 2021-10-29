@@ -7,7 +7,6 @@ import axios from 'axios';
 const mainCard = document.querySelector('.cards')
 axios.get('https://api.github.com/users/dverma-007')
 .then(res =>{
-  console.log(res)
   const data = userCard(res.data)
 
   mainCard.appendChild(data);
@@ -27,7 +26,6 @@ axios.get('https://api.github.com/users/dverma-007')
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
-userCard('https://api.github.com/users/dverma-007')
 
 
 /*
@@ -90,7 +88,6 @@ function userCard({avatar_url, name, login, Location, html_url, followers, follo
   following = users following count
   bio = users bio
   */
-
   const card = document.createElement('div');
   const userImage = document.createElement('img');
   const cardInfo = document.createElement('div');
@@ -114,13 +111,11 @@ function userCard({avatar_url, name, login, Location, html_url, followers, follo
     cardInfo.appendChild(usersFollowers);
     cardInfo.appendChild(usersFollowing);
     cardInfo.appendChild(userBio);
-  
   //setting class names
   card.classList.add('card');
   cardInfo.classList.add('card-info');
   usersName.classList.add('name');
   usersLoginName.classList.add('username');
-
   //setting attributes and text
   userImage.src = avatar_url; 
   usersName.textContent = name;
@@ -132,8 +127,6 @@ function userCard({avatar_url, name, login, Location, html_url, followers, follo
   usersFollowers.textContent = `Followers: ${followers}`;
   usersFollowing.textContent = `Following: ${following}`;
   userBio.textContent = `Bio: ${bio}`;
-  
-
   return card;
 }
 /*
