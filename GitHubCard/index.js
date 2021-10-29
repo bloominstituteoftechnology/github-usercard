@@ -50,7 +50,7 @@ axios.get(`https://api.github.com/users/${jbanks628}`)
    axios.get(`https://api.github.com/users/${followerLogin}`)
    .then(followerData => {
      cardsElem.appendChild(userElem(followerData.data));
-   });
+   })
    .catch(err => console.error(err));
  });
 /*
