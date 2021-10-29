@@ -44,12 +44,12 @@ userCard('https://api.github.com/users/dverma-007')
 const followersArray = ['tetondan','dustinmyers', 'justsml', 'luishrd','bigknell'];
 
 followersArray.map(elem => {
-  axios.get('https://api.github.com/users/${elem}')
+  axios.get(`https://api.github.com/users/${elem}`)
   .then(resp => {
     console.log(resp)
     let info = resp.data
     const cardsElement = document.querySelector('.cards');
-    cardsElement.appendChild(cardMaker(info))
+    cardsElement.appendChild(userCard(info))
   })
   .catch(err => {
     console.error(err);
