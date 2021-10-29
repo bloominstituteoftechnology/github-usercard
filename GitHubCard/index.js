@@ -1,9 +1,13 @@
+import axios from 'axios';
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+axios.get('https://api.github.com/users/malloryshea').then(res =>{
 
+
+console.log(res)})
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -49,8 +53,68 @@ const followersArray = [];
       </div>
     </div>
 */
+const cards = document.querySelector('.cards');
 
-/*
+function cardMaker (gitHubTag){
+  const container = document.createElement('div');
+  const img = document.createElement('img');
+  const cardInfo= document.createElement('div');
+  const name= document.createElement('h3');
+  const userName= document.createElement('p');
+  const location= document.createElement('p');
+  const profile= document.createElement('p');
+  const profileAddress= document.createElement('a');
+  const followers= document.createElement('p');
+  const following= document.createElement('p');
+  const bio= document.createElement('p');
+
+  container.classList.add('card');
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  userName.classList.add('username');
+
+  container.appendchild(img);
+  container.appendchild(cardInfo);
+  cardInfo.appendchild(name);
+  cardInfo.appendchild(userName);
+  cardInfo.appendchild(location);
+  cardInfo.appendchild(profile);
+  cardInfo.appendChild(profileAddress);
+  cardInfo.appendchild(followers);
+  cardInfo.appendchild(following);
+  cardInfo.appendchild(bio);
+
+
+axios.get(`https://api.github.come/users/${gitHubTag}`)
+  .then(res => {
+    innerHeight.src = res.data.evetar_url;
+    name.textContent = res.data.name;
+    userName.textContent = 'Username: ' +res.data.login;
+    location.textContent = 'Lcation; ' +res.data.location;
+    profileAddress.textContent = 'URL: ' +res.data.url;
+    followers.textContent = 'Followers: ' +res.data.followers;
+    following.textContent = 'Following: ' +res.data.following;
+    bio.textContent = 'Bio: ' + res.data.bio;
+
+  })
+  .catch(err => {
+    console.error(err)
+  });
+
+  const endGame = cards.appendChild(container);
+
+  return endGame;
+}
+
+cardMaker('malloryshea');
+const followersarray = [];
+followersarray.push('tetondan');
+followersarray.push('dustinmyers');
+followersarray.push('justsml');
+followersarray.push('luishrd');
+followersarray.push('bigknell');
+
+  /*
   List of LS Instructors Github username's:
     tetondan
     dustinmyers
