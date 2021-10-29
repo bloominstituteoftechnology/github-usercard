@@ -1,8 +1,21 @@
+
+import axios from 'axios';
+
+
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+axios.get(`https://api.github.com/users/lailaarkadan`)
+.then(res => {
+  console.log(res.data)
+})
+.catch(error => {
+  console.log(error)
+})
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -28,7 +41,7 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -50,6 +63,84 @@ const followersArray = [];
     </div>
 */
 
+const myUsername = 'lailaarkadan';
+const cards = document.querySelector('.cards');
+
+
+function createCard(data) {
+
+    const cardDiv = document.createElement("div");
+    const image = document.createElement("img");
+    const cardInDiv = document.createElement("div");
+    const h3 = document.createElement("h3");
+    const para1 = document.createElement("p");
+    const para2 = document.createElement("p");
+    const anc = document.createElement("a");
+    const para3 = document.createElement("p");
+    const para4 = document.createElement("p");
+    const para5 = document.createElement("p");
+    const para6 = document.createElement("p");
+
+//  structure
+    cardDiv.appendChild(image);
+    cardDiv.appendChild(cardInDiv);
+    cardInDiv.appendChild(h3);
+    cardInDiv.appendChild(para1);
+    cardInDiv.appendChild(para2);
+    cardInDiv.appendChild(para3);
+    cardInDiv.appendChild(para4);
+    cardInDiv.appendChild(para5);
+    cardInDiv.appendChild(para6);
+
+// styles
+    cardDiv.classList.add("card");
+    cardInDiv.classList.add("card-info");
+    h3.classList.add("name");
+    para6.classList.add("username");
+  
+
+// attributes
+image.setAttribute('src', data['avatar_url']); 
+anc.setAttribute('href', data.html_url);
+    //content
+
+    image.src = data.avatar_url;
+    h3.textContent = data.name;
+    para1.textContent = data.login;
+    para2.textContent = `Location: ${data.location}`;
+    para3.textContent= `Profile: ${data.html_url}`
+    para4.textContent = `Followers: ${data.followers}`;
+    para5.textContent = `Following: ${data.following}`;
+    para6.textContent = `Bio: ${data.bio}`;
+
+    
+    return cardDiv;
+}
+const followersArray = ["bigknell","tetondan","dustinmyers","justsml","luishrd"];  
+  
+followersArray.forEach(follower => {
+  axios.get(`https://api.github.com/users/${follower}`)
+  .then(res => {
+    console.log('Github info: ', res)
+    const myData = res.data;
+    console.log(myData);
+    const userCard = createCard(myData);
+    cards.appendChild(userCard);
+    
+  })
+  .catch(error => {
+    console.log(error)
+  })
+})
+axios.get(`https://api.github.com/users/${myUsername}`)
+.then(res => {
+  cards.appendChild(createCard(res.data));
+})
+.catch(error => {
+  console.error(error)
+})
+
+  
 /*
   List of LS Instructors Github username's:
     tetondan
@@ -58,3 +149,6 @@ const followersArray = [];
     luishrd
     bigknell
 */
+
+
+
