@@ -3,7 +3,13 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+axios.get('https://api.github.com/users/Cassius-Cassity')
+.then(resp => {
+  console.log(resp.data);
+})
+.catch(err =>{
+  console.log('error');
+})
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -28,7 +34,7 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,7 +55,72 @@ const followersArray = [];
       </div>
     </div>
 */
+const divCard = document.querySelector('.cards')
+function myCardMaker({avatar_url, name, login, location, html_url, followers, following, bio }){
+  const card = document.createElement('div');
+  const image = document.createElement('img')
+  const cardInfo = document.createElement('div')
+  const h3 = document.createElement('h3')
+  const p1 = document.createElement('p')
+  const p2 = document.createElement('p')
+  const p3 = document.createElement('p')
+  const a = document.createElement('a')
+  const p4 = document.createElement('p')
+  const p5 = document.createElement('p')
+  const p6 = document.createElement('p')
 
+card.appendChild(image)
+card.appendChild(cardInfo)
+cardInfo.appendChild(h3)
+cardInfo.appendChild(p1)
+cardInfo.appendChild(p2)
+cardInfo.appendChild(p3)
+p3.appendChild(a)
+cardInfo.appendChild(p4)
+cardInfo.appendChild(p5)
+cardInfo.appendChild(p6)
+
+  card.classList.add('card')
+  cardInfo.classList.add('card-info')
+  h3.classList.add('name')
+  p1.classList.add('username')
+
+image.src = avatar_url;
+h3.textContent = name;
+p1.textContent = login;
+p2.textContent = `location: ${location}`;
+p3.textContent = 'Profile:';
+a.href = html_url;
+a.textContent = html_url;
+p4.textContent = `Followers: ${followers}`;
+p5.textContent = `Following: ${following}`;
+p6.textContent = `bio: ${bio}`
+
+return card
+
+} 
+
+const person1 = 'Cassius-Cassity';
+
+const CreateUserCard = async (person) => {
+  try {
+    const resp = await axios.get(`https://api.github.com/users/${person}`);
+    console.log(resp);
+    const userData = resp.data;
+    const gitCard = myCardMaker(userData);
+    divCard.appendChild(gitCard);
+    console.log(gitCard)
+  }
+  catch(err) {
+    console.log(err);
+  }
+}
+
+followersArray.forEach(follower =>{
+  CreateUserCard(follower);
+})
+
+CreateUserCard(person1);
 /*
   List of LS Instructors Github username's:
     tetondan
