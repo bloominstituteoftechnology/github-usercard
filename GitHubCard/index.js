@@ -1,3 +1,5 @@
+import axios from 'axios';
+axios.get('https://api.github.com/users/jbanks628');
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -28,7 +30,13 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'
+];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -58,3 +66,49 @@ const followersArray = [];
     luishrd
     bigknell
 */
+const cardsElem = document.querySelector('.cards');
+
+function userElem (user) {
+//Create Elements
+const divCard = document.createElement('div')
+const divInfo = document.createElement('div')
+const img = document.createElement('img')
+const uName = document.createElement('h3')
+const userName = document.createElement('p')
+const location = document.createElement('p')
+const profile = document.createElement('p')
+const aHref = document.createElement('a')
+const followers = document.createElement('p')
+const following = document.createElement('p')
+const bio = document.createElement('p')
+
+//adding classes
+divCard.classList.add('card');
+divInfo.classList.add('card-info');
+uName.classList.add('name');
+userName.classList.add('username');
+
+//adding text content
+uName.textContent = user.name;
+location.textContent = user.location || "None of your business";
+userName.textContent = user.login;
+aHref.textContent = user.html_url;
+followers.textContent = user.followers;
+following.textContent = user.following;
+bio.textContent = user.bio;
+
+//link href and src
+img.src = user.avatar_url;
+aHref.href = user.html_url;
+
+//append children
+divCard.appendChild(img);
+divCard.appendChild(div .card-info);
+divInfo.appendChild(h3);
+divInfo.appendChild(p);
+profile.appendChild(a);
+
+return divCard;
+
+}
+console.log(userElem())
