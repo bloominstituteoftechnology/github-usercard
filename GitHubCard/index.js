@@ -68,47 +68,48 @@ const followersArray = [
 */
 const cardsElem = document.querySelector('.cards');
 
-function userElem (user) {
+function userElem ({login, name, location, followers, following, bio, html_url}) {
 //Create Elements
 const divCard = document.createElement('div')
 const divInfo = document.createElement('div')
 const img = document.createElement('img')
 const uName = document.createElement('h3')
-const userName = document.createElement('p')
-const location = document.createElement('p')
-const profile = document.createElement('p')
+const paraUsername = document.createElement('p')
+const paraLoc = document.createElement('p')
+const paraProf = document.createElement('p')
 const aHref = document.createElement('a')
-const followers = document.createElement('p')
-const following = document.createElement('p')
-const bio = document.createElement('p')
+const paraFollowers = document.createElement('p')
+const paraFollowing = document.createElement('p')
+const paraBio = document.createElement('p')
 
 //adding classes
 divCard.classList.add('card');
 divInfo.classList.add('card-info');
 uName.classList.add('name');
-userName.classList.add('username');
+paraUsername.classList.add('username');
 
 //adding text content
-uName.textContent = user.name;
-location.textContent = user.location || "None of your business";
-userName.textContent = user.login;
-aHref.textContent = user.html_url;
-followers.textContent = user.followers;
-following.textContent = user.following;
-bio.textContent = user.bio;
+uName.textContent = `${name}`;
+paraLoc.textContent = `${location}` || "None of your business";
+paraUsername.textContent = `${login}`;
+aHref.textContent = `${html_url}`;
+paraFollowers.textContent = `${followers}`;
+paraFollowing.textContent = `${following}`;
+paraBio.textContent = `${bio}`;
+paraProf.textContent = 'Profile:';
 
 //link href and src
-img.src = user.avatar_url;
-aHref.href = user.html_url;
+img.src = `${avatar_url}`;
+aHref.href = `${html_url}`;
 
 //append children
 divCard.appendChild(img);
 divCard.appendChild(div .card-info);
 divInfo.appendChild(h3);
 divInfo.appendChild(p);
-profile.appendChild(a);
+paraProf.appendChild(a);
 
 return divCard;
 
 }
-console.log(userElem())
+console.log(userElem());
