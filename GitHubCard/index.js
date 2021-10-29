@@ -62,55 +62,6 @@ const followersArray = [];
     bigknell
 */
 
-// not sure if this will work
-// function cardMaker (obj){
-//   const card = document.createElement('div')
-//   const img = document.createElement('img');
-//   const cardInfo = document.createElement('div');
-//   const name = document.createElement('h3')
-//   const username = document.createElement('p')
-//   const location = document.createElement('p')
-//   const profile = document.createElement('p')
-//   const link = document.createElement('a')
-//   const followers = document.createElement('p')
-//   const following = document.createElement('p')
-//   const bio = document.createElement('p')
-
-//   card.classList.add('card');
-//   cardInfo.classList.add('card-info');
-//   name.classList.add('name');
-//   username.classList.add('username');
-
-//   img.setAttribute('src,obj.avatar_url');
-//   name.textContent = obj.name;
-//   username.textContent = obj.login;
-//   location.textContent = obj.location;
-//   profile.textContent = 'Profile  ';
-//   link.textContent = obj.url;
-//   link.href = obj.url;
-//   followers.textContent = `Followers: ${obj.followers}`;
-//   following.textContent = `Followers: ${obj.followers}`;
-
-//   card.appendChild(img);
-//   card.appendChild(cardInfo);
-//   cardInfo.appendChild(name);
-//   cardInfo.appendChild(username);
-//   cardInfo.appendChild(location);
-//   cardInfo.appendChild(profile);
-//   profile.appendChild(link);
-//   cardInfo.appendChild(followers);
-//   cardInfo.appendChild(following);
-//   cardInfo.appendChild(bio);
-//   return card;
-
-// }
-
-
-
-
-
-// go back to this is all fails 
-
 const cards = document.querySelector('.cards');
 
 function cardMaker (gitHubTag){
@@ -132,8 +83,7 @@ function cardMaker (gitHubTag){
 
   axios.get (`https://api.github.com/users/${gitHubTag}`)
   .then(res => {
-    const cards = document.querySelector('.cards')
-    const cardReturn = cardMaker(res.data)
+    
 
     img.src = res.data.avatar_url;
    name.textContent =res.data.name;
@@ -148,17 +98,6 @@ function cardMaker (gitHubTag){
   .catch(err => {
     console.error(err)
   });
-
-  // img.src = gitHubTag.avatar_url;
-  //  name.textContent =gitHubTag.name;
-  // username.textContent = 'Username:' + gitHubTag.login;
-  // location.textContent = 'Location:' + gitHubTag.location;
-  // profileAddress.textContent = 'URL: ' + gitHubTag.url;
-  // followers.textContent = 'Followers:' + gitHubTag.followers;
-  // following.textContent = 'following:' + gitHubTag.following;
-  // bio.textContent = 'Bio:' + gitHubTag.bio;
-
-
 
   container.appendChild(img);
   container.appendChild(cardInfo);
@@ -179,16 +118,6 @@ function cardMaker (gitHubTag){
 function getUser (username){
   const cards =document.querySelector('.cards');
 
-  // axios.get (`https://api.github.com/users/${username}`)
-  // .then(res => {
-  //   const cards = document.querySelector('.cards')
-  //   const cardReturn = cardMaker(res.data)
-  //   cards.appendChild(cardReturn)
-    
-  // })
-  // .catch(err => {
-  //   console.error(err)
-  // });
 }
 cardMaker
 
