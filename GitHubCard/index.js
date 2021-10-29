@@ -1,6 +1,8 @@
 
 import axios from 'axios';
 
+
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -96,46 +98,48 @@ function createCard(data) {
     h3.classList.add("name");
     para6.classList.add("username");
   
-    
-    
+
+// attributes
+image.setAttribute('src', data['avatar_url']); 
+anc.setAttribute('href', data.html_url);
     //content
 
     image.src = data.avatar_url;
     h3.textContent = data.name;
-    para1.textContent=data.login;
-    para2.textContent= data.location;
+    para1.textContent = data.login;
+    para2.textContent = `Location: ${data.location}`;
+    para3.textContent= `Profile: ${data.html_url}`
     para4.textContent = `Followers: ${data.followers}`;
     para5.textContent = `Following: ${data.following}`;
-    para6.textContent = data.bio;
+    para6.textContent = `Bio: ${data.bio}`;
 
     
     return cardDiv;
 }
 const followersArray = ["bigknell","tetondan","dustinmyers","justsml","luishrd"];  
-  followersArray.forEach(follower => {
-    axios.get(`https://api.github.com/users/${follower}`)
-    .then(res => {
-      console.log('Github info: ', res)
-      const myData = res.data;
-      console.log(myData);
-      const userCard = createCard(myData);
-      cards.appendChild(userCard);
-      
-    })
-    .catch(error => {
-      console.log(error)
-    })
-  })
-axios.get(`https://api.github.com/users/${myUsername}`)
+  
+followersArray.forEach(follower => {
+  axios.get(`https://api.github.com/users/${follower}`)
   .then(res => {
-    cards.appendChild(createCard(res.data));
+    console.log('Github info: ', res)
+    const myData = res.data;
+    console.log(myData);
+    const userCard = createCard(myData);
+    cards.appendChild(userCard);
+    
   })
   .catch(error => {
-    console.error(error)
+    console.log(error)
   })
+})
+axios.get(`https://api.github.com/users/${myUsername}`)
+.then(res => {
+  cards.appendChild(createCard(res.data));
+})
+.catch(error => {
+  console.error(error)
+})
 
-  
-  
   
 /*
   List of LS Instructors Github username's:
@@ -145,3 +149,6 @@ axios.get(`https://api.github.com/users/${myUsername}`)
     luishrd
     bigknell
 */
+
+
+
