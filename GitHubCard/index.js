@@ -1,9 +1,12 @@
+import axios from 'axios';
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
 
+axios.get('https://api.github.com/users/nyamekyeannor').then(res =>{
+  console.log(res)})
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -58,3 +61,71 @@ const followersArray = [];
     luishrd
     bigknell
 */
+
+const cards = document.querySelector('.cards');
+
+function cardMaker (gitHubTag){
+  const container = document.createElement('div');
+  container.classList.add('card');
+  const img = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  cardInfo.classList.add('card-info');
+  const name = document.createElement('h3');
+  name.classList.add('name');
+  const username = document.createElement('p');
+  username.classList.add('username');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const profileAddress = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  axios.get (`https://api.github.com/users/${gitHubTag}`)
+  .then(res => {
+    
+
+    img.src = res.data.avatar_url;
+   name.textContent =res.data.name;
+  username.textContent = 'Username:' + res.data.login;
+  location.textContent = 'Location:' + res.data.location;
+  profileAddress.textContent = 'URL: ' + res.data.url;
+  followers.textContent = 'Followers:' + res.data.followers;
+  following.textContent = 'following:' + res.data.following;
+  bio.textContent = 'Bio:' + res.data.bio;
+    
+  })
+  .catch(err => {
+    console.error(err)
+  });
+
+  container.appendChild(img);
+  container.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(username);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  cardInfo.appendChild(profileAddress);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+
+  const endGame = cards.appendChild(container);
+
+  return endGame;
+
+}
+function getUser (username){
+  const cards =document.querySelector('.cards');
+
+}
+cardMaker
+
+
+cardMaker('NyamekyeAnnor');
+const followersarray = [];``
+followersarray.push('tetondan')
+followersarray.push('dustinmyers')
+followersarray.push('justsml')
+followersarray.push('luishrd')
+followersarray.push('bigknell')
