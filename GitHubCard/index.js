@@ -57,62 +57,67 @@ const cards = document.querySelector('.cards');
 
 function cardMaker (gitHubTag){
   const container = document.createElement('div');
-  const img = document.createElement('img');
-  const cardInfo= document.createElement('div');
-  const name= document.createElement('h3');
-  const userName= document.createElement('p');
-  const location= document.createElement('p');
-  const profile= document.createElement('p');
-  const profileAddress= document.createElement('a');
-  const followers= document.createElement('p');
-  const following= document.createElement('p');
-  const bio= document.createElement('p');
-
   container.classList.add('card');
+  const img = document.createElement('img');
+  const cardInfo = document.createElement('div');
   cardInfo.classList.add('card-info');
+  const name = document.createElement('h3');
   name.classList.add('name');
-  userName.classList.add('username');
+  const username = document.createElement('p');
+  username.classList.add('username');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const profileAddress = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
 
-  container.appendchild(img);
-  container.appendchild(cardInfo);
-  cardInfo.appendchild(name);
-  cardInfo.appendchild(userName);
-  cardInfo.appendchild(location);
-  cardInfo.appendchild(profile);
-  cardInfo.appendChild(profileAddress);
-  cardInfo.appendchild(followers);
-  cardInfo.appendchild(following);
-  cardInfo.appendchild(bio);
-
-
-axios.get(`https://api.github.come/users/${gitHubTag}`)
+  axios.get (`https://api.github.com/users/${gitHubTag}`)
   .then(res => {
-    innerHeight.src = res.data.evetar_url;
-    name.textContent = res.data.name;
-    userName.textContent = 'Username: ' +res.data.login;
-    location.textContent = 'Lcation; ' +res.data.location;
-    profileAddress.textContent = 'URL: ' +res.data.url;
-    followers.textContent = 'Followers: ' +res.data.followers;
-    following.textContent = 'Following: ' +res.data.following;
-    bio.textContent = 'Bio: ' + res.data.bio;
+    const cards = document.querySelector('.cards')
+    const cardReturn = cardMaker(res.data)
 
+    img.src = res.data.avatar_url;
+   name.textContent =res.data.name;
+  username.textContent = 'Username:' + res.data.login;
+  location.textContent = 'Location:' + res.data.location;
+  profileAddress.textContent = 'URL: ' + res.data.url;
+  followers.textContent = 'Followers:' + res.data.followers;
+  following.textContent = 'following:' + res.data.following;
+  bio.textContent = 'Bio:' + res.data.bio;
+    
   })
-  .catch(err => {
-    console.error(err)
-  });
+  container.appendChild(img);
+  container.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(username);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  cardInfo.appendChild(profileAddress);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
 
   const endGame = cards.appendChild(container);
 
   return endGame;
+
+}
+function getUser (username){
+  const cards =document.querySelector('.cards');
+
 }
 
-cardMaker('malloryshea');
-const followersarray = [];
-followersarray.push('tetondan');
-followersarray.push('dustinmyers');
-followersarray.push('justsml');
-followersarray.push('luishrd');
-followersarray.push('bigknell');
+cardMaker
+
+
+cardMaker('Malloryshea');
+const followersarray = [];``
+followersarray.push('tetondan')
+followersarray.push('dustinmyers')
+followersarray.push('justsml')
+followersarray.push('luishrd')
+followersarray.push('bigknell')
 
   /*
   List of LS Instructors Github username's:
