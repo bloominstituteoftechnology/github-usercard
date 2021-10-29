@@ -39,7 +39,7 @@ axios.get(`https://api.github.com/users/lailaarkadan`)
     user, and adding that card to the DOM.
 */
 
-//const followersArray = [];
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -61,6 +61,10 @@ axios.get(`https://api.github.com/users/lailaarkadan`)
     </div>
 */
 
+const myUsername = 'lailaarkadan';
+const cards = document.querySelector('.cards');
+
+
 function createCard(data) {
 
     const cardDiv = document.createElement("div");
@@ -69,7 +73,7 @@ function createCard(data) {
     const h3 = document.createElement("h3");
     const para1 = document.createElement("p");
     const para2 = document.createElement("p");
-    const anch = document.createElement("a");
+    const anc = document.createElement("a");
     const para3 = document.createElement("p");
     const para4 = document.createElement("p");
     const para5 = document.createElement("p");
@@ -91,8 +95,9 @@ function createCard(data) {
     cardInDiv.classList.add("card-info");
     h3.classList.add("name");
     para6.classList.add("username");
-
-
+  
+    
+    
     //content
 
     image.src = data.avatar_url;
@@ -106,24 +111,32 @@ function createCard(data) {
     
     return cardDiv;
 }
-
 const followersArray = ["bigknell","tetondan","dustinmyers","justsml","luishrd"];  
-followersArray.forEach(follower => {
-  axios.get(`https://api.github.com/users/${follower}`)
+  followersArray.forEach(follower => {
+    axios.get(`https://api.github.com/users/${follower}`)
+    .then(res => {
+      console.log('Github info: ', res)
+      const myData = res.data;
+      console.log(myData);
+      const userCard = createCard(myData);
+      cards.appendChild(userCard);
+      
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  })
+axios.get(`https://api.github.com/users/${myUsername}`)
   .then(res => {
-    console.log('Github info: ', res)
-    const myData = res.data;
-    console.log(myData);
-    const crav = document.querySelector('.cards');
-    const userCard = createCard(myData);
-    crav.appendChild(userCard);
-    
+    cards.appendChild(createCard(res.data));
   })
   .catch(error => {
-    console.log(error)
+    console.error(error)
   })
+
   
-})
+  
+  
 /*
   List of LS Instructors Github username's:
     tetondan
