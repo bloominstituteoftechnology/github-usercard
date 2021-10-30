@@ -4,7 +4,8 @@
   "scripts": {
     "start": "parcel index.html",
     "source": "GitHubCard/index.js",
-    "main": "dist/github-usercard.9ad09f98.js"
+    "main": "dist/github-usercard.9ad09f98.js",
+    "build": "parcel build"
   },
   "repository": {
     "type": "git",
