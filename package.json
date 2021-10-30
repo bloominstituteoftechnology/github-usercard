@@ -2,7 +2,9 @@
   "name": "github-usercard",
   "version": "1.0.0",
   "scripts": {
-    "start": "parcel index.html"
+    "start": "parcel index.html",
+    "source": "GitHubCard/index.js",
+    "main": "dist/github-usercard.9ad09f98.js"
   },
   "repository": {
     "type": "git",
