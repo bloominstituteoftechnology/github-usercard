@@ -9,8 +9,10 @@ import axios from 'axios';
 
 axios.get('https:api.github.com/users/krystleM26')
 .then(res => {
-  console.log(res.data);
-  cardFace(res.data)
+  let cardsElement = document.querySelector('.cards');
+  cardsElement.appendChild(cardFace(res.data))
+  
+
 })
 .catch(err => {
   console.error(err);
@@ -114,7 +116,7 @@ function cardFace (object) {
     cardInfo.appendChild(bioP);
    console.log(cardElement);
 
-    return card;
+    return cardElement;
   
 }
 
