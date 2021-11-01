@@ -10,6 +10,7 @@ import axios from 'axios';
 axios.get('https:api.github.com/users/krystleM26')
 .then(res => {
   console.log(res.data);
+  cardFace(res.data)
 })
 .catch(err => {
   console.error(err);
@@ -70,11 +71,53 @@ function cardFace (object) {
     cardElement.setAttribute('class', 'card');
     console.log(cardElement);
 
-  let cardImg = document.createElement('img');
-cardImg = object["avatar_url"];
+    let cardImg = document.createElement('img');
+    cardImg.src = object["avatar_url"];
+    cardElement.appendChild(cardImg);
 
+    let cardInfo = document.createElement('div');
+    cardInfo.setAttribute('class', 'card-info');
+    cardElement.appendChild(cardInfo);
+
+    let headTitle = document.createElement('h3');
+    headTitle.setAttribute('class', 'name');
+    headTitle.textContent = object["name"];
+    cardInfo.appendChild(headTitle);
+
+    let contentP = document.createElement('p');
+    contentP.setAttribute('class', "username");
+    contentP.textContent = object["login"];
+    cardInfo.appendChild(contentP);
+
+    let contentP2 = document.createElement('p');
+    contentP2.textContent = `Location: ${object["location"]}`;
+    cardInfo.appendChild(contentP2);
+
+    let profileP = document.createElement('p');
+    profileP.textContent = `Profile: `;
+    cardInfo.appendChild(profileP);
+
+    let aTag = document.createElement('a');
+    aTag.href = object['html_url'];
+    profileP.appendChild(aTag);
+
+    let followersP = document.createElement('p');
+    followersP.textContent = `Followers: ${object['followers']}`;
+    cardInfo.appendChild(followersP);
+
+    let followersU = document.createElement('p');
+    followersU.textContent =`Following: ${object['following']}`;
+    cardInfo.appendChild(followersU);
+
+    let bioP = document.createElement('p');
+    bioP.textContent = `Bio: ${object['bio']}`;
+    cardInfo.appendChild(bioP);
+   console.log(cardElement);
+
+    return card;
   
 }
+
 
 /*
   List of LS Instructors Github username's:
