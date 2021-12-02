@@ -10,7 +10,8 @@ axios
   .get("https://api.github.com/users/dconley1212")
   .then((resp) => {
     console.log(resp.data);
-    const githubCards = githubCard(resp);
+    const githubCards = githubCard(resp.data);
+    console.log(githubCards);
     divCards.appendChild(githubCards);
   })
   .catch((error) => {
@@ -65,17 +66,17 @@ const followersArray = [];
 */
 
 function githubCard(obj) {
-  const card = document.querySelector(".card");
-  const imageOfUser = document.querySelector("img");
-  const cardInfo = document.querySelector(".card-info");
-  const nameOfUser = document.querySelector("h3.name");
-  const usernameInfo = document.querySelector(".username");
-  const userLocation = document.querySelector("p");
-  const profileInfo = document.querySelector("p");
-  const usersGithubLink = document.querySelector("p");
-  const numberOfFollowers = document.querySelector("p");
-  const followingNumber = document.querySelector("p");
-  const bioOfUser = document.querySelector("p");
+  const card = document.createElement("div");
+  const imageOfUser = document.createElement("img");
+  const cardInfo = document.createElement("div");
+  const nameOfUser = document.createElement("h3");
+  const usernameInfo = document.createElement("p");
+  const userLocation = document.createElement("p");
+  const profileInfo = document.createElement("p");
+  const usersGithubLink = document.createElement("p");
+  const numberOfFollowers = document.createElement("p");
+  const followingNumber = document.createElement("p");
+  const bioOfUser = document.createElement("p");
 
   card.appendChild(imageOfUser);
   card.appendChild(cardInfo);
