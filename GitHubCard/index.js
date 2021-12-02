@@ -4,6 +4,17 @@
     https://api.github.com/users/<your name>
 */
 
+import axios from "axios";
+
+axios
+  .get("https://api.github.com/users/lizzythomson")
+  .then((response) => {
+    console.log(response.data);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -49,6 +60,47 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function makeCards(obj) {
+  const card = document.createElement("div");
+  const userImg = document.createElement("img");
+  const cardInfo = document.createElement("div");
+  const userName = document.createElement("h3");
+  const userUsername = document.createElement("p");
+  const userLocation = document.createElement("p");
+  const userProfile = document.createElement("p");
+  const userGithubPage = document.createElement("a");
+  const userFollowers = document.createElement("p");
+  const userFollowing = document.createElement("p");
+  const userBio = document.createElement("p");
+
+  card.appendChild(userImg);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(userUsername);
+  cardInfo.appendChild(userLocation);
+  cardInfo.appendChild(userProfile);
+  cardInfo.appendChild(userFollowers);
+  cardInfo.appendChild(userFollowing);
+  cardInfo.appendChild(userBio);
+  userProfile.appendChild(userGithubPage);
+
+  card.className = "card";
+  cardInfo.className = "card-info";
+  userName.className = "name";
+  userUsername.className = "username";
+
+  userImg.src = null; /****************** */
+  userName.textContent = null;
+  userUsername.textContent = null;
+  userLocation.textContent = null; /*`Location: ${users location} */
+  userProfile.textContent = "Profile: ";
+  userGithubPage.textContent = null;
+  userGithubPage.setAttribute("href", "url....");
+  userFollowers.textContent = null; /*`Followers: ${user's following count} */
+  userFollowing.textContent = null; /*`Following: ${user's following count} */
+  userBio.textContent = null; /*`Bio: ${user's bio} */
+}
 
 /*
   List of LS Instructors Github username's:
