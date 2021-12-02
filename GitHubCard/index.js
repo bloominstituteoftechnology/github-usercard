@@ -1,10 +1,15 @@
 import axios from 'axios';
-
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+axios.get('https://api.github.com/users/jesswillcode')
+.then(resp => {
+  console.log(resp);
+}).catch(error => {
+  console.error(error);
+})
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -13,7 +18,7 @@ import axios from 'axios';
 
     Skip to STEP 3 (line 34).
 */
-
+//resp.data.avatarURL, resp.data.name, resp.data.login, resp.data.location, resp.data.profile, resp.data.followers, resp.data.following, resp.data.bio
 /*
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
@@ -51,7 +56,53 @@ const followersArray = [];
       </div>
     </div>
 */
+function cardMaker(card) {
+  const cardDiv = document.createElement('div');
+  cardDiv.classList.add('card');
 
+  const avatar = document.createElement('img');
+  avatar.src = imgURL;
+  avatar.appendChild(cardDiv);
+
+  const cardInfDiv = document.createElement('div');
+  cardInfDiv.classList.add('card-info');
+  cardInfDiv.appendChild('cardDiv');
+
+  const nameHead = document.createElement('h3');
+  nameHead.classList.add('name');
+  nameHead.textContent = RealName;
+  nameHead.appendChild(cardInfDiv);
+
+  const userNamePara = document.createElement('p');
+  userNamePara.classList.add('username');
+  userNamePara.textContent = userName;
+  userNamePara.appendChild(cardInfDiv);
+
+  const locationPara = document.createElement('p');
+  locationPara.textContent = `Location: ${userLocation}`;
+  locationPara.appendChild(cardInfDiv);
+
+  const profilePara = document.createElement('p');
+  profilePara.textContent = `Profile: ${profileLink}`;
+  profilePara.appendChild(cardInfDiv);
+
+  const profileLink = document.createElement('a');
+  profileLink.href = userProfLink;
+  profileLink.appendChild(profilePara);
+
+  const followersPara = document.createElement('p');
+  followersPara.textContent = `Followers: ${followerCount}`;
+  followersPara.appendChild(cardInfDiv);
+
+  const followingPara = document.createElement('p');
+  followingPara.textContent = `Following: ${followingCount}`;
+  followingPara.appendChild(cardInfDiv);
+
+  const bioPara = document.createElement('p');
+  bioPara.textContent = `Bio: ${userBio}`;
+  bioPara.appendChild(cardInfDiv);
+
+}
 /*
   List of LS Instructors Github username's:
     tetondan
