@@ -4,6 +4,23 @@
     https://api.github.com/users/<your name>
 */
 
+import axios from "axios";
+
+function getUsers(array) {
+  for (let i = 0; i < array.length; i++) {
+    axios
+      .get(`https://api.github.com/users/${array[i]}`)
+      .then((response) => {
+        const completedCard = makeCards(response.data);
+        const cardEntry = document.querySelector(".cards");
+        cardEntry.appendChild(completedCard);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+}
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -28,7 +45,14 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  "lizzythomson",
+  "kentcdodds",
+  "btholt",
+  "ryanflorence",
+  "gaearon",
+  "sebmarkbage",
+];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +73,49 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function makeCards(obj) {
+  const card = document.createElement("div");
+  const userImg = document.createElement("img");
+  const cardInfo = document.createElement("div");
+  const userName = document.createElement("h3");
+  const userUsername = document.createElement("p");
+  const userLocation = document.createElement("p");
+  const userProfile = document.createElement("p");
+  const userGithubPage = document.createElement("a");
+  const userFollowers = document.createElement("p");
+  const userFollowing = document.createElement("p");
+  const userBio = document.createElement("p");
+
+  card.appendChild(userImg);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(userUsername);
+  cardInfo.appendChild(userLocation);
+  cardInfo.appendChild(userProfile);
+  cardInfo.appendChild(userFollowers);
+  cardInfo.appendChild(userFollowing);
+  cardInfo.appendChild(userBio);
+  card.className = "card";
+  cardInfo.className = "card-info";
+  userName.className = "name";
+  userUsername.className = "username";
+
+  userImg.src = obj.avatar_url;
+  userName.textContent = obj.name;
+  userUsername.textContent = obj.login;
+  userLocation.textContent = `Location: ${obj.location}`;
+  userGithubPage.textContent = obj.html_url;
+  userGithubPage.setAttribute("href", obj.html_url);
+  userProfile.textContent = "Profile: " + userGithubPage;
+  userFollowers.textContent = `Followers: ${obj.followers}`;
+  userFollowing.textContent = `Following: ${obj.following}`;
+  userBio.textContent = `Bio: ${obj.bio}`;
+
+  return card;
+}
+
+getUsers(followersArray);
 
 /*
   List of LS Instructors Github username's:
