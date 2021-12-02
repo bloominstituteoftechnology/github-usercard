@@ -1,8 +1,18 @@
+import axios from 'axios';
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+axios.get(`https://api.github.com/users/Tuan147`)
+.then(res => {
+  console.log(res.data)
+})
+.catch(err => {
+  console.error(err)
+});
+
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -30,6 +40,8 @@
 
 const followersArray = [];
 
+
+
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -49,6 +61,55 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function cardMaker({ avatar_url, name, login, location, html_url, followers, following, bio }) {
+  const card = document.createElement('div');
+  const image = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const realName = document.createElement('h3');
+  const userName = document.createElement('p');
+  const local = document.createElement('p');
+  const profile = document.createElement('p');
+  const address = document.createElement('a');
+  const realFollowers = document.createElement('p');
+  const realFollowing = document.createElement('p');
+  const realBio = document.createElement('p');
+
+
+  card.appendChild(image);
+  card.appendChild(cardInfo);
+  card.appendChild(realName);
+  card.appendChild(userName);
+  card.appendChild(local);
+  card.appendChild(profile);
+  card.appendChild(address);
+  card.appendChild(realFollowers);
+  card.appendChild(realFollowing);
+  card.appendChild(realBio);
+
+
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  realName.classList.add('name');
+  userName.classList.add('username');
+
+
+  image.src = avatar_url;
+  realName.textContent = `${name}`;
+  userName.textContent = `${login}`;
+  local.textContent = `Location: ${location}`;
+  profile.textContent = `Profile: `;
+  realFollowers.textContent = `Followers: ${followers}`;
+  realFollowing.textContent = `Following: ${following}`;
+  realBio.textContent(`Bio: ${bio}`);
+  address.setAttribute('href', `${html_url}`);
+  profile.appendChild(address);
+
+
+  return card;
+}
+
+
 
 /*
   List of LS Instructors Github username's:
