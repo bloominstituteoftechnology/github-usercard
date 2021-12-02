@@ -29,7 +29,11 @@ import axios from 'axios';
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [    'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -77,16 +81,19 @@ function maker(obj){
   folling.textContent = `Following: ${obj.data.following}`
   let bio = document.createElement('p')
   bio.textContent = `Bio: ${obj.data.bio}`
-
-
-
   nDiv.append(avi, card)
   card.append(uName, userName, loc, prof, follo, folling, bio)
   return nDiv
 }
 axios.get('https://api.github.com/users/tvolchko').then( resp => {
- console.log(maker(resp))}
+  let nDiv = maker(resp)
+ document.querySelector('.cards').append(nDiv)}
 )
+followersArray.forEach(user =>{
+  axios.get(`https://api.github.com/users/${user}`).then( resp => {
+ document.querySelector('.cards').append(maker(resp))}
+)
+})
 // axios.get('https://api.github.com/users/tvolchko').then( resp => {
 //  console.log(resp)}
 // )
