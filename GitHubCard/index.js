@@ -14,6 +14,8 @@ axios.get('https://api.github.com/users/nonshalant')
   console.log('error dude')
 })
 /*
+    tetondan
+
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
     data in order to use it to build your component function
@@ -37,7 +39,19 @@ axios.get('https://api.github.com/users/nonshalant')
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [ 'tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+
+followersArray.forEach(element => {
+  axios.get(`https://api.github.com/users/${element}`)
+.then(resp =>{
+  console.log(resp.data)
+  greetingCard(resp)
+})
+.catch(err =>{
+  console.error(err)
+  console.log('error dude')
+})
+});
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -96,23 +110,16 @@ function greetingCard(url){
   insertHere.appendChild(containerWrapper)
   containerWrapper.appendChild(img);
   containerWrapper.appendChild(headerDiv);
-
+  headerDiv.appendChild(paraDiv1)
+  headerDiv.appendChild(paraDiv2)
+  headerDiv.appendChild(paraDiv3)
+  headerDiv.appendChild(anchorTag)
+  headerDiv.appendChild(paraDiv4)
+  headerDiv.appendChild(paraDiv5)
+  headerDiv.appendChild(paraDiv6)
   
+  return insertHere
 }
-{/* <div class="card">
-<img src={image url of user} />
-<div class="card-info">
-  <h3 class="name">{users name}</h3>
-  <p class="username">{users user name}</p>
-  <p>Location: {users location}</p>
-  <p>Profile:
-    <a href={address to users github page}>{address to users github page}</a>
-  </p>
-  <p>Followers: {users followers count}</p>
-  <p>Following: {users following count}</p>
-  <p>Bio: {users bio}</p>
-</div>
-</div> */}
 
 /*
   List of LS Instructors Github username's:
