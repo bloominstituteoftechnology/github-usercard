@@ -4,9 +4,13 @@ import axios from 'axios';
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+const cardsEntry = document.querySelector('.cards');
+
 axios.get('https://api.github.com/users/jesswillcode')
 .then(resp => {
-  console.log(resp);
+  // console.log(resp.data);
+  const gitUser = cardMaker(resp.data);
+  cardsEntry.appendChild(gitUser);
 }).catch(error => {
   console.error(error);
 })
@@ -60,53 +64,71 @@ const followersArray = [];
 //resp.data.avatarURL, resp.data.name, resp.data.login, resp.data.location, resp.data.profile, resp.data.followers, resp.data.following, resp.data.bio
 
 function cardMaker(card) {
+  console.log(card);
   const cardDiv = document.createElement('div');
   cardDiv.classList.add('card');
 
   const avatar = document.createElement('img');
-  avatar.src = card.data.avatarURL;
-  avatar.appendChild(cardDiv);
+  avatar.src = card.avatar_url;
+  cardDiv.appendChild(avatar);
 
   const cardInfDiv = document.createElement('div');
   cardInfDiv.classList.add('card-info');
-  cardInfDiv.appendChild('cardDiv');
+  cardDiv.appendChild(cardInfDiv);
 
   const nameHead = document.createElement('h3');
   nameHead.classList.add('name');
-  nameHead.textContent = card.data.name;
-  nameHead.appendChild(cardInfDiv);
+  nameHead.textContent = card.name;
+  cardInfDiv.appendChild(nameHead);
 
   const userNamePara = document.createElement('p');
   userNamePara.classList.add('username');
-  userNamePara.textContent = card.data.login;
-  userNamePara.appendChild(cardInfDiv);
+  userNamePara.textContent = card.login;
+  cardInfDiv.appendChild(userNamePara);
 
   const locationPara = document.createElement('p');
-  locationPara.textContent = `Location: ${card.data.location}`;
-  locationPara.appendChild(cardInfDiv);
+  locationPara.textContent = `Location: ${card.location}`;
+  cardInfDiv.appendChild(locationPara);
 
   const profilePara = document.createElement('p');
-  profilePara.textContent = `Profile: ${profileLink}`;
-  profilePara.appendChild(cardInfDiv);
+  cardInfDiv.appendChild(profilePara);
 
   const profileLink = document.createElement('a');
-  profileLink.href = card.data.profile;
-  profileLink.appendChild(profilePara);
+  profileLink.href = card.html_url;
+  profilePara.textContent = `Profile: ${profileLink}`;
+  profilePara.appendChild(profileLink);
 
   const followersPara = document.createElement('p');
-  followersPara.textContent = `Followers: ${card.data.followers}`;
-  followersPara.appendChild(cardInfDiv);
+  followersPara.textContent = `Followers: ${card.followers}`;
+  cardInfDiv.appendChild(followersPara);
 
   const followingPara = document.createElement('p');
-  followingPara.textContent = `Following: ${card.data.following}`;
-  followingPara.appendChild(cardInfDiv);
+  followingPara.textContent = `Following: ${card.following}`;
+  cardInfDiv.appendChild(followingPara);
 
   const bioPara = document.createElement('p');
-  bioPara.textContent = `Bio: ${card.data.bio}`;
-  bioPara.appendChild(cardInfDiv);
+  bioPara.textContent = `Bio: ${card.bio}`;
+  cardInfDiv.appendChild(bioPara);
 
   return cardDiv;
 }
+
+
+// function createUserCards(array){
+//   for(let i = 0; i < array.length; i++){
+//     const userObj = {
+//       userPic: user.avatar_URL,
+//       userRealName: user.name,
+//       userName: user.login,
+//       userLocation: user.location,
+//       userProfile: user.profile,
+//       followerCount: user.followers,
+//       followingCount: user.following,
+//       userBio: user.data.bio
+//     }
+    
+//   }
+// }
 /*
   List of LS Instructors Github username's:
     tetondan
