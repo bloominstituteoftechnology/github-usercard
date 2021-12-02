@@ -102,7 +102,7 @@ const cardUI = (obj) => {
   cardLocation.textContent = `Location: ${obj.location}`;
   cardProfile.textContent = `Profile: `;
   cardProfileLink.href = obj.url;
-  cardProfileLink.textContent = obj.url;
+  cardProfileLink.textContent = obj.html_url;
   cardFollowers.textContent = `Followers: ${obj.followers}`;
   cardFollowing.textContent = `Following: ${obj.following}`;
   cardBio.textContent = `Bio: ${obj.bio}`;
