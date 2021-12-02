@@ -1,7 +1,7 @@
 
 import axios from 'axios'
 /*
-  STEP 1: using axios, send a GET request to the following URL
+  (COMPLETED) STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
@@ -12,16 +12,11 @@ import axios from 'axios'
 getMe(brandib222);*/
 
 /*
-  STEP 2: Inspect and study the data coming back, this is YOUR
+  (COMPLETED) STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
     data in order to use it to build your component function
 
-    Skip to STEP 3 (line 34).
-*/
-
-/*
-  STEP 4: Pass the data received from Github into your function,
-    and append the returned markup to the DOM as a child of .cards
+    (COMPLETED)Skip to STEP 3 (line 34).
 */
 
 /*
@@ -76,16 +71,65 @@ function userMaker(userObj) {
   username.textContent = userObj.login;
   location.textContent = userObj.location;
   profile.href = userObj.url;
-  profile.textContent = userObj.url;
+  profile.textContent = userObj.html_url;
   followers.textContent = `Followers: ${userObj.followers}`;
   following.textContent = `Following: ${userObj.following}`;
   bio.textContent = userObj.bio;
+
+  const entryPoint = document.querySelector('.cards');
+  entryPoint.appendChild(card);
 
   return card;
 
 }
 
-const testUser = {
+// END OF USER MAKER FUNCTION
+
+/*
+  STEP 4: Pass the data received from Github into your function,
+    and append the returned markup to the DOM as a child of .cards
+*/
+
+function getUsers (username) {
+  axios.get(`https://api.github.com/users/${username}`)
+    .then(resp => {
+// CONSOLE.LOG(RESP) TO MAKE SURE YOU NEED 'DATA' AND NOT SOMETHING ELSE
+      userMaker(resp.data)
+    }).catch(error => {
+      console.error(error);
+    })
+}
+getUsers('dustinmyers');
+getUsers('brandib222');
+
+
+
+  /*  <div class="card">
+      <img src={image url of user} />
+      <div class="card-info">
+        <h3 class="name">{user's name}</h3>
+        <p class="username">{users username}</p>
+        <p>Location: {users location}</p>
+        <p>Profile:
+          <a href={address to users github page}>{address to users github page}</a>
+        </p>
+        <p>Followers: {users followers count}</p>
+        <p>Following: {users following count}</p>
+        <p>Bio: {users bio}</p>
+      </div>
+    </div>
+*/
+
+/*
+  List of LS Instructors Github username's:
+    tetondan
+    dustinmyers
+    justsml
+    luishrd
+    bigknell
+*/
+
+/* const testUser = {
   "login": "brandib222",
   "id": 91443920,
   "node_id": "MDQ6VXNlcjkxNDQzOTIw",
@@ -120,33 +164,4 @@ const testUser = {
   "updated_at": "2021-09-30T22:19:45Z"
   }
 
-  console.log(userMaker(testUser));
-
-// END OF USER MAKER FUNCTION
-
-
-
-  /*  <div class="card">
-      <img src={image url of user} />
-      <div class="card-info">
-        <h3 class="name">{user's name}</h3>
-        <p class="username">{users username}</p>
-        <p>Location: {users location}</p>
-        <p>Profile:
-          <a href={address to users github page}>{address to users github page}</a>
-        </p>
-        <p>Followers: {users followers count}</p>
-        <p>Following: {users following count}</p>
-        <p>Bio: {users bio}</p>
-      </div>
-    </div>
-*/
-
-/*
-  List of LS Instructors Github username's:
-    tetondan
-    dustinmyers
-    justsml
-    luishrd
-    bigknell
-*/
+  console.log(userMaker(testUser)); */
