@@ -4,7 +4,18 @@
     https://api.github.com/users/<your name>
 */
 
+axios.get('https://api.github.com/users/nonshalant')
+.then(resp =>{
+  console.log(resp.data)
+  greetingCard(resp)
+})
+.catch(err =>{
+  console.error(err)
+  console.log('error dude')
+})
 /*
+    tetondan
+
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
     data in order to use it to build your component function
@@ -28,7 +39,19 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [ 'tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+
+followersArray.forEach(element => {
+  axios.get(`https://api.github.com/users/${element}`)
+.then(resp =>{
+  console.log(resp.data)
+  greetingCard(resp)
+})
+.catch(err =>{
+  console.error(err)
+  console.log('error dude')
+})
+});
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +72,54 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function greetingCard(url){
+  const insertHere = document.querySelector('.cards')
+  
+  // creating the elements 
+  const containerWrapper = document.createElement('div');
+  const img = document.createElement('img');
+  const headerDiv = document.createElement('div');
+  const h3Div = document.createElement('h3');
+  const paraDiv1 = document.createElement('p');
+  const paraDiv2 = document.createElement('p'); 
+  const paraDiv3 = document.createElement('p'); 
+  const anchorTag = document.createElement('a');
+  const paraDiv4 = document.createElement('p'); 
+  const paraDiv5 = document.createElement('p'); 
+  const paraDiv6 = document.createElement('p'); 
+
+  // adding the class to the elements 
+  containerWrapper.classList.add('card');
+  img.src = url.avatar_url;
+  headerDiv.classList.add('card-info');
+  h3Div.classList.add('name');
+  paraDiv1.classList.add('username');
+
+  // setting the elements 
+  img.src = url.data.avatar_url
+  h3Div.innerText = url.data.name;
+  paraDiv2.innerText = url.data.login;
+  anchorTag.innerText = url.data.url;
+  paraDiv4.innerText = url.data.followers;
+  paraDiv5.innerText = url.data.following;
+  paraDiv6.innerText = url.data.bio;
+
+  // appending the elements to the page
+
+  insertHere.appendChild(containerWrapper)
+  containerWrapper.appendChild(img);
+  containerWrapper.appendChild(headerDiv);
+  headerDiv.appendChild(paraDiv1)
+  headerDiv.appendChild(paraDiv2)
+  headerDiv.appendChild(paraDiv3)
+  headerDiv.appendChild(anchorTag)
+  headerDiv.appendChild(paraDiv4)
+  headerDiv.appendChild(paraDiv5)
+  headerDiv.appendChild(paraDiv6)
+  
+  return insertHere
+}
 
 /*
   List of LS Instructors Github username's:
