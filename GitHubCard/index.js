@@ -1,3 +1,4 @@
+import axios from "axios";
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -28,8 +29,39 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+//STEP 4-5
+const cardsElem = document.querySelector('div .cards');
+const myUsername = 'jbanks628';
 
+const followersArray = [
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'
+];
+
+function Users (username) {
+axios.get(`https://api.github.com/users/${username}`)
+ .then(userData => {
+   cardsElem.appendChild(userElem(userData.data));
+ })
+ .catch(err => {
+   console.error(err);
+ });
+return userElem(userData.data)
+}
+
+ followersArray.forEach(followerLogin => {
+   axios.get(`https://api.github.com/users/${followerLogin}`)
+   .then(followerData => {
+     cardsElem.appendChild(userElem(followerData.data));
+   })
+   .catch(err => console.error(err));
+ });
+
+ Users(jbanks628);
+/*
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -58,3 +90,54 @@ const followersArray = [];
     luishrd
     bigknell
 */
+
+//STEP 1
+axios.get('https://api.github.com/users/jbanks628')
+
+//STEP 2 & 3
+const cardElem = document.querySelector('.cards');
+
+function userElem ({login, location, name, followers, following, bio, html_url}) {
+const cardDiv = document.createElement('div');
+const cardImg = document.createElement('img');
+const cardInfo = document.createElement('div');
+const cardName = document.createElement('h3');
+const cardUsername = document.createElement('p');
+const cardLocation = document.createElement('p');
+const cardProfile = document.createElement('p');
+const cardAddress = document.createElement('a');
+const cardFollowers = document.createElement('p');
+const cardFollowing = document.createElement('p');
+const cardBio = document.createElement('p');
+
+cardDiv.classList.add('card');
+cardInfo.classList.add('card-info');
+cardName.classList.add('name');
+cardUsername.classList.add('username');
+
+// cardImg.src = `${avatar_url}`;
+cardAddress.href = `${html_url}`;
+
+cardName.textContent = `${name}`;
+cardUsername.textContent = `${login}`;
+cardLocation.textContent = `${location}` || "None of your business";
+cardProfile.textContent = 'Profile';
+cardAddress.textContent = `${html_url}`;
+cardFollowers.textContent = `${followers}`;
+cardFollowing.textContent = `${following}`;
+cardBio.textContent = `${bio}`;
+
+cardDiv.appendChild(cardImg);
+cardDiv.appendChild(cardInfo);
+cardInfo.appendChild(cardName);
+cardInfo.appendChild(cardLocation);
+cardInfo.appendChild(cardProfile);
+cardProfile.appendChild(cardAddress);
+cardInfo.appendChild(cardFollowers);
+cardInfo.appendChild(cardFollowing);
+cardInfo.appendChild(cardBio);
+
+return cardDiv;
+}
+
+
