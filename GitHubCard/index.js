@@ -8,7 +8,11 @@ import axios from 'axios';
 
 const htmlCards = document.querySelector('.cards');
 
-  axios.get('https://api.github.com/users/dougwilson0000')
+const followersArray = ["dougwilson0000", "tetondan", "dustinmyers", "justsml", "luishrd", "bigknell"];
+
+followersArray.forEach(item => {
+
+  axios.get(`https://api.github.com/users/${item}`)
   .then(resp => {
     const ghCards = makeCards(resp.data);
     htmlCards.appendChild(ghCards);
@@ -17,6 +21,9 @@ const htmlCards = document.querySelector('.cards');
     console.log(error);
   })
   .finally(() => console.log('WOOOOOOOOOOO'));
+})
+
+ 
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -42,7 +49,7 @@ const htmlCards = document.querySelector('.cards');
     user, and adding that card to the DOM.
 */
 
-const followersArray = ["tetondan", "dustinmyers", "justsml", "luishrd", "bigknell"];
+
 
 
 
@@ -58,10 +65,6 @@ function makeCards(obj) {
   const usersFollowers = document.createElement('p');
   const usersIsFollowing = document.createElement('p');
   const usersBio = document.createElement('p');
-
-  
-  
-  
 
   cardImg.src = obj.avatar_url
   usersName.textContent = obj.name;
