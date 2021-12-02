@@ -15,8 +15,6 @@ axios.get(`https://api.github.com/users/${user}`)
     console.error(error);
   }).finally(() => console.log('It works!!'))
 }
-
-
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -43,11 +41,11 @@ axios.get(`https://api.github.com/users/${user}`)
 
 
 const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell', 'Realseal177'];
-// followersArray.forEach(followers => getData(followers))
 
 for (let i = 0; i < followersArray.length; i++) {
   getData(followersArray[i])
 }
+// Using the .forEach method ==>> followersArray.forEach(followers => getData(followers))
 
  // STEP 3: Create a function that accepts a single object as its only argument. 
  // Using DOM methods and properties, create and return the following markup:
@@ -92,14 +90,6 @@ function gitCardMaker(object) {
   return card;
 }  
 
-/*
-getData('Realseal177');
-getData('tetondan');
-getData('dustinmyers');
-getData('justsml');
-getData('luishrd');
-getData('bigknell');
-*/
 
 // document.querySelector('.cards').appendChild(user); //
 
@@ -119,7 +109,7 @@ getData('bigknell');
       </div>
     </div>
 */
-const Object = { login: "Realseal177", id: 90492724, node_id: "MDQ6VXNlcjkwNDkyNzI0", avatar_url: "https://avatars.githubusercontent.com/u/90492724?v=4", gravatar_id: "", url: "https://api.github.com/users/Realseal177", html_url: "https://github.com/Realseal177", followers_url: "https://api.github.com/users/Realseal177/followers", following_url: "https://api.github.com/users/Realseal177/following{/other_user}", gists_url: "https://api.github.com/users/Realseal177/gists{/gist_id}" }
+
 /*
   List of LS Instructors Github username's:
     tetondan
