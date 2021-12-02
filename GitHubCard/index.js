@@ -4,6 +4,15 @@
     https://api.github.com/users/<your name>
 */
 
+axios.get('https://api.github.com/users/nonshalant')
+.then(resp =>{
+  console.log(resp.data)
+  greetingCard(resp)
+})
+.catch(err =>{
+  console.error(err)
+  console.log('error dude')
+})
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -49,6 +58,61 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function greetingCard(url){
+  const insertHere = document.querySelector('.cards')
+  
+  // creating the elements 
+  const containerWrapper = document.createElement('div');
+  const img = document.createElement('img');
+  const headerDiv = document.createElement('div');
+  const h3Div = document.createElement('h3');
+  const paraDiv1 = document.createElement('p');
+  const paraDiv2 = document.createElement('p'); 
+  const paraDiv3 = document.createElement('p'); 
+  const anchorTag = document.createElement('a');
+  const paraDiv4 = document.createElement('p'); 
+  const paraDiv5 = document.createElement('p'); 
+  const paraDiv6 = document.createElement('p'); 
+
+  // adding the class to the elements 
+  containerWrapper.classList.add('card');
+  img.src = url.avatar_url;
+  headerDiv.classList.add('card-info');
+  h3Div.classList.add('name');
+  paraDiv1.classList.add('username');
+
+  // setting the elements 
+  img.src = url.data.avatar_url
+  h3Div.innerText = url.data.name;
+  paraDiv2.innerText = url.data.login;
+  anchorTag.innerText = url.data.url;
+  paraDiv4.innerText = url.data.followers;
+  paraDiv5.innerText = url.data.following;
+  paraDiv6.innerText = url.data.bio;
+
+  // appending the elements to the page
+
+  insertHere.appendChild(containerWrapper)
+  containerWrapper.appendChild(img);
+  containerWrapper.appendChild(headerDiv);
+
+  
+}
+{/* <div class="card">
+<img src={image url of user} />
+<div class="card-info">
+  <h3 class="name">{users name}</h3>
+  <p class="username">{users user name}</p>
+  <p>Location: {users location}</p>
+  <p>Profile:
+    <a href={address to users github page}>{address to users github page}</a>
+  </p>
+  <p>Followers: {users followers count}</p>
+  <p>Following: {users following count}</p>
+  <p>Bio: {users bio}</p>
+</div>
+</div> */}
 
 /*
   List of LS Instructors Github username's:
