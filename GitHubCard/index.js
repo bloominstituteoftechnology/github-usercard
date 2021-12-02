@@ -110,8 +110,11 @@ cardInfo.appendChild(bio)
 img.src = obj.avatar_url
 name.textContent = obj.name;
 username.textContent = obj.login;
-location.textContent = 'Location:' + obj.location
-profilehref.textContent = obj.html_url
+location.textContent = 'Location:' + " " + obj.location
+profilehref.textContent ='Profile:' + " " + obj.html_url
+followers.textContent = 'Followers:' + ' ' + obj.followers
+following.textContent = 'Following:' + ' ' + obj.following
+bio.textContent = obj.bio
 document.querySelector('.cards').appendChild(card)
 }
 /*
