@@ -37,8 +37,22 @@ console.log(gitCard)
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell', 'topstock','crharding'];
 
+function newFriends(username){
+  
+  axios.get(`https://api.github.com/users/${username}`)
+    .then(res => {
+      followersArray.push(res.data.followers)
+      gitCard.appendChild(cardMaker(res.data));
+
+  })
+    .catch(err => {
+      console.error(err)
+  })
+
+}
+followersArray.forEach(person => newFriends(person));
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -70,6 +84,8 @@ function cardMaker(obj) {
   const followers = document.createElement('p');
   const following = document.createElement('p');
   const bio = document.createElement('p');
+  const website = document.createElement('p');
+  const siteLink = document.createElement('a');
   
   card.classList.add('card');
   cardInfo.classList.add('card-info');
@@ -85,16 +101,24 @@ function cardMaker(obj) {
   link.href = obj.url;
   followers.textContent = `Followers: ${obj.followers}`;
   following.textContent = `Following: ${obj.following}`;
+  website.textContent = `Website:`
+  siteLink.textContent = obj.blog;
+  siteLink.href = obj.blog;
+  bio.textContent = obj.bio;
 
   card.appendChild(cardInfo);
   cardInfo.appendChild(name);
   cardInfo.appendChild(username);
+  cardInfo.appendChild(bio);
+  cardInfo.appendChild(img);
   cardInfo.appendChild(location);
   cardInfo.appendChild(profile);
   profile.appendChild(link);
   cardInfo.appendChild(followers);
   cardInfo.appendChild(following);
-  cardInfo.appendChild(bio);
+  
+  cardInfo.appendChild(website);
+  cardInfo.appendChild(siteLink);
 
   return card;
 }
