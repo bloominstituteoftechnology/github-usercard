@@ -1,9 +1,10 @@
+import axios from "axios";
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+axios.get(`https://api.github.com/users/JCSime`);
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -49,6 +50,52 @@ const followersArray = [];
       </div>
     </div>
 */
+
+const cards = document.querySelector('.cards');
+
+function makeCard({userImg, realName, gitName, loc, profileURL, userFollowers, userFollowing, userBio }) {
+  const card = document.createElement('div');
+  const cardImg = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const username = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const href = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  card.classList.add('card');
+  cardImg.src = userImg;
+  cardInfo.classList.add("card-info");
+  name.classList.add('name');
+  name.textContent = `${realName}`;
+  username.classList.add('username');
+  username.textContent = `${gitName}`;
+  location.textContent = `${loc}`;
+  profile.textContent = href;
+  href.setAttribute('href', `${profileURL}`);
+  followers.textContent = `${userFollowers}`;
+  following.textContent = `${userFollowing}`;
+  bio.textContent = `${userBio}`;
+
+  card.appendChild(cardImg);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(username);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  profile.appendChild(href);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+
+  return card;
+
+  console.log(card);
+}
+
 
 /*
   List of LS Instructors Github username's:
