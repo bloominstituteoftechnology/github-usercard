@@ -1,8 +1,22 @@
+import axios from 'axios';
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
+const htmlCards = document.querySelector('.cards');
+
+  axios.get('https://api.github.com/users/dougwilson0000')
+  .then(resp => {
+    const ghCards = makeCards(resp.data);
+    htmlCards.appendChild(ghCards);
+  })
+  .catch(error => {
+    console.log(error);
+  })
+  .finally(() => console.log('WOOOOOOOOOOO'));
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -28,7 +42,60 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ["tetondan", "dustinmyers", "justsml", "luishrd", "bigknell"];
+
+
+
+function makeCards(obj) {
+  const cardDiv = document.createElement('div');
+  const cardImg = document.createElement('img');
+  const cardInfoDiv = document.createElement('div');
+  const usersName = document.createElement('h3');
+  const usersUsername = document.createElement('p');
+  const usersLocation = document.createElement('p');
+  const usersProfiles = document.createElement('p');
+  const link = document.createElement('a');
+  const usersFollowers = document.createElement('p');
+  const usersIsFollowing = document.createElement('p');
+  const usersBio = document.createElement('p');
+
+  
+  
+  
+
+  cardImg.src = obj.avatar_url
+  usersName.textContent = obj.name;
+  usersUsername.textContent = obj.login;
+  usersLocation.textContent = `Location: ${obj.location}`;
+  usersProfiles.textContent = 'Profile:';
+  link.href = obj.html_url;
+  link.textContent = obj.html_url;
+  usersFollowers.textContent = obj.followers;
+  usersIsFollowing.textContent = obj.following;
+  usersBio.textContent = obj.bio;
+
+  cardDiv.appendChild(cardImg);
+  cardDiv.appendChild(cardInfoDiv);
+  cardInfoDiv.appendChild(usersName);
+  cardInfoDiv.appendChild(usersUsername);
+  cardInfoDiv.appendChild(usersLocation);
+  cardInfoDiv.appendChild(usersProfiles);
+  usersProfiles.appendChild(link);
+  cardInfoDiv.appendChild(usersFollowers);
+  cardInfoDiv.appendChild(usersIsFollowing);
+  cardInfoDiv.appendChild(usersBio);
+  
+  cardDiv.classList.add('card');
+  cardInfoDiv.classList.add('card-info');
+  usersName.classList.add('name');
+  usersUsername.classList.add('username');
+
+
+  console.log(cardDiv);
+  return cardDiv
+}
+
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -52,9 +119,10 @@ const followersArray = [];
 
 /*
   List of LS Instructors Github username's:
-    tetondan
-    dustinmyers
-    justsml
-    luishrd
-    bigknell
+    "tetondan"
+    "dustinmyers"
+    "justsml"
+    "luishrd"
+    "bigknell"
 */
+
