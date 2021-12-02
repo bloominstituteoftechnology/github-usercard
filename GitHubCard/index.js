@@ -6,16 +6,20 @@
 
 import axios from "axios";
 
-axios
-  .get("https://api.github.com/users/lizzythomson")
-  .then((response) => {
-    const completedCard = makeCards(response.data);
-    const cardEntry = document.querySelector(".cards");
-    cardEntry.appendChild(completedCard);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+function getUsers(array) {
+  for (let i = 0; i < array.length; i++) {
+    axios
+      .get(`https://api.github.com/users/${array[i]}`)
+      .then((response) => {
+        const completedCard = makeCards(response.data);
+        const cardEntry = document.querySelector(".cards");
+        cardEntry.appendChild(completedCard);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+}
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -41,7 +45,14 @@ axios
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  "lizzythomson",
+  "kentcdodds",
+  "btholt",
+  "ryanflorence",
+  "gaearon",
+  "sebmarkbage",
+];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -103,6 +114,8 @@ function makeCards(obj) {
 
   return card;
 }
+
+getUsers(followersArray);
 
 /*
   List of LS Instructors Github username's:
