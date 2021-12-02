@@ -34,7 +34,15 @@ console.log(getRequest);
     user, and adding that card to the DOM.
 */
 
-const followersArray = ['dbvker', 'tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell', 'acakebaker'];
+const followersArray = [
+  'dbvker',
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell',
+  'acakebaker'
+];
 
 followersArray.forEach(user => {
   axios.get(`https://api.github.com/users/${user}`)
@@ -94,8 +102,9 @@ const cardUI = (obj) => {
   cardLocation.textContent = `Location: ${obj.location}`;
   cardProfile.textContent = `Profile: `;
   cardProfileLink.href = obj.url;
+  cardProfileLink.textContent = obj.url;
   cardFollowers.textContent = `Followers: ${obj.followers}`;
-  cardFollowing.textContent = `Followers: ${obj.following}`;
+  cardFollowing.textContent = `Following: ${obj.following}`;
   cardBio.textContent = `Bio: ${obj.bio}`;
 
 
