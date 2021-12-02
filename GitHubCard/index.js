@@ -1,3 +1,4 @@
+import axios from 'axios';
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -49,6 +50,46 @@ const followersArray = [];
       </div>
     </div>
 */
+function maker(obj){
+  let nDiv = document.createElement('div');
+  nDiv.classList.add('card')
+  let avi = document.createElement('img')
+  avi.src = obj.data.avatar_url
+  let card = document.createElement('div')
+  card.classList.add('card-info')
+  let uName = document.createElement('h3')
+  uName.textContent = obj.data.name
+  uName.classList.add('name')
+  let userName = document.createElement('p')
+  userName.textContent = obj.data.login
+  userName.classList.add('username')
+  let loc = document.createElement('p')
+  loc.textContent =`Location: ${obj.data.location}`
+  let prof = document.createElement('p')
+  prof.textContent = 'Profile:'
+  let link = document.createElement('a')
+  link.href = obj.data.html_url
+  link.textContent = obj.data.html_url
+  prof.append(link)
+  let follo = document.createElement('p')
+  follo.textContent = `Followers: ${obj.data.followers}.`
+  let folling = document.createElement('p')
+  folling.textContent = `Following: ${obj.data.following}`
+  let bio = document.createElement('p')
+  bio.textContent = `Bio: ${obj.data.bio}`
+
+
+
+  nDiv.append(avi, card)
+  card.append(uName, userName, loc, prof, follo, folling, bio)
+  return nDiv
+}
+axios.get('https://api.github.com/users/tvolchko').then( resp => {
+ console.log(maker(resp))}
+)
+// axios.get('https://api.github.com/users/tvolchko').then( resp => {
+//  console.log(resp)}
+// )
 
 /*
   List of LS Instructors Github username's:
