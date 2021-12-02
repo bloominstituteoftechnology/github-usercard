@@ -1,3 +1,4 @@
+import axios from "axios";
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -58,3 +59,49 @@ const followersArray = [];
     luishrd
     bigknell
 */
+
+//STEP 1
+axios.get('https://api.github.com/users/jbanks628')
+
+//STEP 2 & 3
+const cardElem = document.querySelector('.cards');
+
+function userElem ({login, location, name, followers, following, bio, html_url}) {
+const cardDiv = document.createElement('div');
+const cardImg = document.createElement('img');
+const cardInfo = document.createElement('div');
+const cardName = document.createElement('h3');
+const cardUsername = document.createElement('p');
+const cardLocation = document.createElement('p');
+const cardProfile = document.createElement('p');
+const cardAddress = document.createElement('a');
+const cardFollowers = document.createElement('p');
+const cardFollowing = document.createElement('p');
+const cardBio = document.createElement('p');
+
+cardDiv.classList.add('card');
+cardInfo.classList.add('card-info');
+cardName.classList.add('name');
+cardUsername.classList.add('username');
+
+cardImg.src = `${avatar_url}`;
+cardAddress.href = `${html_url}`;
+
+cardName.textContent = `${name}`;
+cardUsername.textContent = `${login}`;
+cardLocation.textContent = `${location}` || "None of your business";
+cardProfile.textContent = 'Profile';
+cardAddress.textContent = `${html_url}`;
+cardFollowers.textContent = `${followers}`;
+cardFollowing.textContent = `${following}`;
+cardBio.textContent = `${bio}`;
+
+cardDiv.appendChild(cardImg);
+cardDiv.appendChild(div .card-info);
+cardInfo.appendChild(h3);
+cardInfo.appendChild(p);
+cardInfo.appendChild(a);
+
+return cardDiv;
+}
+userElem();
