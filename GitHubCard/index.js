@@ -1,8 +1,13 @@
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
-    https://api.github.com/users/<your name>
-*/
+    https://api.github.com/users/<your name>*/
+axios
+  .get("https://api.github.com/users/ccharding")
+  .then((resp) => {
+    console.log();
+  })
+  .catch();
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -11,7 +16,12 @@
 
     Skip to STEP 3 (line 34).
 */
+const followersArray = [];
 
+function githubCard(gitInfo) {
+  const card = document.createElement("div");
+  const img = document.createElement("img");
+}
 /*
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
