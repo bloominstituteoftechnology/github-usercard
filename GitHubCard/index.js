@@ -4,7 +4,14 @@ import axios from 'axios';
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
- const url = `https://api.github.com/users/Rlauckern`
+ 
+axios.get(`https://api.github.com/users/rlauckern`)
+.then(resp => {
+     console.log(resp)
+   }).catch(error => {
+     console.log(error);
+   })
+ 
 
 
 
@@ -20,6 +27,7 @@ import axios from 'axios';
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
+
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -55,17 +63,54 @@ const followersArray = [];
 */
 
 //create elements 
+function cardMaker(card) {
 const cardElem = document.createElement('div');
 const img = document.createElement('img');
 const cardInfo = document.createElement('div');
+const imageType = document.createElement('img');
 const header = document.createElement('h3');
-const username = document.createElement('p');
+const usersname = document.createElement('p');
 const location = document.createElement('p');
 const profile = document.createElement('p');
 const github = document.createElement('p');
 const followers = document.createElement('p');
 const following = document.createElement('p');
 const bio = document.createElement('p');
+
+//structure elements
+cardElem.appendChild(img);
+cardElem.appendChild(cardInfo);
+cardInfo.appendChild(header);
+cardInfo.appendChild(usersname);
+cardInfo.appendChild(location);
+cardInfo.appendChild(profile);
+cardInfo.appendChild(followers);
+cardInfo.appendChild(following);
+cardInfo.appendChild(bio);
+
+//add classes
+cardElem.classList.add('card');
+cardElem.classList.add('card-info');
+cardElem.classList.add('name');
+username.classList.add('username');
+
+//add content
+img.src = obj.data.avatar_url;
+header.textContent = obj.data.name;
+usersname.textContent = obj.data.login;
+location.textContent = 'Location:' +  obj.data.location;
+github.href = obj.data.html_url;
+github.textContent = obj.data.html_url;
+profile.textContent = 'Profile:' + github;
+followers.textContent = 'Followers: ' + obj.data.followers;
+following.textContent = 'Following: ' + obj.data.following;
+bio.textContent = 'Bio: '
+
+//return
+
+return cardElem;
+}
+
 
 
 /*
