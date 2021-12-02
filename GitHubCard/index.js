@@ -5,18 +5,29 @@
 */
 import axios from 'axios';
 
+const followersArray = [
+  'Urukutelal',
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'
+];        
+
 function getCard(){
-  axios.get(`https://api.github.com/users/UrukuTelal`)
-  .then(r => {
-    console.log(r.data);
-    const cards =document.querySelector('.cards')
-    cards.appendChild(cardMaker(r.data));
-    
-  }).catch(e =>{
-    console.log(e);
-  }).finally(()=>console.log('WooT!'))
+  followersArray.forEach(el => {
+    axios.get(`https://api.github.com/users/${el}`)
+    .then(r => {                                                          
+      console.log(r.data);
+      const cards =document.querySelector('.cards')
+      cards.appendChild(cardMaker(r.data));
+    }).catch(e =>{
+      console.log(e);
+    }).finally(()=>console.log('WooT!'))
+  })
 }
-getCard();
+ 
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -30,7 +41,7 @@ getCard();
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
-
+getCard();
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
@@ -42,7 +53,7 @@ getCard();
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -106,12 +117,3 @@ function cardMaker(obj){
   return card;
 
 }
-
-/*
-  List of LS Instructors Github username's:
-    tetondan
-    dustinmyers
-    justsml
-    luishrd
-    bigknell
-*/
