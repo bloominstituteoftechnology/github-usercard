@@ -6,7 +6,7 @@ import axios from 'axios';
 */
 axios.get(`https://api.github.com/users/Tuan147`)
 .then(res => {
-  console.log(res.data)
+  const cardData = cardMaker(res.data)
 })
 .catch(err => {
   console.error(err)
@@ -38,9 +38,25 @@ axios.get(`https://api.github.com/users/Tuan147`)
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+ ' luishrd',
+  'bigknell',
+];
 
-
+followersArray.forEach(ele => {
+  const newEle = axios.get(`https://api.github.com/users/${ele}`)
+  .then(res => {
+    const userData = res.data;
+    cardMaker(newEle)
+    return userData
+  })
+  .catch(err => {
+    console.error(err)
+  })
+})
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -101,7 +117,7 @@ function cardMaker({ avatar_url, name, login, location, html_url, followers, fol
   profile.textContent = `Profile: `;
   realFollowers.textContent = `Followers: ${followers}`;
   realFollowing.textContent = `Following: ${following}`;
-  realBio.textContent(`Bio: ${bio}`);
+  realBio.textContent= `Bio: ${bio}`;
   address.setAttribute('href', `${html_url}`);
   profile.appendChild(address);
 
