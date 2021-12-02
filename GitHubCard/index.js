@@ -20,21 +20,10 @@ getMe(brandib222);*/
 */
 
 /*
-  STEP 5: Now that you have your own card getting added to the DOM, either
-    follow this link in your browser https://api.github.com/users/<Your github name>/followers,
-    manually find some other users' github handles, or use the list found at the
-    bottom of the page. Get at least 5 different Github usernames and add them as
-    Individual strings to the friendsArray below.
-
-    Using that array, iterate over it, requesting data for each user, creating a new card for each
-    user, and adding that card to the DOM.
-*/
-
-const followersArray = [];
-
-/*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:*/
+
+const entryPoint = document.querySelector('.cards');
 
 function userMaker(userObj) {
 
@@ -76,13 +65,12 @@ function userMaker(userObj) {
   following.textContent = `Following: ${userObj.following}`;
   bio.textContent = userObj.bio;
 
-  const entryPoint = document.querySelector('.cards');
+  
   entryPoint.appendChild(card);
 
   return card;
 
 }
-
 // END OF USER MAKER FUNCTION
 
 /*
@@ -99,10 +87,25 @@ function getUsers (username) {
       console.error(error);
     })
 }
-getUsers('dustinmyers');
-getUsers('brandib222');
 
+/*
+  STEP 5: Now that you have your own card getting added to the DOM, either
+    follow this link in your browser https://api.github.com/users/<Your github name>/followers,
+    manually find some other users' github handles, or use the list found at the
+    bottom of the page. Get at least 5 different Github usernames and add them as
+    Individual strings to the friendsArray below.
 
+    Using that array, iterate over it, requesting data for each user, creating a new card for each
+    user, and adding that card to the DOM.
+*/
+
+  const followersArray = ['tetondan', 'brandib222', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+
+  followersArray.forEach((elem) => {
+    getUsers(elem);
+  })
+
+  
 
   /*  <div class="card">
       <img src={image url of user} />
@@ -128,40 +131,3 @@ getUsers('brandib222');
     luishrd
     bigknell
 */
-
-/* const testUser = {
-  "login": "brandib222",
-  "id": 91443920,
-  "node_id": "MDQ6VXNlcjkxNDQzOTIw",
-  "avatar_url": "https://avatars.githubusercontent.com/u/91443920?v=4",
-  "gravatar_id": "",
-  "url": "https://api.github.com/users/brandib222",
-  "html_url": "https://github.com/brandib222",
-  "followers_url": "https://api.github.com/users/brandib222/followers",
-  "following_url": "https://api.github.com/users/brandib222/following{/other_user}",
-  "gists_url": "https://api.github.com/users/brandib222/gists{/gist_id}",
-  "starred_url": "https://api.github.com/users/brandib222/starred{/owner}{/repo}",
-  "subscriptions_url": "https://api.github.com/users/brandib222/subscriptions",
-  "organizations_url": "https://api.github.com/users/brandib222/orgs",
-  "repos_url": "https://api.github.com/users/brandib222/repos",
-  "events_url": "https://api.github.com/users/brandib222/events{/privacy}",
-  "received_events_url": "https://api.github.com/users/brandib222/received_events",
-  "type": "User",
-  "site_admin": false,
-  "name": "Brandi Ball",
-  "company": null,
-  "blog": "",
-  "location": null,
-  "email": null,
-  "hireable": null,
-  "bio": null,
-  "twitter_username": null,
-  "public_repos": 39,
-  "public_gists": 0,
-  "followers": 0,
-  "following": 0,
-  "created_at": "2021-09-27T02:20:41Z",
-  "updated_at": "2021-09-30T22:19:45Z"
-  }
-
-  console.log(userMaker(testUser)); */
