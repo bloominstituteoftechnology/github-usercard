@@ -51,6 +51,58 @@ const followersArray = [];
     </div>
 */
 
+function cardMaker(obj) {
+  const card = document.createElement("div");
+  const imgUrl = document.createElement("img");
+  const cardInfo = document.createElement("div");
+  const name = document.createElement("h3");
+  const username = document.createElement("p");
+  const usersLocation = document.createElement("p");
+  const usersProfile = document.createElement("p");
+  const githubAddress = document.createElement("a");
+  const followersCount = document.createElement("p");
+  const followingCount = document.createElement("p");
+  const usersBio = document.createElement("p");
+
+  card.appendChild(imgUrl);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(username);
+  cardInfo.appendChild(usersLocation);
+  cardInfo.appendChild(usersProfile);
+
+  cardInfo.appendChild(followersCount);
+  cardInfo.appendChild(followingCount);
+  cardInfo.appendChild(usersBio);
+
+  card.classList.add("card");
+  cardInfo.classList.add("card-info");
+  name.classList.add("name");
+  username.classList.add("username");
+
+  imgUrl.src = obj.avatar_url;
+  name.textContent = obj.name;
+  username.textContent = obj.login;
+  usersLocation.textContent = `Location: ${obj.location}`;
+  githubAddress.setAttribute("href", `${obj.html_url}`);
+  githubAddress.textContent = `${obj.html_url}`;
+  usersProfile.textContent = `Profile:`;
+  usersProfile.appendChild(githubAddress);
+  followersCount.textContent = `Followers: ${obj.followers}`;
+  followingCount.textContent = `Following: ${obj.following}`;
+  usersBio.textContent = `Bio : ${obj.bio}`;
+
+  return card;
+}
+axios
+  .get("https://api.github.com/users/Berenika14")
+  .then((response) =>
+    document.querySelector(".cards").appendChild(cardMaker(response.data))
+  )
+  .catch((error) => {
+    console.error(error);
+  });
+
 /*
   List of LS Instructors Github username's:
     tetondan
