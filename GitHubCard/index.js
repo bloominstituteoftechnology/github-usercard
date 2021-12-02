@@ -18,7 +18,7 @@ axios.get('https://api.github.com/users/jesswillcode')
 
     Skip to STEP 3 (line 34).
 */
-//resp.data.avatarURL, resp.data.name, resp.data.login, resp.data.location, resp.data.profile, resp.data.followers, resp.data.following, resp.data.bio
+
 /*
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
@@ -56,12 +56,15 @@ const followersArray = [];
       </div>
     </div>
 */
+
+//resp.data.avatarURL, resp.data.name, resp.data.login, resp.data.location, resp.data.profile, resp.data.followers, resp.data.following, resp.data.bio
+
 function cardMaker(card) {
   const cardDiv = document.createElement('div');
   cardDiv.classList.add('card');
 
   const avatar = document.createElement('img');
-  avatar.src = imgURL;
+  avatar.src = card.data.avatarURL;
   avatar.appendChild(cardDiv);
 
   const cardInfDiv = document.createElement('div');
@@ -70,16 +73,16 @@ function cardMaker(card) {
 
   const nameHead = document.createElement('h3');
   nameHead.classList.add('name');
-  nameHead.textContent = RealName;
+  nameHead.textContent = card.data.name;
   nameHead.appendChild(cardInfDiv);
 
   const userNamePara = document.createElement('p');
   userNamePara.classList.add('username');
-  userNamePara.textContent = userName;
+  userNamePara.textContent = card.data.login;
   userNamePara.appendChild(cardInfDiv);
 
   const locationPara = document.createElement('p');
-  locationPara.textContent = `Location: ${userLocation}`;
+  locationPara.textContent = `Location: ${card.data.location}`;
   locationPara.appendChild(cardInfDiv);
 
   const profilePara = document.createElement('p');
@@ -87,21 +90,22 @@ function cardMaker(card) {
   profilePara.appendChild(cardInfDiv);
 
   const profileLink = document.createElement('a');
-  profileLink.href = userProfLink;
+  profileLink.href = card.data.profile;
   profileLink.appendChild(profilePara);
 
   const followersPara = document.createElement('p');
-  followersPara.textContent = `Followers: ${followerCount}`;
+  followersPara.textContent = `Followers: ${card.data.followers}`;
   followersPara.appendChild(cardInfDiv);
 
   const followingPara = document.createElement('p');
-  followingPara.textContent = `Following: ${followingCount}`;
+  followingPara.textContent = `Following: ${card.data.following}`;
   followingPara.appendChild(cardInfDiv);
 
   const bioPara = document.createElement('p');
-  bioPara.textContent = `Bio: ${userBio}`;
+  bioPara.textContent = `Bio: ${card.data.bio}`;
   bioPara.appendChild(cardInfDiv);
 
+  return cardDiv;
 }
 /*
   List of LS Instructors Github username's:
