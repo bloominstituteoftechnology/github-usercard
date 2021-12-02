@@ -6,6 +6,11 @@ import axios from 'axios'
     https://api.github.com/users/<your name>
 */
 
+function getMe(name) {
+  axios.get(`https://api.github.com/users/${name}`)
+}
+getMe(brandib222);
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -34,13 +39,56 @@ const followersArray = [];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
-    Using DOM methods and properties, create and return the following markup:
+    Using DOM methods and properties, create and return the following markup:*/
 
-    <div class="card">
+function userMaker(userObj) {
+
+  const card = document.createElement('div');
+  const cardImg = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const username = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const pageAddress = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(username);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  profile.appendChild(pageAddress);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  username.classList.add('username');
+
+  cardImg.src = userObj.avatar_url;
+  name.textContent = userObj.name;
+  username.textContent = userObj.login;
+  location.textContent = userObj.location;
+  profile.href = userObj.url;
+  profile.textContent = userObj.url;
+  followers.textContent = `Followers: ${userObj.followers}`;
+  following.textContent = `Following: ${userObj.following}`;
+  bio.textContent = userObj.bio;
+
+}
+// END OF USER MAKER FUNCTION
+
+
+
+  /*  <div class="card">
       <img src={image url of user} />
       <div class="card-info">
-        <h3 class="name">{users name}</h3>
-        <p class="username">{users user name}</p>
+        <h3 class="name">{user's name}</h3>
+        <p class="username">{users username}</p>
         <p>Location: {users location}</p>
         <p>Profile:
           <a href={address to users github page}>{address to users github page}</a>
