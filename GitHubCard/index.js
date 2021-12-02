@@ -9,7 +9,9 @@ import axios from "axios";
 axios
   .get("https://api.github.com/users/lizzythomson")
   .then((response) => {
-    console.log(response.data);
+    const completedCard = makeCards(response.data);
+    const cardEntry = document.querySelector(".cards");
+    cardEntry.appendChild(completedCard);
   })
   .catch((error) => {
     console.error(error);
@@ -83,23 +85,23 @@ function makeCards(obj) {
   cardInfo.appendChild(userFollowers);
   cardInfo.appendChild(userFollowing);
   cardInfo.appendChild(userBio);
-  userProfile.appendChild(userGithubPage);
-
   card.className = "card";
   cardInfo.className = "card-info";
   userName.className = "name";
   userUsername.className = "username";
 
-  userImg.src = null; /****************** */
-  userName.textContent = null;
-  userUsername.textContent = null;
-  userLocation.textContent = null; /*`Location: ${users location} */
-  userProfile.textContent = "Profile: ";
-  userGithubPage.textContent = null;
-  userGithubPage.setAttribute("href", "url....");
-  userFollowers.textContent = null; /*`Followers: ${user's following count} */
-  userFollowing.textContent = null; /*`Following: ${user's following count} */
-  userBio.textContent = null; /*`Bio: ${user's bio} */
+  userImg.src = obj.avatar_url;
+  userName.textContent = obj.name;
+  userUsername.textContent = obj.login;
+  userLocation.textContent = `Location: ${obj.location}`;
+  userGithubPage.textContent = obj.html_url;
+  userGithubPage.setAttribute("href", obj.html_url);
+  userProfile.textContent = "Profile: " + userGithubPage;
+  userFollowers.textContent = `Followers: ${obj.followers}`;
+  userFollowing.textContent = `Following: ${obj.following}`;
+  userBio.textContent = `Bio: ${obj.bio}`;
+
+  return card;
 }
 
 /*
