@@ -41,13 +41,16 @@ const followersArray = [
   'bigknell'
 ];
 
-axios.get(`https://api.github.com/users/${myUsername}`)
+function Users (username) {
+axios.get(`https://api.github.com/users/${username}`)
  .then(userData => {
-   cardsElem.appendChild(userElem(userData.data.data));
+   cardsElem.appendChild(userElem(userData.data));
  })
  .catch(err => {
    console.error(err);
  });
+return userElem(userData.data)
+}
 
  followersArray.forEach(followerLogin => {
    axios.get(`https://api.github.com/users/${followerLogin}`)
@@ -56,6 +59,8 @@ axios.get(`https://api.github.com/users/${myUsername}`)
    })
    .catch(err => console.error(err));
  });
+
+ Users(jbanks628);
 /*
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -110,7 +115,7 @@ cardInfo.classList.add('card-info');
 cardName.classList.add('name');
 cardUsername.classList.add('username');
 
-cardImg.src = `${avatar_url}`;
+// cardImg.src = `${avatar_url}`;
 cardAddress.href = `${html_url}`;
 
 cardName.textContent = `${name}`;
@@ -123,11 +128,16 @@ cardFollowing.textContent = `${following}`;
 cardBio.textContent = `${bio}`;
 
 cardDiv.appendChild(cardImg);
-cardDiv.appendChild(div .card-info);
-cardInfo.appendChild(h3);
-cardInfo.appendChild(p);
-cardInfo.appendChild(a);
+cardDiv.appendChild(cardInfo);
+cardInfo.appendChild(cardName);
+cardInfo.appendChild(cardLocation);
+cardInfo.appendChild(cardProfile);
+cardProfile.appendChild(cardAddress);
+cardInfo.appendChild(cardFollowers);
+cardInfo.appendChild(cardFollowing);
+cardInfo.appendChild(cardBio);
 
 return cardDiv;
 }
+
 
