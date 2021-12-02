@@ -5,11 +5,13 @@ import axios from "axios";
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+const divCards = document.querySelector(".cards");
 axios
   .get("https://api.github.com/users/dconley1212")
   .then((resp) => {
-    console.log(resp);
+    console.log(resp.data);
+    const githubCards = githubCard(resp);
+    divCards.appendChild(githubCards);
   })
   .catch((error) => {
     console.log(error);
@@ -61,6 +63,49 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function githubCard(obj) {
+  const card = document.querySelector(".card");
+  const imageOfUser = document.querySelector("img");
+  const cardInfo = document.querySelector(".card-info");
+  const nameOfUser = document.querySelector("h3.name");
+  const usernameInfo = document.querySelector(".username");
+  const userLocation = document.querySelector("p");
+  const profileInfo = document.querySelector("p");
+  const usersGithubLink = document.querySelector("p");
+  const numberOfFollowers = document.querySelector("p");
+  const followingNumber = document.querySelector("p");
+  const bioOfUser = document.querySelector("p");
+
+  card.appendChild(imageOfUser);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(nameOfUser);
+  cardInfo.appendChild(usernameInfo);
+  cardInfo.appendChild(userLocation);
+  cardInfo.appendChild(profileInfo);
+  profileInfo.appendChild(usersGithubLink);
+  cardInfo.appendChild(numberOfFollowers);
+  cardInfo.appendChild(followingNumber);
+  cardInfo.appendChild(bioOfUser);
+
+  card.classList.add("card");
+  cardInfo.classList.add("card-info");
+  nameOfUser.classList.add("name");
+  usernameInfo.classList.add("username");
+
+  imageOfUser.src = obj.avatar_url;
+  nameOfUser.textContent = obj.name;
+  usernameInfo.textContent = obj.login;
+  userLocation.textContent = `Location: ${obj.location}`;
+  profileInfo.textContent = "Profile";
+  usersGithubLink.href = obj.url;
+  usersGithubLink.textContent = obj.url;
+  numberOfFollowers.textContent = obj.followers;
+  followingNumber.textContent = obj.following;
+  bioOfUser.textContent = obj.bio;
+
+  return card;
+}
 
 /*
   List of LS Instructors Github username's:
