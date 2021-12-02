@@ -6,10 +6,10 @@ import axios from 'axios'
     https://api.github.com/users/<your name>
 */
 
-function getMe(name) {
+/*function getMe(name) {
   axios.get(`https://api.github.com/users/${name}`)
 }
-getMe(brandib222);
+getMe(brandib222);*/
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -55,6 +55,8 @@ function userMaker(userObj) {
   const following = document.createElement('p');
   const bio = document.createElement('p');
 
+  card.appendChild(cardImg);
+  card.appendChild(cardInfo);
   cardInfo.appendChild(name);
   cardInfo.appendChild(username);
   cardInfo.appendChild(location);
@@ -79,7 +81,47 @@ function userMaker(userObj) {
   following.textContent = `Following: ${userObj.following}`;
   bio.textContent = userObj.bio;
 
+  return card;
+
 }
+
+const testUser = {
+  "login": "brandib222",
+  "id": 91443920,
+  "node_id": "MDQ6VXNlcjkxNDQzOTIw",
+  "avatar_url": "https://avatars.githubusercontent.com/u/91443920?v=4",
+  "gravatar_id": "",
+  "url": "https://api.github.com/users/brandib222",
+  "html_url": "https://github.com/brandib222",
+  "followers_url": "https://api.github.com/users/brandib222/followers",
+  "following_url": "https://api.github.com/users/brandib222/following{/other_user}",
+  "gists_url": "https://api.github.com/users/brandib222/gists{/gist_id}",
+  "starred_url": "https://api.github.com/users/brandib222/starred{/owner}{/repo}",
+  "subscriptions_url": "https://api.github.com/users/brandib222/subscriptions",
+  "organizations_url": "https://api.github.com/users/brandib222/orgs",
+  "repos_url": "https://api.github.com/users/brandib222/repos",
+  "events_url": "https://api.github.com/users/brandib222/events{/privacy}",
+  "received_events_url": "https://api.github.com/users/brandib222/received_events",
+  "type": "User",
+  "site_admin": false,
+  "name": "Brandi Ball",
+  "company": null,
+  "blog": "",
+  "location": null,
+  "email": null,
+  "hireable": null,
+  "bio": null,
+  "twitter_username": null,
+  "public_repos": 39,
+  "public_gists": 0,
+  "followers": 0,
+  "following": 0,
+  "created_at": "2021-09-27T02:20:41Z",
+  "updated_at": "2021-09-30T22:19:45Z"
+  }
+
+  console.log(userMaker(testUser));
+
 // END OF USER MAKER FUNCTION
 
 
