@@ -19,6 +19,8 @@ import axios from 'axios';
     and append the returned markup to the DOM as a child of .cards
 */
 
+
+
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
@@ -30,6 +32,10 @@ import axios from 'axios';
     user, and adding that card to the DOM.
 */
 
+const myUsername = MNoble2014
+
+const cardsSection = document.querySelector('.cards');
+
 const followersArray = [
   'tetondan',
   'dustinmyers',
@@ -37,7 +43,7 @@ const followersArray = [
   'luishrd',
   'bigknell'
 ];
-
+axios.get(`https://api.github.com/users/${myUsername}`)
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
