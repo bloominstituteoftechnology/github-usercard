@@ -1,9 +1,26 @@
+import axios from 'axios';
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
 
+const followersArray = ['jesswillcode', 'dbvker', 'DatBoiLuiskrrt', 'gumsanmarip', 'magoha01', 'tvolchko'];
+const cardsEntry = document.querySelector('.cards');
+
+for(let i = 0; i < followersArray.length; i++){
+  getUserCard(followersArray[i]);
+}
+
+function getUserCard(username){
+axios.get(`https://api.github.com/users/${username}`)
+.then(resp => {
+  const gitUser = cardMaker(resp.data);
+  cardsEntry.appendChild(gitUser);
+}).catch(error => {
+  console.error(error);
+})
+}
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -28,8 +45,6 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
-
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -50,11 +65,51 @@ const followersArray = [];
     </div>
 */
 
-/*
-  List of LS Instructors Github username's:
-    tetondan
-    dustinmyers
-    justsml
-    luishrd
-    bigknell
-*/
+function cardMaker(card) {
+  const cardDiv = document.createElement('div');
+  cardDiv.classList.add('card');
+
+  const avatar = document.createElement('img');
+  avatar.src = card.avatar_url;
+  cardDiv.appendChild(avatar);
+
+  const cardInfDiv = document.createElement('div');
+  cardInfDiv.classList.add('card-info');
+  cardDiv.appendChild(cardInfDiv);
+
+  const nameHead = document.createElement('h3');
+  nameHead.classList.add('name');
+  nameHead.textContent = card.name;
+  cardInfDiv.appendChild(nameHead);
+
+  const userNamePara = document.createElement('p');
+  userNamePara.classList.add('username');
+  userNamePara.textContent = card.login;
+  cardInfDiv.appendChild(userNamePara);
+
+  const locationPara = document.createElement('p');
+  locationPara.textContent = `Location: ${card.location}`;
+  cardInfDiv.appendChild(locationPara);
+
+  const profilePara = document.createElement('p');
+  cardInfDiv.appendChild(profilePara);
+
+  const profileLink = document.createElement('a');
+  profileLink.href = card.html_url;
+  profilePara.textContent = `Profile: ${profileLink}`;
+  profilePara.appendChild(profileLink);
+
+  const followersPara = document.createElement('p');
+  followersPara.textContent = `Followers: ${card.followers}`;
+  cardInfDiv.appendChild(followersPara);
+
+  const followingPara = document.createElement('p');
+  followingPara.textContent = `Following: ${card.following}`;
+  cardInfDiv.appendChild(followingPara);
+
+  const bioPara = document.createElement('p');
+  bioPara.textContent = `Bio: ${card.bio}`;
+  cardInfDiv.appendChild(bioPara);
+
+  return cardDiv;
+}
