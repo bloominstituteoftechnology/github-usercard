@@ -1,9 +1,34 @@
+import axios from "axios";
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+const divCards = document.querySelector(".cards");
 
+const followersArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell",
+];
+
+followersArray.forEach((user) => {
+  axios
+    .get(`https://api.github.com/users/${user}`)
+    .then((resp) => {
+      console.log(resp.data);
+      const githubCards = githubCard(resp.data);
+      console.log(githubCards);
+      divCards.appendChild(githubCards);
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+    .finally(console.log("Woo"));
+});
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -28,8 +53,6 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
-
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -50,11 +73,45 @@ const followersArray = [];
     </div>
 */
 
-/*
-  List of LS Instructors Github username's:
-    tetondan
-    dustinmyers
-    justsml
-    luishrd
-    bigknell
-*/
+function githubCard(obj) {
+  const card = document.createElement("div");
+  const imageOfUser = document.createElement("img");
+  const cardInfo = document.createElement("div");
+  const nameOfUser = document.createElement("h3");
+  const usernameInfo = document.createElement("p");
+  const userLocation = document.createElement("p");
+  const profileInfo = document.createElement("p");
+  const usersGithubLink = document.createElement("p");
+  const numberOfFollowers = document.createElement("p");
+  const followingNumber = document.createElement("p");
+  const bioOfUser = document.createElement("p");
+
+  card.appendChild(imageOfUser);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(nameOfUser);
+  cardInfo.appendChild(usernameInfo);
+  cardInfo.appendChild(userLocation);
+  cardInfo.appendChild(profileInfo);
+  profileInfo.appendChild(usersGithubLink);
+  cardInfo.appendChild(numberOfFollowers);
+  cardInfo.appendChild(followingNumber);
+  cardInfo.appendChild(bioOfUser);
+
+  card.classList.add("card");
+  cardInfo.classList.add("card-info");
+  nameOfUser.classList.add("name");
+  usernameInfo.classList.add("username");
+
+  imageOfUser.src = obj.avatar_url;
+  nameOfUser.textContent = obj.name;
+  usernameInfo.textContent = obj.login;
+  userLocation.textContent = `Location: ${obj.location}`;
+  profileInfo.textContent = "Profile";
+  usersGithubLink.href = obj.url;
+  usersGithubLink.textContent = obj.url;
+  numberOfFollowers.textContent = obj.followers;
+  followingNumber.textContent = obj.following;
+  bioOfUser.textContent = obj.bio;
+
+  return card;
+}
