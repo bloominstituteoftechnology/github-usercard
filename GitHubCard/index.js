@@ -44,6 +44,21 @@ const followersArray = [
   'bigknell'
 ];
 axios.get(`https://api.github.com/users/${myUsername}`)
+  .then(userData => {
+    cardsSection.append(createCard(userData.data));
+  })
+  .catch(error => {
+    console.error(error)
+  })
+
+  followersArray.forEach(followersLogin => {
+    axios.get(`https://api.github.com/users/${followerLogin}`)
+      .then(followerData => {
+        cardsSection.appendChild(createCard(followerData.data))
+      })
+      .catch(error => console.error(error))
+  })
+  
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
