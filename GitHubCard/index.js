@@ -30,7 +30,13 @@ import axios from 'axios';
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'
+];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -51,15 +57,6 @@ const followersArray = [];
       </div>
     </div>
 */
-
-const myUsername = 'MNoble2014'
-
-const cardsSection = document.querySelector('.cards');
-
-axios.get(`https://api.github.com/users/${myUsername}`)
-  .then(userData => {
-    let followersArray = [];
-  })
 
 /*
   List of LS Instructors Github username's:
