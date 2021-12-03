@@ -75,7 +75,7 @@ function githubCard(gitInfo) {
 
   card.appendChild(img);
   card.appendChild(cardInfo);
-  cardInfo.appendChild(name);
+  cardInfo.appendChild(named);
   cardInfo.appendChild(login);
   cardInfo.appendChild(location);
   cardInfo.appendChild(profile);
