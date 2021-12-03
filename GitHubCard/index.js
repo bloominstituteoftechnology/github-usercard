@@ -58,7 +58,7 @@ axios.get(`https://api.github.com/users/${myUsername}`)
       })
       .catch(error => console.error(error))
   })
-  
+
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -87,3 +87,51 @@ axios.get(`https://api.github.com/users/${myUsername}`)
     luishrd
     bigknell
 */
+
+function createCard(user) {
+  console.log(user)
+  const card = document.createElement('div');
+  card.classList.add('card');
+
+  const img = document.createElement('img');
+  img.setAttribute('src', user['avatar_url']);
+
+  const cardInfo = document.createElement('div');
+  cardInfo.classList.add('card-info');
+
+  const h3 = document.createElement('h3');
+  h3.classList.add('name');
+  h3.textContent = user.name || user.login;
+
+  const pTags = [];
+  for(let i = 0; i < 6; i++) {
+    pTags.push(document.createElement('p'));
+  }
+  pTags[0].classList.add('username');
+  pTags[0].textContent = user.login;
+
+  pTags[1].textContent = `Location: ${user.location || "Not Available"}`;
+  
+  pTags[2].textContent = `Profile:`;
+
+  const a = document.createElement('a');
+  const aURL = user['html_url'];
+  a.setAttribute('href', aURL);
+
+  a.textContent = aURL;
+  pTags[2].appendChild(a);
+
+  pTags[3].textContent = `Followers: ${user.followers}`;
+
+  pTags[4].textContent = `Following: ${user.following}`;
+
+  pTags[5].textContent = `Bio: ${user.bio || "Not Available"}`;
+
+  cardInfo.appendChild(h3);
+  pTags.forEach(p => cardInfo.appendChild(p));
+
+  card.appendChild(img);
+  card.appendChild(cardInfo)
+
+  return card;
+}
