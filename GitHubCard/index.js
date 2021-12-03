@@ -1,8 +1,33 @@
+import axios from "axios";
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+function getGit() {
+  axios
+    .get(`https://api.github.com/users/DatBoiLuiskrrt/followers`)
+    .then((res) => {
+      // console.log(res.data);
+      cards(res.data, ".cards");
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+    .finally(() => {
+      console.log("ayyy lmao");
+    });
+}
+getGit();
+function cards(data, selector) {
+  for (let i = 0; i < data.length; i++) {
+    const cardObj = {
+      obj: data[i],
+    };
+    const entry = document.querySelector(selector);
+    entry.appendChild(cardMaker(cardObj));
+  }
+}
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -49,7 +74,42 @@ const followersArray = [];
       </div>
     </div>
 */
+function cardMaker(data) {
+  const div = document.createElement("div");
+  const img = document.createElement("img");
+  const div2 = document.createElement("div");
+  const h3 = document.createElement("h3");
+  const p = document.createElement("p");
+  const p2 = document.createElement("p");
+  const p3 = document.createElement("p");
+  const a = document.createElement("a");
+  const p4 = document.createElement("p");
+  const p5 = document.createElement("p");
+  const p6 = document.createElement("p");
 
+  div.classList.add("card");
+  div2.classList.add("card-info");
+  h3.classList.add("name");
+  p.classList.add("username");
+
+  div.appendChild(img);
+  div.appendChild(div2);
+  div2.appendChild(h3);
+  div2.appendChild(p);
+  div2.appendChild(p2);
+  div2.appendChild(p3);
+  p3.appendChild(a);
+  div2.appendChild(p4);
+  div2.appendChild(p5);
+  div2.appendChild(p6);
+
+  img.src = data.obj.avatar_url;
+  h3.textContent = data.obj.login;
+  p.textContent = data.obj.login;
+  console.log(data.obj.url);
+  console.log(data.obj);
+  return div;
+}
 /*
   List of LS Instructors Github username's:
     tetondan
