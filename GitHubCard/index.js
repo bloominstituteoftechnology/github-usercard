@@ -8,13 +8,13 @@ import axios from 'axios';
 const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell'];
 
 for (let i = 0; i < followersArray.length; i++) {
-  getGitCard(followers[i]);
+  getGitCard(followersArray[i]);
 }
 
 function getGitCard(username){
-axios.get(`https://api.github.com/users/${username}`)
-.then(resp =>{
-  documment.querySelector('.cards').appendChild(githubCard(resp.data));
+  axios.get(`https://api.github.com/users/${username}`)
+  .then(resp =>{
+    documment.querySelector('.cards').appendChild(githubCard(resp.data));
 })
 .catch(err => console.error(err))
 }
@@ -50,7 +50,7 @@ function githubCard(gitInfo) {
   const card = document.createElement('div');
   const img = document.createElement('img');
   const cardInfo =  document.createElement('div');
-  const name = document.createElement('h3');
+  const named = document.createElement('h3');
   const login = document.createElement('p');
   const location = document.createElement('p');
   const profile = document.createElement('p');
@@ -63,7 +63,7 @@ function githubCard(gitInfo) {
 
   img.src = gitInfo.avatar_url;
   img.alt = 'github user';
-  name.textContent = gitInfo.name;
+  named.textContent = gitInfo.name;
   login.textContent = gitInfo.login;
   location.textContent = gitInfo.location;
   profile.textContent = 'Profile';
@@ -108,7 +108,7 @@ function githubCard(gitInfo) {
 
 card.ClassList.add('card');
 cardInfo.ClassList.add('card-info');
-name.ClassList.add('name');
+named.ClassList.add('name');
 login.ClassList.add('username');
 
 /*
