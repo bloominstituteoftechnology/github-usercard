@@ -90,7 +90,7 @@ function cardMaker(obj) {
   name.textContent = obj.name;
   login.textContent = obj.login;
   location.textContent = obj.location;
-  profile.textContent = 'Profile';
+  profile.textContent = 'Profile: ';
   link.textContent = 'Link to Profile';
   link.href = obj.html_url;
   followers.textContent = `Followers: ${obj.followers}`;
@@ -99,14 +99,14 @@ function cardMaker(obj) {
 
   cardCont.appendChild(img);
   cardCont.appendChild(info);
-  cardCont.appendChild(name);
-  cardCont.appendChild(login);
-  cardCont.appendChild(location);
-  cardCont.appendChild(profile);
-  cardCont.appendChild(link);
-  cardCont.appendChild(followers);
-  cardCont.appendChild(following);
-  cardCont.appendChild(bio);
+  info.appendChild(name);
+  info.appendChild(login);
+  info.appendChild(location);
+  info.appendChild(profile);
+  profile.appendChild(link);
+  info.appendChild(followers);
+  info.appendChild(following);
+  info.appendChild(bio);
 
   cardCont.classList.add('card');
   info.classList.add('card-info');
