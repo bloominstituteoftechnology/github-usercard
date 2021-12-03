@@ -4,17 +4,9 @@ import axios from "axios";
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-axios.get('https://api.github.com/users/vgcaisse')
-  .then(resp => {
-    // document.querySelector('.card').appendChild(cardMaker(resp.data))
-    console.log(resp);
-  })
-  .catch(err=> console.error(err));
 
-  cardCont.classList.add('card');
-  info.classList.add('card-info');
-  name.classList.add('name');
-  login.classList.add('username')
+
+  
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -39,7 +31,26 @@ axios.get('https://api.github.com/users/vgcaisse')
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell',
+];
+
+function gitCards(username) {
+  axios.get(`https://api.github.com/users/${username}`)
+  .then(resp => {
+    document.querySelector('.cards').appendChild(cardMaker(resp.data));
+    // console.log(resp);
+  })
+  .catch(err=> console.error(err));
+}
+
+for(let i = 0; i < followersArray.length; i++) {
+  gitCards(followersArray[i]);
+}
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -74,17 +85,17 @@ function cardMaker(obj) {
   const following = document.createElement('p');
   const bio = document.createElement('p');
 
-  img.src = gitInfo.avatar_url;
+  img.src = obj.avatar_url;
   img.alt = 'git user profile picture';
-  name.textContent = gitInfo.name;
-  login.textContent = gitInfo.login;
-  location.textContent = gitInfo.location;
+  name.textContent = obj.name;
+  login.textContent = obj.login;
+  location.textContent = obj.location;
   profile.textContent = 'Profile';
   link.textContent = 'Link to Profile';
-  link.href = gitInfo.html_url;
-  followers.textContent = `Followers: ${gitInfo.followers}`;
-  following.textContent = `Followers: ${gitInfo.following}`;
-  bio.textContent = gitInfo.bio;
+  link.href = obj.html_url;
+  followers.textContent = `Followers: ${obj.followers}`;
+  following.textContent = `Followers: ${obj.following}`;
+  bio.textContent = obj.bio;
 
   cardCont.appendChild(img);
   cardCont.appendChild(info);
@@ -96,6 +107,11 @@ function cardMaker(obj) {
   cardCont.appendChild(followers);
   cardCont.appendChild(following);
   cardCont.appendChild(bio);
+
+  cardCont.classList.add('card');
+  info.classList.add('card-info');
+  name.classList.add('name');
+  login.classList.add('username');
 
   return cardCont;
 }
