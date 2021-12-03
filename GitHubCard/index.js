@@ -6,7 +6,8 @@ import axios from "axios";
 */
 axios.get('https://api.github.com/users/vgcaisse')
   .then(resp => {
-    document.querySelector('.card').appendChild(cardMaker(resp.data))
+    // document.querySelector('.card').appendChild(cardMaker(resp.data))
+    console.log(resp);
   })
   .catch(err=> console.error(err));
 
@@ -96,7 +97,7 @@ function cardMaker(obj) {
   cardCont.appendChild(following);
   cardCont.appendChild(bio);
 
-  return card;
+  return cardCont;
 }
 
 /*
