@@ -69,12 +69,12 @@ function userInterface(obj) {
   usersName.classList.add("username");
   usersName.textContent = obj.login;
   usersLocation.textContent = `Location: ${obj.location}`;
-  usersProfile.textContent = `profile: ${(anchorTag.href = obj.html_url)}`;
+  usersProfile.textContent = `profile: `;
+  anchorTag.textContent = `${obj.html_url}`;
   anchorTag.href = obj.html_url;
   followerCount.textContent = `Followers: ${obj.followers}`;
   followingCount.textContent = `Following: ${obj.following}`;
   usersBio.textContent = `Bio: ${obj.bio}`;
-  //usersProfile.textContent = obj.html_url;
 
   mainContent.appendChild(imageType);
   mainContent.appendChild(cardInfo);
