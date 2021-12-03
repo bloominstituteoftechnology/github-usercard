@@ -8,7 +8,7 @@ function getGit() {
   axios
     .get(`https://api.github.com/users/DatBoiLuiskrrt/followers`)
     .then((res) => {
-      // console.log(res.data);
+      console.log(res.data);
       cards(res.data, ".cards");
     })
     .catch((error) => {
@@ -103,11 +103,16 @@ function cardMaker(data) {
   div2.appendChild(p5);
   div2.appendChild(p6);
 
-  img.src = data.obj.avatar_url;
-  h3.textContent = data.obj.login;
-  p.textContent = data.obj.login;
-  console.log(data.obj.url);
-  console.log(data.obj);
+  img.src = data.avatar_url;
+  img.alt = "gitbub user";
+  h3.textContent = data.name;
+  p.textContent = data.login;
+  p2.textContent = data.location;
+  p3.textContent = "Profile";
+  a.textContent = "Link to profile";
+  a.href = data.html_url;
+  // console.log(data.obj.url);
+  // console.log(data.obj);
   return div;
 }
 /*
