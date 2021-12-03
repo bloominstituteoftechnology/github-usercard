@@ -4,12 +4,19 @@ import axios from "axios";
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell', 'richarddowd' ];
 
-axios.get(`https://api.github.com/users/richarddowd`)
+for (let i = 0; i < followersArray.length; i++) {
+  getGitCard(followersArray[i]);
+}
+
+function getGitCard(username){
+axios.get(`https://api.github.com/users/${username}`)
 .then(resp => {
   document.querySelector('.cards').appendChild(githubCard(resp.data));
 })
 .catch( err => console.error(err))
+}
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -34,7 +41,7 @@ axios.get(`https://api.github.com/users/richarddowd`)
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
 
 function githubCard(gitInfo) {
   const card = document.createElement('div');
@@ -48,6 +55,25 @@ function githubCard(gitInfo) {
   const followers = document.createElement('p');
   const following = document.createElement('p');
   const bio = document.createElement('p')
+
+//   <div class="card">
+//   <img src={image url of user} />
+//   <div class="card-info">
+//     <h3 class="name">{users name}</h3>
+//     <p class="username">{users user name}</p>
+//     <p>Location: {users location}</p>
+//     <p>Profile:
+//       <a href={address to users github page}>{address to users github page}</a>
+//     </p>
+//     <p>Followers: {users followers count}</p>
+//     <p>Following: {users following count}</p>
+//     <p>Bio: {users bio}</p>
+//   </div>
+// </div>
+card.classList.add('card');
+cardInfo.classList.add('card-info');
+name.classList.add('name');
+login.classList.add('username');
 
   img.src = gitInfo.avatar_url;
   img.alt = 'github user';
