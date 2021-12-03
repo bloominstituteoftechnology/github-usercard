@@ -4,9 +4,22 @@ import axios from "axios";
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-function getGit() {
+
+const followerArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell",
+  "datboiluiskrrt",
+];
+
+for (let i = 0; i < followerArray.length; i++) {
+  getGit(followerArray[i]);
+}
+function getGit(username) {
   axios
-    .get(`https://api.github.com/users/DatBoiLuiskrrt`)
+    .get(`https://api.github.com/users/${username}`)
     .then((res) => {
       console.log(res.data);
       // cards(res.data, ".cards");
