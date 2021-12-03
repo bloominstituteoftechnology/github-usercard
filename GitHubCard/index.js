@@ -1,7 +1,9 @@
+import axios from 'axios';
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
-    https://api.github.com/users/<your name>
+    https://api.github.com/users/MNoble2014
 */
 
 /*
@@ -49,6 +51,15 @@ const followersArray = [];
       </div>
     </div>
 */
+
+const myUsername = 'MNoble2014'
+
+const cardsSection = document.querySelector('.cards');
+
+axios.get(`https://api.github.com/users/${myUsername}`)
+  .then(userData => {
+    let followersArray = [];
+  })
 
 /*
   List of LS Instructors Github username's:
