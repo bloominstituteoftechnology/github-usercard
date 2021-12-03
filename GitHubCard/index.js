@@ -6,10 +6,11 @@ import axios from "axios";
 */
 function getGit() {
   axios
-    .get(`https://api.github.com/users/DatBoiLuiskrrt/followers`)
+    .get(`https://api.github.com/users/DatBoiLuiskrrt`)
     .then((res) => {
       console.log(res.data);
-      cards(res.data, ".cards");
+      // cards(res.data, ".cards");
+      document.querySelector(".cards").appendChild(cardMaker(res.data));
     })
     .catch((error) => {
       console.log(error);
@@ -19,15 +20,6 @@ function getGit() {
     });
 }
 getGit();
-function cards(data, selector) {
-  for (let i = 0; i < data.length; i++) {
-    const cardObj = {
-      obj: data[i],
-    };
-    const entry = document.querySelector(selector);
-    entry.appendChild(cardMaker(cardObj));
-  }
-}
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -111,8 +103,11 @@ function cardMaker(data) {
   p3.textContent = "Profile";
   a.textContent = "Link to profile";
   a.href = data.html_url;
+  p4.textContent = `Followers: ${data.followers}`;
+  p5.textContent = `Following: ${data.following}`;
+  p6.textContent = `Bio: ${data.bio}`;
   // console.log(data.obj.url);
-  // console.log(data.obj);
+  console.log(data);
   return div;
 }
 /*
