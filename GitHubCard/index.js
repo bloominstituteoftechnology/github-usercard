@@ -4,13 +4,20 @@ import axios from 'axios';
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
- 
-axios.get(`https://api.github.com/users/rlauckern`)
+
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell', 'rlauckern'];
+
+for (let i = 0; i < followersArray.length; i++) {
+  getGitCard(followersArray[i]);
+}
+
+function getGitCard(username) {
+axios.get(`https://api.github.com/users/${username}`)
 .then(resp => {
-     console.log(resp)
-   }).catch(error => {
-     console.log(error);
-   })
+  document.querySelector('.cards').appendChild(gitHubCard(resp.data));
+})
+.catch(err => console.error(err))
+}  
  
 
 
@@ -40,7 +47,8 @@ axios.get(`https://api.github.com/users/rlauckern`)
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -61,55 +69,51 @@ const followersArray = [];
       </div>
     </div>
 */
+function gitHubCard(gitInfo) {
+  const card = document.createElement('div');
+  const img = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const login = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const profileLink = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
 
-//create elements 
-function cardMaker(card) {
-const cardElem = document.createElement('div');
-const img = document.createElement('img');
-const cardInfo = document.createElement('div');
-const imageType = document.createElement('img');
-const header = document.createElement('h3');
-const usersname = document.createElement('p');
-const location = document.createElement('p');
-const profile = document.createElement('p');
-const github = document.createElement('p');
-const followers = document.createElement('p');
-const following = document.createElement('p');
-const bio = document.createElement('p');
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  login.classList.add('username');
 
-//structure elements
-cardElem.appendChild(img);
-cardElem.appendChild(cardInfo);
-cardInfo.appendChild(header);
-cardInfo.appendChild(usersname);
-cardInfo.appendChild(location);
-cardInfo.appendChild(profile);
-cardInfo.appendChild(followers);
-cardInfo.appendChild(following);
-cardInfo.appendChild(bio);
 
-//add classes
-cardElem.classList.add('card');
-cardElem.classList.add('card-info');
-cardElem.classList.add('name');
-username.classList.add('username');
+  img.src = gitInfo.avatar_url;
+  img.alt = "github user";
+  name.textContent = gitInfo.name;
+  login.textContent = gitInfo.login;
+  location.textContent = gitInfo.location;
+  profile.textContent = "Profile";
+  profileLink.textContent = "Link to profile";
+  profileLink.href = gitInfo.html_url;
+  followers.textContent = `Followers: ${gitInfo.followers}`;
+  following.textContent = `Following: ${gitInfo.following}`;
 
-//add content
-img.src = obj.data.avatar_url;
-header.textContent = obj.data.name;
-usersname.textContent = obj.data.login;
-location.textContent = 'Location:' +  obj.data.location;
-github.href = obj.data.html_url;
-github.textContent = obj.data.html_url;
-profile.textContent = 'Profile:' + github;
-followers.textContent = 'Followers: ' + obj.data.followers;
-following.textContent = 'Following: ' + obj.data.following;
-bio.textContent = 'Bio: '
+  card.appendChild(img);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(login);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  cardInfo.appendChild(profileLink);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
 
-//return
-
-return cardElem;
+  return card;
 }
+
+
 
 
 
