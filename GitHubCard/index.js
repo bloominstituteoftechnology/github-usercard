@@ -35,8 +35,24 @@ axios.get('https://api.github.com/users/RichardDowd91')
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+// 'tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'
 
+const followersArray = ['RichardDowd91', 'tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+
+function cardMaker(array) {
+  for (let i = 0; i < array.length; i++) {
+    axios.get(`https://api.github.com/users/${array[i]}`)
+    .then(resp => {
+      const entryPoint = document.querySelector('.cards');
+      entryPoint.appendChild(userCard(resp.data));
+    })
+    .catch(error => {
+      console.error(error);
+    })
+}
+}
+
+cardMaker(followersArray);
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -72,21 +88,32 @@ function userCard(obj) {
   card.classList.add('card');
   info.classList.add('card-info');
   name.classList.add('name');
+  username.classList.add('username');
+  link.href = obj.html_url;
+  link.textContent = obj.html_url;
   
 
   image.src = obj.avatar_url;
-  name.textContent = obj.name;
-  username.textContent = obj.login;
+  if (obj.name) {
+    name.textContent = `Name: ${obj.name}`;
+  }
+  
+  username.textContent = `Username: ${obj.login}`;
   location.textContent = `Location: ${obj.location}`;
   profile.textContent = `Profile: `;
   link.href = obj.url;
-  followers.textContent = obj.followers;
-  following.textContent = obj.following;
+  followers.textContent = `Followers: ${obj.followers}`;
+  following.textContent = `Following: ${obj.following}`;
   bio.textContent = `Bio: ${obj.bio}`;
+
+  const entryPoint = document.querySelector('.cards');
+  entryPoint.appendChild(card);
 
   card.appendChild(image);
   card.appendChild(info);
-  info.appendChild(name);
+  if (name) {
+    info.appendChild(name);
+  }
   info.appendChild(username);
   info.appendChild(location);
   info.appendChild(profile);
@@ -95,9 +122,9 @@ function userCard(obj) {
   info.appendChild(following);
   info.appendChild(bio);
 
-  return userCard;
+  return card;
 } 
-console.log(userCard('https://api.github.com/users/RichardDowd91'));
+
 
 /*
   List of LS Instructors Github username's:
