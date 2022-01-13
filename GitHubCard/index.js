@@ -1,8 +1,13 @@
+import axios from "axios";
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
+const getRequest = axios.get("https://api.github.com/users/dbvker");
+
+console.log(getRequest);
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -17,6 +22,7 @@
     and append the returned markup to the DOM as a child of .cards
 */
 
+
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
@@ -28,7 +34,27 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'dbvker',
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell',
+  'acakebaker'
+];
+
+followersArray.forEach(user => {
+  axios.get(`https://api.github.com/users/${user}`)
+.then(resp => {
+  const user = cardUI(resp.data);
+  document.querySelector(".cards").appendChild(user);
+}).catch(error => {
+  console.error(error);
+}).finally(
+  console.log(`It worked`)
+)
+})
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +75,55 @@ const followersArray = [];
       </div>
     </div>
 */
+
+const cardUI = (obj) => {
+  // Create DOM Elements
+  const card = document.createElement("div");
+  const cardImg = document.createElement("img");
+  const cardInfo = document.createElement("div");
+  const cardTitle = document.createElement("h3");
+  const cardUserName = document.createElement("p");
+  const cardLocation = document.createElement("p");
+  const cardProfile = document.createElement("p");
+  const cardProfileLink = document.createElement("a");
+  const cardFollowers = document.createElement("p");
+  const cardFollowing = document.createElement("p");
+  const cardBio = document.createElement("p");
+
+  // Add CSS Styling
+  card.classList.add("card");
+  cardInfo.classList.add("card-info");
+  cardTitle.classList.add("name")
+
+  // Add Element Content
+  cardImg.src = obj.avatar_url;
+  cardTitle.textContent = obj.name;
+  cardUserName.textContent = obj.login;
+  cardLocation.textContent = `Location: ${obj.location}`;
+  cardProfile.textContent = `Profile: `;
+  cardProfileLink.href = obj.url;
+  cardProfileLink.textContent = obj.html_url;
+  cardFollowers.textContent = `Followers: ${obj.followers}`;
+  cardFollowing.textContent = `Following: ${obj.following}`;
+  cardBio.textContent = `Bio: ${obj.bio}`;
+
+
+  // Appending Elements
+  card.append(cardImg);
+  card.append(cardInfo);
+    cardInfo.append(cardTitle);
+    cardInfo.append(cardUserName);
+    cardInfo.append(cardLocation);
+    cardInfo.append(cardProfile);
+      cardProfile.append(cardProfileLink);
+    cardInfo.append(cardFollowers);
+    cardInfo.append(cardFollowing);
+    cardInfo.append(cardBio);
+
+    return card;
+}
+
+
 
 /*
   List of LS Instructors Github username's:
