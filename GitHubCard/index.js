@@ -1,3 +1,4 @@
+import axios from 'axios';
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -28,7 +29,19 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ["tetondan", "dustinmyers", "justsml", "luishrd", "bigknell"];
+
+for (let i = 0; i <followersArray.length; i++) {
+  getCard(followersArray[i]);
+}
+
+function getCard(username) {
+  axios.get(`https://api.github.com/users/${username}`)
+    .then(resp => {
+      document.querySelector('.cards').appendChild(cardMaker(resp.data));
+    })
+    .catch(err => console.error(err))
+}
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +62,51 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function cardMaker(gitInfo) {
+  const card = document.createElement("div");
+  const image = document.createElement("img");
+  const cardInfo = document.createElement("div");
+  const name = document.createElement("h3");
+  const username = document.createElement("p");
+  const location = document.createElement("p");
+  const profile = document.createElement("p");
+  const profileLink = document.createElement("a");
+  const followers = document.createElement("p");
+  const following = document.createElement("p");
+  const bio = document.createElement("p");
+
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  username.classList.add('username')
+
+  image.src = gitInfo.avatar_url;
+  image.alt = "gitHub user";
+  name.textContent = gitInfo.name;
+  username.textContent = gitInfo.login;
+  location.textContent = gitInfo.location;
+  profile.textContent = "Profile";
+  profileLink.textContent = "Link to Profile";
+  profileLink.href = gitInfo.html_url;
+  followers.textContent = `Followers: ${gitInfo.followers}`;
+  following.textContent = `Following: ${gitInfo.following}`;
+  bio.textContent = gitInfo.bio;
+
+  card.appendChild(image);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(username);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  profile.appendChild(profileLink);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+  
+  return card;
+
+}
 
 /*
   List of LS Instructors Github username's:
