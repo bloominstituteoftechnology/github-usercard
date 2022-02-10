@@ -1,3 +1,13 @@
+import axios from "axios";
+
+let GIT_URL = 'https://api.github.com/users/'
+
+
+// axios.get(`${GIT_URL}DawsonReschke`).then((val)=>{
+//   let card = document.querySelector('.cards'); 
+//   card.appendChild(createGitCardComponent(val.data)); 
+// }); 
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -28,7 +38,49 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['DawsonReschke','JLaferri','NikhilNarayana','vinceau','UnclePunch','eigenform'];
+addCardsToDOMFromData(followersArray); 
+// takes and object with type, id, classes, innerText, innerHTML, attributes
+function createElement({type='div', id=false ,classes=[],innerText='',innerHTML='', attributes=[]} = {}){
+  let element = document.createElement(type);
+  element.innerHTML = innerHTML; 
+  element.innerText = innerText; 
+  if(id)element.id = id; 
+  classes.forEach((val)=>element.classList.add(val)); 
+  attributes.forEach(val=>element.setAttribute(val.attribute,val.value))
+  return element; 
+}
+
+function appendChildren(element, children){
+  children.forEach(val=>element.appendChild(val))
+}
+
+function createGitCardComponent(data){
+  console.log(data);
+  let containerDiv = createElement({classes:['card']})
+  let userImg = createElement({type:'img',attributes:[{attribute:'src',value:data.avatar_url}]})
+  let cardInfo = createElement({classes:['card-info']})
+
+  let name = createElement({type:'h3',classes:['name'],innerText:data.name})
+  let userName = createElement({type:'p',classes:['username'],innerText:data.login})
+  let location = createElement({type:'p',innerText:`Location: ${data.location}`})
+  let profile = createElement({type:'p',innerText:'Profile: '})
+  let profileLink = createElement({type:'a',attributes:[{attribute:'href',value:data.html_url}],innerText:data.html_url})
+  profile.appendChild(profileLink); 
+  let followers = createElement({type:'p',innerText:`Followers: ${data.followers}`})
+  let following = createElement({type:'p',innerText:`Following: ${data.following}`})
+  let bio = createElement({type:'p',innerText:`Bio: ${data.bio}`})
+  appendChildren(cardInfo,[name,userName,location,profile,followers,following,bio])
+  appendChildren(containerDiv,[userImg,cardInfo]); 
+  return containerDiv; 
+}
+
+function addCardsToDOMFromData(arr){
+  arr.forEach(val=>axios.get(`${GIT_URL}${val}`).then((val)=>{
+    let card = document.querySelector('.cards'); 
+    card.appendChild(createGitCardComponent(val.data)); 
+  }))
+}
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
