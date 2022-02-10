@@ -32,7 +32,15 @@ axios.get('https://api.github.com/users/coriwooley')
     user, and adding that card to the DOM.
 */
 
-const followersArray = 
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+
+followersArray.forEach((user) => {
+  axios.get('https://api.github.com/users/' + user)
+  .then(response => {
+    document.querySelector('.cards').appendChild(githubUser(response.data))
+  })
+  .catch(error => console.log(error))
+})
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -89,7 +97,8 @@ function githubUser(profileObj){
   profileUsername.textContent = profileObj.login
   location.textContent = `Location: ${profileObj.location}`
   profile.textContent = 'Profile:'
-  profileLink.href = profileObj.url
+  profileLink.textContent = 'Link to Github profile'
+  profileLink.href = profileObj.html_url
   followers.textContent = profileObj.followers
   following.textContent = profileObj.following
   bio.textContent = profileObj.bio
@@ -105,5 +114,4 @@ function githubUser(profileObj){
     luishrd
     bigknell
 */
-
 
