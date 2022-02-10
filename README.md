@@ -22,9 +22,9 @@ In this project we are going to be accessing the GitHub API and building a socia
 
 **Follow these steps to set up and work on your project:**
 
-* [ ] Create a forked copy of this project.
-* [ ] Clone your OWN version of the repository (Not Bloomtech's by mistake!).
-* [ ] Implement the project on your main branch, committing changes regularly.
+* [X] Create a forked copy of this project.
+* [X] Clone your OWN version of the repository (Not Bloomtech's by mistake!).
+* [X] Implement the project on your main branch, committing changes regularly.
 * [ ] Push commits: git push origin main.
 
 **Follow these steps for completing your project.**
@@ -33,8 +33,8 @@ In this project we are going to be accessing the GitHub API and building a socia
 
 ### Project Setup
 
-* [ ] Navigate to the root of the project with your command line.
-* [ ] Run `npm install` to download any dependencies listed in the `package.json` file.
+* [X] Navigate to the root of the project with your command line.
+* [X] Run `npm install` to download any dependencies listed in the `package.json` file.
 * [ ] Run `npm start` to compile your project and launch a development server.
 
 ### Axios Setup
