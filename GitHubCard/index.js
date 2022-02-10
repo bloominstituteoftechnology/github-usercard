@@ -2,12 +2,15 @@
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
+
+
 */
-axios.get('https://api.github.com/users/coriwooley')
-  .then(response => {
-    document.querySelector('.cards').appendChild(githubUser(response.data))
-  })
-  .catch(error => console.log(error))
+// axios.get('https://api.github.com/users/coriwooley')
+//   .then(response => {
+//     document.querySelector('.cards').appendChild(githubUser(response.data))
+//   })
+//   .catch(error => console.log(error))
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -32,15 +35,22 @@ axios.get('https://api.github.com/users/coriwooley')
     user, and adding that card to the DOM.
 */
 
-const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+const followersArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell",
+];
 
 followersArray.forEach((user) => {
-  axios.get('https://api.github.com/users/' + user)
-  .then(response => {
-    document.querySelector('.cards').appendChild(githubUser(response.data))
-  })
-  .catch(error => console.log(error))
-})
+  axios
+    .get("https://api.github.com/users/" + user)
+    .then((response) => {
+      document.querySelector(".cards").appendChild(githubUser(response.data));
+    })
+    .catch((error) => console.log(error));
+});
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -62,48 +72,50 @@ followersArray.forEach((user) => {
     </div>
 */
 
-function githubUser(profileObj){
-  const cardDiv = document.createElement('div')
-  const userImg = document.createElement('img')
-  const cardInfoDiv = document.createElement('div')
-  const profileName = document.createElement('h3')
-  const profileUsername = document.createElement ('p')
-  const location = document.createElement('p')
-  const profile = document.createElement('p')
-  const profileLink = document.createElement('a')
-  const followers = document.createElement('p')
-  const following = document.createElement('p')
-  const bio = document.createElement('p')
+function githubUser(profileObj) {
+  const cardDiv = document.createElement("div");
+  const userImg = document.createElement("img");
+  const cardInfoDiv = document.createElement("div");
+  const profileName = document.createElement("h3");
+  const profileUsername = document.createElement("p");
+  const location = document.createElement("p");
+  const profile = document.createElement("p");
+  const profileLink = document.createElement("a");
+  const followers = document.createElement("p");
+  const following = document.createElement("p");
+  const bio = document.createElement("p");
 
-  cardDiv.classList.add('card')
-  cardInfoDiv.classList.add('card-info')
-  profileName.classList.add('name')
-  profileUsername.classList.add('username')
-
-  cardDiv.appendChild(userImg)
-  cardDiv.appendChild(cardInfoDiv)
-  cardInfoDiv.appendChild(profileName)
-  cardInfoDiv.appendChild(profileUsername)
-  cardInfoDiv.appendChild(location)
-  cardInfoDiv.appendChild(profile)
-  profile.appendChild(profileLink)
-  cardInfoDiv.appendChild(followers)
-  cardInfoDiv.appendChild(following)
-  cardInfoDiv.appendChild(bio)
-
-  userImg.src = profileObj.avatar_url
-
-  profileName.textContent = profileObj.name
-  profileUsername.textContent = profileObj.login
-  location.textContent = `Location: ${profileObj.location}`
-  profile.textContent = 'Profile:'
-  profileLink.textContent = 'Link to Github profile'
-  profileLink.href = profileObj.html_url
-  followers.textContent = profileObj.followers
-  following.textContent = profileObj.following
-  bio.textContent = profileObj.bio
+  cardDiv.classList.add("card");
+  cardInfoDiv.classList.add("card-info");
+  profileName.classList.add("name");
+  profileUsername.classList.add("username");
   
-  return cardDiv
+  userImg.src = profileObj.avatar_url;
+  
+
+  profileName.textContent = profileObj.name;
+  profileUsername.textContent = profileObj.login;
+  location.textContent = `Location: ${profileObj.location}`;
+  profile.textContent = "Profile:";
+  profileLink.textContent = "Link to Github";
+  profileLink.href = profileObj.html_url;
+  followers.textContent = profileObj.followers;
+  following.textContent = profileObj.following;
+  bio.textContent = profileObj.bio;
+
+  cardDiv.appendChild(userImg);
+  cardDiv.appendChild(cardInfoDiv);
+  cardInfoDiv.appendChild(profileName);
+  cardInfoDiv.appendChild(profileUsername);
+  cardInfoDiv.appendChild(location);
+  cardInfoDiv.appendChild(profile);
+  profile.appendChild(profileLink);
+  cardInfoDiv.appendChild(followers);
+  cardInfoDiv.appendChild(following);
+  cardInfoDiv.appendChild(bio);
+
+
+  return cardDiv;
 }
 
 /*
@@ -114,4 +126,3 @@ function githubUser(profileObj){
     luishrd
     bigknell
 */
-
