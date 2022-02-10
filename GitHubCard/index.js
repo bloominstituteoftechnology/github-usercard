@@ -3,7 +3,7 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+axios.get('https://api.github.com/users/coriwooley')
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -49,6 +49,10 @@ const followersArray = [];
       </div>
     </div>
 */
+
+function githubUser(profile){
+  
+}
 
 /*
   List of LS Instructors Github username's:
