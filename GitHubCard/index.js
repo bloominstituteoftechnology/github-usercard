@@ -5,11 +5,11 @@
 
 
 */
-// axios.get('https://api.github.com/users/coriwooley')
-//   .then(response => {
-//     document.querySelector('.cards').appendChild(githubUser(response.data))
-//   })
-//   .catch(error => console.log(error))
+axios.get('https://api.github.com/users/coriwooley')
+  .then(response => {
+    document.querySelector('.cards').appendChild(githubUser(response.data))
+  })
+  .catch(error => console.log(error))
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
