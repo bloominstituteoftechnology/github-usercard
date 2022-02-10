@@ -1,3 +1,76 @@
+
+
+const { default: axios } = require("axios");
+
+
+
+function getGitCard(username){
+  axios.get(`https://api.github.com/users/${username}`)
+  .then(resp =>{
+    console.log(resp.data)
+    document.querySelector('.cards').appendChild(githubCard(resp.data));
+  })
+  .catch(err => console.error(err))
+
+}
+const followersArray = [`tetondan`, `dustinmyers`, `justsml`, `luishrd`, `bigknell`, `mwlovell`];
+for (let i = 0; i < followersArray.length; i++) {
+  getGitCard(followersArray[i]);
+}
+
+
+
+function githubCard(gitInfo) {
+  const card = document.createElement('div');
+  const img = document.createElement('img')
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('h3');
+  const username = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const profileLink = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+  
+card.classList.add('card');
+cardInfo.classList.add('card-info');
+name.classList.add('name');
+username.classList.add('username')
+profileLink.classList.add('link')
+
+
+img.src = gitInfo.avatar_url;
+img.alt = "github user";
+name.textContent = gitInfo.name;
+username.textContent= gitInfo.username;
+location.textContent =gitInfo.location;
+profile.textContent = "profile";
+profileLink.textContent = "My GitHub";
+profileLink.href = gitInfo.html_url;
+followers.textContent = `Followers: ${gitInfo.followers}`;
+following.textContent = `Following: ${gitInfo.following}`;
+bio.textContent = gitInfo.bio
+
+card.appendChild(img);
+card.appendChild(cardInfo);
+cardInfo.appendChild(name);
+cardInfo.appendChild(username);
+cardInfo.appendChild(location);
+cardInfo.appendChild(profile);
+cardInfo.appendChild(profileLink);
+cardInfo.appendChild(followers);
+cardInfo.appendChild(following);
+cardInfo.appendChild(bio);
+
+
+return card;
+
+
+
+}
+
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -28,7 +101,7 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
