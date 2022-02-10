@@ -38,8 +38,8 @@ let GIT_URL = 'https://api.github.com/users/'
     user, and adding that card to the DOM.
 */
 
-const followersArray = ['DawsonReschke','JLaferri','NikhilNarayana','vinceau','UnclePunch','eigenform'];
-addCardsToDOMFromData(followersArray); 
+getGitUserFollowing('DawsonReschke',(out)=>{ out.unshift('DawsonReschke');addCardsToDOMFromData(out)})
+
 // takes and object with type, id, classes, innerText, innerHTML, attributes
 function createElement({type='div', id=false ,classes=[],innerText='',innerHTML='', attributes=[]} = {}){
   let element = document.createElement(type);
@@ -56,11 +56,9 @@ function appendChildren(element, children){
 }
 
 function createGitCardComponent(data){
-  console.log(data);
   let containerDiv = createElement({classes:['card']})
   let userImg = createElement({type:'img',attributes:[{attribute:'src',value:data.avatar_url}]})
   let cardInfo = createElement({classes:['card-info']})
-
   let name = createElement({type:'h3',classes:['name'],innerText:data.name})
   let userName = createElement({type:'p',classes:['username'],innerText:data.login})
   let location = createElement({type:'p',innerText:`Location: ${data.location}`})
@@ -73,6 +71,12 @@ function createGitCardComponent(data){
   appendChildren(cardInfo,[name,userName,location,profile,followers,following,bio])
   appendChildren(containerDiv,[userImg,cardInfo]); 
   return containerDiv; 
+}
+
+function getGitUserFollowing(user,callback){
+  axios.get(`${GIT_URL}${user}/following`).then((val)=>{
+    callback(val.data.map((user)=>user.login))
+  })
 }
 
 function addCardsToDOMFromData(arr){
