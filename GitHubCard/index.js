@@ -1,9 +1,19 @@
+import axios from "axios";
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+axios.get(`https://api.github.com/users/rberry16`)
+.then(resp => {
+  document.querySelector('.cards').appendChild(userCardMaker(resp.data));
+})
+.catch(err => {
+  console.error(err);
+})
+.finally(() => console.log('boop'))
 
+console.log('huh?')
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -49,6 +59,41 @@ const followersArray = [];
       </div>
     </div>
 */
+function userCardMaker (obj) {
+  const userCard = document.createElement("div");
+  const cardImage = document.createElement("img");
+  const cardInfo = document.createElement("div");
+  const name = document.createElement("h3");
+  const userName = document.createElement("p");
+  const userLocation = document.createElement("p");
+  const userProfile = document.createElement("p");
+  const profileLink = document.createElement("a");
+  const followers = document.createElement("p");
+  const following = document.createElement("p");
+  const bio = document.createElement("p");
+
+  userCard.appendChild(cardImage);
+  userCard.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(userLocation);
+  cardInfo.appendChild(userProfile);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+
+  cardImage.src = obj.avatar_URL;
+  name.textContent = obj.name;
+  userName.textContent = obj.login;
+  userLocation.textContent = obj.location;
+  userProfile.textContent = "Profile";
+  profileLink.textContent = "Link to Ryan Berry"
+  profileLink.href = obj.html_URL;
+  followers.textContent = obj.followers;
+  following.textContent = obj.following;
+  bio.textContent = obj.bio;
+  return userCard;
+}
 
 /*
   List of LS Instructors Github username's:
