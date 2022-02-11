@@ -4,16 +4,10 @@ import axios from "axios";
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-axios.get(`https://api.github.com/users/rberry16`)
-.then(resp => {
-  document.querySelector('.cards').appendChild(userCardMaker(resp.data));
-})
-.catch(err => {
-  console.error(err);
-})
-.finally(() => console.log('boop'))
 
-console.log('huh?')
+
+
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -38,8 +32,21 @@ console.log('huh?')
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['rberry16', 'tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
+function gitCardMaker(username) {
+  axios.get(`https://api.github.com/users/${username}`)
+  .then(resp => {
+    document.querySelector('.cards').appendChild(userCardMaker(resp.data));
+  })
+  .catch(resp => {
+    console.log(resp);
+  })
+  }
+
+for (let i = 0; i < followersArray.length; i++) {
+  gitCardMaker(followersArray[i]);
+}
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -82,16 +89,22 @@ function userCardMaker (obj) {
   cardInfo.appendChild(following);
   cardInfo.appendChild(bio);
 
-  cardImage.src = obj.avatar_URL;
+  cardImage.src = obj.avatar_url;
   name.textContent = obj.name;
   userName.textContent = obj.login;
   userLocation.textContent = obj.location;
   userProfile.textContent = "Profile";
   profileLink.textContent = "Link to Ryan Berry"
-  profileLink.href = obj.html_URL;
-  followers.textContent = obj.followers;
-  following.textContent = obj.following;
+  profileLink.href = obj.html_url;
+  followers.textContent = `Followers: ${obj.followers}`;
+  following.textContent = `Following: ${obj.following}`;
   bio.textContent = obj.bio;
+
+  userCard.classList.add("card")
+  cardImage.classList.add("card-img")
+  name.classList.add("name");
+  userName.classList.add("username");
+
   return userCard;
 }
 
