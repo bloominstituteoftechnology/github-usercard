@@ -12,7 +12,7 @@ axios.get('https://api.github.com/users/gclancy121')
   console.error(err);
 })
 
-
+  
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -37,7 +37,23 @@ axios.get('https://api.github.com/users/gclancy121')
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'];
+  
+for (let i = 0; i<followersArray.length; i++) {
+  axios.get(`https://api.github.com/users/${followersArray[i]}`)
+  .then ((resData) => {
+    createProfile(resData.data);
+  })
+  .catch(err => {
+    console.error(err);
+  })
+}
+
+  
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -45,7 +61,6 @@ const followersArray = [];
   */
 
   function createProfile(obj) {
-    console.log(obj);
     const card = document.createElement('div');
     const image = document.createElement('img');
     const cardInfo = document.createElement('div');
@@ -82,10 +97,9 @@ const followersArray = [];
     following.textContent=`Following: ${obj.following}`;
     bio.textContent=obj.bio;
   
-  console.log(card);
+  
   document.querySelector('.cards').appendChild(card);
 }
-
 
 
     /*
@@ -107,9 +121,5 @@ const followersArray = [];
 
 /*
   List of LS Instructors Github username's:
-    tetondan
-    dustinmyers
-    justsml
-    luishrd
-    bigknell
+    
 */
