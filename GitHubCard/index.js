@@ -4,6 +4,11 @@ import axios from "axios";
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+const followersArray = ['tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'];
 
 for (let i = 0; i < followersArray.length; i++){
   getGitCard(followersArray[i]);
@@ -11,7 +16,7 @@ for (let i = 0; i < followersArray.length; i++){
 
 
 function getGitCard(username){
-  axios.get(`https:api.github.com/users/${username}`)
+  axios.get(`https://api.github.com/users/${username}`)
 .then(resp => {
   document.querySelector('.cards').appendChild(gitHubCard(resp));
 })
@@ -43,11 +48,7 @@ function getGitCard(username){
     user, and adding that card to the DOM.
 */
 
-const followersArray = ['tetondan',
-  'dustinmyers',
-  'justsml',
-  'luishrd',
-  'bigknell'];
+
 
 function gitHubCard(gitInfo) {
   const card = document.createElement('div');
@@ -87,8 +88,8 @@ function gitHubCard(gitInfo) {
 
   card.classList.add('card');
   cardInfo.classList.add('card-info');
-  name.classList('name');
-  username.classList('username');
+  name.classList.add('name');
+  username.classList.add('username');
 
 
 
