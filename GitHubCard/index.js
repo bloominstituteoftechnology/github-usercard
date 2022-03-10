@@ -8,6 +8,9 @@ axios.get('https://api.github.com/users/gclancy121')
 .then ((res) => {
   createProfile(res.data);
 })
+.catch(err => {
+  console.error(err);
+})
 
 
 /*
@@ -42,6 +45,7 @@ const followersArray = [];
   */
 
   function createProfile(obj) {
+    console.log(obj);
     const card = document.createElement('div');
     const image = document.createElement('img');
     const cardInfo = document.createElement('div');
@@ -67,13 +71,23 @@ const followersArray = [];
     cardInfo.classList.add('card-info');
     name.classList.add('name');
     username.classList.add('username');
-   
+    image.src=obj.avatar_url;
+    name.textContent=obj.name;
+    username.textContent=obj.login;
+    location.textContent=obj.location;
+    profileURL.textContent='Profile';
+    profileURL.href=obj.html_url;
+    profileURL.target='_blank';
+    followers.textContent=`Followers: ${obj.followers}`;
+    following.textContent=`Following: ${obj.following}`;
+    bio.textContent=obj.bio;
   
-  return card;
+  console.log(card);
+  document.querySelector('.cards').appendChild(card);
 }
 
-createProfile();
-console.log(createProfile());
+
+
     /*
     <div class="card">
       <img src={image url of user} />
