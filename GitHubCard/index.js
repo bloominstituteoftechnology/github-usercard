@@ -1,8 +1,10 @@
+import axios from "axios";
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -28,7 +30,87 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const friendsArray = [
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'
+];
+
+function gitCards (data) {
+
+const gitCard = document.createElement('div');
+const gitImg = document.createElement('img');
+const gitCardInfo = document.createElement('div');
+const gitName = document.createElement('h3');
+const gitUsername = document.createElement('p');
+const gitLocation =  document.createElement('p');
+const gitProfile = document.createElement('p');
+const gitProfLink = document.createElement('a');
+const gitFollowers = document.createElement('p');
+const gitFollowing = document.createElement('p');
+const gitBio = document.createElement('p');
+
+gitCard.appendChild(gitImg);
+gitCard.appendChild(gitCardInfo);
+gitCardInfo.appendChild(gitName);
+gitCardInfo.appendChild(gitUsername);
+gitCardInfo.appendChild(gitLocation);
+gitCardInfo.appendChild(gitProfile);
+gitProfile.appendChild(gitProfLink);
+gitCardInfo.appendChild(gitFollowers);
+gitCardInfo.appendChild(gitFollowing);
+gitCardInfo.appendChild(gitBio);
+
+gitCard.classList.add('card');
+gitCardInfo.classList.add('card-info');
+gitName.classList.add('name');
+gitUsername.classList.add('username');
+
+gitImg.src = data.avatar_url;
+gitName.textContent = data.name;
+gitUsername.textContent = data.login;
+gitLocation.textContent = `Location: ${data.location}`;
+gitProfLink.href = data.html_url;
+gitProfLink.textContent = data.html_url;
+gitFollowers.textContent = `Followers: ${data.followers}`;
+gitFollowing.textContent = `Following: ${data.following}`;
+gitBio.textContent = `Bio: ${data.bio}`;
+
+return gitCard
+}
+
+// function gitAviance(selector){
+//   const entryPoint = document.querySelector(selector)
+//   axios.get('https://api.github.com/users/avianceobie')
+//   .then(res => {
+//     console.log(res.data)
+//     entryPoint.appendChild(gitCards(res.data))
+//   })
+//   .catch(err => {
+//     console.error(err)
+//   })
+// }
+
+// gitAviance('.cards')
+
+function gitCardsMaker(selector, array){
+  const entryPoint = document.querySelector(selector)
+  array.forEach(user => { 
+  axios.get(`https://api.github.com/users/${user}`)
+  .then(res => {
+    console.log(res.data)
+    entryPoint.appendChild(gitCards(res.data))
+  })
+  .catch(err => {
+    console.error(err)
+  })
+})
+}
+
+gitCardsMaker('.cards', friendsArray)
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
