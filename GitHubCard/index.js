@@ -8,7 +8,6 @@ import axios from "axios"
 
 axios.get("https://api.github.com/users/Jericho-West")
 .then (x => {
-  console.log(x.data)
   let pancake = x.data
 
 
@@ -36,7 +35,7 @@ axios.get("https://api.github.com/users/Jericho-West")
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ["https://api.github.com/users/krueng", "https://api.github.com/users/EstrellaDionis", "https://api.github.com/users/joseph-fantuzzi", "https://api.github.com/users/CRHarding", "https://api.github.com/users/Jericho-West"];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -112,10 +111,15 @@ function cardMaker (card0) {
 }
 
 
+followersArray.forEach(element => {
+  console.log(element)
+  axios.get(element)
+  .then(whee => {
+    cardMaker(whee.data)
+  })
+  
 
-
-
-cardMaker(pancake)
+});
 
 })
 .catch (err => {
