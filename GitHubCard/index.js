@@ -8,8 +8,7 @@ const cards = document.querySelector('.cards');
 
 axios.get('https://api.github.com/users/troycaselli')
   .then(res => {
-    console.log(res.data)
-    cards.appendChild(userCardMaker({imageURL: res.data.avatar_url, name: res.data.name, username: res.data.login, location: res.data.location, profileURL: res.data.html_url, followers: res.data.followers, following: res.data.following, bio: res.data.bio}));
+    cards.appendChild(userCardMaker(res.data));
   })
   .catch(err => console.error(err));
 
@@ -38,9 +37,17 @@ axios.get('https://api.github.com/users/troycaselli')
     Using that array, iterate over it, requesting data for each user, creating a new card for each
     user, and adding that card to the DOM.
 */
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
-const followersArray = [];
+function getCard(username) {
+  axios.get(`https://api.github.com/users/${username}`)
+    .then(res => {
+      cards.appendChild(userCardMaker(res.data));
+    })
+    .catch(err => console.error(err));
+}
 
+followersArray.forEach(username => getCard(username));
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
@@ -59,7 +66,9 @@ const followersArray = [];
       </div>
     </div>
 */
-function userCardMaker({imageURL, name, username, location, profileURL, followers, following, bio}) {
+
+
+function userCardMaker(gitInfo) {
   // initalizing and creating elements
   const card = document.createElement('div')
   const image = document.createElement('img')
@@ -73,33 +82,34 @@ function userCardMaker({imageURL, name, username, location, profileURL, follower
   const followingEl = document.createElement('p')
   const bioEl = document.createElement('p')
 
-  // structure elements
-  card.appendChild(image)
-  card.appendChild(cardInfo)
-  cardInfo.appendChild(nameEl)
-  cardInfo.appendChild(usernameEl)
-  cardInfo.appendChild(locationEl)
-  cardInfo.appendChild(profileEl)
-  profileEl.appendChild(link)
-  cardInfo.appendChild(followersEl)
-  cardInfo.appendChild(followingEl)
-  cardInfo.appendChild(bioEl)
-
   // filling elements
   card.classList = 'card'
-  image.src = imageURL
+  image.src = gitInfo.avatar_url
+  image.alt = 'github user'
   cardInfo.classList = 'card-info'
-  nameEl.textContent = name
+  nameEl.textContent = gitInfo.name
   nameEl.classList = 'name'
-  usernameEl.textContent = username
+  usernameEl.textContent = gitInfo.login
   usernameEl.classList = 'username'
-  locationEl.textContent =`Location: ${location}`
+  locationEl.textContent =`Location: ${gitInfo.location}`
   profileEl.textContent = `Profile: `
-  link.href = profileURL
-  link.textContent = `${profileURL}`
-  followersEl.textContent = `Followers: ${followers}`
-  followingEl.textContent = `Following: ${following}`
-  bioEl.textContent = `Bio: ${bio}`
+  link.textContent = `${gitInfo.html_url}`
+  link.href = gitInfo.html_url
+  followersEl.textContent = `Followers: ${gitInfo.followers}`
+  followingEl.textContent = `Following: ${gitInfo.following}`
+  bioEl.textContent = `Bio: ${gitInfo.bio}`
+
+   // structure elements
+   card.appendChild(image)
+   card.appendChild(cardInfo)
+   cardInfo.appendChild(nameEl)
+   cardInfo.appendChild(usernameEl)
+   cardInfo.appendChild(locationEl)
+   cardInfo.appendChild(profileEl)
+   profileEl.appendChild(link)
+   cardInfo.appendChild(followersEl)
+   cardInfo.appendChild(followingEl)
+   cardInfo.appendChild(bioEl)
 
   return card
 }
