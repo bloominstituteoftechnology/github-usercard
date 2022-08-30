@@ -19,5 +19,7 @@
     "eslint": "^8.10.0",
     "parcel-bundler": "^1.12.4"
   },
-  "dependencies": {}
+  "dependencies": {
+    "axios": "^0.27.2"
+  }
 }
