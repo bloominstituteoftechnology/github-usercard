@@ -32,9 +32,13 @@ import axios from 'axios';
 
 const followersArray = ['gabriela-nunez', 'tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
-for(let i = 0; i < followersArray.length; i++){
-  gitHubCards(followersArray[i]);
-}
+followersArray.forEach(follower => {
+  gitHubCards(follower);
+})
+
+// for(let i = 0; i < followersArray.length; i++){ //*another way to loop through followers array
+//   gitHubCards(followersArray[i]);
+// }
 
 
 function gitHubCards(username) {
