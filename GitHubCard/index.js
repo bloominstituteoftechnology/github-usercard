@@ -1,8 +1,16 @@
+import axios from "axios";
+
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+const cards = document.querySelector('.cards');
+axios.get('https://api.github.com/users/TerriTangela').then(info => {
+  cards.appendChild(project(info.data))
+})
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -27,8 +35,60 @@
     Using that array, iterate over it, requesting data for each user, creating a new card for each
     user, and adding that card to the DOM.
 */
+const followersArray = ['tetondan','dustinmyers','justsml','luishrd','bigknell'];
+followersArray.forEach(name => {
+  axios.get(`https://api.github.com/users/${name}`).then(info => {
+      cards.appendChild(project(info.data))
+    })
+})
 
-const followersArray = [];
+
+
+function project (github){
+  const card = document.createElement('div'); //skip
+  const image = document.createElement('img');
+  const cardInfo = document.createElement('div'); //skip
+  const name = document.createElement('h3');
+  const userName = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p'); //skip
+  const address = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  userName.classList.add('username');
+
+  card.appendChild(image);
+  card.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  cardInfo.appendChild(address);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+  
+
+  image.src = github.avatar_url;
+  name.textContent = github.name;
+  userName.textContent = github.login;
+  location.textContent = github.location;
+  profile.textContent = "Profile:"
+  address.href = github.url;
+  address.textContent = `${github.name}'s Github Page`
+  followers.textContent = github.followers;
+  following.textContent = github.following;
+  bio.textContent = github.bio;
+
+  return card;
+
+}
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
