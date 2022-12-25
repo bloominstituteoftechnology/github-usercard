@@ -1,8 +1,22 @@
-/*
+import axios from 'axios'
+/* 
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+const followersArray = ['tetondan', 'dustinmyers', "justsml", 'luishrd', "bigknell"];
+
+for(let i = 0; i < followersArray.length; i++){
+  getGitCard(followersArray[i]);
+}
+
+function getGitCard(username){
+  axios.get(`https://api.github.com/users/${username}`)
+  .then(resp =>{
+    document.querySelector('.cards').appendChild(gitHubCard(resp.data));
+  })
+  .catch(err => console.log(err));
+}
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -28,7 +42,7 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -37,10 +51,10 @@ const followersArray = [];
     <div class="card">
       <img src={image url of user} />
       <div class="card-info">
-        <h3 class="name">{users name}</h3>
+        <h3 class="name">{users name}</h3> x
         <p class="username">{users user name}</p>
         <p>Location: {users location}</p>
-        <p>Profile:
+        <p>Profile:x
           <a href={address to users github page}>{address to users github page}</a>
         </p>
         <p>Followers: {users followers count}</p>
@@ -49,7 +63,58 @@ const followersArray = [];
       </div>
     </div>
 */
+function gitHubCard(gitInfo){
+  const card = document.createElement('div');
+  const img = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const name = document.createElement('h3')
+  const userName = document.createElement('p')
+  const location = document.createElement('p')
+  const profile = document.createElement('p')
+  const profileLink = document.createElement('a')
+  const followers = document.createElement('p')
+  const following = document.createElement('p')
+  const bio = document.querySelector('p')
+  // Establishing elements ^
 
+  img.src = gitInfo.avatar_url;
+  img.alt = 'gitHub user';
+  name.textContent = gitInfo.name;
+  userName.textContent = gitInfo.login;
+  location.textContent = gitInfo.location;
+  profile.textContent = "Profile: ";
+  profileLink.textContent = 'Link to profile';
+  profileLink.href = gitInfo.html_url;
+  followers.textContent= `Followers: ${gitInfo.followers}`
+  following.textContent= `Followers: ${gitInfo.following}`
+  bio.textContent= `Bio: ${gitInfo.bio}`
+
+// Establishing content inside the elements^
+card.appendChild(img);
+card.appendChild(cardInfo)
+cardInfo.appendChild(name);
+cardInfo.appendChild(userName);
+cardInfo.appendChild(location);
+cardInfo.appendChild(profile);
+cardInfo.appendChild(followers);
+cardInfo.appendChild(following);
+cardInfo.appendChild(bio);
+profile.appendChild(profileLink);
+
+
+// establishing hierarchy^
+
+card.classList.add('card');
+cardInfo.classList.add('card-info');
+name.classList.add('name');
+userName.classList.add('username');
+
+// establishing the class name^
+
+
+
+return card
+}
 /*
   List of LS Instructors Github username's:
     tetondan
