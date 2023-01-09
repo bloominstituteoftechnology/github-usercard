@@ -74,16 +74,27 @@ const userCard = (obj) => {
   name.classList.add('name');
   username.classList.add('username');
   //Text Content
-  imageUrl.src = obj.avatar_url;
-  name.textContent = obj.name;
-  username.textContent = obj.login;
-  userLocation.textContent = obj.location;
-  profileText.textContent = "Profile:";
-  userAddress.textContent = obj.html_url;
-  userFollowers.textContent = `Followers: ${obj.followers}`;
-  userFollowing.textContent = `Following: ${obj.following}`;
-console.log()  
-return cardWrapper;
+  // imageUrl.src = obj.avatar_url;
+  // name.textContent = obj.name;
+  // username.textContent = obj.login;
+  // userLocation.textContent = obj.location;
+  // profileText.textContent = "Profile:";
+  // userAddress.textContent = obj.html_url;
+  // userFollowers.textContent = `Followers: ${obj.followers}`;
+  // userFollowing.textContent = `Following: ${obj.following}`;
+  //Append 
+  cardWrapper.appendChild(imageUrl);
+  cardWrapper.appendChild(cardInfoDiv);
+  cardInfoDiv.appendChild(name);
+  cardInfoDiv.appendChild(username);
+  cardInfoDiv.appendChild(userLocation);
+  cardInfoDiv.appendChild(profileText);
+  profileText.appendChild(userAddress);
+  cardInfoDiv.appendChild(userFollowers);
+  cardInfoDiv.appendChild(userFollowing);
+  cardInfoDiv.appendChild(userBio);
+  console.log(cardWrapper)
+
 }
 userCard();
 /*
