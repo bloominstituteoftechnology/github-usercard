@@ -55,7 +55,37 @@ const followersArray = [];
       </div>
     </div>
 */
-
+const userCard = (obj) => {
+  //Elements
+  const cardWrapper = document.createElement('div');
+  const imageUrl = document.createElement('img');
+  const cardInfoDiv = document.createElement('div');
+  const name = document.createElement('h3');
+  const username = document.createElement('p');
+  const userLocation = document.createElement('p');
+  const profileText = document.createElement('p');
+  const userAddress = document.createElement('a');
+  const userFollowers = document.createElement('p');
+  const userFollowing = document.createElement('p');
+  const userBio = document.createElement('p');
+  //Classes
+  cardWrapper.classList.add('card');
+  cardInfoDiv.classList.add('card-info');
+  name.classList.add('name');
+  username.classList.add('username');
+  //Text Content
+  imageUrl.src = obj.avatar_url;
+  name.textContent = obj.name;
+  username.textContent = obj.login;
+  userLocation.textContent = obj.location;
+  profileText.textContent = "Profile:";
+  userAddress.textContent = obj.html_url;
+  userFollowers.textContent = `Followers: ${obj.followers}`;
+  userFollowing.textContent = `Following: ${obj.following}`;
+console.log()  
+return cardWrapper;
+}
+userCard();
 /*
   List of LS Instructors Github username's:
     tetondan
