@@ -7,7 +7,10 @@ const { default: axios } = require("axios");
 */
 axios.get("https://api.github.com/users/abelmore33")
 .then(res => {
-  console.log(res)
+  cardClass.appendChild(userCard(res.data));
+})
+.catch(err => {
+  console.log("Error");
 })
 
 /*
@@ -55,6 +58,8 @@ const followersArray = [];
       </div>
     </div>
 */
+const cardClass = document.querySelector('.cards');
+
 const userCard = (obj) => {
   //Elements
   const cardWrapper = document.createElement('div');
@@ -74,14 +79,14 @@ const userCard = (obj) => {
   name.classList.add('name');
   username.classList.add('username');
   //Text Content
-  // imageUrl.src = obj.avatar_url;
-  // name.textContent = obj.name;
-  // username.textContent = obj.login;
-  // userLocation.textContent = obj.location;
-  // profileText.textContent = "Profile:";
-  // userAddress.textContent = obj.html_url;
-  // userFollowers.textContent = `Followers: ${obj.followers}`;
-  // userFollowing.textContent = `Following: ${obj.following}`;
+  imageUrl.src = obj.avatar_url;
+  name.textContent = obj.name;
+  username.textContent = obj.login;
+  userLocation.textContent = obj.location;
+  profileText.textContent = "Profile:";
+  userAddress.textContent = obj.html_url;
+  userFollowers.textContent = `Followers: ${obj.followers}`;
+  userFollowing.textContent = `Following: ${obj.following}`;
   //Append 
   cardWrapper.appendChild(imageUrl);
   cardWrapper.appendChild(cardInfoDiv);
@@ -93,7 +98,11 @@ const userCard = (obj) => {
   cardInfoDiv.appendChild(userFollowers);
   cardInfoDiv.appendChild(userFollowing);
   cardInfoDiv.appendChild(userBio);
-  console.log(cardWrapper)
+//appending to cards class
+
+
+ return cardWrapper
+  
 
 }
 userCard();
