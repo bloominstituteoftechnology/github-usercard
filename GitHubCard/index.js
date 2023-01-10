@@ -1,8 +1,17 @@
+const { default: axios } = require("axios");
+
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+axios.get("https://api.github.com/users/abelmore33")
+.then(res => {
+  cardClass.appendChild(userCard(res.data));
+})
+.catch(err => {
+  console.log("Error");
+})
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -28,7 +37,22 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'];
+
+  followersArray.forEach(user => {
+    axios.get(`https://api.github.com/users/${user}`)
+.then(res => {
+  cardClass.appendChild(userCard(res.data));
+})
+.catch(err => {
+  console.log("Error");
+})
+
+  })
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,7 +73,54 @@ const followersArray = [];
       </div>
     </div>
 */
+const cardClass = document.querySelector('.cards');
 
+const userCard = (obj) => {
+  //Elements
+  const cardWrapper = document.createElement('div');
+  const imageUrl = document.createElement('img');
+  const cardInfoDiv = document.createElement('div');
+  const name = document.createElement('h3');
+  const username = document.createElement('p');
+  const userLocation = document.createElement('p');
+  const profileText = document.createElement('p');
+  const userAddress = document.createElement('a');
+  const userFollowers = document.createElement('p');
+  const userFollowing = document.createElement('p');
+  const userBio = document.createElement('p');
+  //Classes
+  cardWrapper.classList.add('card');
+  cardInfoDiv.classList.add('card-info');
+  name.classList.add('name');
+  username.classList.add('username');
+  //Text Content
+  imageUrl.src = obj.avatar_url;
+  name.textContent = obj.name;
+  username.textContent = obj.login;
+  userLocation.textContent = obj.location;
+  profileText.textContent = "Profile:";
+  userAddress.textContent = obj.html_url;
+  userFollowers.textContent = `Followers: ${obj.followers}`;
+  userFollowing.textContent = `Following: ${obj.following}`;
+  //Append 
+  cardWrapper.appendChild(imageUrl);
+  cardWrapper.appendChild(cardInfoDiv);
+  cardInfoDiv.appendChild(name);
+  cardInfoDiv.appendChild(username);
+  cardInfoDiv.appendChild(userLocation);
+  cardInfoDiv.appendChild(profileText);
+  profileText.appendChild(userAddress);
+  cardInfoDiv.appendChild(userFollowers);
+  cardInfoDiv.appendChild(userFollowing);
+  cardInfoDiv.appendChild(userBio);
+//appending to cards class
+
+
+ return cardWrapper
+  
+
+}
+userCard();
 /*
   List of LS Instructors Github username's:
     tetondan
