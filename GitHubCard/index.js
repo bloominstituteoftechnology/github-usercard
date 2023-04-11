@@ -1,3 +1,4 @@
+import axios from 'axios';
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -28,7 +29,65 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
+const followersArray = ["tetondan", "dustinmyers", "justsml", "luishrd", "bigknell"];
+followersArray.forEach(elem =>  {
+  axios.get(`https://api.github.com/users/${elem}`)
+  .then(resp => {
+    document.querySelector(".cards").appendChild(gitCard(resp.data));
+  })
+  .catch(err => console.error(err))
+})
+
+function gitCard(arg) {
+  const card = document.createElement("div");
+  card.classList.add("card");
+
+  const cardIMG = document.createElement("img");
+  cardIMG.src = arg.avatar_url;
+  card.appendChild(cardIMG);
+
+  const cardInfo = document.createElement("div");
+  cardInfo.classList.add("card-info");
+  card.appendChild(cardInfo);
+  
+  const cardName = document.createElement("h3");
+  cardName.classList.add("name");
+  cardName.textContent = arg.name;
+  cardInfo.appendChild(cardName);
+  
+  const cardUserName = document.createElement("p");
+  cardUserName.classList.add("username");
+  cardUserName.textContent = arg.login;
+  cardInfo.appendChild(cardUserName);
+
+  const location = document.createElement("p");
+  location.textContent = arg.location;
+  cardInfo.appendChild(location);
+
+  const cardProfile = document.createElement("p");
+  cardProfile.textContent = "Profile";
+  cardInfo.appendChild(cardProfile);
+
+  const cardLinks = document.createElement("p");
+  cardLinks.textContent = "Link to profile";
+  cardLinks.href = arg.html_url;
+  cardProfile.appendChild(cardLinks);
+
+  const cardFollowers = document.createElement("p");
+  cardFollowers.textContent = `Followers: ${arg.followers}`
+  cardInfo.appendChild(cardFollowers);
+
+  const cardFollowings = document.createElement("p");
+  cardFollowings.textContent = `Followings: ${arg.following}`
+  cardInfo.appendChild(cardFollowings);
+
+  const cardBio = document.createElement("p");
+  cardBio.textContent = arg.bio;
+  cardInfo.appendChild(cardBio);
+
+  return card;
+}
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
