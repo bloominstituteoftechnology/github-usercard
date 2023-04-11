@@ -30,20 +30,15 @@ import axios from 'axios';
 */
 
 
-// const followersArray = ["tetondan", "dustinmyers", "justsml", "luishrd", "bigknell"];
-// followersArray.forEach(elem =>  {
-//   axios.get(`https://api.github.com/users/${elem}`)
-//   .then(resp => {
-//     document.querySelector(".cards").appendChild(gitCard(resp.data));
-//   })
-//   .catch(err => console.error(err))
-// })
-
-axios.get(`https://api.github.com/users/justsml`)
+const followersArray = ["tetondan", "dustinmyers", "justsml", "luishrd", "bigknell"];
+followersArray.forEach(elem =>  {
+  axios.get(`https://api.github.com/users/${elem}`)
   .then(resp => {
     document.querySelector(".cards").appendChild(gitCard(resp.data));
   })
   .catch(err => console.error(err))
+})
+
 function gitCard(arg) {
   const card = document.createElement("div");
   card.classList.add("card");
