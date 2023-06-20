@@ -4,7 +4,7 @@ import axios from "axios";
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-const myData = axios.get("https://api.github.com/users/Malekkos")
+const myData = axios.get(`https://api.github.com/users/Malekkos`)
 .then(res => {
   const card = userCardCreator(res);
   let holder = document.querySelector(".cards");
@@ -17,6 +17,7 @@ const myData = axios.get("https://api.github.com/users/Malekkos")
 .catch(err => {
   return err
 })
+// console.log(allTheNames);
 console.log(myData);
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -47,7 +48,7 @@ function axiosGrabber() {
       console.log(`there is nothing to be found! ${err}`)
     })
 }
-axiosGrabber();
+// axiosGrabber();
 // userCardCreator(result)
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
@@ -61,12 +62,16 @@ axiosGrabber();
 */
 
 const followersArray = ["tetondan", "dustinmyers", "justsml", "luishrd", "bigknell"];
-console.log(followersArray);
-const allTheNames = followersArray.forEach(name => {
-  const newCard = `https://api.github.com/users/${name}`;
-  console.log(newCard);
-  return newCard
+// console.log(followersArray);
+followersArray.forEach(name => {
+  axios.get(`https://api.github.com/users/${name}`)
+  .then( res => {
+    const card = userCardCreator(res);
+    const holder = document.querySelector(".cards");
+    holder.appendChild(card);
+  })
 })
+console.log(followersArray);
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
